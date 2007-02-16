@@ -23,7 +23,10 @@ $head[]=array('name'=>"reply-to"        ,'content'=>META_REPLY_TO);
 $head[]=array('name'=>"distribution"    ,'content'=>"global");
 $head[]=array('name'=>"revisit-after"   ,'content'=>META_REVISIT_AFTER);
 
-if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO)) 
+
+
+
+if (strstr($APP_PATH[1], "products")) 
 {
     if ($product->isProduct()) 
     {
