@@ -27,7 +27,7 @@
   define('DIR_WS_ADMIN', '/admin/'); // absolute path required
   define('DIR_FS_ADMIN', $_SERVER["DOCUMENT_ROOT"]."/"); // absolute pate required
   define('DIR_WS_CATALOG', '/'); // absolute path required
-  define('DIR_FS_CATALOG', $_SERVER["DOCUMENT_ROOT"]."/"); // absolute path required
+  define('DIR_FS_CATALOG', $_SERVER["DOCUMENT_ROOT"]."/../"); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . '../images/');
   define('DIR_FS_CATALOG_ORIGINAL_IMAGES', DIR_FS_CATALOG_IMAGES .'product_images/original_images/');
@@ -53,11 +53,11 @@
   define('DIR_WS_FILEMANAGER', DIR_WS_MODULES . 'fckeditor/editor/filemanager/browser/default/');
 
 // define our database connection
-  define('DB_SERVER', 'localhost'); // eg, localhost - should not be empty for productive servers
-  define('DB_SERVER_USERNAME', 'root');
-  define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'restore');
-  define('USE_PCONNECT', 'false'); // use persisstent connections?
+  define('DB_SERVER', getenv("RESTORE_DB_HOST")); // eg, localhost - should not be empty for productive servers
+  define('DB_SERVER_USERNAME', getenv("RESTORE_DB_USER"));
+  define('DB_SERVER_PASSWORD', getenv("RESTORE_DB_PASS"));
+  define('DB_DATABASE', getenv("RESTORE_DB_NAME"));
+  define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
 
 
