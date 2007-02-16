@@ -395,7 +395,7 @@ function getCrossSells() {
 				'PRODUCTS_MODEL'=>$array['products_model'],
 				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
 				'PRODUCTS_IMAGE' => $array['image_url'], 
-				'PRODUCTS_LINK' => "/products/".$array['products_id']/*."/".rawurlencode($array["products_name"])*/,
+				'PRODUCTS_LINK' => "/products/".$array['products_id']."/".rawurlencode(str_replace(' ','-',$array["products_name"])),
 				'PRODUCTS_PRICE' => $products_price['formated'], 
 				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate), 
 				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(), 
