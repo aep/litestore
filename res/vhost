@@ -12,6 +12,7 @@
 
     Alias /user        /www/<<RSTI_UNIXUSER>>/
     Alias /pub         /srv/http/restore/app/pub
+    Alias /admin       /srv/http/restore/app/pub/admin
 
     RewriteCond  %{REQUEST_URI} !^/(admin|user|pub)/.*$
     RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
