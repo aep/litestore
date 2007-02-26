@@ -1,0 +1,47 @@
+<VirtualHost *:80>
+
+    ServerName <<RSTI_DOMAIN>>
+    ServerAlias www.<<RSTI_DOMAIN>>
+
+    DocumentRoot "/srv/http/restore"
+
+    RewriteEngine on
+
+    RewriteRule  ^/admin/export/(.*)\.csv$            /admin/export.php?format=csv&scheme=$1 [PT]
+    RewriteRule  ^/admin/export/(.*)\.xml$            /admin/export.php?format=xml&scheme=$1 [PT]
+
+    Alias /user        /www/<<RSTI_UNIXUSER>>/
+    Alias /pub         /srv/http/restore/app/pub
+    Alias /admin       /srv/http/restore/app/pub/admin
+
+    RewriteCond  %{REQUEST_URI} !^/(admin|user|pub)/.*$
+    RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
+
+
+    SetEnv RESTORE_USER_PATH  "/www/<<RSTI_UNIXUSER>>/"
+    SetEnv RESTORE_DB_HOST  "localhost"
+    SetEnv RESTORE_DB_NAME  "restore"
+    SetEnv RESTORE_DB_USER  "root"
+    SetEnv RESTORE_DB_PASS  ""
+
+    <Directory /srv/http/restore/app/pub >
+            DirectoryIndex index.php index.html
+            AddHandler application/x-httpd-php .php
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+    </Directory>
+
+    <Directory /www/<<RSTI_UNIXUSER>>/ >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+            DirectoryIndex index.html
+            RemoveHandler .php
+    </Directory>
+
+</VirtualHost>
+
+

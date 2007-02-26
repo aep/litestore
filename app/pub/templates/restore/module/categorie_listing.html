@@ -1,0 +1,41 @@
+{config_load file="$language/lang_$language.conf" section="categorie_listing"}
+
+{if $CATEGORIES_HEADING_TITLE}
+<h1>{$CATEGORIES_HEADING_TITLE}</h1>
+{/if}
+
+{if $CATEGORIES_TEASER}
+<img class="categories_teaser" src="{$CATEGORIES_TEASER}" alt="{$CATEGORIES_NAME}" >
+{/if}
+
+
+
+<div id="categorie_listing">
+
+{if $CATEGORIES_DESCRIPTION}
+    <p>
+        {$CATEGORIES_DESCRIPTION}
+    </p>
+{/if}
+
+
+{if $module_content!=''}
+<ul>
+{foreach name=aussen item=module_data from=$module_content}
+    <li>
+        <a href="{$module_data.CATEGORIES_LINK}" >
+            {if $module_data.CATEGORIES_IMAGE}
+                <img src="{$module_data.CATEGORIES_IMAGE}" alt="{$module_data.CATEGORIES_NAME}">
+            {else}
+                <img src="{$tpl_path}bilder/kein_bild-thumb.png" alt="{$module_data.CATEGORIES_NAME}">
+            {/if}
+
+            <h4>{$module_data.CATEGORIES_NAME}</h4>
+            <p>{if $module_data.CATEGORIES_DESCRIPTION}{$module_data.CATEGORIES_DESCRIPTION}{/if}</p>
+        </a>
+    </li>
+{/foreach}
+</ul>
+{/if}
+
+</div>

@@ -1,0 +1,56 @@
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+<h1>Warenkorb</h1>
+<div id="shopping_cart">
+    {$MODULE_gift_cart}
+    {if $info_message!=''}
+    {$info_message}
+    {/if}
+    {if $cart_empty==true}
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th colspan="2"  class="artikel">Artikel</th>
+                    <th class="anzahl">Anzahl</th>
+                    <th class="einzelpreis">Einzelpreis</th>
+                    <th class="gesamtpreis">Gesamtpreis</th>
+                    <th class="entf">Entf.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6" id="cart_empty">
+                        Ihr Warenkorb ist noch leer. Zur&#252;ck zum <a href="/" tabindex="4">Onlineshop</a>.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totalblock">
+            <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
+                <span class="total">Warenwert: 0,00 EUR</span>
+            </div></div></div></div></div>
+        </div>
+
+        <br class="clear">
+    {else}
+        <form action="/cart" method="post">
+            {$HIDDEN_OPTIONS}
+            {$MODULE_order_details}
+            {if $info_message_1!=''}
+                {$info_message_1}
+                {$min_order}
+                {$info_message_2}
+                {$order_amount}
+            {/if}
+
+            <input type="hidden" name="x" value="1"> 
+            <input type="hidden" name="y" value="1">
+            <input class="submit" type="submit" value="Warenkorb aktualisieren" >
+        </form>
+        <form action="/checkout" method="post">
+            <input class="submit"  type="submit" value="Weiter zur Kasse &#62;&#62;">
+        </form>
+    {/if}
+    <br class="clear">
+
+</div>
