@@ -583,64 +583,7 @@ echo '<input type="checkbox" name="groups[]" value="'.$customers_statuses_array[
       <td width="10%"><?php echo TEXT_HEADING; ?></td>
       <td width="90%"><?php echo xtc_draw_input_field('cont_heading',$content['content_heading'],'size="60"'); ?></td>
    </tr>
-   <tr> 
-      <td width="10%" valign="top"><?php echo TEXT_UPLOAD_FILE; ?></td>
-      <td width="90%"><?php echo xtc_draw_file_field('file_upload').' '.TEXT_UPLOAD_FILE_LOCAL; ?></td>
-   </tr> 
-         <tr> 
-      <td width="10%" valign="top"><?php echo TEXT_CHOOSE_FILE; ?></td>
-      <td width="90%">
-<?php
- if ($dir= opendir(DIR_FS_CATALOG.'media/content/')){
- while  (($file = readdir($dir)) !==false) {
-        if (is_file( DIR_FS_CATALOG.'media/content/'.$file) and ($file !="index.html")){
-        $files[]=array(
-                        'id' => $file,
-                        'text' => $file);
-        }//if
-        } // while
-        closedir($dir);
- }
- // set default value in dropdown!
-if ($content['content_file']=='') {
-    $default_array[]=array('id' => 'default','text' => TEXT_SELECT);
-    $default_value='default';
-    if (count($files) == 0)
-    {
-    $files = $default_array;
-    }
-    else
-    {
-    $files=array_merge($default_array,$files);
-    }
-} else {
-$default_array[]=array('id' => 'default','text' => TEXT_NO_FILE);
-$default_value=$content['content_file'];
-    if (count($files) == 0)
-    {
-    $files = $default_array;
-    }
-    else
-    {
-    $files=array_merge($default_array,$files);
-    }
-}
-echo '<br />'.TEXT_CHOOSE_FILE_SERVER.'</br>';
-echo xtc_draw_pull_down_menu('select_file',$files,$default_value);
-      if ($content['content_file']!='') {
-        echo TEXT_CURRENT_FILE.' <b>'.$content['content_file'].'</b><br />';
-        }
 
-
-
-?>
-      </td>
-      </td>
-   </tr> 
-   <tr> 
-      <td width="10%" valign="top"></td>
-      <td colspan="90%" valign="top"><br /><?php echo TEXT_FILE_DESCRIPTION; ?></td>
-   </tr> 
    <tr> 
       <td width="10%" valign="top"><?php echo TEXT_CONTENT; ?></td>
       

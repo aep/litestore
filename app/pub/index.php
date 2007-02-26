@@ -59,7 +59,7 @@ foreach($routes as $route=>$fn)
     }
 }
 
-include ($filename);
+include ('modules/'.$filename);
 
 
 if(!function_exists("module"))
