@@ -1,0 +1,73 @@
+{config_load file="$language/lang_$language.conf" section="address_book_process"}
+<div class="formularzeile-kleinerumbruch"></div>
+{if $company=='1'}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="firmenname">{#text_company#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_COMPANY}</div>
+	<br class="endefloat">
+</div>
+{/if} 
+{if $gender=='1'}
+<div class="formularzeile">
+	<div class="formularspalte-150px">{#text_gender#}</div>
+	<div class="formularspalte-204pxmin">
+		<div class="formular_radio-2"><label>{$INPUT_FEMALE}&#160;Frau</label></div>
+		<div class="formular_radio-2"><label>{$INPUT_MALE}&#160;Herr</label></div>
+		<br class="endefloat">
+	</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+{/if}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="vorname">{#text_firstname#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_FIRSTNAME}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="nachname">{#text_lastname#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_LASTNAME}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="strasse_nr">{#text_street#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_STREET}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+{if $suburb=='1'}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="vorort">{#text_suburb#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_SUBURB}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+{/if}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="plz">{#text_code#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_CODE}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="ort">{#text_city#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_CITY}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+{if $state=='1'}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="state">{#text_state#}</label></div>
+	<div class="formularspalte-204pxmin">{$INPUT_STATE}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>
+{/if}
+<div class="formularzeile">
+	<div class="formularspalte-150px"><label for="land">{#text_country#}</label></div>
+	<div class="formularspalte-204pxmin">{$SELECT_COUNTRY}</div>
+	<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+	<br class="endefloat">
+</div>

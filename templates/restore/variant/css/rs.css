@@ -1,0 +1,858 @@
+ *
+{
+    margin:0px;
+    padding:0px;
+}
+html
+{
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+body
+{
+    font-size:12px;
+}
+img
+{
+    border:0px;
+}
+a img
+{
+    border:0px;
+}
+a
+{
+    color:#f00;
+    text-decoration:none;
+}
+a:hover
+{
+    color:#f00;
+    text-decoration:underline;
+/*     font-weight:bold; */
+}
+input
+{
+    vertical-align:middle;
+}
+table
+{
+    border-collapse:collapse;
+}
+
+
+.clear
+{
+    clear:both;
+}
+
+
+
+
+/*******index********/
+
+#bodywrap1
+{
+    background:url(../../bilder/hintergrund/verlauf.png) bottom repeat-x;
+}
+
+#bodywrap2
+{
+    width:1110px;
+    margin:0 auto; 
+}
+
+#anzeige
+{
+    margin-top:30px;
+    float:right;
+    width:120px;
+    border:1px solid #333;
+
+}
+
+#anzeige img
+{
+    width:120px;
+}
+
+#anzeige:before
+{
+    content:"Anzeige";
+    background:#333;
+    display:block;
+    text-align:center;
+    color:#eee;
+}
+
+#banner
+{
+    float:left;
+    width:916px;  /*980-32-32*/
+    height:146px; /*180-34*/
+    padding-left:32px;
+    padding-right:32px;
+    padding-top:34px;
+    background:url(../../bilder/hintergrund/bannerpapier.png);
+}
+
+
+#sidebarinhaltwrap
+{
+    float:left;
+    width:916px;
+    padding-left:32px;
+    padding-right:32px;
+    padding-bottom:30px;
+    background:url(../../bilder/hintergrund/contentpapier.png);
+}
+
+#footer
+{
+    width:916px;
+    float:left;
+    height:120px;
+    padding-left:32px;
+    padding-right:32px;
+    background:url(../../bilder/hintergrund/footerpapier.png);
+    text-align:center;
+    vertical-align:middle;
+    line-height:120px;
+    color:#fff;
+}
+
+#sidebar
+{
+    float:right;
+    width:200px;
+}
+
+#inhalt
+{
+    float:left;
+    width:700px;
+
+}
+
+#breadcrumb
+{
+    margin-top:1.5em; 
+    padding:5px;
+    float:left;
+    color:#4c4c4c;
+}
+#breadcrumb a
+{
+    color:#4c4c4c;
+    text-decoration:none;
+}
+#breadcrumb a:hover
+{
+    text-decoration:underline;
+}
+
+
+#inhalt h1
+{
+    font-size:1.4em;
+/*     margin-top:-2em;; */
+    margin-bottom:40px;
+    font-weight:normal;
+}
+
+#internetexplorer
+{
+    display:none;
+}
+
+/********topmenu*******/
+
+
+#navigation1 ul
+{
+    list-style:none;
+    height:32px;
+    overflow:hidden;
+    background-image:url(../../bilder/farben/rot_navigation1.png);
+}
+    #navigation1 li
+    {
+        float:left;
+        background:url(../../bilder/farben/rot_navigation1_hover.png) bottom right no-repeat;
+    }
+    #navigation1 li:hover
+    {
+        background:url(../../bilder/farben/rot_navigation1_hover.png) top right no-repeat;
+    }
+        #navigation1 li a
+        {
+            display:table-cell;
+            padding-left:16px;
+            padding-right:16px;
+            height:32px;
+            vertical-align:middle;
+            color:#FFFFFF;
+            font-weight:bold;
+            text-decoration:none;
+        }
+        #navigation1-hintergrundstart
+        {
+            background:url(../../bilder/farben/rot_navigation1_hover-start.png) bottom left no-repeat;
+        }
+        #navigation1-hintergrundstart:hover
+        {
+            background:url(../../bilder/farben/rot_navigation1_hover-start.png) top left no-repeat;
+        }
+
+
+
+
+
+
+/***banner***/
+
+#logo
+{
+    float:left;
+    width:366px;
+    height:111px;
+    overflow:hidden;
+}
+#login_kontakt
+{
+    width:400px;
+    float:right;
+    height:111px;
+    overflow:hidden;
+/*     background-image:url(../../bilder/bannerbilder/papier1.gif); */
+    background-position:top right;
+    background-repeat:no-repeat;
+
+    margin-top:20px;
+    margin-right:60px;
+}
+#login_kontakt form p
+{
+    text-align:right;
+    display:block;
+    margin-left:-1px;
+}
+
+
+
+
+/****PRODUKTLISTING***/
+
+
+
+#products_listing
+{
+    width:670px;
+    overflow:hidden;
+}
+
+#products_listing .product
+{
+    margin-top:-1px;
+    margin-left:-1px;
+    float:left;
+    border-top:1px solid #ddd;
+    border-left:1px solid #ddd; 
+    width:165px;
+    height:180px;
+    overflow:hidden;
+    vertical-align:top;
+    text-align:center;
+    padding-top:1em;
+}
+#products_listing .product .product_image img
+{
+    height:100px;
+}
+
+#products_listing  .product .product_link
+{
+    color:#000;
+    text-decoration:none;
+}
+
+#products_listing .product_name
+{
+    overflow:hidden;
+    height:30px;
+}
+
+
+.buynow
+{
+    padding-top:6px;
+    padding-bottom:6px;
+
+}
+
+.buynow a
+{
+    padding-left:34px;
+    padding-top:6px;
+    padding-bottom:6px;
+    font-weight:bold;
+    color:#14c800;
+    background:url(../../bilder/farben/s-gruen_indenwarenkorb-klein.png) top left no-repeat;
+
+}
+
+.buynow a:hover
+{
+    text-decoration:underline;
+}
+
+#pagination
+{
+    margin-top:3em;
+    text-align:center;
+}
+
+
+/*******login_html********/
+
+
+#login_html .fblock
+{
+    float:left;
+    width:190px;
+    padding-left:110px;
+    padding-right:20px;
+    margin-left:10px;
+    text-align:justify;
+}
+
+#login_html .fblockl
+{
+    border-right:1px solid #e1e1e1;
+}
+#login_html  img
+{
+    float:left;
+    margin-left:-110px;
+}
+#login_html .fblock h2
+{
+    margin-bottom:3px;
+    font-size:1.2em;
+}
+#login_html .fblock .button
+{
+    margin-top:10px;
+}
+
+/*******cart********/
+#cart
+{
+    padding-left:100px;
+    text-align:center;
+}
+
+#cart form
+{
+    display:inline;
+}
+
+
+
+#cart table
+{
+    text-align:left;
+    width:100%;
+}
+#cart table
+{
+    width:100%;
+}
+#cart table thead th
+{
+    padding-bottom:4px;
+    color:#000;
+    text-align:left;
+}
+#cart table.product tr td
+{
+
+    text-align:left;
+    vertical-align:middle;
+
+}
+#cart tr.product td
+{
+    border-top:1px solid #dcdcdc;
+    padding:5px;
+}
+#cart table tr.product td  a
+{
+    color:#000;
+}
+
+#cart table tr.product td  a:hover
+{
+    font-weight:normal;
+    text-decoration:underline;
+}
+#cart table tr.product td .product_link 
+{
+    display:block;
+    text-align:middle;
+    vertical-align:middle;
+}
+
+#cart table tr.product td .product_link .product_image
+{
+    max-height:80px;
+    max-width:80px;
+}
+#cart table tr.product td .product_link .product_name
+{
+
+}
+
+
+#cart table tr.product td 
+{
+
+}
+
+#cart table tr.product td.artikelbild
+{
+    height:90px;
+    width:90px;
+    vertical-align:middle;
+    text-align:center;
+}
+
+#cart table tr.product td.artikel
+{
+    width:255px;
+}
+#cart table tr.product  td.anzahl
+{
+    width:50px;
+}
+#cart table tr.product td.einzelpreis
+{
+    width:90px;
+    color:#14c800;
+    font-weight:bold;
+}
+#cart table tr.product td.gesammtpreis
+{
+    width:100px;
+    color:#14c800;
+    font-weight:bold;
+}
+
+#cart_final
+{
+    text-align:left;
+    float:right;
+    border:1px solid #d2d2d2;
+    margin-bottom:20px;
+}
+
+#cart_final1
+{
+    margin:-1px;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag1.png) top left no-repeat;
+}
+#cart_final2
+{
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag2.png) top right no-repeat;
+}
+#cart_final3
+{
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag3.png) bottom right no-repeat;
+}
+#cart_final4
+{
+    padding:10px;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag4.png) bottom left no-repeat;
+}
+
+
+#cart_final .total
+{
+    font-size:1.5em;
+    font-weight:bold;
+}
+
+
+
+/*******boxes********/
+
+
+.box
+{
+    padding-bottom:2em;
+}
+
+.box_content
+{
+    padding:4px;
+}
+
+
+.box h1
+{
+    font-size:1.4em;
+    font-weight:normal;
+    text-transform: uppercase;
+    text-align:center;
+    color:#333;
+    padding-bottom:8px;
+    background:url(../../bilder/boxueberschrift_trennlinie.png) bottom left no-repeat;
+}
+
+#box_schnellsuche form input
+{
+    width:120px;
+}
+#box_schnellsuche form .buttons
+{
+    width:50px;
+}
+
+
+
+
+.urlbox li
+{
+    background:url(../../bilder/kategorien_trennlinie.png) bottom left no-repeat;
+    padding-bottom:1px;
+    list-style:none;
+}
+.urlbox li a 
+{
+    display:block;
+    text-decoration:none;
+    color:#1e1e1e;
+    vertical-align:middle;
+    padding-left:32px;
+    padding-top:8px;
+    padding-bottom:8px;
+    background: url(../../bilder/farben/rot_kategorienstart.png) center left no-repeat;
+
+}
+.urlbox li a:hover
+{
+/*     background: #eee; */
+
+}
+
+
+.urlbox li a:hover, .urlbox li a:focus
+{
+    font-weight:bold;
+}
+.urlbox li a.aktiv
+{
+    color:#FF0000;
+    font-weight:bold;
+}
+.urlbox li li
+{
+    padding:0px;
+    list-style:none;
+    background:none;
+}
+.urlbox li li a
+{
+    display:block;
+    padding-bottom:4px;
+    padding-left:40px;
+    text-decoration:none;
+    background:none;
+}
+
+
+
+
+
+.urlbox2 li
+{
+    list-style:none;
+}
+.urlbox2 li a 
+{
+    display:block;
+    text-decoration:none;
+    vertical-align:middle;
+    padding-left:10px;
+
+}
+.urlbox2 li a:hover
+{
+    font-weight:bold;
+}
+
+
+
+
+
+/*******checkout********/
+
+
+.sfblock
+{
+    float:left;
+    padding-left:120px;
+    padding-right:20px;
+    margin-left:10px;
+    text-align:justify;
+}
+
+.sfblock  img
+{
+    float:left;
+    margin-left:-120px;
+}
+.sfblock h2
+{
+    margin-bottom:3px;
+    font-size:1.2em;
+}
+
+#checkout p
+{
+    padding:1em;
+}
+
+
+.checkout_payment_form
+{
+/*     background:#f0f; */
+    padding:1em;
+    width:350px;
+}
+
+.checkout_payment_inp
+{
+    width:150px;
+    float:right;
+    display:block;
+
+}
+.checkout_payment_inp input
+{
+    width:150px;
+
+}
+
+
+
+.checkout_payment_form label
+{
+    width:100px;
+    float:left;
+    display:block;
+}
+
+
+
+#checkout .agb input
+{
+    margin:1em;
+}
+
+.error
+{
+    padding:1em;
+    color:#f00;
+    font-size:1.3em;
+}
+
+
+/*******content********/
+
+#content_html
+{
+    padding:1em;
+}
+
+
+/*******product_info********/
+
+#product_info #slideshowContainer
+{
+/*     height:350px; */
+     width:350px;
+    line-height:350px;
+    text-align:center;
+    background:#eee;
+    border-bottom:1px solid #ccc;
+/*     float:left; */
+    vertical-align:center;
+
+}
+
+
+#product_info #slideshowContainer img
+{
+    text-align:center;
+    vertical-align:center;
+}
+
+
+
+#product_info #thumbnails .slideshowThumbnail
+{
+    float:left;
+    margin-top:1em;
+    margin-left:1em;
+}
+
+#product_info  h4
+{
+    font-size:1em;
+    margin-top:1em;
+    margin-bottom:0.5em;
+}
+
+#product_info  #cart_quantity
+{
+    margin-left:1em;
+    float:right;
+
+}
+#product_info  #cart_quantity .products_description
+{
+}
+
+#product_info  #cart_quantity table
+{
+}
+#product_info  #cart_quantity table tr th
+{
+    text-align:left;
+    font-weight:normal;
+}
+#product_info  #cart_quantity table tr td
+{
+}
+
+#product_info .price
+{
+    font-weight:bold;
+    color:#0f0;
+}
+
+
+
+
+/*******spinbutton********/
+
+
+.spinInput, .spinContainer
+{
+    float:left;
+  /* Change this to modify the default spin control background color*/
+    background-color: #FFFFFF;
+}
+
+.spinLeftRightEdge, .spinTopBottomEdge
+{
+  position: absolute;
+  overflow: hidden;
+  /* Change this to modify the default spin control border color*/
+  background-color: #A5ACB2;
+}
+  
+.spinContainer
+{
+   position: relative;
+  font-size: 0px;
+  height: 20px;
+}
+
+.spinLeftRightEdge
+{
+  height: 20px;
+  width: 1px;
+}
+
+.spinTopBottomEdge
+{
+  height: 1px;
+  left: 1px;
+}
+
+.spinInput
+{
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  height: 18px;
+  border: 0px;
+  /* Change this to modify the default spin control font, font color, and font size*/
+  color: Black;
+  font-size: 9pt;
+  font-family: Arial;
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress, .spinDownBtn, .spinDownBtnHover, .spinDownBtnPress
+{
+  position: absolute;
+  width: 15px;
+  height: 8px;
+  right: 2px;
+  background-image: url('../../bilder/spin_control_buttons.png');
+  background-repeat: no-repeat;
+  /* Change this to modify the default button color*/
+  background-color: #000000;
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress
+{
+  top: 2px;
+}
+
+.spinDownBtn, .spinDownBtnHover, .spinDownBtnPress
+{
+  top: 10px;
+}
+
+.spinUpBtn
+{
+  background-position:0px 0px;
+}
+
+.spinUpBtnHover
+{
+  background-position:0px -16px;
+}
+
+.spinUpBtnPress
+{
+  background-position:0px -32px;
+}
+
+.spinDownBtn
+{
+  background-position:0px -8px;
+}
+
+.spinDownBtnHover
+{
+  background-position:0px -24px;
+}
+
+.spinDownBtnPress
+{
+  background-position:0px -40px;
+}
+
+
+/***************/
+
+
+
+
+
+
+

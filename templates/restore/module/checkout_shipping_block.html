@@ -1,0 +1,15 @@
+{if $FREE_SHIPPING}
+ 	{$FREE_SHIPPING_TITLE}
+	{$FREE_SHIPPING_ICON}
+	{$FREE_SHIPPING_DESCRIPTION}
+{else}
+	{foreach name=aussen item=module_data from=$module_content}
+		{if $module_data.error!=''}
+			{$module_data.error}
+		{else}
+			{foreach name=aussen item=method_data from=$module_data.methods}
+				<div class="formularzeile"><label>{$method_data.radio_field} {$method_data.title} {$method_data.price}</label></div>
+			{/foreach}
+		{/if}
+	{/foreach}
+{/if}

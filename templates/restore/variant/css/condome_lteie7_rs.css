@@ -1,0 +1,72 @@
+/*NAVIGATION1*/
+#navigation1 li a
+{
+	display:block;
+	line-height:2.5em;
+}
+
+
+
+/*KATEGORIEN*/
+#box_kategorien li li a
+{
+	margin-top:0px;
+	line-height:1.8em;
+}
+#box_kategorien ul ul
+{
+	padding-bottom:1px;
+}
+
+
+
+/*CONTENT-CONTAINER*/
+
+/*LISTING - allgemein*/
+#ie_listing_startende
+{
+	height:1px;
+	overflow:hidden;
+}
+.ie_warenkorb_produktbild
+{
+	height:84px;
+}
+.ie_warenkorb_produktbezeichnung
+{
+	padding-left:10px;
+	height:84px;
+}
+.detailansicht_bilder-weiterehuelle1 table
+{
+	height:90px;
+}
+.empfehlungen_artikel
+{
+	border-top:1px solid #dcdcdc;
+	padding-top:10px;
+	padding-bottom:5px;
+}
+	.ie_empfehlungen_artikel_beschreibung-inhalt, .ie_empfehlungen_artikel_beschreibung-inhalt tr, .ie_empfehlungen_artikel_beschreibung-inhalt td
+	{
+		height:100%;
+		width:546px;
+	}
+		.empfehlungen_artikel_beschreibung-preis-link
+		{
+			display:block;
+			padding-top:0px;
+			padding-bottom:0px;
+			line-height:1.625em;
+		}
+			.ie_empfehlungen_artikel_bild-container
+			{
+				width:164px;
+				height:167px;
+				text-align:center;
+			}
+#cart_final4
+{
+	padding:12px;
+	background:none;
+}

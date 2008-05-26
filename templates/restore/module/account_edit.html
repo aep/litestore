@@ -1,0 +1,100 @@
+{config_load file="$language/lang_$language.conf" section="account_edit"} 
+<h1>{#heading_account#}</h1>
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/neues_benutzer-konto_erstellen-icon.png" alt="[Kontodaten bearbeiten Icon]"></div>
+<div class="spalte1_inhalt">
+	<form id="account_edit" action="account_edit.php" method="post" onsubmit="return check_form(account_edit);"><div><input type="hidden" name="action" value="process">
+		{if $error!=''}
+			<div class="normaltext"><span class="textfarbe-rot"><strong>
+				{$error}
+			</strong></span></div>
+			<br>
+		{/if}
+		<h2>{#title_personal#}</h2>
+		<div class="normaltext">
+			{if $csID}
+				{#csID#}
+				{$csID}
+			{/if}
+			{if $gender=='1'}
+				<div class="formularzeile">
+					<div class="formularspalte-150px">Anrede:</div>
+					<div class="formularspalte-204pxmin">
+						<div class="formular_radio-2"><label>{$INPUT_FEMALE}&#160;Frau</label></div>
+						<div class="formular_radio-2"><label>{$INPUT_MALE}&#160;Herr</label></div>
+						<br class="endefloat">
+					</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+					<br class="endefloat">
+				</div>
+			{/if}
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="vorname">{#text_firstname#}</label></div>
+				<div class="formularspalte-204pxmin">{$INPUT_FIRSTNAME}</div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="nachname">{#text_lastname#}</label></div>
+				<div class="formularspalte-204pxmin">{$INPUT_LASTNAME}</div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+			{if $birthdate=='1'}
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="geburtsdatum">{#text_birthdate#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_DOB}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+					<br class="endefloat">
+				</div>
+			{/if}
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="e-mail-adresse">{#text_email#}</label></div>
+				<div class="formularspalte-204pxmin">{$INPUT_EMAIL}</div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+		</div>
+		<br>
+		{if $company=='1'}
+			<h2>{#title_company#}</h2>
+			<div class="normaltext">
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="firmenname">{#text_company#}</label></div>
+					<div class="formularspalte-204pxmin"><input id="firmenname" class="eingabefeld-200px" type="text" name="company" maxlength="50" tabindex="4"></div>
+					<br class="endefloat">
+				</div>
+			</div>
+			{if $vat=='1'}
+				<div class="normaltext">
+					<div class="formularzeile">
+						<div class="formularspalte-150px"><label for="ustid">{#text_ustid#}</label></div>
+						<div class="formularspalte-204pxmin"><input id="ustid" class="eingabefeld-200px" type="text" name="vat" maxlength="50" tabindex="4"></div>
+						<br class="endefloat">
+					</div>
+				</div>
+			{/if}
+			<br>
+		{/if}
+		<h2>Ihre Kontaktinformationen:</h2>
+		<div class="normaltext">
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="telefonnummer">{#text_tel#}</label></div>
+				<div class="formularspalte-204pxmin">{$INPUT_TEL}</div>
+				<br class="endefloat">
+			</div>
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="telefaxnummer">{#text_fax#}</label></div>
+				<div class="formularspalte-204pxmin">{$INPUT_FAX}</div>
+				<br class="endefloat">
+			</div>
+		</div>
+		<div class="formular_buttons">
+			<div class="formularspalte-150px"></div>
+			<div class="formularspalte-204pxmin"><input class="buttons2" type="submit" value="&#196;nderungen speichern!" tabindex="4"></div>
+			<br class="endefloat">
+		</div>
+		<span class="normal_9px-unter-16px">{#text_must#}</span>
+	</div></form>
+</div>
+<br class="endefloat">

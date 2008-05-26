@@ -1,0 +1,11 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+
+<div class="box" id="box_schnellsuche">
+    <h1>{#heading_search#}</h1>
+    <p class="box_content">
+        <form id="quick_find" action="/search" method="get">
+                <input id="quick_findeingabe" type="text" name="keywords" maxlength="30" >
+                <input class="buttons" type="submit" value="Finde!">
+        </form>
+    </p>
+</div>

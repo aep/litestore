@@ -1,0 +1,76 @@
+{config_load file="$language/lang_$language.conf" section="index"}
+</head>
+<body style="background-image:url({$tpl_path}/variant/background/{$CURRENT_BACKGROUND});" >
+<div id="bodywrap1">
+<div id="bodywrap2">
+    <div id="anzeige">
+        {$banner}
+    </div>
+
+    <div id="banner">
+        <div id="logo">
+            <img src="{$tpl_path}/variant/logo/{$CURRENT_LOGO}" alt="{$store_name}">
+        </div>
+        <div id="login_kontakt">
+            {php}   if (isset($_SESSION['customer_id'])) {   {/php}
+                <form action="/logout" method="get">
+                Wieder ausloggen: <input type="submit" value="Logout" tabindex="4">
+                </form>
+                {php}   }   else   {   {/php}
+                    {$login}
+
+                {php}   }   {/php}
+                <br class="clear">
+        </div>
+        <br class="clear">
+        <div id="navigation1">
+            <ul>
+                <li><a id="navigation1-hintergrundstart" href="/" tabindex="2" >Shop-Startseite</a></li>
+                <li><a href="/mycart" tabindex="2" >Warenkorb </a></li>
+
+                {php}   if   (isset($_SESSION['customer_id'])) {   {/php}
+                    <li><a href="/checkout" tabindex="2" >Kasse</a></li>
+                    <li><a href="/myaccount" tabindex="2" >Ihr Konto</a></li>
+                {php}   } else {   {/php}
+                    <li><a href="/login" tabindex="2" >Konto erstellen</a></li>
+                {php}   }   {/php}
+            </ul>
+        </div>
+    </div>
+    <div id="sidebarinhaltwrap">
+        <div id="breadcrumb">Sie sind hier: {$navtrail}</div>
+        <br class="clear">
+        <div id="sidebar">
+            {$sidebar}
+        </div>
+        <div id="inhalt">
+            {$main_content}
+        </div>
+
+        <br class="clear">
+    </div>
+
+    <br >
+    <div id="footer">
+        &copy; {$store_name}
+    </div>
+
+    <br class="clear">
+
+
+
+</div>
+</div>
+
+    <!--[if lte IE 7]><div id="internetexplorer"><div id="internetexplorer_inhalt">
+        <div id="internetexplorer_bild"><img src="/templates/restore/bilder/antiie.png" alt="Firefox frisst IE"></div>
+        <div id="internetexplorer_text">
+            Sie beutzen den Interent-Explorer. Laden Sie sich jetzt lieber den Firefox, Safari oder einen anderen Browser - Jeder Webdesigner dankt ihnen daf&uuml;r!
+            <ul>
+                <li><a href="http://www.mozilla-europe.org/de/products/firefox/" tabindex="99">Firefox downloaden</a></li>
+                <li><a href="http://www.apple.com/de/safari/" tabindex="99">Safari downloaden</a></li>
+                <li><a href="http://benchfrooser.de/anti_ie/" tabindex="99">Mehr &#252;ber den Internet-Exporer</a></li>
+            </ul>
+        </div>
+        <br class="clear">
+    </div></div><![endif]-->

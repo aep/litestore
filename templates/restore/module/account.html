@@ -1,0 +1,44 @@
+{config_load file="$language/lang_$language.conf" section="account"}
+<h1>{#heading_account#}</h1>
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div id="spalte1_inhalt-links">
+	<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/einstellungen-icon.png" alt="[Einstellungen Icon]"></div>
+	<div class="spalte1_inhalt-halb">
+		<h2>{#title_account#}</h2>
+		<div class="normaltext">
+			<ul>
+				<li><a href="{$LINK_EDIT}" tabindex="4">{#text_edit#}</a></li>
+                <li><a href="{$LINK_ADDRESS}" tabindex="4">{#text_address#}</a></li>
+                <li><a href="{$LINK_NEWSLETTER}" tabindex="4">{#text_newsletter#}</a></li>
+				<li><a href="{$LINK_PASSWORD}" tabindex="4">{#text_password#}</a></li>
+				<li><a href="#" tabindex="4">Konto l&#246;schen</a></li>
+			</ul>
+		</div>
+	</div>
+	<br class="endefloat">
+</div>
+<div id="spalte1_inhalt-rechts">
+	<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}bilder/laufende_bestellungen-icon.png" alt="[Laufende Bestellungen Icon]"></div>
+	<div class="spalte1_inhalt-halb">
+		<h2>{#title_orders#}</h2>
+		<div class="normaltext">
+			<ul>
+				{if $order_content!=''}
+					{foreach name=aussen item=order_data from=$order_content}
+						<li>
+							<a href="{$order_data.ORDER_LINK}">
+								{#order_nr#} {$order_data.ORDER_ID} (25.02.2008)
+								<span class="normal_9px-unter-12px_schwarz"><br>{#order_status#} <strong>{$order_data.ORDER_STATUS}</strong><br>{#order_total#} <strong>{$order_data.ORDER_TOTAL}</strong></span>
+							</a>
+						</li>
+					{/foreach}
+					<li><a class="bestellungen-listing-letztes" href="{$LINK_ALL}" tabindex="4">[{#text_all#}]</a></li>
+				{else}
+					<li class="italic_12px-unter-12px">Sie haben noch nichts bestellt.</li>
+				{/if}
+			</ul>
+		</div>
+	</div>
+	<br class="endefloat">
+</div>
+<br class="endefloat">

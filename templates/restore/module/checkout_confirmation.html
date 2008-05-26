@@ -1,0 +1,35 @@
+{config_load file="$language/lang_$language.conf" section="checkout_confirmation"} 
+<h1>Kasse</h1>
+<div class="sfblock" id="checkout">
+    <img src="{$tpl_path}/bilder/bestaetigung-icon.png" alt="[Best&#228;tigung Icon]">
+    <form action="checkout_process.php" method="post">
+        <h2>Schritt 3 von 3 - {#text_confirm#}</h2>
+        <p>
+            <h3>{#text_products#}</h3>
+            <a href="{$PRODUCTS_EDIT}" tabindex="4">[&#228;ndern]</a>
+            {$PRODUCTS_BLOCK}
+            <div id="cart_final"><div id="cart_final1"><div id="cart_final2"><div id="cart_final3"><div id="cart_final4">
+                {$TOTAL_BLOCK}
+            </div></div></div></div></div>
+        </p>
+        <p>
+            <h3>{#text_shipping_address#}</h3>
+            <label>{$DELIVERY_LABEL}</label>
+            <h3>{#text_shipping_method#}</h3>
+            {$SHIPPING_METHOD}
+            <a href="{$SHIPPING_EDIT}" >[&#228;ndern]</a>
+        </p>
+        <p>
+            <h3>{#text_payment_address#}</h3>
+            {$BILLING_LABEL}
+            <h3>{#text_payment_method#}</h3>
+            {$PAYMENT_METHOD}
+            <a href="{$PAYMENT_EDIT}" tabindex="4">[&#228;ndern]</a>
+        </p>
+        <p>
+            <input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" >
+            <input class="buttons2-bold" type="submit" value="BESTELLUNG ABGEBEN!">
+        </p>
+    </form>
+    <br class="clear">
+</div>

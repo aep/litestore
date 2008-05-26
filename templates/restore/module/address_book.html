@@ -1,0 +1,36 @@
+{config_load file="$language/lang_$language.conf" section="address_book"}
+<h1>{#heading_address#}</h1>
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/meine_adressen-icon.png" alt="[Meine Adressen Icon]"></div>
+<div class="spalte1_inhalt">
+	<div id="meineadressen_ersterabsatz">
+		<h2>{#title_standard#}</h2>
+		<div id="meineadressen_standardadresse">
+			<div class="normaltext">
+				{$ADDRESS_DEFAULT}
+			</div>
+		</div>
+		<div id="meineadressen_standardadresse-erklaerung">
+			{#text_standard#}
+		</div>
+		<br class="endefloat">
+	</div>
+	<div class="meineadressen_weitere">
+		{foreach name=aussen item=addresses from=$addresses_data}
+		<div class="meineadressen_adressen">
+			<h2>{$addresses.NAME} {if $addresses.PRIMARY=='1'}<span class="italic_12px-unter-12px">({#title_standard#})</span>{/if}</h2>
+			<div class="normaltext">
+				{$addresses.ADDRESS}
+				<div><span class="normal_9px-unter-12px"><a href="address_book_process.php?edit=1" tabindex="4">[&#228;ndern]</a> <a href="address_book_process.php?delete=1" tabindex="4">[l&#246;schen]</a></span></div>
+			</div>
+		</div>
+		{/foreach}
+		<div class="meineadressen_adressen">
+			<div class="normaltext">
+				<a href="address_book_process.php" tabindex="4">[Neue Adresse eingeben]</a>
+			</div>
+		</div>
+		<br class="endefloat">
+	</div>
+</div>
+<br class="endefloat">

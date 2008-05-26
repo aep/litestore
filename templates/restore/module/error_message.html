@@ -1,0 +1,12 @@
+{config_load file="$language/lang_$language.conf" section="error_handler"}
+<h1><span class="textfarbe-rot">{$ERROR}</span></h1>
+<br>
+<div class="spalte1_inhalt">
+	<div class="normaltext">
+		{#text_search_again#}
+		<form id="new_find" action="/advanced_search_result.php" method="get">
+			<input type="text" name="keywords" size="30" maxlength="30" />
+			<input type="image" src="{$tpl_path}/buttons/{$language}/button_quick_find.gif" alt="suche" title="suche" />
+		</form>
+	</div>
+</div>

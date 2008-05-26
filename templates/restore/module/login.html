@@ -1,0 +1,34 @@
+{config_load file="$language/lang_$language.conf" section="login"}
+<h1>{#heading_login#}</h1>
+
+<div id="login_html">
+    <div class="fblock fblockl">
+        <img src="{$tpl_path}/bilder/neues_benutzer-konto_erstellen-icon.png" alt="[Neukunden-Anmeldung Icon]">
+        <h2>{#title_new#}</h2>
+        {#text_new#}
+        <form action="{$URI_NEW_ACCOUNT}" method="get">
+                <input class="button"  type="submit" value="Neu Anmelden!">
+        </form>
+        {if $account_option=='both' or $account_option=='guest'}<br >
+            <h2>{#title_guest#}</h2>
+            {#text_guest#}
+            <form action="{$URI_GUEST}" method="get">
+                <input class="button"  type="submit" value="Als Gast bestellen!">
+            </form>
+        {/if}
+        <br class="clear">
+    </div>
+
+    <div class="fblock fblockr">
+        <img src="{$tpl_path}/bilder/login-icon.png" alt="[Login Icon]">
+        <h2>{#title_returning#}</h2>
+        <form action="/login" method="post">
+            <input type="text" name="email_address" maxlength="50">
+            <input type="password" name="password" maxlength="50" >
+            <p><a href="{$LINK_LOST_PASSWORD}" >{#text_lost_password#}</a></p>
+            <input class="button" type="submit" value="Einloggen!" >
+        </form>
+    </div>
+    <br class="clear">
+</div>
+

@@ -1,0 +1,51 @@
+{config_load file="$language/lang_$language.conf" section="newsletter"}
+<h1>{#heading_title#}</h1>
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/newsletter-icon.png" alt="[Newsletter Icon]"></div>
+<div class="spalte1_inhalt">
+	<form id="sign" action="newsletter.php?action=process" method="post"><div>
+		{if $info_message!=''}
+			<div class="normaltext"><span class="textfarbe-rot"><strong>
+				{$info_message}
+			</strong></span></div>
+			<br>
+		{/if}
+		<h2>Newsletter bestellen/abbestellen:</h2>
+		<div class="normaltext">
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="e-mail-adresse">{#text_email#}</label></div>
+				<div class="formularspalte-204pxmin"><input id="e-mail-adresse" class="eingabefeld-200px" type="text" name="email" maxlength="50" tabindex="4"></div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+			<div class="formularzeile">
+				<div class="formularspalte-150px">Newsletter...</div>
+				<div class="formularspalte-204pxmin">
+					<div class="formular_radio-2"><label><input type="radio" name="check" tabindex="4" value="inp">&#160;{#text_in#}</label></div>
+					<div class="formular_radio-2"><label><input type="radio" name="check" tabindex="4" value="del">&#160;{#text_out#}</label></div>
+					<br class="endefloat">
+				</div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="sicherheitscode">{#text_sec_code#}</label></div>
+				<div class="formularspalte-204pxmin">{$VVIMG}</div>
+				<br class="endefloat">
+			</div>
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="sicherheitscode_eingabe">{#text_sec_code#}</label></div>
+				<div class="formularspalte-204pxmin"><input id="sicherheitscode_eingabe" class="eingabefeld-200px" type="text" name="vvcode" tabindex="4" maxlength="6"></div>
+				<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+				<br class="endefloat">
+			</div>
+		</div>
+		<div class="formular_buttons">
+			<div class="formularspalte-150px"></div>
+			<div class="formularspalte-204pxmin"><input class="buttons2" type="submit" value="Best&#228;tigen!" tabindex="4"></div>
+			<br class="endefloat">
+		</div>
+		<span class="normal_9px-unter-16px">Mit <span class="textfarbe-rot">&#42;</span> gekennzeichnete Felder sind Pflichfelder.</span>
+	</div></form>
+</div>
+<br class="endefloat">

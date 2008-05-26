@@ -1,0 +1,65 @@
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+{config_load file="$language/lang_$language.conf" section="product_info"}
+<table cellspacing="0">
+<thead>
+    <tr>
+        <th colspan="2" class="artikel">{#text_article#}</th>
+        <th class="anzahl">{#text_qty#}</th>
+        <th class="einzelpreis">{#text_single#}</th>
+        <th class="gesammtpreis">{#text_total#}</th>
+        <th class="entf">Entf.</th>
+    </tr>
+</thead>
+<tbody>
+
+
+    {foreach name=aussen item=module_data from=$module_content}
+        <tr class="product">
+            <td class="artikelbild">
+                <a class="product_link" href="{$module_data.PRODUCTS_LINK}">
+                    {if  $module_data.PRODUCTS_IMAGES[0]!=''}
+                        <img  class="product_image" src="{$module_data.PRODUCTS_IMAGES[0].url_small}" alt="">
+                    {else}
+                        <img  class="product_image"  src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
+                    {/if}
+
+                </a>
+
+            </td>
+            <td class="artikel">
+                <a class="product_link" href="{$module_data.PRODUCTS_LINK}">
+                    <div class="product_name">
+                        {$module_data.PRODUCTS_NAME}
+                    </div>
+                </a>
+            </td>
+            <td class="anzahl">
+                <input type="hidden" name="products_id[]" value="{$module_data.PRODUCTS_ID}">
+                <input id="products_qty_{$module_data.PRODUCTS_ID}" type="text" name="cart_quantity[]" value="{$module_data.PRODUCTS_QTY}" >
+                {literal}
+                    <script type="text/javascript" language="javascript">
+                        $(function()
+                        {
+                        $("#products_qty_{/literal}{$module_data.PRODUCTS_ID}{literal}").SpinButton({min:{/literal}{$module_data.PRODUCTS_TRADING_UNIT}{literal},step:{/literal}{$module_data.PRODUCTS_TRADING_UNIT}{literal}});
+                        });
+                    </script>
+                {/literal}
+            </td>
+            <td class="einzelpreis" > {$module_data.PRODUCTS_SINGLE_PRICE}</td>
+            <td class="gesammtpreis"> {$module_data.PRODUCTS_PRICE}</td>
+            <td class="entf"> {$module_data.BOX_DELETE}</td>
+        </tr>
+    {/foreach}
+</tbody>
+</table>
+
+<div id="cart_final"><div id="cart_final1"><div id="cart_final2"><div id="cart_final3"><div id="cart_final4">
+    <span class="total">{$TOTAL_CONTENT}</span>
+    {if $SHIPPING_INFO}
+        {$SHIPPING_INFO}
+    {/if}
+    {$UST_CONTENT}
+</div></div></div></div></div>
+
+<br class="clear">
+

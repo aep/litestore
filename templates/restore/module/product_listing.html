@@ -1,0 +1,55 @@
+<h1>Produkte aus der Kategorie <span class="linkfarbe">{$CATEGORIES_NAME}</span></h1>
+
+{if $CATEGORIES_DESCRIPTION}
+<p>{$CATEGORIES_DESCRIPTION}</p>
+{/if}
+{if $MANUFACTURER_DROPDOWN}
+    {#text_show#}
+    {$MANUFACTURER_DROPDOWN}
+{/if}
+
+
+
+{config_load file="$language/lang_$language.conf" section="index"} 
+<div id=products_listing>
+    {php} $xiiici=0;{/php}
+    {foreach name=aussen item=module_data from=$module_content}
+    {php} $xiiici++;{/php}
+        <div class="product" >
+
+            <a class="product_link" href="{$module_data.PRODUCTS_LINK}" >
+                <p class="product_image">
+                    {if  $module_data.PRODUCTS_IMAGE!=''}
+                        <img src="{$module_data.PRODUCTS_IMAGE}" alt="">
+                    {else}
+                        <img src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
+                    {/if}
+                </p>
+
+                <p class="product_name">&nbsp;{$module_data.PRODUCTS_NAME}&nbsp;</p>
+            </a>
+            <p class="product_tax_info">&nbsp;{$module_data.PRODUCTS_TAX_INFO}&nbsp;</p>
+
+
+            {if $module_data.ALLOWED_TO_SEE_PRICE}
+            <p>
+                <div class="buynow"><a  href="{$module_data.PRODUCTS_BUY_LINK}">
+                    {$module_data.PRODUCTS_PRICE}
+                </a></div>
+            </p>
+            {/if}
+        </div>
+    {php} if($xiiici>3)$xiiici=0;{/php}
+    {/foreach}
+    {php}while($xiiici<4){$xiiici++; echo '<div class="product" ></div>';}{/php}
+
+    <br class="clear">
+</div>
+<div id="pagination">
+    {$TEXT_NUMBER_OF_PRODUCTS}
+    {$TEXT_RESULT_PAGE}
+    {$PAGINATION}
+</div>
+
+
+

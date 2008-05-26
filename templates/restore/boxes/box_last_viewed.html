@@ -1,0 +1,13 @@
+{config_load file="$language/lang_$language.conf" section="boxes"}
+<h3>{#heading_last_viewed#}</h3>
+<div class="box">
+    {if $IMAGE!=''}<a href="{$LINK}"><img src="{$IMAGE}" alt="{$NAME}" /></a>
+                    <br />{/if} <a href="{$LINK}">{$NAME}</a>
+    <br />
+    {$PRICE}
+    <p>
+        {#text_watch_category#} 
+        <a href="{$MY_PERSONAL_PAGE}">{#text_my_page#}</a>
+        <a href="{$CATEGORY_LINK}">{$CATEGORY_NAME}</a>
+    </p>
+</div>
