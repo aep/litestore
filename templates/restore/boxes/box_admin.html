@@ -1,8 +1,10 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
-<div id="box_admin" class="box">
-    <h1>{#heading_admin#}</h1>
-    <p class="box_content">
+<div id="box_admin">
+    <div class="boxueberschrift"><h1>{#heading_admin#}</h1></div>
+    <div class="normaltext">
         {$BOX_CONTENT}
-        <a href="/admin/start.php">Adminbereich</a>
-    </p>
+		<form action="/admin/start.php" method="get"><div>
+			<input class="buttons2" type="submit" tabindex="3" accesskey="k" value="Adminbereich">
+		</div></form>
+    </div>
 </div>
