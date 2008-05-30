@@ -1,8 +1,7 @@
 {config_load file="$language/lang_$language.conf" section="checkout_confirmation"}
 <h1>Kasse</h1>
-<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
 <div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/bestaetigung-icon.png" alt="[Best&#228;tigung Icon]"></div>
-<div class="spalte1_inhalt">
+<div class="spalte1_inhalt"><div id="payment-shipping">
 	<form action="checkout_process.php" method="post">
 		<h2>Schritt 3 von 3 - {#text_confirm#}</h2>
 		<div class="kasse_absatz">
@@ -60,9 +59,10 @@
 			</div>
 			<br class="endefloat">
 		</div>
-		<div class="kasse_buttons">
-			<input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" tabindex="4"><input class="buttons2-bold" type="submit" value="BESTELLUNG ABGEBEN!" tabindex="4">
-		</div>
+		<div><input class="buttons2-bold" type="submit" value="BESTELLUNG ABGEBEN!" tabindex="4"></div>
 	</form>
-</div>
+	<form action="/checkout_payment.php" method="get"><div>
+		<input class="buttons2" type="submit" value="&#60;&#60; Zur&#252;ck" tabindex="4">
+	</div></form>
+</div></div>
 <br class="endefloat">

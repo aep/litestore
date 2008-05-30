@@ -941,7 +941,7 @@ textarea
 			}
 			#warenkorb-voll
 			{
-				text-align:center;
+				text-align:right;
 			}
 			#warenkorb-voll form
 			{
@@ -953,6 +953,15 @@ textarea
 			}
 
 		/*KASSE*/
+		#payment-shipping form
+		{
+			display:inline;
+		}
+		#payment-shipping form .buttons2, #payment-shipping form .buttons2-bold
+		{
+			float:right;
+			margin-top:10px;
+		}
 		.kasse_absatz
 		{
 			border-top:1px solid #dcdcdc;
@@ -963,12 +972,6 @@ textarea
 		{
 			padding-top:4px;
 			padding-bottom:4px;
-		}
-		.kasse_buttons
-		{
-			padding-top:10px;
-			padding-bottom:10px;
-			text-align:center;
 		}
 		.kasse_buttons-left
 		{
@@ -1127,6 +1130,10 @@ textarea
                 height:132px;
                 overflow:hidden;
             }
+			#meineadressen_adresse
+			{
+				padding-top:5px;
+			}
 		
 		/*LOGIN*/
 		#oder
