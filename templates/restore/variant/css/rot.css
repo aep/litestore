@@ -214,7 +214,6 @@ input.logineingabefeld
 {
 	padding-top:1px;
 	width:140px;
-	height:16px;
 }
 input.eingabefeld-20px
 {
@@ -274,6 +273,11 @@ textarea
 {
 	padding-top:6px;
 	padding-bottom:10px;
+}
+.formular_buttons_shippingadress
+{
+	margin-top:-50px;
+	margin-bottom:30px;
 }
 
 
@@ -569,7 +573,144 @@ textarea
 }
 
 		/*.........................................eigentlicher Seiteninhalt.........................................*/
-
+		
+		/*CATEGORIE_LISTING*/
+		#categorie_listing ul li
+		{
+			list-style:none;
+		}
+		#categorie_listing ul li ul
+		{
+			padding-top:5px;
+		}
+		#categorie_listing ul li ul li
+		{
+			display:block;
+			padding-left:175px;
+			height:170px;
+			font-size:0.5625em;
+			font-style:italic;
+			background:url(../../bilder/categorie_listing.png) 10px 0px no-repeat;
+		}
+		#categorie_listing ul li a, #categorie_listing ul li a:hover, #categorie_listing ul li a:focus
+		{
+			background:none;
+			color:#000000;
+		}
+		#categorie_listing ul li ul li:last-child
+		{
+			background:url(../../bilder/categorie_listing_last.png) 10px 0px no-repeat;
+		}
+		#categorie_listing ul li h2
+		{
+			font-size:1.875em;
+			font-weight:bold;
+		}
+		#categorie_listing ul li .normaltext
+		{
+			font-style:italic;
+		}
+		#categorie_listing ul li ul li .ueberschrift
+		{
+			display:block;
+			font-size:2.22em;
+			padding-bottom:5px;
+			font-weight:bold;
+			font-style:normal;
+		}
+		#empfehlungen
+		{
+			border-top:2px solid #dcdcdc;
+			padding-top:20px;
+		}
+			#empfehlungen h1
+			{
+				padding-bottom:10px;
+			}
+			.empfehlungen_artikel
+			{
+				border-top:1px solid #dcdcdc;
+				padding-top:14px;
+				padding-bottom:10px;
+			}
+				.empfehlungen_artikel_bild
+				{
+					float:left;
+					width:194px;
+					height:167px;
+				}
+					.empfehlungen_artikel_bild-link
+					{
+						padding-left:20px;
+						padding-right:10px;
+						text-align:center;
+						font-size:0.75em;
+						color:#000000;
+						overflow:hidden;
+					}
+				.empfehlungen_artikel_beschreibung
+				{
+					float:left;
+					width:526px;
+				}
+					.empfehlungen_artikel_beschreibung-inhalt
+					{
+						padding-left:10px;
+						display:table-cell;
+						height:167px;
+						vertical-align:middle;
+					}
+					.empfehlungen_artikel_beschreibung table
+					{
+						width:526px;
+					}
+				#categorie_listing ul li ul li .empfehlungen_artikel_beschreibung
+				{
+					float:left;
+					width:356px;
+					margin-left:-5px;
+				}
+					#categorie_listing ul li ul li .empfehlungen_artikel_beschreibung-inhalt
+					{
+						padding-left:0px;
+						display:table-cell;
+						height:167px;
+						vertical-align:middle;
+					}
+					#categorie_listing ul li ul li .empfehlungen_artikel_beschreibung table
+					{
+						width:356px;
+						margin-left:-5px;
+					}
+						.empfehlungen_artikel_beschreibung-daten
+						{
+							float:left;
+							padding-top:15px;
+						}
+						.empfehlungen_artikel_beschreibung-preis
+						{
+							float:right;
+							padding-top:34px;
+							padding-right:10px;
+							font-size:1.33em;
+						}
+							.empfehlungen_artikel_beschreibung-preis-link
+							{
+								padding-right:32px;
+								padding-top:5px;
+								padding-bottom:5px;
+								font-weight:bold;
+								color:#14c800;
+								background:url(../../bilder/farben/s-gruen_indenwarenkorb-mittel.png) right 0px no-repeat;
+								overflow:hidden;
+							}
+							.empfehlungen_artikel_beschreibung-preis-link:hover, .empfehlungen_artikel_beschreibung-preis-link:focus
+							{
+								text-decoration:none;
+								color:#11aa00;
+								background:url(../../bilder/farben/s-gruen_indenwarenkorb-mittel.png) right -100px no-repeat;
+							}
+		
 		/*LISTING - allgemein*/
 		#startseitebild_container
 		{
@@ -731,74 +872,6 @@ textarea
 					{
 						background:url(../../bilder/farben/s-gruen_indenwarenkorb-gross.png) bottom right no-repeat;
 					}
-		#empfehlungen
-		{
-			border-top:2px solid #dcdcdc;
-			padding-top:20px;
-		}
-			#empfehlungen h1
-			{
-				padding-bottom:10px;
-			}
-			.empfehlungen_artikel
-			{
-				border-top:1px solid #dcdcdc;
-				padding-top:14px;
-				padding-bottom:10px;
-			}
-				.empfehlungen_artikel_bild
-				{
-					float:left;
-					width:174px;
-					height:167px;
-				}
-					.empfehlungen_artikel_bild-link
-					{
-						padding-right:15px;
-						text-align:center;
-						font-size:0.75em;
-						color:#000000;
-						overflow:hidden;
-					}
-				.empfehlungen_artikel_beschreibung
-				{
-					float:left;
-					width:546px;
-				}
-					.empfehlungen_artikel_beschreibung-inhalt
-					{
-						display:table-cell;
-						height:167px;
-						vertical-align:middle;
-					}
-						.empfehlungen_artikel_beschreibung-daten
-						{
-							float:left;
-							padding-top:15px;
-						}
-						.empfehlungen_artikel_beschreibung-preis
-						{
-							float:right;
-							padding-top:34px;
-							padding-right:10px;
-							font-size:1.33em;
-						}
-							.empfehlungen_artikel_beschreibung-preis-link
-							{
-								padding-right:32px;
-								padding-top:5px;
-								padding-bottom:5px;
-								font-weight:bold;
-								color:#14c800;
-								background:url(../../bilder/farben/s-gruen_indenwarenkorb-mittel.png) right 0px no-repeat;
-								overflow:hidden;
-							}
-							.empfehlungen_artikel_beschreibung-preis-link:hover, .empfehlungen_artikel_beschreibung-preis-link:focus
-							{
-								text-decoration:none;
-								color:#11aa00;
-								background:url(../../bilder/farben/s-gruen_indenwarenkorb-mittel.png) right -100px no-repeat;
-							}
 		#abmeldeseite_start
 		{
 			height:20px;
@@ -890,6 +963,11 @@ textarea
 					text-decoration:none;
 					color:#000000;
 				}
+			#text_must
+			{
+				margin-top:45px;
+				font-size:0.75em;
+			}
 			#warenkorb_gesamtbetrag4
 			{
 				padding:12px;
@@ -1180,6 +1258,14 @@ textarea
 		text-align:center;
 		padding-bottom:8px;
 		background:url(../../bilder/boxueberschrift_trennlinie.png) bottom left no-repeat;
+	}
+	#box_admin
+	{
+		padding-bottom:20px;
+	}
+	#box_admin .normaltext
+	{
+		padding:10px;
 	}
 	#box_warenkorb, #box_content
 	{
