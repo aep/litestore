@@ -1,29 +1,25 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
 {if $deny_cart neq 'true'}
-{if $empty neq 'true'}
-
-
-    <div id="box_warenkorb" class="box urlbox2">
-        <h1><img id="warenkorb" src="{$tpl_path}/bilder/warenkorb.png" alt="">&#160;&#160;{$PRODUCTS} Art. - {$TOTAL}</h1>
-        <p class="box_content">
-
-            <ul>
-                <li><a href="/mycart" tabindex="3" accesskey="w">Warenkorb ansehen</a></li>
-                <li><a class="spezial" href="/checkout" tabindex="3" accesskey="w">Jetzt zur Kasse gehen!</a></li>
-            </ul>
-    
-            {#text_cart#}
-            {#text_cart2#}
-            {if $ACTIVATE_GIFT=='true'}
-                {if $GV_AMOUNT neq ''}
-                    {#voucher_balance#}
-                    {$GV_AMOUNT}
-                {/if}
-            {/if}
-
-        </p>
-    </div>
-{/if}
+	{if $empty=='true'}
+	{else}
+		<div id="box_warenkorb">
+			<div class="boxueberschrift">
+				<h1 class="klein"><img id="warenkorb" src="{$tpl_path}/bilder/warenkorb.png" alt="">&#160;&#160;{$PRODUCTS} Art. - {$TOTAL}</h1>
+			</div>
+			<ul>
+				<li><a href="/mycart" tabindex="3" accesskey="w">Warenkorb ansehen</a></li>
+				<li><a class="spezial" href="/checkout" tabindex="3" accesskey="w">Jetzt zur Kasse gehen!</a></li>
+			</ul>
+		</div>
+		{#text_cart#}
+		{#text_cart2#}
+		{if $ACTIVATE_GIFT=='true'}
+			{if $GV_AMOUNT neq ''}
+				{#voucher_balance#}
+				{$GV_AMOUNT}
+			{/if}
+		{/if}
+	{/if}
 {/if}
 
 
