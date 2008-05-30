@@ -1,37 +1,21 @@
 {config_load file="$language/lang_$language.conf" section="account_history_info"}
 <h1>Ihr Konto</h1>
-<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
 <div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/bestellung-icon.png" alt="[Bestellung Icon]"></div>
 <div class="spalte1_inhalt">
 	<h2>{#text_oid#}{$ORDER_NUMBER} ({$ORDER_DATE})</h2>
 	<div class="kasse_absatz">
 		<h3>{#title_history#}</h3>
-		
-		<div style="color:#FF0000"><br>
-		{$HISTORY_BLOCK}
-		<br></div>
-		
 		<div class="normaltext">
-			<div class="detailansicht_beschreibung_tabelle">15.05.2008</div>
-			<div class="detailansicht_beschreibung_tabelle">Offen</div>
-			<br class="endefloat">
-			<div class="detailansicht_beschreibung_tabelle">16.05.2008</div>
-			<div class="detailansicht_beschreibung_tabelle">Geld eingegangen</div>
-			<br class="endefloat">
+			{$HISTORY_BLOCK}
 		</div>
 	</div>
 	<div class="kasse_absatz">
 		<h3>{#text_products#}</h3>
 		<div class="normaltext">
-		
-			<div style="color:#FF0000"><br>
-			{$PRODUCTS_BLOCK}
-			<br></div>
-		
 			<table class="kasse_bestaetigung_artikel" cellspacing="0">
 				<thead id="kasse_bestaetigung_artikel-kopf">
 					<tr>
-						<th class="kasse_bestaetigung_artikel-positionkopf">Pos</th>
+						<th class="kasse_bestaetigung_artikel-positionkopf"></th>
 						<th class="kasse_bestaetigung_artikel-artnr">Art-nr.</th>
 						<th class="kasse_bestaetigung_artikel-bezeichnung">Bezeichnung</th>
 						<th class="kasse_bestaetigung_artikel-menge">Menge</th>
@@ -41,33 +25,17 @@
 					</tr>
 				</thead>
 				<tbody>
+					{foreach name=aussen item=order_product from=$order_data}
 					<tr>
-						<td class="kasse_bestaetigung_artikel-position">1</td>
-						<td class="kasse_bestaetigung_artikel-artnr">123456</td>
-						<td class="kasse_bestaetigung_artikel-bezeichnung">Bezeichnung</td>
-						<td class="kasse_bestaetigung_artikel-menge">1</td>
+						<td class="kasse_bestaetigung_artikel-position"></td>
+						<td class="kasse_bestaetigung_artikel-artnr">{$order_product.PRODUCTS_MODEL}</td>
+						<td class="kasse_bestaetigung_artikel-bezeichnung">{$order_product.PRODUCTS_NAME}</td>
+						<td class="kasse_bestaetigung_artikel-menge">{$order_product.QTY}</td>
 						<td class="kasse_bestaetigung_artikel-me">Stk.</td>
-						<td class="kasse_bestaetigung_artikel-einzelpreis">EUR 29,99</td>
-						<td class="kasse_bestaetigung_artikel-gesamtpreis">EUR 29,99</td>
+						<td class="kasse_bestaetigung_artikel-einzelpreis">{$order_product.SINGLE_PRICE}</td>
+						<td class="kasse_bestaetigung_artikel-gesamtpreis">{$order_product.PRICE}</td>
 					</tr>
-					<tr>
-						<td class="kasse_bestaetigung_artikel-position">2</td>
-						<td class="kasse_bestaetigung_artikel-artnr">123456</td>
-						<td class="kasse_bestaetigung_artikel-bezeichnung">Bezeichnung</td>
-						<td class="kasse_bestaetigung_artikel-menge">1</td>
-						<td class="kasse_bestaetigung_artikel-me">Stk.</td>
-						<td class="kasse_bestaetigung_artikel-einzelpreis">EUR 29,99</td>
-						<td class="kasse_bestaetigung_artikel-gesamtpreis">EUR 29,99</td>
-					</tr>
-					<tr>
-						<td class="kasse_bestaetigung_artikel-position">3</td>
-						<td class="kasse_bestaetigung_artikel-artnr">123456</td>
-						<td class="kasse_bestaetigung_artikel-bezeichnung">Bezeichnung</td>
-						<td class="kasse_bestaetigung_artikel-menge">1</td>
-						<td class="kasse_bestaetigung_artikel-me">Stk.</td>
-						<td class="kasse_bestaetigung_artikel-einzelpreis">EUR 29,99</td>
-						<td class="kasse_bestaetigung_artikel-gesamtpreis">EUR 29,99</td>
-					</tr>
+					{/foreach}
 				</tbody>
 			</table>
 			
@@ -131,11 +99,4 @@
 </div>
 <br class="endefloat">
 
-{if $ORDER_COMMENTS!=''}
-	{#text_comments#}
-	{$ORDER_COMMENTS}
-{/if} 
-
-{if $downloads_content neq ''}
-	{$downloads_content}
-{/if}
+{php} pr($this); {/php}

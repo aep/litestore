@@ -1,0 +1,25 @@
+/*...2 von 2 Kasten*/
+#banner
+{
+	margin:0 auto;
+	width:916px;
+	height:146px;
+	padding-left:32px;
+	padding-right:32px;
+	padding-top:0px;
+	background:url(../../bilder/hintergrund/contentpapier.png);
+}
+	#logo
+	{
+		margin-right:-12px;
+		width:928px;
+	}
+#footer
+{
+	margin:0 auto;
+	width:916px;
+	height:120px;
+	padding-left:32px;
+	padding-right:32px;
+	background:url(../../bilder/hintergrund/footerkasten.png);
+}

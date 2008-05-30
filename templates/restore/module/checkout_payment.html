@@ -1,45 +1,40 @@
 {config_load file="$language/lang_$language.conf" section="checkout_payment"}
 <h1>Kasse</h1>
-<div class="sfblock" id="checkout">
-    <img src="{$tpl_path}/bilder/zahlungsinformationen-icon.png" alt="[Zahlungsinformationen Icon]">
-
-        {if $error!=''}
-        <div class="error">
-            {$error}
-        </div>
-        {/if}
-
-
-
-    <form action="checkout_confirmation.php" method="post" onSubmit="return check_form();">
-        <h2>Schritt 2 von 3 - {#text_payment_info#}</h2>
-
-
-
-
-
-        <p>
-            <h3>{#title_address#}</h3>
-            <label>{$ADDRESS_LABEL}</label>
-            <a href="/checkout_payment_address.php" tabindex="4">[Andere Adresse]</a>
-        </p>
-        <p>
-            <h3>{#title_payment#}</h3>
-                {if $GV_COVER!='true'}
-{$PAYMENT_BLOCK}
-                    {$module_gift}
-                {else}
-                    {#text_gccover#}
-                {/if}
-        </p>
-        <div class="agb">
-            <h3>{#title_agb#}</h3>
-            <div>{$AGB}</div>
-            <label>{$AGB_checkbox}<strong> {#text_accept_agb#}</strong></label>
-        </div>
-        <div class="kasse_buttons">
-            <input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" >
-            <input class="buttons2" type="submit" value="Weiter zur Best&#228;tigung &#62;&#62;" >
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/zahlungsinformationen-icon.png" alt="[Zahlungsinformationen Icon]"></div>
+<div class="spalte1_inhalt">
+	<form action="checkout_confirmation.php" method="post" onSubmit="return check_form();">
+		<h2>Schritt 2 von 3 - {#text_payment_info#}</h2>
+		<div class="kasse_absatz">
+			<h3>{#title_address#}</h3>
+			<div class="normaltext">
+				{$ADDRESS_LABEL}
+				<div class="kasse_aendern"><a href="/checkout_payment_address.php" tabindex="4">[Andere Adresse]</a></div>
+			</div>
+		</div>
+		<div class="kasse_absatz">
+			<h3>{#title_payment#}</h3>
+			<div class="normaltext">
+				{if $GV_COVER!='true'}
+                	{$PAYMENT_BLOCK}
+                	{$module_gift}
+				{else}
+					{#text_gccover#}
+				{/if}
+			</div>
+		</div>
+		<div class="kasse_absatz">
+			<h3>{#title_agb#}</h3>
+			<div class="normaltext">
+				<div class="normaltext">{$AGB}</div>
+				<div class="formularzeile-kleinerumbruch"></div>
+				<div class="formularzeile">
+					<label>{$AGB_checkbox}<strong> {#text_accept_agb#}</strong></label>
+				</div>
+			</div>
+		</div>
+		<div class="kasse_buttons">
+			<input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" tabindex="4"><input class="buttons2" type="submit" value="Weiter zur Best&#228;tigung &#62;&#62;" tabindex="4">
 		</div>
 	</form>
 </div>

@@ -1,23 +1,20 @@
 {foreach name=aussen item=module_data from=$module_content}
-<div class="checkout_payment_module">
-    <label>{$module_data.selection} {$module_data.module} {$module_data.module_cost}</label>
+	<div class="formularzeile"><label>{$module_data.selection} {$module_data.module} {$module_data.module_cost}</label></div>
     {if $module_data.error}
         {$module_data.error}
     {else}
-        <div class="checkout_payment_form">
-
-        {foreach name=aussen item=method_data from=$module_data.fields}
-
-            <label for="kontoinhaber">{$method_data.title}</label>
-            <div class="checkout_payment_inp">  {$method_data.field}</div>
-            <br class="clear">
-
-        {/foreach}
-        </div>
+		<div style="padding-left:17px;">
+		{foreach name=aussen item=method_data from=$module_data.fields}
+			<div class="formularzeile">
+				<div class="formularspalte-150px"><label for="kontoinhaber">{$method_data.title}</label></div>
+				<div class="formularspalte-204pxmin">{$method_data.field}</div>
+				<br class="endefloat">
+			</div>
+		{/foreach}
+		</div>
     {/if}
-
+	
     {if $module_data.description}
-        {$module_data.description}
+		{$module_data.description}
     {/if}	
-</div>
 {/foreach}

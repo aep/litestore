@@ -1,22 +1,25 @@
 {config_load file="$language/lang_$language.conf" section="checkout_success"}
 <h1>Kasse</h1>
-<div class="sfblock" id="checkout">
-    <img src="{$tpl_path}/bilder/erfolgreich-icon.png" alt="[Ihre Bestellung ist erfolgreich ausgef&#252;hrt worden! Icon]">
-    <h2>{#heading_success#}</h2>
-    <p>
-        <p>{#text_success#}<p>
-        <br>
-        <p>Unter <a href="#" tabindex="4">&#34;Ihr Konto&#34;</a> k&#252;nnen Sie jederzeit den Status Ihrer Bestellung abrufen.</p>
-        <br>
-        <p>{#text_thankyou#}</p>
-        <form action="/myaccount" method="get">
-            <div>
-                <input class="buttons2" type="submit" value="Zu &#34;Ihr Konto&#34;" tabindex="4">
-            </div>
-        </form>
-    </p>
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/erfolgreich-icon.png" alt="[Ihre Bestellung ist erfolgreich ausgef&#252;hrt worden! Icon]"></div>
+<div class="spalte1_inhalt">
+	<h2>{#heading_success#}</h2>
+	<div class="kasse_absatz">
+		<div class="normaltext">
+			<p>{#text_success#}<p>
+			<br>
+			<p>Unter <a href="#" tabindex="4">&#34;Ihr Konto&#34;</a> k&#252;nnen Sie jederzeit den Status Ihrer Bestellung abrufen.</p>
+			<br>
+			<p>{#text_thankyou#}</p>
+		</div>
+		<div class="kasse_buttons-left">
+			<form action="/myaccount" method="get"><div>
+				<input class="buttons2" type="submit" value="Zu &#34;Ihr Konto&#34;" tabindex="4">
+			</div></form>
+		</div>
+	</div>
 </div>
-<br class="clear">
+<br class="endefloat">
 <!-- Google Conversion-tracking start !-->
 {if $google_tracking eq 'true'}
 	{$tracking_code}
