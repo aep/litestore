@@ -1,55 +1,50 @@
+{config_load file="$language/lang_$language.conf" section="index"} 
 <h1>Produkte aus der Kategorie <span class="linkfarbe">{$CATEGORIES_NAME}</span></h1>
-
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
 {if $CATEGORIES_DESCRIPTION}
-<p>{$CATEGORIES_DESCRIPTION}</p>
+<div class="normaltext">
+    {$CATEGORIES_DESCRIPTION}
+</div>
 {/if}
 {if $MANUFACTURER_DROPDOWN}
-    {#text_show#}
-    {$MANUFACTURER_DROPDOWN}
+	{#text_show#}
+	{$MANUFACTURER_DROPDOWN}
 {/if}
-
-
-
-{config_load file="$language/lang_$language.conf" section="index"} 
-<div id=products_listing>
-    {php} $xiiici=0;{/php}
-    {foreach name=aussen item=module_data from=$module_content}
-    {php} $xiiici++;{/php}
-        <div class="product" >
-
-            <a class="product_link" href="{$module_data.PRODUCTS_LINK}" >
-                <p class="product_image">
-                    {if  $module_data.PRODUCTS_IMAGE!=''}
-                        <img src="{$module_data.PRODUCTS_IMAGE}" alt="">
-                    {else}
-                        <img src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
-                    {/if}
-                </p>
-
-                <p class="product_name">&nbsp;{$module_data.PRODUCTS_NAME}&nbsp;</p>
-            </a>
-            <p class="product_tax_info">&nbsp;{$module_data.PRODUCTS_TAX_INFO}&nbsp;</p>
-
-
-            {if $module_data.ALLOWED_TO_SEE_PRICE}
-            <p>
-                <div class="buynow"><a  href="{$module_data.PRODUCTS_BUY_LINK}">
-                    {$module_data.PRODUCTS_PRICE}
-                </a></div>
-            </p>
-            {/if}
-        </div>
-    {php} if($xiiici>3)$xiiici=0;{/php}
-    {/foreach}
-    {php}while($xiiici<4){$xiiici++; echo '<div class="product" ></div>';}{/php}
-
-    <br class="clear">
+<div id="listing">
+	<!--[if lte IE 7]><div id="ie_listing_startende">&#160;</div><![endif]-->
+	{foreach name=aussen item=module_data from=$module_content} 
+		<div class="listing_artikel">
+			<div class="listing_artikel_inhalt-container">
+				<a class="listing_artikel_inhalt-link" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><!--[if lte IE 7]></a><![endif]-->
+					<em class="listing_artikel_produktbild-container">
+						<!--[if lte IE 7]></em><table cellspacing="0"><tr><td><a href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
+							{if  $module_data.PRODUCTS_IMAGE!=''}
+								<img class="listing_artikel_produktbild-bild" src="{$module_data.PRODUCTS_IMAGE}" alt="">
+							{else}
+								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-mittel.png" alt="">
+							{/if}
+						<!--[if lte IE 7]></a></td></tr></table><em><![endif]-->
+					</em>
+					<!--[if lte IE 7]><a class="ie_listing_artikel_inhalt_bezeichnung" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
+					{$module_data.PRODUCTS_NAME}
+					<!--[if lte IE 7]></a><![endif]-->
+				<!--[if lte IE 7]><a><![endif]--></a>
+			</div>
+			{if $module_data.ALLOWED_TO_SEE_PRICE}
+				<div class="listing_artikel_indenwarenkorb-container"><a class="listing_artikel_indenwarenkorb-link" href="{$module_data.PRODUCTS_BUY_LINK}" tabindex="4">{$module_data.PRODUCTS_PRICE}</a></div>
+			{/if}
+		</div>
+	{/foreach}
+	<br class="endefloat">
+	<!--[if lte IE 7]><div id="ie_listing_startende">&#160;</div><![endif]-->
 </div>
-<div id="pagination">
-    {$TEXT_NUMBER_OF_PRODUCTS}
-    {$TEXT_RESULT_PAGE}
-    {$PAGINATION}
+<div id="listing_ende"></div>
+<div class="normaltext">
+	<div id="listing_pagination">
+		<div>
+			{$PAGINATION} <!-- a kack selektieren, evtl first child oder php-->
+			<a class="paginationzurueckweiter" href="#" tabindex="4">&#60;&#60; zur&#252;ck</a><a class="paginationseite" href="#" tabindex="4">1</a><a class="paginationseite" href="#" tabindex="4">2</a><a class="paginationseite" href="#" tabindex="4">3</a><a class="paginationseite_aktiv" href="#" tabindex="4">4</a><a class="paginationseite" href="#" tabindex="4">5</a><a class="paginationseite" href="#" tabindex="4">6</a><a class="paginationseite" href="#" tabindex="4">7</a><a class="paginationseite" href="#" tabindex="4">8</a><a class="paginationseite" href="#" tabindex="4">9</a><a class="paginationseite" href="#" tabindex="4">...</a><a class="paginationseite" href="#" tabindex="4">29</a><a class="paginationzurueckweiter" href="#" tabindex="4">weiter &#62;&#62;</a>
+		</div>
+	</div>
+	<div id="listing_erklaerungen">{$TEXT_NUMBER_OF_PRODUCTS} Alle Preise inkl. Mwst. zzgl. Versandkosten</div>
 </div>
-
-
-

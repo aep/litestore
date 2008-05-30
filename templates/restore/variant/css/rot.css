@@ -4,334 +4,31 @@
 
 
 
-
-
 /*1. HINTERGRUND-BILD*/
-#huelle_aussen
-{
-	background:url(../../bilder/hintergrund/holz1.png);
-}
-
-
-
-
 
 /*2. HINTERGRUND-INHALT*/
 
-	/*...1 von 2 Papier*/
-	#banner
-	{
-		margin:0 auto;
-		width:916px;
-		height:146px;
-		padding-left:32px;
-		padding-right:32px;
-		padding-top:34px;
-		background:url(../../bilder/hintergrund/bannerpapier.png);
-	}
-		#login_kontakt
-		{
-			width:550px;
-		}
-	#footer
-	{
-		margin:0 auto;
-		width:916px;
-		height:120px;
-		padding-left:32px;
-		padding-right:32px;
-		background:url(../../bilder/hintergrund/footerpapier.png);
-	}
-	
-	/*...2 von 2 Kasten
-	#banner
-	{
-		margin:0 auto;
-		width:916px;
-		height:146px;
-		padding-left:32px;
-		padding-right:32px;
-		padding-top:0px;
-		background:url(../../bilder/hintergrund/contentpapier.png);
-	}
-		#login_kontakt
-		{
-			margin-right:-12px;
-			width:562px;
-		}
-	#footer
-	{
-		margin:0 auto;
-		width:916px;
-		height:120px;
-		padding-left:32px;
-		padding-right:32px;
-		background:url(../../bilder/hintergrund/footerkasten.png);
-	}
-	*/
-
-
-
-
-
 /*3. KONTAKTBILD*/
-#login_kontakt
-{
-	background-image:url(../../bilder/bannerbilder/papier1.gif); /*Bildadresse*/
-}
-	#login
-	{
-		padding-right:58px; /*rechter Abstand des Login-Formulars*/
-	}
-	#kontakt
-	{
-		padding-top:35px; /*oberer Abstand der Kontaktdaten*/
-		padding-right:112px; /*rechter Abstand der Kontaktdaten*/
-	}
-
-
-
-
 
 /*4. PRIMÄRFARBE
-
-	- als Wort: "rot"
-	- als Hexadezimalwert: #ff0000
-
+	 - als Wort: "rot"
+	 - als Hexadezimalwert: #ff0000
 */
-
-
-
-
 
 /*5. SEKUNDÄRFARBE
-
-	- als Wort: "s-gruen"
-	- als Hexadezimalwert: #14c800
-
+	 - als Wort: "s-gruen"
+	 - als Hexadezimalwert: #14c800
 */
-
-
-
-
 
 /*6. PRODUKTLISTING*/
 
-	/*...1 von 2 volle Fotos*/
-	#startseitebild
-		{
-			border:1px solid #b4b4b4;
-			margin-bottom:10px;
-			padding:1px;
-			width:700px;
-		}
-		#abmeldenbild
-		{
-			margin-bottom:10px;
-		}
-		#listing
-		{
-		}
-			.listing_artikel
-			{
-				float:left;
-				width:180px;
-			}
-			.listing_artikel:hover
-			{
-				font-weight:bold;
-			}
-				.listing_artikel_inhalt-container
-				{
-					margin-bottom:-45px;
-				}
-					.listing_artikel_inhalt-link
-					{
-						display:block;
-						padding-bottom:15px;
-						padding-left:8px;
-						padding-right:8px;
-						height:234px;
-						text-align:center;
-						font-size:0.75em;
-						color:#000000;
-						overflow:hidden;
-					}
-					.listing_artikel_inhalt-link:hover, .listing_artikel_inhalt-link:focus
-					{
-						text-decoration:none;
-					}
-						.listing_artikel_produktbild-container
-						{
-							display:table-cell;
-							width:164px;
-							height:167px;
-							vertical-align:middle;
-						}
-							.listing_artikel_produktbild-bild
-							{
-								border:1px solid #b4b4b4;
-								padding:1px;
-								max-width:160px;
-								max-height:160px;
-							}
-				.listing_artikel_indenwarenkorb-container
-				{
-					height:45px;
-					text-align:center;
-				}
-		.detailansicht_bilder-gross
-		{
-			border:1px solid #b4b4b4;
-			padding:1px;
-			max-width:350px;
-			max-height:350px;
-		}
-			img.detailansicht_bilder-kleine
-			{
-				border:1px solid #b4b4b4;
-				padding:1px;
-				max-width:80px;
-				max-height:80px;
-			}
-		.empfehlungen_artikel
-		{
-			border-top:1px solid #dcdcdc;
-			padding-top:14px;
-			padding-bottom:10px;
-		}
-		.warenkorb_produktbild-bild
-		{
-			border:1px solid #b4b4b4;
-			padding:1px;
-			max-width:80px;
-			max-height:80px;
-		}
-	
-	/*...2 von 2 ausgeschnittene Fotos
-	#listing
-		{
-			background:url(../../bilder/listing2_gitter.png) top left repeat-y;
-		}
-			.listing_artikel
-			{
-				float:left;
-				border-bottom:1px solid #dcdcdc;
-				width:180px;
-			}
-			.listing_artikel:hover
-			{
-				font-weight:bold;
-			}
-				.listing_artikel_inhalt-container
-				{
-					margin-bottom:-32px;
-				}
-					.listing_artikel_inhalt-link
-					{
-						display:block;
-						padding:10px;
-						height:222px;
-						text-align:center;
-						font-size:0.75em;
-						color:#000000;
-						overflow:hidden;
-					}
-					.listing_artikel_inhalt-link:hover, .listing_artikel_inhalt-link:focus
-					{
-						text-decoration:none;
-					}
-						.listing_artikel_produktbild-container
-						{
-							display:table-cell;
-							width:160px;
-							height:163px;
-							vertical-align:middle;
-						}
-							.listing_artikel_produktbild-bild
-							{
-								max-width:160px;
-								max-height:160px;
-							}
-				.listing_artikel_indenwarenkorb-container
-				{
-					height:32px;
-					text-align:center;
-				}
-		#listing_ende
-		{
-			position:relative;
-			top:-2px;
-			height:2px;
-			background:#fff;
-		}
-		#startseite_ende
-		{
-			height:12px;
-		}
-		#detailansicht_bilder-grosscontainer
-		{
-			margin-bottom:5px;
-			border-bottom:1px solid #dcdcdc;
-			padding-bottom:8px;
-			width:352px;
-		}
-			img.detailansicht_bilder-kleine
-			{
-				max-width:80px;
-				max-height:80px;
-			}
-		.empfehlungen_artikel
-		{
-			border-top:1px solid #dcdcdc;
-			padding-top:14px;
-		}
-		.warenkorb_produktbild-bild
-		{
-			padding:2px;
-			max-width:80px;
-			max-height:80px;
-		}
-	*/
-
-
-
-
 /*7. KATEGORIESPALTE*/
 
-	/*...1 von 2 rechts*/
-	#spalte1
-	{
-		float:left;
-	}
-	#spalte2
-	{
-		float:right;
-	}
-	
-	/*...1 von 2 links
-	#spalte1
-	{
-		float:right;
-	}
-	#spalte2
-	{
-		float:left;
-	}
-	*/
-
-
-
 
 
 /*...............................................................................................................*/
 /*...............................................................................................................*/
 /*...............................................................................................................*/
-
-
-
-
-
 
 
 
@@ -372,14 +69,23 @@ input
 
 
 /*TEXTFORMATIERUNGEN*/
-h1
+#spalte1 h1
+{
+	margin-top:-28px;
+	margin-bottom:25px;
+	font-size:0.8125em;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#4c4c4c;
+}
+#spalte2 h1
 {
 	font-size:0.8125em;
 	font-weight:bold;
 	text-transform:uppercase;
 	color:#4c4c4c;
 }
-	h1.klein
+	#spalte2 h1.klein
 	{
 		text-transform:none;
 	}
@@ -450,7 +156,7 @@ h3
 }
 .textfarbe-rot
 {
-	color:#fe0000;
+	color:#f00;
 }
 .textfarbe-gruen
 {
@@ -473,7 +179,7 @@ a:hover, a:focus
 
 
 
-/*WIDERKEHRENDE FORMULAR-ELEMENTE*/
+/*WIEDERKEHRENDE FORMULAR-ELEMENTE*/
 input.buttons
 {
 	padding-top:1px;
@@ -513,7 +219,7 @@ input.logineingabefeld
 input.eingabefeld-20px
 {
 	padding-top:1px;
-	width:20px;
+	width:100px;
 }
 input.eingabefeld-120px
 {
@@ -572,10 +278,10 @@ textarea
 
 
 
-/*ANDERE WIDERKEHRENDE ELEMENTE*/
+/*ANDERE WIEDERKEHRENDE ELEMENTE*/
 .spalte1_siesindhier
 {
-	padding-bottom:15px;
+	margin-top:1.8em;
 	font-size:0.5625em;
 	color:#4c4c4c;
 }
@@ -651,6 +357,25 @@ textarea
 			font-size:0.75em;
 			background:none;
 		}
+#fehler
+{
+	margin-bottom:10px;
+	border:2px solid #f00;
+	padding:5px;
+	font-size:0.75em;
+	font-weight:bold;
+	color:#f00;
+	text-decoration:blink;
+	background-color:#eee;
+}
+#fehler img
+{
+	display:none;
+}
+.inputRequirement
+{
+	display:none;
+}
 
 
 
@@ -659,47 +384,74 @@ textarea
 {
 	background:url(../../bilder/hintergrund/verlauf.png) bottom repeat-x;
 }
-	#inhalt
+#huelle_innen2
+{
+	width:1120px;
+	margin:0 auto; 
+}
+	#inhaltsspalte
 	{
-		margin:0 auto;
-		width:916px;
-		padding-left:32px;
-		padding-right:32px;
-		padding-top:10px;
-		padding-bottom:30px;
-		background:url(../../bilder/hintergrund/contentpapier.png);
+		float:left;
 	}
-	#endzeile
-	{
-		margin:0 auto;
-		padding-bottom:20px;
-		width:916px;
-		text-align:center;
-		font-size:0.75em;
-		color:#FFFFFF;
-		overflow:hidden;
-	}
-		#endzeile ul
+		#inhalt
 		{
-			display:inline;
+			margin:0 auto;
+			width:916px;
+			padding-left:32px;
+			padding-right:32px;
+			padding-top:10px;
+			padding-bottom:30px;
+			background:url(../../bilder/hintergrund/contentpapier.png);
 		}
-			#endzeile ul li
+		#endzeile
+		{
+			margin:0 auto;
+			padding-bottom:20px;
+			width:916px;
+			text-align:center;
+			font-size:0.75em;
+			color:#FFFFFF;
+			overflow:hidden;
+		}
+			#endzeile ul
 			{
-				padding-left:20px;
-				list-style:none;
 				display:inline;
-				background:url(../../bilder/endzeile_trennstrich.gif) center left no-repeat;
 			}
-				#endzeile ul li a
+				#endzeile ul li
 				{
-					color:#FFFFFF;
-					text-decoration:none;
+					padding-left:20px;
+					list-style:none;
+					display:inline;
+					background:url(../../bilder/endzeile_trennstrich.gif) center left no-repeat;
 				}
-					#endzeile ul li a:hover, #endzeile ul li a:focus
+					#endzeile ul li a
 					{
 						color:#FFFFFF;
-						text-decoration:underline;
+						text-decoration:none;
 					}
+						#endzeile ul li a:hover, #endzeile ul li a:focus
+						{
+							color:#FFFFFF;
+							text-decoration:underline;
+						}
+	#werbespalte
+	{
+		float:left;
+		margin-top:34px;
+		margin-left:5px;
+		border:1px solid #000;
+		text-align:center;
+		background:#000;
+	}
+	#werbespalte:before
+	{
+		display:block;
+		content:"Anzeige";
+		text-align:center;
+		font-size:9px;
+		color:#fff;
+		background:#000;
+	}
 #internetexplorer
 {
 	padding-top:15px;
@@ -754,35 +506,25 @@ textarea
 /*BANNER-CONTAINER*/
 #logo
 {
-	float:left;
-	width:366px;
-	height:111px;
-	overflow:hidden;
-}
-#login_kontakt
-{
-	float:right;
+	width:916px;
 	height:111px;
 	overflow:hidden;
 	background-position:top right;
 	background-repeat:no-repeat;
 }
-	#login
-	{
-		height:30px;
-		padding-top:10px;
-		font-size:0.75em;
-		text-align:right;
-		color:#4c4c4c;
-	}
-	#kontakt
-	{
-		text-align:right;
-		font-size:0.75em;
-		color:#4c4c4c;
-	}
+#login
+{
+	position:relative;
+	top:-101px;
+	padding-right:58px;
+	height:30px;
+	font-size:0.75em;
+	text-align:right;
+	color:#4c4c4c;
+}
 #navigation1 ul
 {
+	margin-top:-30px;
 	list-style:none;
 	height:32px;
 	overflow:hidden;
@@ -1138,6 +880,7 @@ textarea
 				.warenkorb_produktbezeichnung-link
 				{
 					display:table-cell;
+					width:161px;
 					height:84px;
 					vertical-align:middle;
 					color:#000000;
@@ -1195,6 +938,18 @@ textarea
 				padding-left:5px;
 				text-align:left;
 				font-style:italic;
+			}
+			#warenkorb-voll
+			{
+				text-align:center;
+			}
+			#warenkorb-voll form
+			{
+				display:inline;
+			}
+			#warenkorb-voll form .buttons2
+			{
+				margin-top:10px;
 			}
 
 		/*KASSE*/
@@ -1374,9 +1129,31 @@ textarea
             }
 		
 		/*LOGIN*/
+		#oder
+		{
+			padding-top:5px;
+			padding-bottom:15px;
+			text-align:center;
+			font-size:0.75em;
+			font-style:italic;
+		}
 		#login_passwortvergssen
 		{
 			font-size:0.5625em;
+		}
+		
+		/*CREATE ACCOUNT*/
+		#male_female input
+		{
+			margin-left:2px;
+		}
+		.create_account_inputs input
+		{
+			width:200px;
+		}
+		.create_account_inputs select
+		{
+			width:204px;
 		}
 		
 		/*IMPRESSUM*/
@@ -1422,7 +1199,7 @@ textarea
 			}
 			#box_warenkorb li a:hover, #box_content li a:hover
 			{
-				font-weight:bold;
+				text-decoration:underline;
 			}
 			#box_warenkorb li a.spezial
 			{
@@ -1548,3 +1325,104 @@ textarea
 			padding-top:10px;
 			padding-bottom:5px;
 		}
+
+
+
+/*******spinbutton********/
+.spinInput, .spinContainer
+{
+  /* Change this to modify the default spin control background color*/
+  background-color: #FFFFFF;
+}
+
+.spinLeftRightEdge, .spinTopBottomEdge
+{
+  position: absolute;
+  overflow: hidden;
+  /* Change this to modify the default spin control border color*/
+  background-color: #A5ACB2;
+}
+  
+.spinContainer
+{
+  position: relative;
+  font-size: 0px;
+  height: 20px;
+}
+
+.spinLeftRightEdge
+{
+  height: 20px;
+  width: 1px;
+}
+
+.spinTopBottomEdge
+{
+  height: 1px;
+  left: 1px;
+}
+
+.spinInput
+{
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  height: 18px;
+  border: 0px;
+  /* Change this to modify the default spin control font, font color, and font size*/
+  color: Black;
+  font-size: 9pt;
+  font-family: Arial;
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress, .spinDownBtn, .spinDownBtnHover, .spinDownBtnPress
+{
+  position: absolute;
+  width: 15px;
+  height: 8px;
+  right: 2px;
+  background-image: url('../../bilder/spin_control_buttons.png');
+  background-repeat: no-repeat;
+  /* Change this to modify the default button color*/
+  background-color: #000000;
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress
+{
+  top: 2px;
+}
+
+.spinDownBtn, .spinDownBtnHover, .spinDownBtnPress
+{
+  top: 10px;
+}
+
+.spinUpBtn
+{
+  background-position:0px 0px;
+}
+
+.spinUpBtnHover
+{
+  background-position:0px -16px;
+}
+
+.spinUpBtnPress
+{
+  background-position:0px -32px;
+}
+
+.spinDownBtn
+{
+  background-position:0px -8px;
+}
+
+.spinDownBtnHover
+{
+  background-position:0px -24px;
+}
+
+.spinDownBtnPress
+{
+  background-position:0px -40px;
+}

@@ -1,35 +1,68 @@
-{config_load file="$language/lang_$language.conf" section="checkout_confirmation"} 
+{config_load file="$language/lang_$language.conf" section="checkout_confirmation"}
 <h1>Kasse</h1>
-<div class="sfblock" id="checkout">
-    <img src="{$tpl_path}/bilder/bestaetigung-icon.png" alt="[Best&#228;tigung Icon]">
-    <form action="checkout_process.php" method="post">
-        <h2>Schritt 3 von 3 - {#text_confirm#}</h2>
-        <p>
-            <h3>{#text_products#}</h3>
-            <a href="{$PRODUCTS_EDIT}" tabindex="4">[&#228;ndern]</a>
-            {$PRODUCTS_BLOCK}
-            <div id="cart_final"><div id="cart_final1"><div id="cart_final2"><div id="cart_final3"><div id="cart_final4">
-                {$TOTAL_BLOCK}
-            </div></div></div></div></div>
-        </p>
-        <p>
-            <h3>{#text_shipping_address#}</h3>
-            <label>{$DELIVERY_LABEL}</label>
-            <h3>{#text_shipping_method#}</h3>
-            {$SHIPPING_METHOD}
-            <a href="{$SHIPPING_EDIT}" >[&#228;ndern]</a>
-        </p>
-        <p>
-            <h3>{#text_payment_address#}</h3>
-            {$BILLING_LABEL}
-            <h3>{#text_payment_method#}</h3>
-            {$PAYMENT_METHOD}
-            <a href="{$PAYMENT_EDIT}" tabindex="4">[&#228;ndern]</a>
-        </p>
-        <p>
-            <input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" >
-            <input class="buttons2-bold" type="submit" value="BESTELLUNG ABGEBEN!">
-        </p>
-    </form>
-    <br class="clear">
+<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/bestaetigung-icon.png" alt="[Best&#228;tigung Icon]"></div>
+<div class="spalte1_inhalt">
+	<form action="checkout_process.php" method="post">
+		<h2>Schritt 3 von 3 - {#text_confirm#}</h2>
+		<div class="kasse_absatz">
+			<div class="kasse_bestaetigung_adressen"><h3>{#text_products#}</h3></div>
+			<div class="kasse_bestaetigung_aendern">
+				<span class="normal_9px-unter-16px"><a href="{$PRODUCTS_EDIT}" tabindex="4">[&#228;ndern]</a></span>
+			</div>
+			<br class="endefloat">
+			<div class="normaltext">
+				{$PRODUCTS_BLOCK}
+				<br>
+				<div id="kasse_bestaetigung_gesamtbetrag0">
+					<div id="kasse_bestaetigung_gesamtbetrag1">
+						<div id="kasse_bestaetigung_gesamtbetrag2">
+							<div id="kasse_bestaetigung_gesamtbetrag3">
+								<div id="kasse_bestaetigung_gesamtbetrag4">
+									<div id="kasse_bestaetigung_gesamtbetrag_topspalte">{$TOTAL_BLOCK}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br class="endefloat">
+			</div>
+		</div>
+		<div class="kasse_absatz">
+			<div class="kasse_bestaetigung_adressen">
+				<h3>{#text_shipping_address#}</h3>
+				<div class="normaltext">
+					{$DELIVERY_LABEL}
+				</div>
+			</div>
+			<div class="kasse_bestaetigung_adressen">
+				<h3>{#text_shipping_method#}</h3>
+				<div class="normaltext">{$SHIPPING_METHOD}</div>
+			</div>
+			<div class="kasse_bestaetigung_aendern">
+				<span class="normal_9px-unter-16px"><a href="{$SHIPPING_EDIT}" tabindex="4">[&#228;ndern]</a></span>
+			</div>
+			<br class="endefloat">
+		</div>
+		<div class="kasse_absatz">
+			<div class="kasse_bestaetigung_adressen">
+				<h3>{#text_payment_address#}</h3>
+				<div class="normaltext">
+					{$BILLING_LABEL}
+				</div>
+			</div>
+			<div class="kasse_bestaetigung_adressen">
+				<h3>{#text_payment_method#}</h3>
+				<div class="normaltext">{$PAYMENT_METHOD}</div>
+			</div>
+			<div class="kasse_bestaetigung_aendern">
+				<span class="normal_9px-unter-16px"><a href="{$PAYMENT_EDIT}" tabindex="4">[&#228;ndern]</a></span>
+			</div>
+			<br class="endefloat">
+		</div>
+		<div class="kasse_buttons">
+			<input class="buttons2" type="button" value="&#60;&#60; Zur&#252;ck" tabindex="4"><input class="buttons2-bold" type="submit" value="BESTELLUNG ABGEBEN!" tabindex="4">
+		</div>
+	</form>
 </div>
+<br class="endefloat">

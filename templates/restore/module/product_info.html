@@ -1,110 +1,88 @@
 {config_load file="$language/lang_$language.conf" section="product_info"}
 {$PRODUCT_NAVIGATOR}
-<h1>{$PRODUCTS_NAME}</h1>
-
-<div id="product_info">
-
-
-
-
-    <form id="cart_quantity" action="{php} global $PHP_SELF; echo $PHP_SELF; {/php}?info=p{$PRODUCTS_ID}&action=add_product" method="post">
-        <input type="hidden" name="products_id" value="{$PRODUCTS_ID}" />
-    
-        <h4>Artikelbeschreibung</h4>
-
-
-        {if $PRODUCTS_DESCRIPTION !=''}
-            <div class="products_description">
-                {$PRODUCTS_DESCRIPTION}
-            </div>
-        {/if}
-
-        <h4>Daten</h4>
-
-        <table>
-        {if $PRODUCTS_MODEL!=''}
-            <tr>
-                <th>{#model#}</th>
-                <td>{$PRODUCTS_MODEL}</td>
-            </tr>
-        {/if}
-        {if $PRODUCTS_DISCOUNT}
-            <tr>
-                <th>Discount</th>
-                <td>{$PRODUCTS_DISCOUNT}</td>
-            </tr>
-        {/if}
-        {if $SHIPPING_NAME}
-            <tr>
-                <th>{#text_shippingtime#}</th>
-                <td>{$SHIPPING_NAME}</td>
-            </tr>
-        {/if}
-        {if $PRODUCTS_FSK18=='true'}
-            <tr>
-                <th>FSK</th>
-                <td><img src="{$tpl_path}img/fsk18.gif" alt="" /></td>
-            </tr>
-        {/if}
-        {if $PRODUCTS_FSK18=='true'}
-            <tr>
-                <th>FSK</th>
-                <td><img src="{$tpl_path}img/fsk18.gif" alt="" /></td>
-            </tr>
-        {/if}
-            <tr>
-                <th>Verpackungseinheit:</th>
-                <td>{$PRODUCTS_TRADING_UNIT} {#unit#}</td>
-            </tr>
-        
-            <tr>
-                <th></th>
-                <td>{$PRODUCTS_TAX_INFO}</td>
-            </tr>
-
-        {if $PRODUCTS_SHIPPING_LINK}
-            <tr>
-                <th></th>
-                <td>{$PRODUCTS_SHIPPING_LINK}</td>
-            </tr>
-        {/if}
-
-        </table>
-
-<!--        {if $MODULE_graduated_price !=''} 
-            <div>{$MODULE_graduated_price}</div>
-        {/if}
-
-
-        {if $MODULE_product_options !=''}
-            <div>{$MODULE_product_options}</div>
-        {/if}-->
-
-
-
-        {if $ADD_CART_BUTTON}
-            <div class="price">{$PRODUCTS_PRICE}</div>
-        {else}
-            <p>{$PRODUCTS_PRICE}</p>
-        {/if}
-
-        {if $ADD_CART_BUTTON}
-
-        <h4>Bestellen</h4>
-
-
-        <div class="cartbuttons">
-
-
-            <input id="products_qty_{$PRODUCTS_ID}" type="text" class="spin-button" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" />
-
-
-            {#unit#}
-
-            <noscript>
-                
-            </noscript>
-                <script type="text/javascript" language="javascript">
+<div id="detailansicht">
+	<h1>Artikel "{$PRODUCTS_NAME}"</h1>
+	<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+	<div id="detailansicht_bilder">
+		<div id="detailansicht_bilder-grosscontainer">
+			<div id="slideshowContainer" class="slideshowContainer" style="width:300px; height:200px;">Javascript nicht aktiviert.</div> <!--HIER WIRD EIN IMG ERZEUGT-->
+		</div>
+		{if $PRODUCTS_IMAGES}
+			{foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
+				<div class="detailansicht_bilder-weiterehuelle1"><div class="detailansicht_bilder-weiterehuelle2">
+					<!--[if lte IE 7]><table><tr><td><![endif]-->
+						<a href="{$product_image.url_big}" class="slideshowThumbnail" tabindex="4"><img class="detailansicht_bilder-kleine" src="{$product_image.url_small}" alt=""></a>
+					<!--[if lte IE 7]></td></tr></table><![endif]-->
+				</div></div>
+			{/foreach}
+		{else}
+			<img class="detailansicht_bilder-gross slideshowThumbnail" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
+		{/if}
+		<script type="text/javascript">
+			{literal}
+			window.addEvent('domready',function(){
+				var obj = {
+					wait: 3000, 
+					effect: 'fade',
+					duration: 1000, 
+					loop: true, 
+					thumbnails: true,
+					backgroundSlider: true,
+					onClick: function(i){alert(i)}
+				}
+				show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
+				show.play();
+			});
+			{/literal}
+		</script>
+	</div>
+	<div id="detailansicht_beschreibung">
+		{if $PRODUCTS_DESCRIPTION !='' OR $PRODUCTS_FSK18=='true'}
+			<h2>Artikelbeschreibung</h2>
+			<div class="normaltext">
+				{$PRODUCTS_DESCRIPTION}
+				{if $PRODUCTS_FSK18=='true'}
+					<div><img src="{$tpl_path}img/fsk18.gif" alt=""></div>
+				{/if}
+			</div>
+			<br>
+		{/if}
+		{if $PRODUCTS_MODEL!='' OR $SHIPPING_NAME}
+			<h2>Daten</h2>
+			<div class="normaltext">
+				{if $PRODUCTS_MODEL!=''}
+					<div class="detailansicht_beschreibung_tabelle">{#model#}</div>
+					<div class="detailansicht_beschreibung_tabelle">{$PRODUCTS_MODEL}</div>
+					<br class="endefloat">
+				{/if}
+				{if $SHIPPING_NAME}
+					<div class="detailansicht_beschreibung_tabelle">{#text_shippingtime#}</div>
+					<div class="detailansicht_beschreibung_tabelle">{$SHIPPING_NAME}</div>
+					<br class="endefloat">
+				{/if}
+			</div>
+			<br>
+		{/if}
+		{if $MODULE_product_options!='' OR $PRODUCTS_TRADING_UNIT!='1'}
+			<h2>Weitere Informationen</h2>
+			<div class="normaltext">
+				{$MODULE_product_options}<br>
+				Verpackungseinheit: {$PRODUCTS_TRADING_UNIT} {#unit#}<br>
+				{$PRODUCTS_SHIPPING_LINK}
+			</div>
+			<br>
+		{/if}
+		<h2>Bestellen</h2>
+		<div id="detailansicht_preis-container">
+			<div id="detailansicht_preis">{$PRODUCTS_PRICE}</div>
+			<div id="detailansicht_preis-zusatz">inkl. Mwst. {$PRODUCTS_SHIPPING_LINK}</div>
+		</div>
+		<div id="detailansicht_indenwarenkorb-container">
+			<div class="normaltext">
+				<form action="{php} global $PHP_SELF; echo $PHP_SELF; {/php}?info=p{$PRODUCTS_ID}&action=add_product" method="post"><div>
+					<label id="indenwarenkorb-label" for="products_qty_{$PRODUCTS_ID}">Anzahl:</label><input class="eingabefeld-20px" type="text" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" id="products_qty_{$PRODUCTS_ID}" tabindex="4"><input id="indenwarenkorb-button" type="image" src="{$tpl_path}/bilder/hintergrund/ie_verlauf.gif" alt="[In den Warenkorb legen-Button]" tabindex="4"><input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
+				</div></form>
+				<script type="text/javascript" language="javascript">
 
                     var inp = document.getElementById("products_qty_{$PRODUCTS_ID}");
                     var d_parent = inp.parentNode;
@@ -125,53 +103,29 @@
 
                     spinCtrl.StartListening();
                 </script>
-            <input type="image" src="{$tpl_path}/bilder/kaufen_020-200-000.png" alt="{#add_cart_button#}" title="{#add_cart_button#}" />
-        </div>
-        {/if }
-
-
-    </form>
-
-
-{if $PRODUCTS_IMAGES}
-
-    <div id="slideshowContainer" class="slideshowContainer">Javascript nicht aktiviert.</div>
-
-
-    <div id="thumbnails">
-        {foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
-            <a href="{$product_image.url_big}" class="slideshowThumbnail"><img  src="{$product_image.url_small}" /></a>
-        {/foreach}
-    </div>
-<!--
-    <ul>
-        <li><a href="#" onclick="show.play(); return false;">Play</a></li>
-        <li><a href="#" onclick="show.stop(); return false;">Stop</a></li>
-        <li><a href="#" onclick="show.next(); return false;">N&auml;chstes</a></li> 
-        <li><a href="#" onclick="show.previous(); return false;">Vorheriges</a></li>
-    </ul>-->
-
-    <script type="text/javascript">
-    {literal}
-    window.addEvent('domready',function(){
-        var obj = {
-            wait: 3000, 
-            effect: 'fade',
-            duration: 1000, 
-            loop: true, 
-            thumbnails: true,
-            backgroundSlider: false,
-            onClick: function(i){alert(i)}
-        }
-        show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
-        show.play();
-    });
-    {/literal}
-    </script>
-{else}
-    <img class="product_image" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="{$PRODUCTS_NAME}" />
-{/if}
-
-
-
+			</div>
+		</div>
+	</div>
+	<br class="endefloat">
 </div>
+
+
+
+{if $PRODUCTS_VPE}
+	{$PRODUCTS_VPE}
+{/if}
+{$PRODUCTS_DISCOUNT}
+{if $MODULE_graduated_price !=''}
+	{$MODULE_graduated_price}
+{/if}
+{$PRODUCTS_TAX_INFO}
+{if $ADD_CART_BUTTON}
+{literal}
+	<script type="text/javascript" language="javascript">
+	$(function()
+	{
+		$("#products_qty_{/literal}{$PRODUCTS_ID}{literal}").SpinButton({min:{/literal}{$PRODUCTS_TRADING_UNIT}{literal},step:{/literal}{$PRODUCTS_TRADING_UNIT}{literal}});
+	});
+	</script>
+{/literal}
+{/if}

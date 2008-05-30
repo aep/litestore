@@ -1,60 +1,65 @@
 {config_load file="$language/lang_$language.conf" section="shopping_cart"}
 <h1>Warenkorb</h1>
-<img src="{$tpl_path}/bilder/warenkorb-icon.png" alt="[Warenkorb Icon]" align="left">
-<div id="cart">
-    {$MODULE_gift_cart}
-    {if $info_message!=''}
-        {$info_message}
-    {/if}
-    {if $cart_empty==true}
-        <div>
-            <table cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="artikel">{#text_article#}</th>
-                        <th class="anzahl">{#text_qty#}</th>
-                        <th class="einzelpreis">{#text_single#}</th>
-                        <th class="gesammtpreis">{#text_total#}</th>
-                        <th class="entf">Entf.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="5" id="warenkorb_leer">
-                            Ihr Warenkorb ist noch leer. Zur&#252;ck zum <a href="/" >Onlineshop</a>.
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="cart_final"><div id="cart_final1"><div id="cart_final2"><div id="cart_final3"><div id="cart_final4">
-                Zwischensumme: 0,00 EUR
-            </div></div></div></div></div>
-            <br class="clear">
-        </div>
-    {else}
-        <form action="shopping_cart.php?action=update_product" method="post">
-            {$HIDDEN_OPTIONS}
-
-            {$MODULE_order_details}
-            {if $info_message_1!=''}
-                {$info_message_1}
-                {$min_order}
-                {$info_message_2}
-                {$order_amount}
-            {/if}
-            <input class="button" type="submit" value="Warenkorb aktualisieren" >
-            <input type="hidden" name="x" value="1"> 
-            <input type="hidden" name="y" value="1">
-        </form>
-        <form action="/checkout" method="post">
-            <input class="button" type="submit" value="Weiter zur Kasse &#62;&#62;" >
-        </form>
-    {/if}
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/warenkorb-icon.png" alt="[Warenkorb Icon]"></div>
+<div class="spalte1_inhalt">
+	{$MODULE_gift_cart}
+	{if $info_message!=''}
+		{$info_message}
+	{/if}
+	{if $cart_empty==true}
+		<div class="normaltext">
+			<table id="warenkorb" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="warenkorb_artikel">Artikel</th>
+						<th class="warenkorb_anzahl">Anzahl</th>
+						<th class="warenkorb_einzelpreis">Einzelpreis</th>
+						<th class="warenkorb_gesamtpreis">Gesamtpreis</th>
+						<th class="warenkorb_entf">Entf.</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+							<td colspan="5" id="warenkorb_leer">
+								Ihr Warenkorb ist noch leer. Zur&#252;ck zum <a href="/" tabindex="4">Onlineshop</a>.
+							</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="kasse_bestaetigung_gesamtbetrag0">
+				<div id="kasse_bestaetigung_gesamtbetrag1">
+					<div id="kasse_bestaetigung_gesamtbetrag2">
+						<div id="kasse_bestaetigung_gesamtbetrag3">
+							<div id="warenkorb_gesamtbetrag4">
+								<div id="warenkorb_gesamtbetrag_topspalte">Zwischensumme: 0,00 EUR</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br class="endefloat">
+		</div>
+	{else}
+		<div id="warenkorb-voll">
+			<form action="shopping_cart.php?action=update_product" method="post">
+				<div class="normaltext">
+					{$HIDDEN_OPTIONS}
+					{$MODULE_order_details}
+					{if $info_message_1!=''}
+						{$info_message_1}
+						{$min_order}
+						{$info_message_2}
+						{$order_amount}
+					{/if}
+				</div>
+				<input class="buttons2" type="submit" value="Warenkorb aktualisieren" tabindex="4">
+				<input type="hidden" name="x" value="1"> 
+				<input type="hidden" name="y" value="1">
+			</form>
+			<form action="/checkout" method="post">
+				<input class="buttons2" type="submit" value="Weiter zur Kasse &#62;&#62;">
+			</form>
+		</div>
+	{/if}
 </div>
-<br class="clear">
-
-
-
-
-
-
+<br class="endefloat">
