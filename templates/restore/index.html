@@ -1,76 +1,102 @@
 {config_load file="$language/lang_$language.conf" section="index"}
+
+<!--ARVID-->
+	<link rel="stylesheet" href="{$tpl_path}variant/product_listing/listing1.css">
+	<link rel="stylesheet" href="{$tpl_path}variant/kategoriespalte/rechts.css">
+	<link rel="stylesheet" href="{$tpl_path}variant/hintergrund_inhalt/papier.css">
+	
 </head>
-<body style="background-image:url({$tpl_path}/variant/background/{$CURRENT_BACKGROUND});" >
-<div id="bodywrap1">
-<div id="bodywrap2">
-    <div id="anzeige">
-        {$banner}
-    </div>
-
-    <div id="banner">
-        <div id="logo">
-            <img src="{$tpl_path}/variant/logo/{$CURRENT_LOGO}" alt="{$store_name}">
-        </div>
-        <div id="login_kontakt">
-            {php}   if (isset($_SESSION['customer_id'])) {   {/php}
-                <form action="/logout" method="get">
-                Wieder ausloggen: <input type="submit" value="Logout" tabindex="4">
-                </form>
-                {php}   }   else   {   {/php}
-                    {$login}
-
-                {php}   }   {/php}
-                <br class="clear">
-        </div>
-        <br class="clear">
-        <div id="navigation1">
-            <ul>
-                <li><a id="navigation1-hintergrundstart" href="/" tabindex="2" >Shop-Startseite</a></li>
-                <li><a href="/mycart" tabindex="2" >Warenkorb </a></li>
-
-                {php}   if   (isset($_SESSION['customer_id'])) {   {/php}
-                    <li><a href="/checkout" tabindex="2" >Kasse</a></li>
-                    <li><a href="/myaccount" tabindex="2" >Ihr Konto</a></li>
-                {php}   } else {   {/php}
-                    <li><a href="/login" tabindex="2" >Konto erstellen</a></li>
-                {php}   }   {/php}
-            </ul>
-        </div>
-    </div>
-    <div id="sidebarinhaltwrap">
-        <div id="breadcrumb">Sie sind hier: {$navtrail}</div>
-        <br class="clear">
-        <div id="sidebar">
-            {$sidebar}
-        </div>
-        <div id="inhalt">
-            {$main_content}
-        </div>
-
-        <br class="clear">
-    </div>
-
-    <br >
-    <div id="footer">
-        &copy; {$store_name}
-    </div>
-
-    <br class="clear">
 
 
 
-</div>
-</div>
+<body style="background-image:url({$tpl_path}variant/background/{$CURRENT_BACKGROUND});" >
+<div id="huelle_innen">
+	<div id="huelle_innen2">
+		
+		
+		<div id="inhaltsspalte">
+		
+		
+		
+			<div id="banner">
+<!--ARVID-->	<div id="logo" style="background-image:url({$tpl_path}bilder/bannerbilder/papier1.gif)"><img src="{$tpl_path}variant/logo/{$CURRENT_LOGO}" alt="{$store_name}"></div>
+				<div id="login">
+					{php}   if (isset($_SESSION['customer_id'])) {   {/php}
+						<form action="/logout" method="get"><div>
+							<div>Wieder ausloggen: <input class="buttons3" type="submit" value="Logout" tabindex="4"></div>
+						</div></form>
+					{php}   }   else   {   {/php}
+						{$login}
+					{php}   }   {/php}
+				</div>
+				<div id="navigation1">
+					<ul>
+						<li><div id="navigation1-hintergrundstart"><a href="/" tabindex="2" accesskey="n">Shop-Startseite</a></div></li>
+						<li><a href="/mycart" tabindex="2" accesskey="n">Warenkorb</a></li>
+						{php}   if   (isset($_SESSION['customer_id'])) {   {/php}
+						<li><a href="/checkout" tabindex="2" accesskey="n">Kasse</a></li>
+						<li><a href="/myaccount" tabindex="2" accesskey="n">Ihr Konto</a></li>
+						{php}   } else {   {/php}
+						<li><a href="/login" tabindex="2" accesskey="n">Konto erstellen</a></li>
+						{php}   }   {/php}
+					</ul>
+				</div>
+			</div><!--banner-->
+			
+			
+			
+			<div id="inhalt">
+				<div id="spalte1">
+					<div class="spalte1_siesindhier">Sie sind hier: {$navtrail}</div>
+					{$main_content}
+				</div>
+				<div id="spalte2">
+					{$sidebar}
+				</div>
+				<br class="endefloat">
+			</div><!--content-->
+			
+			
+			
+			<div id="footer">
+			</div><!--footer-->
+		
+		
+		
+			<div id="endzeile">&copy; {$store_name}</div>
+		
+		
+		
+		</div><!--inhaltsspalte-->
+	
+	
+	
+	
+		<div id="werbespalte">
+			{$banner}
+		</div><!--werbespalte-->
+		
+		
+		
+		<br class="endefloat">
 
-    <!--[if lte IE 7]><div id="internetexplorer"><div id="internetexplorer_inhalt">
-        <div id="internetexplorer_bild"><img src="/templates/restore/bilder/antiie.png" alt="Firefox frisst IE"></div>
-        <div id="internetexplorer_text">
-            Sie beutzen den Interent-Explorer. Laden Sie sich jetzt lieber den Firefox, Safari oder einen anderen Browser - Jeder Webdesigner dankt ihnen daf&uuml;r!
-            <ul>
-                <li><a href="http://www.mozilla-europe.org/de/products/firefox/" tabindex="99">Firefox downloaden</a></li>
-                <li><a href="http://www.apple.com/de/safari/" tabindex="99">Safari downloaden</a></li>
-                <li><a href="http://benchfrooser.de/anti_ie/" tabindex="99">Mehr &#252;ber den Internet-Exporer</a></li>
-            </ul>
-        </div>
-        <br class="clear">
-    </div></div><![endif]-->
+
+	</div><!--huelle_innen2-->
+</div><!--huelle_innen-->
+
+
+
+<!--[if lte IE 7]>
+<div id="internetexplorer"><div id="internetexplorer_inhalt">
+	<div id="internetexplorer_bild"><img src="bilder/antiie.png" alt="Firefox frisst IE"></div>
+	<div id="internetexplorer_text">
+		Sie beutzen den Interent-Explorer. Laden Sie sich jetzt lieber den Firefox, Safari oder einen anderen Browser - Jeder Webdesigner dankt ihnen dafür!
+		<ul>
+			<li><a href="http://www.mozilla-europe.org/de/products/firefox/" tabindex="99">Firefox downloaden</a></li>
+			<li><a href="http://www.apple.com/de/safari/" tabindex="99">Safari downloaden</a></li>
+			<li><a href="http://benchfrooser.de/anti_ie/" tabindex="99">Mehr &#252;ber den Internet-Exporer</a></li>
+		</ul>
+	</div>
+	<br class="endefloat">
+</div></div>
+<![endif]-->
