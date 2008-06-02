@@ -88,3 +88,8 @@
 	max-width:80px;
 	max-height:80px;
 }
+#slideshowContainer img
+{
+	border:1px solid #b4b4b4;
+	padding:1px;
+}
