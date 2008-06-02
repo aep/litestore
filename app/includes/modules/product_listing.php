@@ -14,7 +14,6 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
 $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
 $result = true;
@@ -63,9 +62,12 @@ if ($listing_split->number_of_rows > 0)
 		while ($listing = xtc_db_fetch_array($listing_query, true))
         {
             $rows ++;
-            $findimg = xtc_db_fetch_array(xtDBquery("select  url_small  from products_images where products_id=".$listing["products_id"].""),true);
-            $listing["image_url"]=$findimg["url_small"];
-            $module_content[]= $product->buildDataArray($listing);
+            $xe=$product->buildDataArray($listing);
+            $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"].""),true);
+            $xe["url_small"]=$findimg["url_small"];
+            $xe["url_middle"]=$findimg["url_middle"];
+            $xe["url_big"]=$findimg["url_big"];
+            $module_content[]=$xe; 
         }
 } 
 else 

@@ -9,6 +9,9 @@
 	{#text_show#}
 	{$MANUFACTURER_DROPDOWN}
 {/if}
+
+
+
 <div id="listing">
 	<!--[if lte IE 7]><div id="ie_listing_startende">&#160;</div><![endif]-->
 	{foreach name=aussen item=module_data from=$module_content} 
@@ -17,8 +20,8 @@
 				<a class="listing_artikel_inhalt-link" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><!--[if lte IE 7]></a><![endif]-->
 					<em class="listing_artikel_produktbild-container">
 						<!--[if lte IE 7]></em><table cellspacing="0"><tr><td><a href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
-							{if  $module_data.PRODUCTS_IMAGE!=''}
-								<img class="listing_artikel_produktbild-bild" src="{$module_data.PRODUCTS_IMAGE}" alt="">
+							{if  $module_data.url_middle!=''}
+								<img class="listing_artikel_produktbild-bild" src="{$module_data.url_middle}" alt="">
 							{else}
 								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
 							{/if}
