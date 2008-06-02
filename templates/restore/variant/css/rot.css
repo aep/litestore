@@ -744,8 +744,6 @@ textarea
 		}
 			#listing_pagination b, #listing_pagination a
 			{
-				margin-left:1px;
-				margin-right:1px;
 				border:1px solid #b4b4b4;
 				padding:3px 5px 3px 5px;
 				color:#000000;
