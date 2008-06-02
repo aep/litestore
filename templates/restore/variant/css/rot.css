@@ -520,11 +520,11 @@ textarea
 {
 	position:relative;
 	top:-101px;
-	padding-right:58px;
 	height:30px;
 	font-size:0.75em;
 	text-align:right;
 	color:#4c4c4c;
+	padding-right:55px;
 }
 #navigation1 ul
 {
@@ -573,6 +573,17 @@ textarea
 }
 
 		/*.........................................eigentlicher Seiteninhalt.........................................*/
+		
+		.account_history_info
+		{
+			text-align:right;
+		}
+		#account_history_info-sum
+		{
+			font-weight:bold;
+			font-size:1.2em;
+			text-align:right;
+		}
 		
 		/*CATEGORIE_LISTING*/
 		#categorie_listing ul li

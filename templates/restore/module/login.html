@@ -32,12 +32,14 @@
 			</div>
 		{/if}
 		<h2>{#title_returning#}</h2>
-		<form action="/login" method="post">
+		<form action="/login" method="post"><div>
+			<div class="normal_9px-unter-16px">{#text_email#}</div>
 			<div class="formularzeile"><input class="logineingabefeld" type="text" name="email_address" maxlength="50" tabindex="4"></div>
+			<div class="normal_9px-unter-16px">{#text_password#}</div>
 			<div class="formularzeile"><input class="logineingabefeld" type="password" name="password" maxlength="50" tabindex="4"></div>
 			<div id="login_passwortvergssen"><a href="{$LINK_LOST_PASSWORD}" tabindex="4">{#text_lost_password#}</a></div>
 			<div class="formular_buttons"><input class="buttons2" type="submit" value="Einloggen!" tabindex="4"></div>
-		</form>
+		</div></form>
 	</div>
 </div>
 <br class="endefloat">
