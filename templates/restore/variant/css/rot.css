@@ -213,7 +213,7 @@ input.buttons2-bold
 input.logineingabefeld
 {
 	padding-top:1px;
-	width:140px;
+	width:160px;
 }
 input.eingabefeld-20px
 {
@@ -523,6 +523,7 @@ textarea
 	height:30px;
 	font-size:0.75em;
 	text-align:right;
+	padding-left:470px;
 	color:#4c4c4c;
 	padding-right:55px;
 }

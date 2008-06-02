@@ -69,9 +69,22 @@
 		{if $MODULE_product_options!='' OR $PRODUCTS_TRADING_UNIT!='1'}
 			<h2>Weitere Informationen</h2>
 			<div class="normaltext">
-				{$MODULE_product_options}<br>
-				Verpackungseinheit: {$PRODUCTS_TRADING_UNIT} {#unit#}<br>
-				{$PRODUCTS_SHIPPING_LINK}
+				{if $MODULE_product_options}
+					<div>{$MODULE_product_options}</div>
+				{/if}
+				<div>Verpackungseinheit: {$PRODUCTS_TRADING_UNIT} {#unit#}</div>
+				{if $PRODUCTS_VPE}
+					<div>{$PRODUCTS_VPE}</div>
+				{/if}
+				{if $PRODUCTS_DISCOUNT}
+					<div>{$PRODUCTS_DISCOUNT}</div>
+				{/if}
+				{if $MODULE_graduated_price !=''}
+					<div>{$MODULE_graduated_price}</div>
+				{/if}
+				{if $PRODUCTS_TAX_INFO}
+					<div>{$PRODUCTS_TAX_INFO}</div>
+				{/if}
 			</div>
 			<br>
 		{/if}
@@ -117,17 +130,6 @@
 	</div>
 	<br class="endefloat">
 </div>
-
-
-
-{if $PRODUCTS_VPE}
-	{$PRODUCTS_VPE}
-{/if}
-{$PRODUCTS_DISCOUNT}
-{if $MODULE_graduated_price !=''}
-	{$MODULE_graduated_price}
-{/if}
-{$PRODUCTS_TAX_INFO}
 {if $ADD_CART_BUTTON}
 {literal}
 	<script type="text/javascript" language="javascript">

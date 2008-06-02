@@ -11,7 +11,7 @@
 	}
 	.listing_artikel:hover
 	{
-		font-weight:bold;
+		color:#FF0000;
 	}
 		.listing_artikel_inhalt-container
 		{
