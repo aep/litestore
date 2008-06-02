@@ -83,31 +83,37 @@
 		<div id="detailansicht_indenwarenkorb-container">
 			<div class="normaltext">
 				<form action="{php} global $PHP_SELF; echo $PHP_SELF; {/php}?info=p{$PRODUCTS_ID}&action=add_product" method="post"><div>
-					<label id="indenwarenkorb-label" for="products_qty_{$PRODUCTS_ID}">Anzahl:</label><input class="eingabefeld-20px" type="text" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" id="products_qty_{$PRODUCTS_ID}" tabindex="4"><input id="indenwarenkorb-button" type="image" src="{$tpl_path}/bilder/hintergrund/ie_verlauf.gif" alt="[In den Warenkorb legen-Button]" tabindex="4"><input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td><label id="indenwarenkorb-label" for="products_qty_{$PRODUCTS_ID}">Anzahl:</label></td>
+							<td><input class="eingabefeld-20px" type="text" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" id="products_qty_{$PRODUCTS_ID}" tabindex="4"></td>
+							<td><input id="indenwarenkorb-button" type="image" src="{$tpl_path}/bilder/hintergrund/ie_verlauf.gif" alt="[In den Warenkorb legen-Button]" tabindex="4"><input type="hidden" name="products_id" value="{$PRODUCTS_ID}"></td>
+						</tr>
+					</table>
 				</div></form>
-				<script type="text/javascript" language="javascript">
-
-                    var inp = document.getElementById("products_qty_{$PRODUCTS_ID}");
-                    var d_parent = inp.parentNode;
-
-                    var spinCtrl = new SpinControl
-                        (
-                            {$PRODUCTS_TRADING_UNIT},
-                            {$PRODUCTS_TRADING_UNIT},
-                            {$PRODUCTS_TRADING_UNIT}*1000,
-                            {$PRODUCTS_TRADING_UNIT}
-                        ); 
-
-
-                    spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(1, 500));
-                    spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
-
-                    d_parent.replaceChild(spinCtrl.GetContainer(),inp);
-
-                    spinCtrl.StartListening();
-                </script>
+				
 			</div>
 		</div>
+		<script type="text/javascript" language="javascript">
+			var inp = document.getElementById("products_qty_{$PRODUCTS_ID}");
+			var d_parent = inp.parentNode;
+
+			var spinCtrl = new SpinControl
+				(
+					{$PRODUCTS_TRADING_UNIT},
+					{$PRODUCTS_TRADING_UNIT},
+					{$PRODUCTS_TRADING_UNIT}*1000,
+					{$PRODUCTS_TRADING_UNIT}
+				); 
+
+
+			spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(1, 500));
+			spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
+
+			d_parent.replaceChild(spinCtrl.GetContainer(),inp);
+
+			spinCtrl.StartListening();
+		</script>
 	</div>
 	<br class="endefloat">
 </div>
