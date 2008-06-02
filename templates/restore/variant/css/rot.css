@@ -742,35 +742,24 @@ textarea
 			padding-top:20px;
 			text-align:center;
 		}
-			.paginationzurueckweiter, .paginationseite, .paginationseite_aktiv
+			#listing_pagination b, #listing_pagination a
 			{
+				margin-left:1px;
+				margin-right:1px;
 				border:1px solid #b4b4b4;
 				padding:3px 5px 3px 5px;
 				color:#000000;
 				text-decoration:none;
 				background-color:#f5f5f5;
+				font-weight:normal;
 			}
-			.paginationzurueckweiter
-			{
-				margin-left:4px;
-				margin-right:4px;
-			}
-			.paginationseite
-			{
-				margin-left:1px;
-				margin-right:1px;
-			}
-			.paginationzurueckweiter:hover, .paginationzurueckweiter:focus, .paginationseite:hover, .paginationseite:focus
-			{
-				background-color:#b4b4b4;
-				text-decoration:none;
-			}
-			.paginationseite_aktiv
+			#listing_pagination b
 			{
 				background-color:#b4b4b4;
 			}
-			.paginationseite_aktiv:hover, .paginationseite_aktiv:focus
+			#listing_pagination a:hover, #listing_pagination a:focus
 			{
+				background-color:#b4b4b4;
 				text-decoration:none;
 			}
 		#listing_erklaerungen
@@ -1028,6 +1017,15 @@ textarea
 			#warenkorb-voll form .buttons2
 			{
 				margin-top:10px;
+			}
+			#slideshowContainer
+			{
+				display:table-cell;
+				width:354px;
+				height:357px;
+				text-align:center;
+				vertical-align:middle;
+				background:url(../../bilder/javascript.png) center no-repeat;
 			}
 
 		/*KASSE*/

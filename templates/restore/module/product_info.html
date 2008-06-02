@@ -4,7 +4,7 @@
 	<h1>Artikel "{$PRODUCTS_NAME}"</h1>
 	<div id="detailansicht_bilder">
 		<div id="detailansicht_bilder-grosscontainer">
-			<div id="slideshowContainer" class="slideshowContainer" style="width:300px; height:200px;">Javascript nicht aktiviert.</div> <!--HIER WIRD EIN IMG ERZEUGT-->
+			<div id="slideshowContainer" class="slideshowContainer"></div> <!--HIER WIRD EIN IMG ERZEUGT-->
 		</div>
 		{if $PRODUCTS_IMAGES}
 			{foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
@@ -15,7 +15,11 @@
 				</div></div>
 			{/foreach}
 		{else}
-			<img class="detailansicht_bilder-gross slideshowThumbnail" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
+			<div class="detailansicht_bilder-weiterehuelle1"><div class="detailansicht_bilder-weiterehuelle2">
+				<!--[if lte IE 7]><table><tr><td><![endif]-->
+					<img class="detailansicht_bilder-gross slideshowThumbnail" src="{$tpl_path}/bilder/kein_bild-thumb.png" alt="">
+				<!--[if lte IE 7]></td></tr></table><![endif]-->
+			</div></div>
 		{/if}
 		<script type="text/javascript">
 			{literal}

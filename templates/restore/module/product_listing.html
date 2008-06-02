@@ -1,4 +1,4 @@
-{config_load file="$language/lang_$language.conf" section="index"} 
+{config_load file="$language/lang_$language.conf" section="index"}
 <h1>Produkte aus der Kategorie <span class="linkfarbe">{$CATEGORIES_NAME}</span></h1>
 {if $CATEGORIES_DESCRIPTION}
 <div class="normaltext">
@@ -20,7 +20,7 @@
 							{if  $module_data.PRODUCTS_IMAGE!=''}
 								<img class="listing_artikel_produktbild-bild" src="{$module_data.PRODUCTS_IMAGE}" alt="">
 							{else}
-								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-mittel.png" alt="">
+								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
 							{/if}
 						<!--[if lte IE 7]></a></td></tr></table><em><![endif]-->
 					</em>
@@ -41,9 +41,8 @@
 <div class="normaltext">
 	<div id="listing_pagination">
 		<div>
-			{$PAGINATION} <!-- a kack selektieren, evtl first child oder php-->
-			<a class="paginationzurueckweiter" href="#" tabindex="4">&#60;&#60; zur&#252;ck</a><a class="paginationseite" href="#" tabindex="4">1</a><a class="paginationseite" href="#" tabindex="4">2</a><a class="paginationseite" href="#" tabindex="4">3</a><a class="paginationseite_aktiv" href="#" tabindex="4">4</a><a class="paginationseite" href="#" tabindex="4">5</a><a class="paginationseite" href="#" tabindex="4">6</a><a class="paginationseite" href="#" tabindex="4">7</a><a class="paginationseite" href="#" tabindex="4">8</a><a class="paginationseite" href="#" tabindex="4">9</a><a class="paginationseite" href="#" tabindex="4">...</a><a class="paginationseite" href="#" tabindex="4">29</a><a class="paginationzurueckweiter" href="#" tabindex="4">weiter &#62;&#62;</a>
+			{$PAGINATION}
 		</div>
 	</div>
-	<div id="listing_erklaerungen">{$TEXT_NUMBER_OF_PRODUCTS} Alle Preise inkl. Mwst. zzgl. Versandkosten</div>
+	<div id="listing_erklaerungen">{$TEXT_NUMBER_OF_PRODUCTS}. Alle Preise inkl. Mwst. zzgl. Versandkosten.</div>
 </div>
