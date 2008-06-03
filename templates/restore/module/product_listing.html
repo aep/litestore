@@ -1,4 +1,8 @@
 {config_load file="$language/lang_$language.conf" section="index"}
+
+
+
+
 <h1>Produkte aus der Kategorie <span class="linkfarbe">{$CATEGORIES_NAME}</span></h1>
 {if $CATEGORIES_DESCRIPTION}
 <div class="normaltext">
@@ -17,8 +21,8 @@
 				<a class="listing_artikel_inhalt-link" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><!--[if lte IE 7]></a><![endif]-->
 					<em class="listing_artikel_produktbild-container">
 						<!--[if lte IE 7]></em><table cellspacing="0"><tr><td><a href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
-							{if  $module_data.PRODUCTS_IMAGE!=''}
-								<img class="listing_artikel_produktbild-bild" src="{$module_data.PRODUCTS_IMAGE}" alt="">
+							{if  $module_data.url_middle!=''}
+								<img class="listing_artikel_produktbild-bild" src="{$module_data.url_middle}" alt="">
 							{else}
 								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
 							{/if}

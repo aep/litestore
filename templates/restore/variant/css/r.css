@@ -1,0 +1,141 @@
+*
+{
+    margin:0px;
+    padding:0px;
+}
+html
+{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+img
+{
+    border:none;
+}
+
+
+.clear
+{
+    clear:both;
+}
+
+
+
+
+
+/*********index.html wrap************/
+
+#indexhtml_s_wrap
+{
+    width:1102px;
+    margin:0 auto;
+}
+
+#advertising
+{
+    width:120px;
+    margin-top:30px;
+    float:right;
+    background:#555;
+    color:#fff;
+    text-align:center;
+    border:1px solid #555;
+}
+
+#indexhtml_content_wrap
+{
+    float:left;
+    width:916px;
+    margin:0 auto;
+    background:url(../../bilder/hintergrund/contentpapier.png);
+    padding-left:32px;
+    padding-right:32px; 
+}
+
+#banner
+{
+    float:left;
+
+    width:916px;
+    margin:0 auto;
+    padding-left:32px;
+    padding-right:32px;
+    padding-top:34px;
+    background:url(../../bilder/hintergrund/bannerpapier.png);
+}
+
+#footer
+{
+    float:left;
+    color:#fff;
+    width:916px;
+    margin:0 auto;
+    height:56px;
+    padding:32px;
+    background:url(../../bilder/hintergrund/footerkasten.png);
+    text-align:center;
+}
+
+/*********index.html login/logout form************/
+
+#login
+{
+    width:850px;
+    position:absolute; 
+    top:50px;
+    font-size:x-small;
+}
+
+#login form
+{
+    float:right;
+}
+
+
+
+/*********index.html top navigation************/
+
+
+
+#topnav 
+{
+    width:910px;
+    height:32px;
+    padding-left:6px;
+    background-image:url(../../bilder/farben/rot_navigation1.png);
+}
+
+#topnav ul
+{
+    height:32px;
+    list-style:none;
+}
+
+#topnav  ul li
+{
+    height:32px;
+    float:left;
+}
+
+#topnav ul li a
+{
+    float:left;
+    display:block;
+    height:32px;
+    line-height:32px;
+    padding-left:16px;
+    padding-right:16px;
+    background:url(../../bilder/farben/rot_navigation1_hover.png) bottom right no-repeat;
+    color:#fff;
+}
+#topnav ul li a:hover
+{
+    background:url(../../bilder/farben/rot_navigation1_hover.png) top right no-repeat;
+}
+
+
+
+
+
+
+            
