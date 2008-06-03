@@ -1,11 +1,13 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
 {if $BOX_CONTENT}
-	<div id="box_content">
-		<div class="boxueberschrift"><h1>{#heading_content#}</h1></div>
-		<ul>
-			{foreach from=$BOX_CONTENT item=entry}
-				<li><a href="{$entry.url}" tabindex="3" accesskey="m">{$entry.name}</a></li>
-			{/foreach}
-		</ul>
-	</div>
+    <div id="box_content" class="box">
+        <h3>{#heading_content#}</h3>
+        <div class="box_content">
+            <ul>
+                {foreach from=$BOX_CONTENT item=entry}
+                    <li><a href="{$entry.url}" >{$entry.name}</a></li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
 {/if}
