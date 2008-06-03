@@ -13,6 +13,11 @@ img
     border:none;
 }
 
+input
+{
+    vertical-align:middle;
+}
+
 
 .clear
 {
@@ -72,7 +77,7 @@ img
     margin:0 auto;
     height:56px;
     padding:32px;
-    background:url(../../bilder/hintergrund/footerkasten.png);
+    background:url(../../bilder/hintergrund/footerpapier.png);
     text-align:center;
 }
 
@@ -135,7 +140,48 @@ img
 
 
 
+/*********sidebar************/
+
+#indexhtml_content
+{
+    float:left;
+    width:720px;
+}
+
+#sidebar
+{
+    float:right;
+    width:180px;
+}
+
+.box
+{
+    margin-bottom:1em;
+}
 
 
+.box h3
+{
+    color:#333;
+    font-size:1em;
+    font-weight:normal;
+    text-transform:uppercase;
+    text-align:center;
+    padding-bottom:8px;
+    background:url(../../bilder/boxueberschrift_trennlinie.png) bottom left no-repeat;
+}
+
+.box .box_content
+{
+
+    padding:5px;
+}
+
+
+
+#box_search input.submit
+{
+    text-align:right;
+}
 
             

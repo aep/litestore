@@ -1,19 +1,26 @@
 {config_load file="$language/lang_$language.conf" section="boxes"}
-<div id="box_kategorien">
-	<div class="boxueberschrift"><h1>{#heading_categories#}</h1></div>
-	<ul>
-		{foreach from=$BOX_CONTENT.children item=categorie}
-			<li><a {if $categorie.active} class="aktiv" {/if} href="/catalog/{$categorie.id}" tabindex="3" accesskey="k">{$categorie.name}</a>
-				{if $categorie.children}
-					{if $categorie.active}
-						<ul>
-							{foreach from=$categorie.children item=subcategorie}
-								<li><a href="/catalog/{$categorie.id}/{$subcategorie.id}" tabindex="3" accesskey="k">{$subcategorie.name}</a></li>
-							{/foreach}
-						</ul>
-					{/if}
-				{/if}
-			</li>
-		{/foreach}
-	</ul>
+<div id="box_kategorien" class="box">
+    <h3>{#heading_categories#}</h3>
+    <div class="box_content">
+        <ul>
+            {foreach from=$BOX_CONTENT.children item=categorie}
+                <li>
+                    <a {if $categorie.active} class="aktiv" {/if} href="/catalog/{$categorie.id}" >{$categorie.name}</a>
+                    {if $categorie.children}
+                        {if $categorie.active}
+                            <ul>
+                                {foreach from=$categorie.children item=subcategorie}
+                                    <li>
+                                            <a href="/catalog/{$categorie.id}/{$subcategorie.id}"  >
+                                                {$subcategorie.name}
+                                            </a>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        {/if}
+                    {/if}
+                </li>
+            {/foreach}
+        </ul>
+    </div>
 </div>
