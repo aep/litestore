@@ -10,12 +10,12 @@
 
 /*3. KONTAKTBILD*/
 
-/*4. PRIMÄRFARBE
+/*4. PRIMï¿½RFARBE
 	 - als Wort: "rot"
 	 - als Hexadezimalwert: #ff0000
 */
 
-/*5. SEKUNDÄRFARBE
+/*5. SEKUNDï¿½RFARBE
 	 - als Wort: "s-gruen"
 	 - als Hexadezimalwert: #14c800
 */
@@ -71,8 +71,8 @@ input
 /*TEXTFORMATIERUNGEN*/
 #spalte1 h1
 {
-	margin-top:-28px;
-	margin-bottom:25px;
+ 	margin-top:10px; 
+	margin-bottom:10px;
 	font-size:0.8125em;
 	font-weight:bold;
 	text-transform:uppercase;
@@ -285,7 +285,7 @@ textarea
 /*ANDERE WIEDERKEHRENDE ELEMENTE*/
 .spalte1_siesindhier
 {
-	margin-top:1.8em;
+/* 	margin-top:1.8em; */
 	font-size:0.5625em;
 	color:#4c4c4c;
 }

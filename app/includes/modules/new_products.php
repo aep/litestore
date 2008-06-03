@@ -70,10 +70,21 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0')) 
 $row = 0;
 $module_content = array ();
 $new_products_query = xtDBquery($new_products_query);
-while ($new_products = xtc_db_fetch_array($new_products_query, true)) {
-	$module_content[] = $product->buildDataArray($new_products);
 
+while ($listing = xtc_db_fetch_array($new_products_query, true))
+{
+    $rows ++;
+    $xe=$product->buildDataArray($listing);
+    $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"].""),true);
+    $xe["url_small"]=$findimg["url_small"];
+    $xe["url_middle"]=$findimg["url_middle"];
+    $xe["url_big"]=$findimg["url_big"];
+    $module_content[]=$xe; 
 }
+
+
+
+
 if (sizeof($module_content) >= 1) {
 	$module_smarty->assign('language', $_SESSION['language']);
 	$module_smarty->assign('module_content', $module_content);
