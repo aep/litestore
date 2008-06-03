@@ -13,18 +13,13 @@
         "sidebar" => array(
                 'BoxSearch',
                 'BoxShoppingCart',
-//                 'BoxAddAQuickie',
                 'BoxAdmin',
                 'BoxCategories',
                 'BoxContent'
-//                 'BoxManufacturers',
 ),
         "banner" => array(
                 'BoxAdsense',
-                'BoxBanner'),
-        "login" => array(
-                'BoxLogin')
-
+                'BoxBanner')
         );
 
 
