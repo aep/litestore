@@ -23,8 +23,12 @@
 
 
 
+
 $cart_empty = false;
 require ("includes/application_top.php");
+
+
+
 require_once (DIR_FS_INC.'xtc_array_to_string.inc.php');
 require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
 require_once (DIR_FS_INC.'xtc_recalculate_price.inc.php');
@@ -35,9 +39,10 @@ $breadcrumb->add(NAVBAR_TITLE_SHOPPING_CART, xtc_href_link(FILENAME_SHOPPING_CAR
 require (DIR_WS_INCLUDES.'header.php');
 include (DIR_WS_MODULES.'gift_cart.php');
 
-if ($_SESSION['cart']->count_contents() > 0) {
+if ($_SESSION['cart']->count_contents() > 0) 
+{
 
-	$smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product')));
+    $smarty->assign('FORM_ACTION', xtc_draw_form('cart_quantity', xtc_href_link(FILENAME_SHOPPING_CART, 'action=update_product')));
 	$smarty->assign('FORM_END', '</form>');
 	$hidden_options = '';
 	$_SESSION['any_out_of_stock'] = 0;

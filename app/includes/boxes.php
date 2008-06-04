@@ -12,11 +12,14 @@
     $bxal=array(
         "sidebar" => array(
                 'BoxSearch',
-                'BoxShoppingCart',
-                'BoxAdmin',
                 'BoxCategories',
-                'BoxContent'
-),
+                'BoxContent',
+                'BoxAdmin'
+
+        ),
+        "cart" => array(
+                'BoxShoppingCart',
+        ),
         "banner" => array(
                 'BoxAdsense',
                 'BoxBanner')

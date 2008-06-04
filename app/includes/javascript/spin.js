@@ -147,7 +147,7 @@ function SpinControlAccelerationCollection()
   }
 }
 
-function SpinControl(cur,min,max,step)
+function SpinControl(cur,min,max,step,name)
 {
   var _this = this;
   
@@ -156,8 +156,12 @@ function SpinControl(cur,min,max,step)
   var _currentValue = cur;
   var _maximumVal = max;
   var _minimumVal = min;
-  var _increment = step;
-  var _width = 100;
+
+    if(step>1)
+        var _increment = step;
+    else
+        var _increment = 1;
+  var _width = 70;
   
   var _running = 0;
   var _interval = -1;  
@@ -188,7 +192,8 @@ function SpinControl(cur,min,max,step)
   _textBox.type = 'text';
   _textBox.className = 'spinInput';
   _textBox.value = _currentValue;
-  
+  _textBox.name = name;
+
   var _upButton = document.createElement("DIV");
   _upButton.className = 'spinUpBtn';
   

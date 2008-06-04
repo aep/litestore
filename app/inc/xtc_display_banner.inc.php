@@ -43,7 +43,7 @@
     if (xtc_not_null($banner['banners_html_text'])) {
       $banner_string = $banner['banners_html_text'];
     } else {
-      $banner_string = '<a href="' . xtc_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" onclick="window.open(this.href); return false;">' . xtc_image('/images/banner/' . $banner['banners_image'], $banner['banners_title']) . '</a>';
+      $banner_string = '<a href="/' . xtc_href_link(FILENAME_REDIRECT, 'action=banner&amp;goto=' . $banner['banners_id']) . '" onclick="window.open(this.href); return false;">' . xtc_image('/images/banner/' . $banner['banners_image'], $banner['banners_title']) . '</a>';
     }
 
     xtc_update_banner_display_count($banner['banners_id']);

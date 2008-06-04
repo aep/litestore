@@ -1,45 +1,43 @@
 {config_load file="$language/lang_$language.conf" section="login"}
 <h1>{#heading_login#}</h1>
-<div id="spalte1_inhalt-links">
-	<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/neues_benutzer-konto_erstellen-icon.png" alt="[Neukunden-Anmeldung Icon]"></div>
-	<div class="spalte1_inhalt-halb">
-		<h2>{#title_new#}</h2>
-		<div class="normaltext">{#text_new#}</div>
-		<div class="formular_buttons">
-			<form action="{$URI_NEW_ACCOUNT}" method="get"><div>
-				<input class="buttons2" type="submit" value="Neu anmelden!" tabindex="4">
-			</div></form>
-		</div>
-		{if $account_option=='both' or $account_option=='guest'}
-			<div id="oder">- oder -</div>
-			<h2>{#title_guest#}</h2>
-			<div class="normaltext">{#text_guest#}</div>
-			<div class="formular_buttons">
-				<form action="{$URI_GUEST}" method="get"><div>
-					<input class="buttons2" type="submit" value="Als Gast bestellen!" tabindex="4">
-				</div></form>
-			</div>
-        {/if}
-	</div>
-	<br class="endefloat">
+<div id="login_new" class="login_html_block">
+    <h4>{#title_new#}</h4>
+    {#text_new#}
+    <form action="{$URI_NEW_ACCOUNT}" method="get"><p>
+        <input class="submit" type="submit" value="Neu anmelden!">
+    </p></form>
+
+    {if $account_option=='both' or $account_option=='guest'}
+        - oder -
+        <h4>{#title_guest#}</h4>
+        {#text_guest#}
+        <form action="{$URI_GUEST}" method="get"><p>
+            <input class="submit" type="submit" value="Als Gast bestellen!" >
+        </p></form>
+    {/if}
 </div>
-<div id="spalte1_inhalt-rechts">
-	<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/login-icon.png" alt="[Login Icon]"></div>
-	<div class="spalte1_inhalt-halb">
-		{if $info_message!=''}
-			<div id="fehler">
-				{$info_message}
-			</div>
-		{/if}
-		<h2>{#title_returning#}</h2>
-		<form action="/login" method="post"><div>
-			<div class="normal_9px-unter-16px">{#text_email#}</div>
-			<div class="formularzeile"><input class="logineingabefeld" type="text" name="email_address" maxlength="50" tabindex="4"></div>
-			<div class="normal_9px-unter-16px">{#text_password#}</div>
-			<div class="formularzeile"><input class="logineingabefeld" type="password" name="password" maxlength="50" tabindex="4"></div>
-			<div id="login_passwortvergssen"><a href="{$LINK_LOST_PASSWORD}" tabindex="4">{#text_lost_password#}</a></div>
-			<div class="formular_buttons"><input class="buttons2" type="submit" value="Einloggen!" tabindex="4"></div>
-		</div></form>
-	</div>
+
+
+<div id="login_returning" class="login_html_block">
+    {if $info_message!=''}
+        <div id="error">{$info_message}</div>
+    {/if}
+    <h4>{#title_returning#}</h4>
+    <form action="/login" method="post">
+        <p>
+            {#text_email#}
+            <input class="text" type="text" name="email_address" maxlength="50" >
+        </p>
+        <p>
+            {#text_password#}
+            <input class="text" type="password" name="password" maxlength="50" >
+        </p>
+        <p>
+            <em><a href="{$LINK_LOST_PASSWORD}" >{#text_lost_password#}</a></em>
+        </p>
+        <p>
+            <input class="submit" type="submit" value="Einloggen!" >
+        </p>
+      </form>
 </div>
-<br class="endefloat">
+<br class="clear">

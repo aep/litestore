@@ -644,10 +644,8 @@ echo xtc_draw_pull_down_menu('select_file',$files,$default_value);
    <tr> 
       <td width="10%" valign="top"><?php echo TEXT_CONTENT; ?></td>
       
-      <td width="90%">
-   <?php
-echo xtc_draw_textarea_field('cont','','100%','35',$content['content_text']);
-?>
+      <td width="90%">   
+    <textarea id="cont" name="cont" wrap="" cols="100%" rows="35" style="width:100%"><?php echo $content['content_text'];?></textarea>
       </td>
    </tr>
   

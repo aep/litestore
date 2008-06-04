@@ -2,23 +2,7 @@
 {if $deny_cart neq 'true'}
     {if $empty=='true'}
     {else}
-    <div id="box_warenkorb" class="box">
-        <h3><img id="warenkorb" src="{$tpl_path}/bilder/warenkorb.png" alt="">&#160;&#160;{$PRODUCTS} Art. - {$TOTAL}</h3>
-        <div class="box_content">
-            <ul>
-                <li><a href="/mycart" >Warenkorb ansehen</a></li>
-                <li><a href="/checkout" >Jetzt zur Kasse gehen!</a></li>
-            </ul>
-
-            {#text_cart#}
-            {#text_cart2#}
-            {if $ACTIVATE_GIFT=='true'}
-                {if $GV_AMOUNT neq ''}
-                    {#voucher_balance#}
-                    {$GV_AMOUNT}
-                {/if}
-            {/if}
-    </div>
+        ({$PRODUCTS} Art. - {$TOTAL})
     {/if}
 {/if}
 

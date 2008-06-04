@@ -334,7 +334,7 @@ class xtcPrice {
 	function xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus = 0) {
 		$sPrice = $pPrice - ($pPrice / 100) * $discount;
 		if ($format) {
-			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br />'.YOU_SAVE.$discount.'%';
+			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br >'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format).'<br >'.YOU_SAVE.$discount.'%';
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -347,7 +347,7 @@ class xtcPrice {
 
 	function xtcFormatSpecial($pID, $sPrice, $pPrice, $format, $vpeStatus = 0) {
 		if ($format) {
-			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br />'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
+			$price = '<span class="productOldPrice">'.INSTEAD.$this->xtcFormat($pPrice, $format).'</span><br >'.ONLY.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
 			if ($vpeStatus == 0) {
 				return $price;
 			} else {
@@ -365,7 +365,7 @@ class xtcPrice {
 			$sPrice -= $sPrice / 100 * $discount;
 		if ($format) {
 			if ($sPrice != $pPrice) {
-				$price = '<span class="productOldPrice">'.MSRP.$this->xtcFormat($pPrice, $format).'</span><br />'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
+				$price = '<span class="productOldPrice">'.MSRP.$this->xtcFormat($pPrice, $format).'</span><br >'.YOUR_PRICE.$this->checkAttributes($pID).$this->xtcFormat($sPrice, $format);
 			} else {
 				$price = FROM.$this->xtcFormat($sPrice, $format);
 			}

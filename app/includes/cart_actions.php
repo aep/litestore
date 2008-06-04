@@ -31,7 +31,10 @@
 
 
 // Shopping cart actions
-if (isset ($_GET['action'])) {
+if (isset ($_GET['action'])) 
+    {
+
+
 	// redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled
 	if ($session_started == false) {
 		xtc_redirect(xtc_href_link(FILENAME_COOKIE_USAGE));
