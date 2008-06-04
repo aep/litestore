@@ -54,7 +54,7 @@
 
     if (xtc_not_null($parameters)) $image .= ' ' . $parameters;
 
-    $image .= ' />';
+    $image .= ' >';
     return $image;
   }
  ?>

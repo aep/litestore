@@ -6,6 +6,7 @@
 html
 {
     font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
 }
 
 img
@@ -19,9 +20,18 @@ input
 }
 
 
-.clear
+.clear 
 {
     clear:both;
+}
+
+a
+{
+    text-decoration:none;
+}
+a:hover
+{
+    text-decoration:underline;
 }
 
 
@@ -40,11 +50,13 @@ input
 {
     width:120px;
     margin-top:30px;
+    margin-bottom:30px;
     float:right;
     background:#555;
     color:#fff;
     text-align:center;
     border:1px solid #555;
+
 }
 
 #indexhtml_content_wrap
@@ -56,6 +68,8 @@ input
     padding-left:32px;
     padding-right:32px; 
 }
+
+
 
 #banner
 {
@@ -80,6 +94,34 @@ input
     background:url(../../bilder/hintergrund/footerpapier.png);
     text-align:center;
 }
+
+
+#breadcrumb
+{
+    font-size:xx-small;
+    padding:1em;
+    color:#333;
+    float:right;
+}
+#breadcrumb a
+{
+    color:#733;
+}
+
+
+#indexhtml_content  h1
+{
+    font-size:1.2em;
+    padding-left:10px;
+    color:#333;
+    margin-top:1em;
+    margin-bottom:2em;
+}
+#indexhtml_content 
+{
+    padding-bottom:45px;
+}
+
 
 /*********index.html login/logout form************/
 
@@ -163,25 +205,518 @@ input
 .box h3
 {
     color:#333;
-    font-size:1em;
     font-weight:normal;
     text-transform:uppercase;
     text-align:center;
-    padding-bottom:8px;
+    padding-bottom:2px;
+    margin-bottom:4px;
     background:url(../../bilder/boxueberschrift_trennlinie.png) bottom left no-repeat;
 }
 
 .box .box_content
 {
-
-    padding:5px;
+/*     padding:5px; */
 }
-
 
 
 #box_search input.submit
 {
+    width:50px;
+}
+#box_search input.text
+{
+    width:120px;
+}
+
+/*********box_categories************/
+
+#box_categories ul
+{
+
+    list-style:none;
+}
+#box_categories ul li
+{
+    display:block;
+}
+
+#box_categories ul li a
+{
+    padding-left:32px;
+    padding-top:8px;
+    padding-bottom:8px;
+    display:block;
+    color:#000;
+    background:url(../../bilder/farben/rot_kategorienstart.png) left top no-repeat;
+}
+#box_categories ul li ul li a
+{
+    padding-left:32px;
+    padding-top:0;  
+    padding-bottom:0;  
+    background:none;
+}
+
+
+/*********box_content************/
+
+#content_box ul
+{
+    list-style:none;
+}
+#content_box ul li
+{
+    display:block;
+}
+#content_box ul li a
+{
+    display:block;
+    color:#000;
+    padding-left:8px;
+    background:url(../../bilder/farben/rot_inhaltpunkte.png) top left no-repeat;
+}
+
+/*********box_cart************/
+
+#box_cart ul
+{
+    list-style:none;
+}
+#box_cart ul li
+{
+    display:block;
+}
+#box_cart ul li a
+{
+    display:block;
+    color:#000;
+    margin-left:16px;
+    padding-left:8px;
+    background:url(../../bilder/farben/rot_inhaltpunkte.png) top left no-repeat;
+}
+
+/*********box_admin************/
+
+
+#box_admin a
+{
+/*     display:block; */
+    color:#000;
+    padding-left:8px;
+    background:url(../../bilder/farben/rot_inhaltpunkte.png) top left no-repeat;
+}
+
+
+
+
+/*********product_listing************/
+
+#product_listing #categories_description
+{
+    padding:10px;
+
+}
+#product_listing .categories_image
+{
+    max-width:700px;
+}
+
+
+#product_listing 
+{
+    text-align:center;
+
+    width:684px;
+    overflow:hidden;
+}
+#product_listing .product
+{
+    margin:-1px;
+    float:left;
+    padding-top:10px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-bottom:5px;
+    width:162px;
+    height:260px;
+    overflow:hidden;
+    text-align:center;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+}
+#product_listing .product a
+{
+    display:block;
+}
+#product_listing  .product a.products_name
+{
+    color:#000;
+}
+#product_listing  .product a.quickbuy 
+{
+    color:#0f0;
+    font-weight:bold;
+    background:url(../../bilder/farben/s-gruen_indenwarenkorb-klein.png) 10px 0px no-repeat;
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-left:10px;
+    
+}
+
+
+
+
+
+#product_listing .product .product_image
+{
+    height:160px;
+    line-height:160px;
+    vertical-align:middle;
+}
+#product_listing .product .product_image img
+{
+    vertical-align:middle;
+}
+
+#product_listing .product .products_name 
+{
+    height:60px;
+    line-height:20px;
+    display:block;
+    overflow:hidden;
+}
+
+
+
+
+
+
+#pagination
+{
+    padding-top:20px;
+    text-align:center;
+}
+#pagination b, #pagination a
+{
+    margin-left:-1em;
+    border:1px solid #b4b4b4;
+    padding:3px 15px 3px 15px;
+    color:#000000;
+    text-decoration:none;
+    background-color:#f5f5f5;
+    font-weight:normal;
+}
+#pagination b
+{
+    background-color:#b4b4b4;
+}
+#pagination a:hover
+{
+    background-color:#b4b4b4;
+    text-decoration:none;
+}
+#pagination_context
+{
+    padding:1em;
+
+    text-align:center;
+}
+
+
+/*********shopping_cart************/
+
+#shopping_cart
+{
+    background: url(../../bilder/warenkorb-icon.png) top left no-repeat;
+    padding-left:120px;
+}
+
+#shopping_cart input.submit
+{
+     margin-left:10px; 
+     float:left; 
+}
+
+#shopping_cart .totalblock
+{
+    float:right;
+    margin-top:2em;
+    margin-right:10px;
+    margin-bottom:10px;
+    border:1px solid #d2d2d2;
+}
+#shopping_cart .totalblock .total
+{
+    font-weight:bold;
+    font-size:1.4em;
+}
+
+
+
+
+.x_round
+{
+    margin:-1px;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag1.png) top left no-repeat;
+}
+.x_round .x_round
+{
+    margin:0;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag2.png) top right no-repeat;
+}
+.x_round .x_round .x_round
+{
+    margin:0;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag3.png) bottom right no-repeat;
+}
+.x_round .x_round .x_round .x_round
+{
+    margin:0;
+    padding:1em;
+    background:url(../../bilder/kasse_bestaetigung_gesamtbetrag4.png) bottom left no-repeat;
+}
+
+
+#shopping_cart table 
+{
+    width:100%;
+}
+
+
+#shopping_cart table th
+{
+    text-align:left;
+    padding-bottom:4px;
+    padding-left:4px;
+    color:#000000;
+    
+}
+#shopping_cart table th.artikel
+{
+    width:200px;
+}
+#shopping_cart table td.artikel
+{
+    width:200px;
+    overflow:hidden;
+}
+
+#shopping_cart table td
+{
+    border-top:1px solid #dcdcdc;
+}
+
+
+#cart_empty
+{
+    padding-top:8px;
+    padding-bottom:20px;
+    padding-left:5px;
+    text-align:left;
+    font-style:italic;
+}
+
+#shopping_cart table th.einzelpreis , #shopping_cart table th.gesamtpreis , #shopping_cart table th.entf ,
+#shopping_cart table td.einzelpreis , #shopping_cart table td.gesamtpreis , #shopping_cart table td.entf 
+{
     text-align:right;
 }
 
-            
+
+#shopping_cart table td.artikel a
+{
+    text-align:left;
+    display:block;
+}
+
+#shopping_cart table td.artikelbild img
+{
+    margin:10px;
+}
+
+
+
+/*********login************/
+
+#create_account
+{
+    background:url(../../bilder/neues_benutzer-konto_erstellen-icon.png) top left no-repeat;
+    padding-left:120px;
+}
+#create_account h3
+{
+    margin-top:4em;
+    margin-bottom:1em;
+
+}
+
+#create_account form p
+{
+    display:block;
+    width:500px;
+}
+#create_account form p em
+{
+    height:30px;
+    display:block;
+    float:right;
+    text-align:left;
+    width:210px;
+
+}
+#create_account form p em input , #create_account form p em select
+{
+    width:180px;
+}
+
+
+#create_account form p em.radiohax input
+{
+    width:14px;
+    margin-left:10px;
+    margin-right:30px;
+}
+
+#create_account form p label
+{
+    padding-left:10px;
+    height:30px;
+    width:270px;
+    display:block;
+    float:left;
+}
+
+
+
+/*********login************/
+
+#login_new
+{
+    background:url(../../bilder/neues_benutzer-konto_erstellen-icon.png) top left no-repeat;
+    padding-left:120px;
+    float:left;
+    width:232px;
+    border-right:1px solid #dcdcdc;
+}
+
+
+#login_returning
+{
+    background:url(../../bilder/login-icon.png) top left no-repeat;
+    float:right;
+    padding-left:130px;
+    width:221px;
+}
+
+
+.login_html_block h4
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.login_html_block input.submit
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.login_html_block input.text
+{
+    display:block;
+}
+
+
+/*******spinbutton********/
+.spinInput, .spinContainer
+{
+    /* Change this to modify the default spin control background color*/
+    background-color: #fff;
+}
+
+.spinLeftRightEdge, .spinTopBottomEdge
+{
+  position: absolute;
+  overflow: hidden;
+  /* Change this to modify the default spin control border color*/
+  background-color: #A5ACB2;
+}
+  
+.spinContainer
+{
+  position: relative;
+  font-size: 0px;
+  height: 20px;
+}
+
+.spinLeftRightEdge
+{
+  height: 20px;
+  width: 1px;
+}
+
+.spinTopBottomEdge
+{
+  height: 1px;
+  left: 1px;
+}
+
+.spinInput
+{
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  height: 18px;
+  border: 0px;
+  color: #000;
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress, .spinDownBtn, .spinDownBtnHover,
+.spinDownBtnPress
+{
+  position: absolute;
+  width: 15px;
+  height: 8px;
+  right: 2px;
+  background-image: url('../../bilder/spin_control_buttons.gif');
+  background-repeat: no-repeat;
+  /* Change this to modify the default button color*/
+}
+
+.spinUpBtn, .spinUpBtnHover, .spinUpBtnPress
+{
+  top: 2px;
+}
+
+.spinDownBtn, .spinDownBtnHover, .spinDownBtnPress
+{
+  top: 10px;
+}
+
+.spinUpBtn
+{
+  background-position:0px 0px;
+}
+
+.spinUpBtnHover
+{
+  background-position:0px -16px;
+}
+
+.spinUpBtnPress
+{
+  background-position:0px -32px;
+}
+
+.spinDownBtn
+{
+  background-position:0px -8px;
+}
+
+.spinDownBtnHover
+{
+  background-position:0px -24px;
+}
+
+.spinDownBtnPress
+{
+  background-position:0px -40px;
+}

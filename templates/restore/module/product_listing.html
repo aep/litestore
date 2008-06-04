@@ -2,51 +2,49 @@
 
 
 
+{if $CATEGORIES_HEADING_TITLE}
+<h1>{$CATEGORIES_HEADING_TITLE}</h1>
+{/if}
 
-<h1>Produkte aus der Kategorie <span class="linkfarbe">{$CATEGORIES_NAME}</span></h1>
-{if $CATEGORIES_DESCRIPTION}
-<div class="normaltext">
-    {$CATEGORIES_DESCRIPTION}
+<div id="product_listing">
+
+    {if $CATEGORIES_IMAGE}
+        <img class="categories_image" src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_HEADING_TITLE}">
+    {/if}
+
+
+    <div id="categories_description">
+        {if $CATEGORIES_DESCRIPTION}
+            {$CATEGORIES_DESCRIPTION}
+        {/if}
+        {if $MANUFACTURER_DROPDOWN}
+            {#text_show#}
+            {$MANUFACTURER_DROPDOWN}
+        {/if}
+    </div>
+
+    {foreach name=aussen item=module_data from=$module_content}
+    <div class="product">
+        <a class="product_image" href="{$module_data.PRODUCTS_LINK}">
+            {if  $module_data.url_middle!=''}
+                <img src="{$module_data.url_middle}" alt="">
+            {else}
+                <img src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
+            {/if}
+        </a>
+
+        <a class="products_name" href="{$module_data.PRODUCTS_LINK}">
+            {$module_data.PRODUCTS_NAME}
+        </a>
+
+        {if $module_data.ALLOWED_TO_SEE_PRICE}
+            <a class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">{$module_data.PRODUCTS_PRICE}</a>
+        {/if}
+    </div>
+    {/foreach}
+    <br class="clear">
+
+    <div id="pagination"> {$PAGINATION} </div>
+    <div id="pagination_context"> {$TEXT_NUMBER_OF_PRODUCTS} </div>
 </div>
-{/if}
-{if $MANUFACTURER_DROPDOWN}
-	{#text_show#}
-	{$MANUFACTURER_DROPDOWN}
-{/if}
-<div id="listing">
-	<!--[if lte IE 7]><div id="ie_listing_startende">&#160;</div><![endif]-->
-	{foreach name=aussen item=module_data from=$module_content} 
-		<div class="listing_artikel">
-			<div class="listing_artikel_inhalt-container">
-				<a class="listing_artikel_inhalt-link" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><!--[if lte IE 7]></a><![endif]-->
-					<em class="listing_artikel_produktbild-container">
-						<!--[if lte IE 7]></em><table cellspacing="0"><tr><td><a href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
-							{if  $module_data.url_middle!=''}
-								<img class="listing_artikel_produktbild-bild" src="{$module_data.url_middle}" alt="">
-							{else}
-								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
-							{/if}
-						<!--[if lte IE 7]></a></td></tr></table><em><![endif]-->
-					</em>
-					<!--[if lte IE 7]><a class="ie_listing_artikel_inhalt_bezeichnung" href="{$module_data.PRODUCTS_LINK}" tabindex="4"><![endif]-->
-					{$module_data.PRODUCTS_NAME}
-					<!--[if lte IE 7]></a><![endif]-->
-				<!--[if lte IE 7]><a><![endif]--></a>
-			</div>
-			{if $module_data.ALLOWED_TO_SEE_PRICE}
-				<div class="listing_artikel_indenwarenkorb-container"><a class="listing_artikel_indenwarenkorb-link" href="{$module_data.PRODUCTS_BUY_LINK}" tabindex="4">{$module_data.PRODUCTS_PRICE}</a></div>
-			{/if}
-		</div>
-	{/foreach}
-	<br class="endefloat">
-	<!--[if lte IE 7]><div id="ie_listing_startende">&#160;</div><![endif]-->
-</div>
-<div id="listing_ende"></div>
-<div class="normaltext">
-	<div id="listing_pagination">
-		<div>
-			{$PAGINATION}
-		</div>
-	</div>
-	<div id="listing_erklaerungen">{$TEXT_NUMBER_OF_PRODUCTS}</div>
-</div>
+

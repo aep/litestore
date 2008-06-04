@@ -1,10 +1,4 @@
 {config_load file="$language/lang_$language.conf" section="index"}
-<!--     <link rel="stylesheet" href="{$tpl_path}variant/product_listing/listing2.css"> -->
-<!--     <link rel="stylesheet" href="{$tpl_path}variant/kategoriespalte/rechts.css"> -->
-<!--     <link rel="stylesheet" href="{$tpl_path}variant/hintergrund_inhalt/papier.css"> -->
-
-
-
 </head>
 
 <body style="background-image:url({$tpl_path}variant/background/{$CURRENT_BACKGROUND});" >
@@ -19,9 +13,11 @@
         <div id="banner">
             <div id="login">
                 {php}   if (isset($_SESSION['customer_id'])) {   {/php}
-                <form action="/logout" method="get"> 
-                    <label>Wieder ausloggen: </lable>
+                <form action="/logout" method="get">
+                    <p>
+                    <label>Wieder ausloggen: </label>
                     <input class="buttons3" type="submit" value="Logout" tabindex="4">
+                    </p>
                 </form>
                 {php}   }   else   {   {/php}
                 <form  method="post" action="/login">
@@ -46,7 +42,7 @@
             <div id="topnav">
                 <ul >
                     <li><a href="/">Shop-Startseite</a></li>
-                    <li><a href="/mycart" >Warenkorb</a></li>
+                    <li><a href="/mycart" >Warenkorb {$cart}  </a></li>
                     {php}   if   (isset($_SESSION['customer_id'])) {   {/php}
                     <li><a href="/checkout" >Kasse</a></li>
                     <li><a href="/myaccount" >Ihr Konto</a></li>
@@ -58,7 +54,7 @@
             
         </div>
         <div id="indexhtml_content_wrap">
-            <div class="breadcrumb">Sie sind hier: {$navtrail}</div>
+            <div id="breadcrumb">Sie sind hier: {$navtrail}</div>
             <div id="indexhtml_content">
                 {$main_content}
             </div>
@@ -71,5 +67,6 @@
             &copy; {$store_name} <br>
             Restore is an XT Commerce fork
         </div>
+        <br class="clear">
 
     </div>

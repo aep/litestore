@@ -23,7 +23,7 @@
    ---------------------------------------------------------------------------------------*/
 
 include ('includes/application_top.php');
-$breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
+// $breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
 $breadcrumb->addCategory($cPath_array);
 // add category names or the manufacturer name to the breadcrumb trail
 
