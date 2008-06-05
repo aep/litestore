@@ -34,7 +34,7 @@ require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
 require_once (DIR_FS_INC.'xtc_recalculate_price.inc.php');
 
 
-$breadcrumb->add(NAVBAR_TITLE_SHOPPING_CART, xtc_href_link(FILENAME_SHOPPING_CART));
+$breadcrumb->add(NAVBAR_TITLE_SHOPPING_CART, '/mycart');
 
 require (DIR_WS_INCLUDES.'header.php');
 include (DIR_WS_MODULES.'gift_cart.php');
