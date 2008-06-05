@@ -1,7 +1,7 @@
 {config_load file="$language/lang_$language.conf" section="create_account"}
 <h1>{#heading_create_account#}</h1>
 
-<div id="create_account">
+<div id="create_account" class="twoColumnFormular">
     <form action="create_account.php" method="post" onsubmit="return check_form(create_account);">
     <p>
         <input type="hidden" name="action" value="process">
@@ -49,7 +49,9 @@
     <h3>{#title_password#}</h3>
         <p> <label for="passwort">{#text_password#}</label><em> {$INPUT_PASSWORD}</em> </p>
         <p> <label for="passwort_bestaetigen">{#text_confirmation#}</label><em> {$INPUT_CONFIRMATION}</em></p>
+        <p><em class="must">{#text_must#}</em></p>
 
+    <br class="clear">
     <input class="submit" type="submit" value="Konto erstellen!" >
-    <em class="must">{#text_must#}</em>
+
 </div>

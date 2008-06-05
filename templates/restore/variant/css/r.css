@@ -34,6 +34,16 @@ a:hover
     text-decoration:underline;
 }
 
+/**********************/
+
+.error
+{
+    margin-bottom:10px;
+    border:1px solid #f00;
+    padding:5px;
+    color:#f00;
+    background-color:#eee;
+}
 
 
 
@@ -601,42 +611,6 @@ a:hover
 
 }
 
-#create_account form p
-{
-    display:block;
-    width:500px;
-}
-#create_account form p em
-{
-    height:30px;
-    display:block;
-    float:right;
-    text-align:left;
-    width:210px;
-
-}
-#create_account form p em input , #create_account form p em select
-{
-    width:180px;
-}
-
-
-#create_account form p em.radiohax input
-{
-    width:14px;
-    margin-left:10px;
-    margin-right:30px;
-}
-
-#create_account form p label
-{
-    padding-left:10px;
-    height:30px;
-    width:270px;
-    display:block;
-    float:left;
-}
-
 
 
 /*********login************/
@@ -771,3 +745,119 @@ a:hover
 {
   background-position:0px -40px;
 }
+
+/***************
+
+    two column form used in:
+
+    - checkout_new_address.html
+    - create_account.html
+
+***************/
+
+
+.twoColumnFormular
+{
+}
+
+
+.twoColumnFormular p
+{
+    display:block;
+    width:500px;
+}
+.twoColumnFormular p em
+{
+    height:30px;
+    display:block;
+    float:right;
+    text-align:left;
+    width:210px;
+
+}
+.twoColumnFormular p em input , .twoColumnFormular  p em select
+{
+    width:180px;
+}
+
+
+.twoColumnFormular p em.radiohax input
+{
+    width:14px;
+    margin-left:10px;
+    margin-right:30px;
+}
+
+.twoColumnFormular p label
+{
+    padding-left:10px;
+    height:30px;
+    width:270px;
+    display:block;
+    float:left;
+}
+
+
+
+/********* /checkout/shipping ***************/
+#shipping
+{
+    background: url(../../bilder/versandinformationen-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+#shipping h4
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#shipping input.submit
+{
+    float:right;
+    margin-top:40px;
+    margin-right:60px;
+}
+
+/********* /checkout/shipping/address ***************/
+
+
+#checkout_shipping_address
+{
+    background: url(../../bilder/meine_adressen-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+
+#checkout_shipping_address p
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#checkout_shipping_address .address .address_o
+{
+    display:block;
+    margin-left:50px;
+    width:200px;
+    border-bottom:1px solid #bbb;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#checkout_shipping_address .address h4
+{
+    display:inline;
+    padding-left:20px;
+
+}
+
+#checkout_shipping_address  #new_address
+{
+    padding-top:10px;
+    padding-bottom:10px;
+    display:block;
+    margin-left:50px;
+    width:200px;
+    border-bottom:1px solid #bbb;
+}
+
+

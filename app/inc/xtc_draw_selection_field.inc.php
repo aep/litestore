@@ -18,7 +18,12 @@
 // Output a selection field - alias function for xtc_draw_checkbox_field() and xtc_draw_radio_field()
 
   function xtc_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
-    $selection = '<input type="' . xtc_parse_input_field_data($type, array('"' => '&quot;')) . '" name="' . xtc_parse_input_field_data($name, array('"' => '&quot;')) . '"';
+    $selection = 
+
+        '<input '
+        . ' class="' . xtc_parse_input_field_data($type, array('"' => '&quot;'))  . '"'
+        . ' type="' . xtc_parse_input_field_data($type, array('"' => '&quot;'))  . '"'
+        . ' name="' . xtc_parse_input_field_data($name, array('"' => '&quot;')) . '"';
 
     if (xtc_not_null($value)) $selection .= ' value="' . xtc_parse_input_field_data($value, array('"' => '&quot;')) . '"';
 

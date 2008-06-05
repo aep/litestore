@@ -1,86 +1,35 @@
 {config_load file="$language/lang_$language.conf" section="checkout_new_address"}
-<h2>{#title_new_address#}</h2>
-<div class="normaltext">
-	<div class="formularzeile-kleinerumbruch"></div>
-	{if $company=='1'}
-	<div class="create_account_inputs">
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="firmenname">{#text_company#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_COMPANY}</div>
-			<br class="endefloat">
-		</div>
-	</div>
-	{/if} 
-	{if $gender=='1'}
-	<div class="formularzeile"><div id="male_female">
-		<div class="formularspalte-150px">{#text_gender#}</div>
-		<div class="formularspalte-204pxmin">
-			<div class="formular_radio-2"><label>{$INPUT_FEMALE}</label></div>
-			<div class="formular_radio-2"><label>{$INPUT_MALE}</label></div>
-			<br class="endefloat">
-		</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
-		<br class="endefloat">
-	</div></div>
-	{/if}
-	<div class="create_account_inputs">
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="vorname">{#text_firstname#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_FIRSTNAME}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="nachname">{#text_lastname#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_LASTNAME}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="strasse_nr">{#text_street#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_STREET}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		{if $suburb=='1'}
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="vorort">{#text_suburb#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_SUBURB}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		{/if}
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="plz">{#text_code#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_CODE}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="ort">{#text_city#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_CITY}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		{if $state=='1'}
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="state">{#text_state#}</label></div>
-			<div class="formularspalte-204pxmin">{$INPUT_STATE}</div>
-		<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		{/if}
-		<div class="formularzeile">
-			<div class="formularspalte-150px"><label for="land">{#text_country#}</label></div>
-			<div class="formularspalte-204pxmin">{$SELECT_COUNTRY}</div>
-			<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
-			<br class="endefloat">
-		</div>
-		{if $new=='1'}
-			<div class="formularzeile">
-				<label>{$CHECKBOX_PRIMARY}{#text_standard#}</label>
-			</div>
-		{/if}
-		<div id="text_must">{#text_must#}</div>
-	</div>
+
+<div id="checkout_new_address" class="twoColumnFormular">
+
+
+{if $gender=='1'}
+    <p><label>{#text_gender#}</label><em class="radiohax" >{$INPUT_FEMALE}{$INPUT_MALE}</em></p>
+{/if}
+
+<p> <label for="vorname">{#text_firstname#}</label><em> {$INPUT_FIRSTNAME}</em> </p>
+<p> <label for="nachname">{#text_lastname#}</label><em> {$INPUT_LASTNAME}</em> </p>
+
+{if $company=='1'}
+    <p><label for="firmenname">{#text_company#}</label><em>{$INPUT_COMPANY}</em></label>
+{/if}
+
+<p> <label for="strasse_nr">{#text_street#}</label><em> {$INPUT_STREET}</em> </p>
+{if $suburb=='1'}
+    <p> <label for="vorort">{#text_suburb#}</label><em> {$INPUT_SUBURB}</em> </p>
+{/if}
+    <p> <label for="plz">{#text_code#}</label><em> {$INPUT_CODE}</em> </p>
+    <p> <label for="ort">{#text_city#}</label><em> {$INPUT_CITY}</em> </p>
+    {if $state=='1'}
+        <p> <label for="staat">{#text_state#}</label><em> {$INPUT_STATE}</em> </p>
+    {/if}
+    <p> <label for="land">{#text_country#}</label><em> {$SELECT_COUNTRY}</em> </p>
+
+
+    {if $new=='1'}
+        <p><label>{$CHECKBOX_PRIMARY}{#text_standard#}</label></p>
+    {/if}
+
+    <p><em class="must">{#text_must#}</em></p>
+    <br clear="both">
 </div>

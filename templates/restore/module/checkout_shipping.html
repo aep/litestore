@@ -1,26 +1,39 @@
 {config_load file="$language/lang_$language.conf" section="checkout_shipping"}
-<h1>Kasse</h1>
-<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/versandinformationen-icon.png" alt="[Versandinformationen Icon]"></div>
-<div class="spalte1_inhalt"><div id="payment-shipping">
-	<form action="/checkout" method="post">
-		<h2>Schritt 1 von 3 - {#text_shipping_info#}</h2>
-		<div class="kasse_absatz">
-			<h3>{#title_address#}</h3>
-			<div class="normaltext">
-				{$ADDRESS_LABEL}
-				<div class="kasse_aendern"><a href="/checkout_shipping_address.php" tabindex="4">[Andere Adresse]</a></div>
-			</div>
-		</div>
-		<div class="kasse_absatz">
-			<h3>{#title_shipping#}</h3>
-			<div class="normaltext">
-				{$SHIPPING_BLOCK}
-			</div>
-		</div>
-		<div><input type="hidden" name="action" value="process"><input class="buttons2" type="submit" value="Weiter zu Zahlungsinformationen &#62;&#62;" tabindex="4"></div>
-	</form>
-	<form action="/mycart" method="get"><div>
-		<input class="buttons2" type="submit" value="&#60;&#60; Zur&#252;ck" tabindex="4">
-	</div></form>
-</div></div>
-<br class="endefloat">
+<h1>{#heading_shipping#}</h1>
+<div id="shipping">
+    <form action="/checkout" method="post">
+        <p>
+            <h3>Schritt 1 von 3 - {#text_shipping_info#}</h3>
+            <h4>{#title_address#}</h4>
+            <p><em>{$ADDRESS_LABEL}</em></p>
+            <br>
+            <a href="/checkout/shipping/address" >[Andere Adresse]</a>
+        </p>
+        <p>
+            <h4>{#title_shipping#}</h4>
+
+            {if $FREE_SHIPPING}
+                {$FREE_SHIPPING_TITLE}
+                {$FREE_SHIPPING_ICON}
+                {$FREE_SHIPPING_DESCRIPTION}
+            {else}
+                {foreach name=aussen item=module_data from=$shipping_data}
+                    {if $module_data.error!=''}
+                        {$module_data.error}
+                    {else}
+                        {foreach name=aussen item=method_data from=$module_data.methods}
+                            <p>{$method_data.radio_field} {$method_data.title} {$method_data.price}</p>
+                        {/foreach}
+                    {/if}
+                {/foreach}
+            {/if}
+        </p>
+        <p>
+            <input type="hidden" name="action" value="process">
+            <input class="submit" type="submit" value="Weiter zu Zahlungsinformationen &#62;&#62;" >
+        </p>
+    </form>
+    <form action="/mycart" method="get">
+        <input class="submit" type="submit" value="&#60;&#60; Zur&#252;ck" tabindex="4">
+    </form>
+</div>
