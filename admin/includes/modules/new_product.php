@@ -97,72 +97,86 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
 <?php $fsk18_array=array(array('id'=>0,'text'=>NO),array('id'=>1,'text'=>YES)); ?>
 <?php echo xtc_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $_GET['cPath'] . '&pID=' . $_GET['pID'] . '&action='.$form_action, 'post', 'enctype="multipart/form-data"'); ?>
 <span class="pageHeading"><?php echo sprintf(TEXT_NEW_PRODUCT, xtc_output_generated_category_path($current_category_id)); ?></span><br />
-<table width="100%"  border="0">
-  <tr>
-    <td valign=top><span class="main"><?php echo TEXT_PRODUCTS_STATUS; ?> <?php echo xtc_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . xtc_draw_radio_field('products_status', '1', $status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . xtc_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?><br />
-    </span>
-      <table width="100%" border="1">
-        <tr>
-          <td class="main" width="127"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br />
-              <small>(YYYY-MM-DD)</small></td>
-          <td class="main"><?php echo xtc_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
-        </tr>
-	<tr>
-          <td class="main" width="127"><?php echo TEXT_PRODUCTS_TRADING_UNIT; ?></td>
-          <td class="main"><?php echo xtc_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><?php echo xtc_draw_input_field('products_trading_unit', $pInfo->products_trading_unit,'size=5'); ?></td>
-        </tr>
-	
-      </table>
-      <span class="main"><br /></span>
-    </td><td>
-    <table bgcolor="f3f3f3" style="border: 1px solid; border-color: #cccccc;" "width="100%"  border="0">
-    <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE; ?> <?php echo TEXT_PRODUCTS_STARTPAGE_YES . xtc_draw_radio_field('products_startpage', '1', $startpage_checked) . '&nbsp;' . TEXT_PRODUCTS_STARTPAGE_NO . xtc_draw_radio_field('products_startpage', '0', !$startpage_checked) ?></span></td>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_STARTPAGE_SORT; ?>&nbsp;<?php echo  xtc_draw_input_field('products_startpage_sort', $pInfo->products_startpage_sort ,'size=3'); ?></span></td>
-    </tr>        
-    <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_SORT; ?>&nbsp;<?php echo  xtc_draw_input_field('products_sort', $pInfo->products_sort,'size=3'); ?></span></td>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?>&nbsp;<?php echo xtc_draw_input_field('products_quantity', $pInfo->products_quantity,'size=5'); ?></span></td>
-      </tr>
-              <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></span></td>
-        <td><span class="main"><?php echo  xtc_draw_input_field('products_model', $pInfo->products_model); ?></span></td>
-      </tr>
-                    <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_EAN; ?></span></td>
-        <td><span class="main"><?php echo  xtc_draw_input_field('products_ean', $pInfo->products_ean); ?></span></td>
-      </tr>
-      <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></span></td>
-        <td><span class="main"><?php echo xtc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></span></td>
-      </tr>
-      <tr>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_VPE_VISIBLE.xtc_draw_selection_field('products_vpe_status', 'checkbox', '1',$pInfo->products_vpe_status==1 ? true : false); ?>
-        <?php echo TEXT_PRODUCTS_VPE_VALUE.xtc_draw_input_field('products_vpe_value', $pInfo->products_vpe_value,'size=4'); ?></span></td>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_VPE. xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe); ?></span></td>
-      </tr>
-      <tr>
-        <td><span class="main"><?php echo TEXT_FSK18; ?>&nbsp;<?php echo xtc_draw_pull_down_menu('fsk18', $fsk18_array, $pInfo->products_fsk18); ?></span></td>
-        <td><span class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?><?php echo xtc_draw_input_field('products_weight', $pInfo->products_weight,'size=4'); ?><?php echo TEXT_PRODUCTS_WEIGHT_INFO; ?></span></td>
-      </tr>
-      <tr>
+
+
+
+
+<table class="main"  style="border: 1px solid; border-color: #cccccc; background:#f3f3f3;" border="1px">
+<tr>
+    <td>
+        <?php echo TEXT_PRODUCTS_STATUS; ?>
+    </td>
+    <td>
+        <?php
+            echo xtc_draw_radio_field('products_status', '1', $status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . xtc_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; 
+        ?>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br />
+        <small>(YYYY-MM-DD)</small>
+    </td>
+    <td>
+        <script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script>
+    </td>
+</tr>
+<tr>
+    <td><?php echo TEXT_PRODUCTS_TRADING_UNIT; ?></td>
+    <td><?php echo xtc_draw_input_field('products_trading_unit', $pInfo->products_trading_unit>0?$pInfo->products_trading_unit:1,'size=5'); ?></td>
+</tr>
+<tr>
+    <td><?php echo TEXT_PRODUCTS_STARTPAGE; ?> <?php echo TEXT_PRODUCTS_STARTPAGE_YES . xtc_draw_radio_field('products_startpage', '1', $startpage_checked) . '&nbsp;' . TEXT_PRODUCTS_STARTPAGE_NO . xtc_draw_radio_field('products_startpage', '0', !$startpage_checked) ?></td>
+    <td><?php echo TEXT_PRODUCTS_STARTPAGE_SORT; ?>&nbsp;<?php echo  xtc_draw_input_field('products_startpage_sort', $pInfo->products_startpage_sort ,'size=3'); ?></td>
+</tr>        
+<tr>
+    <td><?php echo TEXT_PRODUCTS_SORT; ?>&nbsp;<?php echo  xtc_draw_input_field('products_sort', $pInfo->products_sort,'size=3'); ?></td>
+    <td><?php echo TEXT_PRODUCTS_QUANTITY; ?>&nbsp;<?php echo xtc_draw_input_field('products_quantity', $pInfo->products_quantity,'size=5'); ?></td>
+</tr>
+<tr>
+    <td><?php echo TEXT_PRODUCTS_MODEL; ?></td>
+    <td><?php echo  xtc_draw_input_field('products_model', $pInfo->products_model); ?></td>
+</tr>
+<tr>
+    <td><?php echo TEXT_PRODUCTS_EAN; ?></td>
+    <td><?php echo  xtc_draw_input_field('products_ean', $pInfo->products_ean); ?></td>
+</tr>
+<tr>
+    <td><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
+    <td><?php echo xtc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
+</tr>
+<tr>
+    <td>
+        <?php echo TEXT_PRODUCTS_VPE_VISIBLE.xtc_draw_selection_field('products_vpe_status', 'checkbox', '1',$pInfo->products_vpe_status==1 ? true : false); ?>
+        <?php echo TEXT_PRODUCTS_VPE_VALUE.xtc_draw_input_field('products_vpe_value', $pInfo->products_vpe_value,'size=4'); ?>
+    </td>
+
+    <td>
+        <?php echo TEXT_PRODUCTS_VPE. xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe); ?>
+    </td>
+</tr>
+<tr>
+    <td><?php echo TEXT_FSK18; ?>&nbsp;<?php echo xtc_draw_pull_down_menu('fsk18', $fsk18_array, $pInfo->products_fsk18); ?></td>
+    <td><?php echo TEXT_PRODUCTS_WEIGHT; ?><?php echo xtc_draw_input_field('products_weight', $pInfo->products_weight,'size=4'); ?><?php echo TEXT_PRODUCTS_WEIGHT_INFO; ?></td>
+</tr>
+
+
 <?php if (ACTIVATE_SHIPPING_STATUS=='true') { ?>
-        <td><span class="main"><?php echo BOX_SHIPPING_STATUS.':'; ?></span></td>
-        <td><span class="main"><?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime); ?></span></td>
-      </tr>
-<?php } ?>
-      <tr>
-          <?php
 
-echo '<td class="main"></td>';
-echo '<td>';
-?>
-        </span></td>
-      </tr>
-
-    </table></td>
-  </tr>
+<tr>
+    <td ><?php echo BOX_SHIPPING_STATUS.':'; ?></td>
+    <td >
+        <?php echo xtc_draw_pull_down_menu('shipping_status', $shipping_statuses, $pInfo->products_shippingtime); ?>
+    </td>
+</tr>
+    <?php } ?>
 </table>
+
+
+
+
+
   <br /><br />
   <?php for ($i = 0, $n = sizeof($languages); $i < $n; $i++) { ?>
   <table width="100%" border="0">
