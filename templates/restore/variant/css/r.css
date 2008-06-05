@@ -307,6 +307,57 @@ a:hover
 }
 
 
+/*********product_info************/
+
+#product_info h4
+{
+    color:#333;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+
+#product_info p
+{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+
+
+
+#slideshowContainer
+{
+    margin-right:10px;
+    float:left;
+    width:354px;
+    height:357px;
+    text-align:center;
+    vertical-align:middle;
+    background:url(../../bilder/javascript.png) center no-repeat;
+}
+
+#product_info_slideshow_preview
+{
+    margin-right:10px;
+    width:354px;
+    float:left;
+}
+
+#product_info_order
+{
+    float:left;
+    width:354px;
+}
+
+#product_info_order .price
+{
+    padding-right:5px;
+    font-size:1.5em;
+    color:#0f0;
+    font-weight:bold;
+}
+
 
 
 /*********product_listing************/
@@ -352,7 +403,7 @@ a:hover
 {
     color:#000;
 }
-#product_listing  .product a.quickbuy 
+ a.quickbuy 
 {
     color:#0f0;
     font-weight:bold;
