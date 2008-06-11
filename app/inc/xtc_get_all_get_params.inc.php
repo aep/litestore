@@ -14,9 +14,11 @@
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-   
-  function xtc_get_all_get_params($exclude_array = '') {
-  	global $InputFilter;
+function xtc_get_all_get_params($exclude_array = '') 
+{
+    global $InputFilter;
+    $exclude_array[]="path";
+
 
     if (!is_array($exclude_array)) $exclude_array = array();
 

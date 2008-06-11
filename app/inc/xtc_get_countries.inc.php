@@ -36,7 +36,6 @@
                                    'countries_name' => $countries_values['countries_name']);
       }
     }
-
     return $countries_array;
   }
  ?>

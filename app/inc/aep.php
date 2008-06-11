@@ -15,4 +15,19 @@ function include_all_once ($pattern)
     }
 }
 
+
+
+
+
+function endswith($Haystack, $Needle)
+{
+    return strrpos($Haystack, $Needle) === strlen($Haystack)-strlen($Needle);
+}
+function beginswith($string, $search)
+{
+    return (strncmp($string, $search, strlen($search)) == 0);
+}
+
+
+
 ?>

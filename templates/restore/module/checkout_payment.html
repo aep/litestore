@@ -1,46 +1,63 @@
 {config_load file="$language/lang_$language.conf" section="checkout_payment"}
-<h1>Kasse</h1>
-<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/zahlungsinformationen-icon.png" alt="[Zahlungsinformationen Icon]"></div>
-<div class="spalte1_inhalt"><div id="payment-shipping">
-	<form action="checkout_confirmation.php" method="post" onSubmit="return check_form();">
-		{if $error!=''}
-			<div id="fehler">
-				{$error}
-			</div>
-		{/if}
-		<h2>Schritt 2 von 3 - {#text_payment_info#}</h2>
-		<div class="kasse_absatz">
-			<h3>{#title_address#}</h3>
-			<div class="normaltext">
-				{$ADDRESS_LABEL}
-				<div class="kasse_aendern"><a href="/checkout_payment_address.php" tabindex="4">[Andere Adresse]</a></div>
-			</div>
-		</div>
-		<div class="kasse_absatz">
-			<h3>{#title_payment#}</h3>
-			<div class="normaltext">
-				{if $GV_COVER!='true'}
-                	{$PAYMENT_BLOCK}
-                	{$module_gift}
-				{else}
-					{#text_gccover#}
-				{/if}
-			</div>
-		</div>
-		<div class="kasse_absatz">
-			<h3>{#title_agb#}</h3>
-			<div class="normaltext">
-				<div class="normaltext">{$AGB}</div>
-				<div class="formularzeile-kleinerumbruch"></div>
-				<div class="formularzeile">
-					<label>{$AGB_checkbox}<strong> {#text_accept_agb#}</strong></label>
-				</div>
-			</div>
-		</div>
-		<div><input class="buttons2" type="submit" value="Weiter zur Best&#228;tigung &#62;&#62;" tabindex="4"></div>
-	</form>
-	<form action="/checkout" method="get"><div>
-		<input class="buttons2" type="submit" value="&#60;&#60; Zur&#252;ck" tabindex="4">
-	</div></form>
-</div></div>
-<br class="endefloat">
+<h1>{#heading_payment#}</h1>
+<div id="payment">
+    <form action="/checkout/payment" method="post" onSubmit="return check_form();">
+        <p>
+            <h3>Schritt 2 von 3 - {#text_payment_info#}</h3>
+            <h4>{#title_address#}</h4>
+            <p><em>{$ADDRESS_LABEL}</em></p>
+            <br>
+            <a href="/checkout/payment/address" >[Andere Adresse]</a>
+        </p>
+        <p>
+            <h4>{#title_payment#}</h4>
+
+        {if $error != ''}
+            <div class="error">{$error}</div>
+        {/if}
+    
+                {if $GV_COVER!='true'}
+                    {foreach name=aussen item=module_data from=$payment_data}
+                        <label>{$module_data.selection} {$module_data.module} {$module_data.module_cost}</label>
+
+                        <div class="payment_method">
+                            {if $module_data.error}
+                                {$module_data.error}
+                            {else}
+                                {foreach name=aussen item=method_data from=$module_data.fields}
+                                    <p>
+                                        <label for="kontoinhaber">{$method_data.title}</label>
+                                        <p>{$method_data.field}</p>
+                                    </p>
+                                {/foreach}
+                            {/if}
+                            {if $module_data.description}
+                                {$module_data.description}
+                            {/if}   
+                        </div>
+                    {/foreach}
+
+
+
+                    {$module_gift}
+                {else}
+                    {#text_gccover#}
+                {/if}
+        </p>
+        <p>
+            <h4>{#title_agb#}</h4>
+
+            {$AGB}
+            <div class="agb">
+                {$AGB_checkbox}<strong>{#text_accept_agb#}</strong>
+            </div>
+        </p>
+        <p>
+            <input type="hidden" name="action" value="process">
+            <input class="submit" type="submit" value="Weiter zur Best&#228;tigung &#62;&#62;">
+        </p>
+    </form>
+    <form action="/checkout" method="get">
+        <input class="submit" type="submit" value="&#60;&#60; Zur&#252;ck" >
+    </form>
+</div>

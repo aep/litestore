@@ -20,7 +20,7 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
+global $product;
 
 $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');

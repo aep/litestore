@@ -9,7 +9,6 @@
    Released under the GNU General Public License  
    ---------------------------------------------------------------------------------------*/
 
-require ('includes/application_top.php');
 require_once (DIR_FS_INC.'xtc_render_vvcode.inc.php');
 require_once (DIR_FS_INC.'xtc_random_charcode.inc.php');
 

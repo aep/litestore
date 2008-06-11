@@ -1,87 +1,65 @@
 {config_load file="$language/lang_$language.conf" section="account_history_info"}
 <h1>Ihr Konto</h1>
-<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/bestellung-icon.png" alt="[Bestellung Icon]"></div>
-<div class="spalte1_inhalt">
-	<h2>{#text_oid#}{$ORDER_NUMBER} ({$ORDER_DATE})</h2>
-	<div class="kasse_absatz">
-		<h3>{#title_history#}</h3>
-		<div class="normaltext">
-			{$HISTORY_BLOCK}
-		</div>
-	</div>
-	<div class="kasse_absatz">
-		<h3>{#text_products#}</h3>
-		<div class="normaltext">
-			<table class="kasse_bestaetigung_artikel" cellspacing="0">
-				<thead id="kasse_bestaetigung_artikel-kopf">
-					<tr>
-						<th class="kasse_bestaetigung_artikel-artnr">Art-nr.</th>
-						<th class="kasse_bestaetigung_artikel-bezeichnung">Bezeichnung</th>
-						<th class="kasse_bestaetigung_artikel-menge">Menge</th>
-						<th class="kasse_bestaetigung_artikel-me">ME</th>
-						<th class="kasse_bestaetigung_artikel-einzelpreis">Einzelpreis</th>
-						<th class="kasse_bestaetigung_artikel-gesamtpreis">Gesamtpreis</th>
-					</tr>
-				</thead>
-				<tbody>
-					{foreach name=aussen item=order_product from=$order_data}
-					<tr>
-						<td class="kasse_bestaetigung_artikel-artnr">{$order_product.PRODUCTS_MODEL}</td>
-						<td class="kasse_bestaetigung_artikel-bezeichnung">{$order_product.PRODUCTS_NAME}</td>
-						<td class="kasse_bestaetigung_artikel-menge">{$order_product.PRODUCTS_QTY}</td>
-						<td class="kasse_bestaetigung_artikel-me">Stk.</td>
-						<td class="kasse_bestaetigung_artikel-einzelpreis">{$order_product.PRODUCTS_SINGLE_PRICE}</td>
-						<td class="kasse_bestaetigung_artikel-gesamtpreis">{$order_product.PRODUCTS_PRICE}</td>
-					</tr>
-					{/foreach}
-				</tbody>
-			</table>
-			<div id="kasse_bestaetigung_gesamtbetrag0">
-				<div id="kasse_bestaetigung_gesamtbetrag1">
-					<div id="kasse_bestaetigung_gesamtbetrag2">
-						<div id="kasse_bestaetigung_gesamtbetrag3">
-							<div id="kasse_bestaetigung_gesamtbetrag4">
-								<div class="account_history_info">{$order_total.0.TITLE}{$order_total.0.TEXT}</div>
-								<div class="account_history_info">{$order_total.1.TITLE}{$order_total.1.TEXT}</div>
-								<div id="account_history_info-sum">{$order_total.2.TITLE}{$order_total.2.TEXT}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br class="endefloat">
-		</div>
-	</div>
-	<div class="kasse_absatz">
-		<div class="kasse_bestaetigung_adressen">
-			<h3>{#text_shipping_address#}</h3>
-			<div class="normaltext">
-				{$DELIVERY_LABEL}
-			</div>
-		</div>
-		<div class="kasse_bestaetigung_adressen">
-			<h3>{#text_shipping_method#}</h3>
-			<div class="normaltext">{$SHIPPING_METHOD}</div>
-		</div>
-		<br class="endefloat">
-	</div>
-	<div class="kasse_absatz">
-		<div class="kasse_bestaetigung_adressen">
-			<h3>{#text_payment_address#}</h3>
-			<div class="normaltext">
-				{$BILLING_LABEL}
-			</div>
-		</div>
-		<div class="kasse_bestaetigung_adressen">
-			<h3>{#text_payment_method#}</h3>
-			<div class="normaltext">{$PAYMENT_METHOD}</div>
-		</div>
-		<br class="endefloat">
-	</div>
-	<div class="kasse_buttons">
-		<form action="/myaccount" method="get"><div>
-			<center><input class="buttons2" type="submit" value="Zur&#252;ck zu &#34;Ihr Konto&#34;" tabindex="4"></center>
-		</div></form>
-	</div>
+<div id="account_history_order">
+    <h3>{#text_oid#}{$ORDER_NUMBER} ({$ORDER_DATE})</h3>
+    <p>
+        <h4>{#title_history#}</h4>
+            {$HISTORY_BLOCK}
+    </p>
+    <p>
+        <h4>{#text_products#}</h4>
+        <table cellspacing="0">
+            <thead >
+                <tr>
+                    <th class="artnr">Art-nr.</th>
+                    <th class="bezeichnung">Bezeichnung</th>
+                    <th colspan="2" class="menge">Menge</th>
+                    <th class="einzelpreis">Einzelpreis</th>
+                    <th class="gesamtpreis">Gesamtpreis</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {foreach name=aussen item=order_product from=$order_data}
+                    <tr>    
+                        <td>{$order_product.PRODUCTS_MODEL}</td>
+                        <td>{$order_product.PRODUCTS_NAME}</td>
+                        <td>{$order_product.PRODUCTS_QTY}</td>
+                        <td>Stk.</td>
+                        <td>{$order_product.PRODUCTS_SINGLE_PRICE}</td>
+                        <td>{$order_product.PRODUCTS_PRICE}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+
+            <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
+                <p><span class="total">{$order_total.0.TITLE}{$order_total.0.TEXT}</span></p>
+                <p>{$order_total.1.TITLE}{$order_total.1.TEXT}</p>
+                <p>{$order_total.2.TITLE}{$order_total.2.TEXT}</p>
+            </div></div></div></div></div>
+
+    </p>
+    <p>
+        <h4>{#text_shipping_address#}</h4>
+            {$DELIVERY_LABEL}
+    </p>
+    <p>
+
+        <h4>{#text_shipping_method#}</h4>
+            {$SHIPPING_METHOD}
+    </p>
+    <p>
+        <h4>{#text_payment_address#}</h4>
+            {$BILLING_LABEL}
+    </p>
+    <p>
+
+        <h4>{#text_payment_method#}</h4>        
+            {$PAYMENT_METHOD}
+    </p>
+    <p>
+        <form action="/account" method="get">
+            <input class="submit" type="submit" value="Zur&#252;ck zu &#34;Ihr Konto&#34;">
+        </form>
+    </p>
 </div>
-<br class="endefloat">

@@ -13,93 +13,108 @@
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-?>
-<meta name="robots" content="<?php echo META_ROBOTS; ?>" >
-<meta name="language" content="<?php echo $_SESSION['language_code']; ?>" >
-<meta name="author" content="<?php echo META_AUTHOR; ?>" >
-<meta name="publisher" content="<?php echo META_PUBLISHER; ?>" >
-<meta name="company" content="<?php echo META_COMPANY; ?>" >
-<meta name="page-topic" content="<?php echo META_TOPIC; ?>" >
-<meta name="reply-to" content="<?php echo META_REPLY_TO; ?>" >
-<meta name="distribution" content="global" >
-<meta name="revisit-after" content="<?php echo META_REVISIT_AFTER; ?>" >
-<?php
+$head[]=array('name'=>"robots"          ,'content'=>META_ROBOTS);
+$head[]=array('name'=>"language"        ,'content'=>$_SESSION['language_code']);
+$head[]=array('name'=>"author"          ,'content'=>META_AUTHOR);
+$head[]=array('name'=>"publisher"       ,'content'=>META_PUBLISHER);
+$head[]=array('name'=>"company"         ,'content'=>META_COMPANY);
+$head[]=array('name'=>"page-topic"      ,'content'=>META_TOPIC);
+$head[]=array('name'=>"reply-to"        ,'content'=>META_REPLY_TO);
+$head[]=array('name'=>"distribution"    ,'content'=>"global");
+$head[]=array('name'=>"revisit-after"   ,'content'=>META_REVISIT_AFTER);
 
-if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO)) {
+if (strstr($PHP_SELF, FILENAME_PRODUCT_INFO)) 
+{
+    if ($product->isProduct()) 
+    {
 
-	if ($product->isProduct()) {
-?>	
-<meta name="description" content="<?php echo $product->data['products_meta_description']; ?>" >
-<meta name="keywords" content="<?php echo $product->data['products_meta_keywords']; ?>" >
-<title><?php echo TITLE.' - '.$product->data['products_meta_title'].' '.$product->data['products_name'].' '.$product->data['products_model']; ?></title>
-	<?php
+        $head[]=array('name'=>"description" ,'content'=>$product->data['products_meta_description']);
+        $head[]=array('name'=>"keywords" ,'content'=>$product->data['products_meta_keywords']);
 
-	} else {
-?>
-<meta name="description" content="<?php echo META_DESCRIPTION; ?>" >
-<meta name="keywords" content="<?php echo META_KEYWORDS; ?>" >
-<title><?php echo TITLE; ?></title>	
-	<?php
+        $smarty->assign("HEAD_TITLE",TITLE.' - '.$product->data['products_meta_title'].' '.$product->data['products_name'].' '.$product->data['products_model'] );
+    } 
+    else 
+    {
+        $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
+        $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+        $smarty->assign("HEAD_TITLE",TITLE);
+    }
+} 
+else 
+{
+    if ($_GET['cPath']) 
+    {
+        if (strpos($_GET['cPath'], '_') == '1') 
+        {
+            $arr = explode('_', xtc_input_validation($_GET['cPath'], 'cPath', ''));
+            $_cPath = $arr[1];
+        } 
+        else 
+        {   
+            //$_cPath=(int)$_GET['cPath'];
+            if (isset ($_GET['cat'])) 
+            {
+                $site = explode('_', $_GET['cat']);
+                $cID = $site[0];
+                $_cPath = str_replace('c', '', $cID);
+            }
+        }
+        $categories_meta_query = xtDBquery("SELECT categories_meta_keywords,
+                                                    categories_meta_description,
+                                                    categories_meta_title,
+                                                    categories_name
+                                                    FROM " . TABLE_CATEGORIES_DESCRIPTION . "
+                                                    WHERE categories_id='" . $_cPath . "' and
+                                                    language_id='" . $_SESSION['languages_id'] . "'");
+        $categories_meta = xtc_db_fetch_array($categories_meta_query, true);
+        if ($categories_meta['categories_meta_keywords'] == '') 
+        {
+            $categories_meta['categories_meta_keywords'] = META_KEYWORDS;
+        }
+        if ($categories_meta['categories_meta_description'] == '') 
+        {
+            $categories_meta['categories_meta_description'] = META_DESCRIPTION;
+        }
+        if ($categories_meta['categories_meta_title'] == '') 
+        {
+            $categories_meta['categories_meta_title'] = $categories_meta['categories_name'];
+        }
 
-	}
 
-} else {
-	if ($_GET['cPath']) {
-		if (strpos($_GET['cPath'], '_') == '1') {
-			$arr = explode('_', xtc_input_validation($_GET['cPath'], 'cPath', ''));
-			$_cPath = $arr[1];
-		} else {
-			//$_cPath=(int)$_GET['cPath'];
-			if (isset ($_GET['cat'])) {
-				$site = explode('_', $_GET['cat']);
-				$cID = $site[0];
-				$_cPath = str_replace('c', '', $cID);
-			}
-		}
-		$categories_meta_query = xtDBquery("SELECT categories_meta_keywords,
-		                                            categories_meta_description,
-		                                            categories_meta_title,
-		                                            categories_name
-		                                            FROM " . TABLE_CATEGORIES_DESCRIPTION . "
-		                                            WHERE categories_id='" . $_cPath . "' and
-		                                            language_id='" . $_SESSION['languages_id'] . "'");
-		$categories_meta = xtc_db_fetch_array($categories_meta_query, true);
-		if ($categories_meta['categories_meta_keywords'] == '') {
-			$categories_meta['categories_meta_keywords'] = META_KEYWORDS;
-		}
-		if ($categories_meta['categories_meta_description'] == '') {
-			$categories_meta['categories_meta_description'] = META_DESCRIPTION;
-		}
-		if ($categories_meta['categories_meta_title'] == '') {
-			$categories_meta['categories_meta_title'] = $categories_meta['categories_name'];
-		}
-?>
-<meta name="description" content="<?php echo $categories_meta['categories_meta_description']; ?>" >
-<meta name="keywords" content="<?php echo $categories_meta['categories_meta_keywords']; ?>" >
-<title><?php echo TITLE.' - '.$categories_meta['categories_meta_title']; ?></title>
-<?php
+        $head[]=array('name'=>"description" ,'content'=>$categories_meta['categories_meta_description']);
+        $head[]=array('name'=>"keywords" ,'content'=>$categories_meta['categories_meta_keywords']);
+        $smarty->assign("HEAD_TITLE",TITLE.' - '.$categories_meta['categories_meta_title']);
 
-	} else {
-		if ($_GET['coID']) {
-			$contents_meta_query = xtDBquery("SELECT content_heading
-			                                            FROM " . TABLE_CONTENT_MANAGER . "
-			                                            WHERE content_group='" . $_GET['coID'] . "' and
-			                                            languages_id='" . $_SESSION['languages_id'] . "'");
-			$contents_meta = xtc_db_fetch_array($contents_meta_query, true);
-?>
-<meta name="description" content="<?php echo META_DESCRIPTION; ?>" >
-<meta name="keywords" content="<?php echo META_KEYWORDS; ?>" >
-<title><?php echo TITLE.' - '.$contents_meta['content_heading']; ?></title>
-<?php
+    } 
+    else 
+    {
+        if ($_GET['coID']) 
+        {
+            $contents_meta_query = xtDBquery("SELECT content_heading
+                                                        FROM " . TABLE_CONTENT_MANAGER . "
+                                                        WHERE content_group='" . $_GET['coID'] . "' and
+                                                        languages_id='" . $_SESSION['languages_id'] . "'");
+            $contents_meta = xtc_db_fetch_array($contents_meta_query, true);
 
-		} else {
-?>
-<meta name="description" content="<?php echo META_DESCRIPTION; ?>" >
-<meta name="keywords" content="<?php echo META_KEYWORDS; ?>" >
-<title><?php echo TITLE; ?></title>
-<?php
+            $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
+            $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+            $smarty->assign("HEAD_TITLE",TITLE." - ".$contents_meta['content_heading']);
 
-		}
-	}
+
+        } 
+        else 
+        {
+
+            $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
+            $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+            $smarty->assign("HEAD_TITLE",TITLE);
+
+        }
+    }
 }
+
+$smarty->assign("head_metadata",$head);
+
+
+
 ?>

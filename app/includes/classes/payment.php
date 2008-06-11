@@ -73,8 +73,8 @@
             if (in_array($_SESSION['delivery_zone'], $unallowed_zones) == true || count($unallowed_zones) == 0) {
               if ($include_modules[$i]['file']!='' && $include_modules[$i]['file']!='no_payment') {
 
-              include(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $include_modules[$i]['file']);
-              include(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
+              include_once(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/payment/' . $include_modules[$i]['file']);
+              include_once(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 
               }
               $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];

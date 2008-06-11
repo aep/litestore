@@ -277,68 +277,6 @@ class Random extends AbstractVCNode
 }
 
 
-class HHLArchive extends AbstractVCNode
-{
-    var $classid= "{fbee9ccc-0000-4000-b02e-e39f26f3b143}";
-    function __construct()
-    {
-    }
-    function walkthrough()
-    {
-        return false;
-    }
-    function evaluate()
-    {
-        $e= "";
-        $firsturl=false;
-
-
-        foreach ($this->VisualContentInstance->listGenerators($this->Id) as $n)
-        {
-            if($n->classid=="{e4527460-0000-4000-b52f-2d8668f85680}")
-            {
-                $e.="
-                    <script language=\"javascript\">
-                    function switch_vc_HHLARchiv_".$this->Id." (x)
-                    {
-                        document.getElementById('hhlarchive_".$this->Id."_img').src=x;
-                    }
-                    </script>
-                    <style type=\"text/css\">
-                        #HHLArchiv a
-                        {
-                           display:block;
-                           width:50%;
-                           float:left;
-                        }
-                    </style>
-                    <div id=\"HHLArchiv\">
-                    <a href=\"javascript:switch_vc_HHLARchiv_".$this->Id." ('".$n->getUrl()."');\" >
-                    ".$n->name."
-                    </a> \n";
-
-                if(!$firsturl)
-                    $firsturl=$n->getUrl();
-            }
-        }
-        $e.="<img id=\"hhlarchive_".$this->Id."_img\" src=\"$firsturl\" alt=\"\" /></div>";
-
-        return $e;
-    }
-    function metatype()
-    {
-        return "text/html";
-    }
-}
-
-
-
-
-
-
-
-
-
 
 
 

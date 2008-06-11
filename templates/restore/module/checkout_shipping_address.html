@@ -1,7 +1,7 @@
 {config_load file="$language/lang_$language.conf" section="checkout_shipping_address"}
 <h1>{#heading_address#}</h1>
 <div id="checkout_shipping_address">
-    <form action="/checkout_shipping_address.php" method="post" onsubmit="return check_form_optional(checkout_address);">
+    <form action="/checkout/shipping/address" method="post" onsubmit="return check_form_optional(checkout_address);">
         <h3>{#title_old_addresses#}</h3>
         <p>
             Wh&auml;len Sie eine Versandadresse aus Ihrem Adressbuch aus, oder f&uuml;gen Sie eine Neue hinzu.
@@ -18,7 +18,7 @@
                     {$addresses.postcode}<br>
                     {$addresses.city}<br>
                     {$addresses.state}<br>
-                    {$addresses.country_id}<br>
+                    {$addresses.country}<br>
                 </em>
             {/foreach}
         </div>

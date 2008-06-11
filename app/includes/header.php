@@ -27,55 +27,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" > 
-<meta http-equiv="Content-Style-Type" content="text/css" >
-<?php include(DIR_WS_MODULES.FILENAME_METATAGS); ?>
-<link rel="stylesheet" type="text/css" href="/templates/<?php echo CURRENT_TEMPLATE; ?>/variant/css/<?php echo CURRENT_CSS; ?>" >
-
-
-
-
-<!--[if lte IE 7]><link rel="stylesheet"  
-    href="/templates/<?php echo CURRENT_TEMPLATE; ?>/variant/css/condome_lteie7_<?php echo CURRENT_CSS; ?>" ><![endif]-->
-<!--[if lt IE 7]><link rel="stylesheet" 
-    href="/templates/<?php echo CURRENT_TEMPLATE; ?>/variant/css/condome_ltie7_<?php echo CURRENT_CSS; ?>" ><![endif]-->
-
-
-
-<script src="lib/prototype.js" type="text/javascript" ></script>
-<script src="spinbox.js" type="text/javascript"  ></script>
-<script type="text/javascript" >
-    function init() 
-    {
-        var h = new SpinBox('hours',0,23,2);
-        var m = new SpinBox('minutes',0,59,2);
-        var s = new SpinBox('seconds',0,59,2);
-        m.registerOverflowObserver(h);
-        s.registerOverflowObserver(m);
-    }
-</script>
-
-
-
-
-
-<?php
+include(DIR_WS_MODULES.FILENAME_METATAGS);
 require('javascript/general.js.php');
 
+$smarty->assign("CHARSET",$_SESSION['language_charset'] );
+$smarty->assign("HTML_PARAMS",HTML_PARAMS );
 
 
-
-  require_once('inc/xtc_output_warning.inc.php');
-  require_once('inc/xtc_image.inc.php');
-  require_once('inc/xtc_parse_input_field_data.inc.php');
-  require_once('inc/xtc_draw_separator.inc.php');
-
-//  require_once('inc/xtc_draw_form.inc.php');
-//  require_once('inc/xtc_draw_pull_down_menu.inc.php');
+require_once('inc/xtc_output_warning.inc.php');
+require_once('inc/xtc_parse_input_field_data.inc.php');
 
   // check if the 'install' directory exists, and warn of its existence
   if (WARN_INSTALL_EXISTENCE == 'true') {
@@ -129,26 +89,12 @@ $smarty->assign('store_name',TITLE);
 
 if (isset($_GET['error_message']) && xtc_not_null($_GET['error_message'])) 
 {
+    $smarty->assign('error',htmlspecialchars(urldecode($_GET['error_message'])));
+}
 
-    $smarty->assign('error','
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr class="headerError">
-        <td class="headerError">'. htmlspecialchars(urldecode($_GET['error_message'])).'</td>
-      </tr>
-    </table>');
+if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) 
+{
+    $smarty->assign('error',htmlspecialchars(urldecode($_GET['info_message'])));
+}
 
-  }
-
-  if (isset($_GET['info_message']) && xtc_not_null($_GET['info_message'])) {
-
-$smarty->assign('error','
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr class="headerInfo">
-        <td class="headerInfo">'.htmlspecialchars($_GET['info_message']).'</td>
-      </tr>
-    </table>');
-
-  }
-
-  include(DIR_WS_INCLUDES.FILENAME_BANNER);
 ?>

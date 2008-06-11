@@ -37,7 +37,7 @@
                     (
                             {$module_data.PRODUCTS_QTY},
                             {$module_data.PRODUCTS_TRADING_UNIT},
-                            999999,
+                            {$MAX_PRODUCTS_QTY},
                             {$module_data.PRODUCTS_TRADING_UNIT},
                             'cart_quantity[]'
                     ); 
@@ -60,13 +60,13 @@
 </table>
 
 <div class="totalblock">
-    <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
+    <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
         <span class="total">{$TOTAL_CONTENT}</span>
         {if $SHIPPING_INFO}
             {$SHIPPING_INFO}
         {/if}
         <br>{$UST_CONTENT}
-    </div></div></div></div>
+    </div></div></div></div></div>
 </div>
 
 <br class="clear">

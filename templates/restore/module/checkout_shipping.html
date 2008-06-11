@@ -19,7 +19,7 @@
             {else}
                 {foreach name=aussen item=module_data from=$shipping_data}
                     {if $module_data.error!=''}
-                        {$module_data.error}
+                       <p> {$module_data.error}</p>
                     {else}
                         {foreach name=aussen item=method_data from=$module_data.methods}
                             <p>{$method_data.radio_field} {$method_data.title} {$method_data.price}</p>
@@ -33,7 +33,7 @@
             <input class="submit" type="submit" value="Weiter zu Zahlungsinformationen &#62;&#62;" >
         </p>
     </form>
-    <form action="/mycart" method="get">
+    <form action="/cart" method="get">
         <input class="submit" type="submit" value="&#60;&#60; Zur&#252;ck" tabindex="4">
     </form>
 </div>

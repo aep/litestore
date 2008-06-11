@@ -89,7 +89,7 @@ class BoxShoppingCart extends AbstractVCBox
 	        $box_smarty->assign('UST', $_SESSION['cart']->show_tax());
 	        
 	        if (SHOW_SHIPPING=='true') { 
-			        $box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');	
+			        $box_smarty->assign('SHIPPING_INFO',' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.FILENAME_POPUP_CONTENT. '/'.SHIPPING_INFOS.'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');	
 	        }
         }
         if (ACTIVATE_GIFT_SYSTEM == 'true') {
@@ -115,7 +115,7 @@ class BoxShoppingCart extends AbstractVCBox
 	        $box_smarty->assign('COUPON_HELP_LINK', '<a href="javascript:popupWindow(\''.xtc_href_link(FILENAME_POPUP_COUPON_HELP, 'cID='.$_SESSION['cc_id']).'\')">');
         }
         // GV Code End
-        $box_smarty->assign('LINK_CART', xtc_href_link(FILENAME_SHOPPING_CART, '', 'SSL'));
+        $box_smarty->assign('LINK_CART', FILENAME_SHOPPING_CART);
         $box_smarty->assign('products', $products_in_cart);
         
         $box_smarty->caching = 0;

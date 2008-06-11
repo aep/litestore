@@ -25,12 +25,9 @@
 $default_smarty = new smarty;
 $default_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
 $default_smarty->assign('session', session_id());
-$main_content = '';
+$module = '';
 
 
-
-
-require_once (DIR_FS_INC.'xtc_customer_greeting.inc.php');
 require_once (DIR_FS_INC.'xtc_get_path.inc.php');
 require_once (DIR_FS_INC.'xtc_check_categories_status.inc.php');
 
@@ -44,7 +41,6 @@ else
 
     if ($category_depth == 'nested')
     {
-
 
         if (GROUP_CHECK == 'true')
         {
@@ -65,8 +61,13 @@ else
 
         $category = xtc_db_fetch_array($category_query, true);
 
+        pr(ereg('_', $cPath));
+
         if (isset ($cPath) && ereg('_', $cPath)) 
         {
+
+
+
             //check to see if there are deeper categories within the current category
             $category_links = array_reverse($cPath_array);
             for ($i = 0, $n = sizeof($category_links); $i < $n; $i ++) 
@@ -117,12 +118,18 @@ else
                                         ".$group_check."
                                         and cd.language_id = '".(int) $_SESSION['languages_id']."'
                                         order by sort_order, cd.categories_name";
+
+
                 $categories_query = xtDBquery($categories_query);
         }
+
+
+
 
         $rows = 0;
         while ($categories = xtc_db_fetch_array($categories_query, true)) 
         {
+
             $rows ++;
             $cPath_new = "/catalog/".$categories['categories_id'];
             $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
@@ -135,6 +142,10 @@ else
             $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'], 'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'], 'CATEGORIES_IMAGE' => $image, 'CATEGORIES_LINK' => $cPath_new, 'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
 
         }
+
+
+
+
         $new_products_category_id = $current_category_id;
         include (DIR_WS_MODULES.FILENAME_NEW_PRODUCTS);
 
@@ -154,8 +165,7 @@ else
 
 
         $default_smarty->caching = 0;
-        $main_content = $default_smarty->fetch(CURRENT_TEMPLATE.'/module/categorie_listing.html');
-        $smarty->assign('main_content', $main_content);
+        $module= $default_smarty->fetch(CURRENT_TEMPLATE.'/module/categorie_listing.html');
 
     }
     elseif ($category_depth == 'products' || $_GET['manufacturers_id']) 
@@ -527,8 +537,6 @@ else
             $cache_id = $_SESSION['language'].$_SESSION['currency'].$_SESSION['customer_id'];
             $main_content = $default_smarty->fetch(CURRENT_TEMPLATE.'/module/main_content.html', $cache_id);
         }
-
-        $smarty->assign('main_content', $main_content);
     }
 }
 

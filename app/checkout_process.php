@@ -29,8 +29,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-include ('includes/application_top.php');
-
 // include needed functions
 require_once (DIR_FS_INC.'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC.'xtc_address_label.inc.php');

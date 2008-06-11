@@ -40,7 +40,7 @@ class BoxAdmin extends AbstractVCBox
         
         $orders_contents = '';
         $orders_status_validating = xtc_db_num_rows(xtc_db_query("select orders_status from " . TABLE_ORDERS ." where orders_status ='0'"));
-        $orders_contents .='<a href="' . xtc_href_link_admin(FILENAME_ORDERS, 'selected_box=customers&status=0', 'SSL') . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; 
+        $orders_contents .='<a href="/admin/' .FILENAME_ORDERS. '?selected_box=customers&status=0' . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; 
         
         $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$_SESSION['languages_id'] . "'");
         
@@ -48,7 +48,7 @@ class BoxAdmin extends AbstractVCBox
         {
             $orders_pending_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
             $orders_pending = xtc_db_fetch_array($orders_pending_query);
-            $orders_contents .= '<a href="' . xtc_href_link_admin(FILENAME_ORDERS, 'selected_box=customers&status=' . $orders_status['orders_status_id'], 'SSL') . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
+            $orders_contents .= '<a href="' . FILENAME_ORDERS. '?selected_box=customers&status=' . $orders_status['orders_status_id'] . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
         }
         
         $orders_contents = substr($orders_contents, 0, -6);
@@ -61,7 +61,7 @@ class BoxAdmin extends AbstractVCBox
         $reviews = xtc_db_fetch_array($reviews_query);
         if ($product->isProduct()) 
         {
-            $admin_link='<a href="' . xtc_href_link_admin(FILENAME_EDIT_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $product->data['products_id']) . '&action=new_product' . '" onclick="window.open(this.href); return false;"> edit product</a>';
+            $admin_link='<a href="' . FILENAME_EDIT_PRODUCTS. '?cPath=' . $cPath . '&pID=' . $product->data['products_id'] . '&action=new_product' . '" onclick="window.open(this.href); return false;"> edit product</a>';
         }
         
         $box_content= '<b>' . BOX_TITLE_STATISTICS . '</b><br />' . $orders_contents . '<br />' .

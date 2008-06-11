@@ -1,6 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html {$HTML_PARAMS} >
 {config_load file="$language/lang_$language.conf" section="index"}
-</head>
+<head>
 
+    <title>{$HEAD_TITLE}</title>
+
+    {foreach name=aussen item=meta from=$head_metadata}
+    <meta name="{$meta.name}" content="{$meta.content}">
+    {/foreach}
+
+
+    {foreach name=aussen item=script from=$head_scripts}
+    <script type="text/javascript" src="{$script}"></script>
+    {/foreach}
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset={$CHARSET}" >
+    <meta http-equiv="Content-Style-Type" content="text/css" >
+
+    <link rel="stylesheet" type="text/css" href="{$tpl_path}/variant/css/{$CURRENT_CSS}" >
+
+<!--[if lte IE 7]><link rel="stylesheet"  
+    href="{$tpl_path}/variant/css/condome_lteie7_{$CURRENT_CSS}" ><![endif]-->
+<!--[if lt IE 7]><link rel="stylesheet" 
+    href="{$tpl_path}/variant/css/condome_ltie7_{$CURRENT_CSS}" ><![endif]-->
+
+
+</head>
 <body style="background-image:url({$tpl_path}variant/background/{$CURRENT_BACKGROUND});" >
     <div id="indexhtml_s_wrap">
 
@@ -16,7 +42,7 @@
                 <form action="/logout" method="get">
                     <p>
                     <label>Wieder ausloggen: </label>
-                    <input class="buttons3" type="submit" value="Logout" tabindex="4">
+                    <input class="submit" type="submit" value="Logout">
                     </p>
                 </form>
                 {php}   }   else   {   {/php}
@@ -25,7 +51,7 @@
                         <tr>
                             <td><input type="text" name="email_address" maxlength="50"></td>
                             <td><input type="password" name="password" maxlength="30"></td>
-                            <td><input class="submit" type="submit" value="Login" tabindex="1"></td>
+                            <td><input class="submit" type="submit" value="Login" ></td>
                         </tr>
                         <tr>
                             <td>EMail-Adresse/Kundennummer</td>
@@ -42,16 +68,15 @@
             <div id="topnav">
                 <ul >
                     <li><a href="/">Shop-Startseite</a></li>
-                    <li><a href="/mycart" >Warenkorb {$cart}  </a></li>
+                    <li><a href="/cart" >Warenkorb {$cart}  </a></li>
                     {php}   if   (isset($_SESSION['customer_id'])) {   {/php}
                     <li><a href="/checkout" >Kasse</a></li>
-                    <li><a href="/myaccount" >Ihr Konto</a></li>
+                    <li><a href="/account" >Ihr Konto</a></li>
                     {php}   } else {   {/php}
                     <li><a href="/login">Konto erstellen</a></li>
                     {php}   }   {/php}
                 </ul>
             </div>
-            
         </div>
         <div id="indexhtml_content_wrap">
             <div id="breadcrumb">Sie sind hier: {$navtrail}</div>
@@ -70,3 +95,5 @@
         <br class="clear">
 
     </div>
+</body>
+</html>

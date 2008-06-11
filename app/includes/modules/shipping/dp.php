@@ -15,7 +15,7 @@
    Released under the GNU General Public License 
    -----------------------------------------------------------------------------------------
    Third Party contributions:
-   German Post (Deutsche Post WorldNet)         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers | http://www.themedia.at & http://www.oscommerce.at
+   German Post (Deutsche Post WorldNet)         	Autor:	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plï¿½nkers | http://www.themedia.at & http://www.oscommerce.at
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
@@ -72,6 +72,7 @@
       $dest_zone = 0;
       $error = false;
 
+
       for ($i=1; $i<=$this->num_dp; $i++) {
         $countries_table = constant('MODULE_SHIPPING_DP_COUNTRIES_' . $i);
         $country_zones = split("[,]", $countries_table);
@@ -114,9 +115,10 @@
         $this->quotes['tax'] = xtc_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
       }
 
-      if (xtc_not_null($this->icon)) $this->quotes['icon'] = xtc_image($this->icon, $this->title);
+      if (xtc_not_null($this->icon)) $this->quotes['icon'] = "<img src=\"".$this->icon."\" alt=\"". $this->title."\" >";
 
-      if ($error == true) $this->quotes['error'] = MODULE_SHIPPING_DP_INVALID_ZONE;
+      if ($error == true) 
+            $this->quotes['error'] = MODULE_SHIPPING_DP_INVALID_ZONE;
 
       return $this->quotes;
     }
