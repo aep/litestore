@@ -22,7 +22,7 @@
     // class constructor
     function shipping($module = '') {
       global $PHP_SELF,$order;
-
+       
       if (defined('MODULE_SHIPPING_INSTALLED') && xtc_not_null(MODULE_SHIPPING_INSTALLED)) {
         $this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
 

@@ -2,7 +2,7 @@
 <h1>{#heading_create_account#}</h1>
 
 <div id="create_account" class="twoColumnFormular">
-    <form action="create_account.php" method="post" onsubmit="return check_form(create_account);">
+    <form action="/create_account" method="post" onsubmit="return check_form(create_account);">
     <p>
         <input type="hidden" name="action" value="process">
         {if $error!=''}

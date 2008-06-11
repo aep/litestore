@@ -103,10 +103,9 @@ require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
 require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 
 // html basics
-require_once (DIR_FS_INC.'xtc_href_link.inc.php');
-require_once (DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
-
+require_once (DIR_FS_INC.'xtc_href_link.inc.php');
+require_once (DIR_FS_INC.'xtc_image.inc.php');
 require_once (DIR_FS_INC.'xtc_category_link.inc.php');
 require_once (DIR_FS_INC.'xtc_manufacturer_link.inc.php');
 
@@ -119,7 +118,6 @@ require_once (DIR_FS_INC.'xtc_draw_password_field.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_pull_down_menu.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_radio_field.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_selection_field.inc.php');
-require_once (DIR_FS_INC.'xtc_draw_separator.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_textarea_field.inc.php');
 
 require_once (DIR_FS_INC.'xtc_not_null.inc.php');
@@ -137,7 +135,6 @@ require_once (DIR_FS_INC.'xtc_redirect.inc.php');
 require_once (DIR_FS_INC.'xtc_get_uprid.inc.php');
 require_once (DIR_FS_INC.'xtc_get_all_get_params.inc.php');
 require_once (DIR_FS_INC.'xtc_has_product_attributes.inc.php');
-require_once (DIR_FS_INC.'xtc_image.inc.php');
 require_once (DIR_FS_INC.'xtc_check_stock_attributes.inc.php');
 require_once (DIR_FS_INC.'xtc_currency_exists.inc.php');
 require_once (DIR_FS_INC.'xtc_remove_non_numeric.inc.php');
@@ -414,22 +411,30 @@ xtc_expire_banners();
 
 // auto expire special products
 xtc_expire_specials();
-require (DIR_WS_CLASSES.'product.php');
-// new p URLS
-if (isset ($_GET['info'])) {
-	$site = explode('_', $_GET['info']);
-	$pID = $site[0];
-	$actual_products_id = (int) str_replace('p', '', $pID);
-	$product = new product($actual_products_id);
-} // also check for old 3.0.3 URLS
-elseif (isset($_GET['products_id'])) {
-	$actual_products_id = (int) $_GET['products_id'];
-	$product = new product($actual_products_id);
-	
-}
-if (!is_object($product)) {
-	$product = new product();	
-}
+
+
+
+
+    
+    require (DIR_WS_CLASSES.'product.php');
+    // new p URLS
+    if (isset ($_GET['info'])) 
+    {
+        $site = explode('_', $_GET['info']);
+        $pID = $site[0];
+        $actual_products_id = (int) str_replace('p', '', $pID);
+        $product = new product($actual_products_id);
+    } // also check for old 3.0.3 URLS
+    elseif (isset($APP_PATH[2]))
+    {
+        $actual_products_id = (int)$APP_PATH[2];
+        $product = new product($actual_products_id);
+    }
+    if (!is_object($product)) 
+    {
+        $product = new product();   
+    }
+
 
 // new c URLS
 if (isset ($_GET['cat'])) {
@@ -447,9 +452,15 @@ if (isset ($_GET['manu'])) {
 }
 
 // calculate category path
-if (isset ($_GET['cPath'])) {
-	$cPath = xtc_input_validation($_GET['cPath'], 'cPath', '');
+if ($APP_PATH[1]=="catalog") 
+{
+    $cPath=$APP_PATH[2];
+    for($iii=3;$iii<sizeof($APP_PATH);$iii++)
+      $cPath.="_".$APP_PATH[$iii];
+    $cPath = xtc_input_validation($cPath, 'cPath', '');
 }
+
+
 elseif (is_object($product) && !isset ($_GET['manufacturers_id'])) {
 	if ($product->isProduct()) {
 		$cPath = xtc_get_product_path($actual_products_id);
@@ -459,6 +470,8 @@ elseif (is_object($product) && !isset ($_GET['manufacturers_id'])) {
 } else {
 	$cPath = '';
 }
+
+
 
 if (xtc_not_null($cPath)) {
 	$cPath_array = xtc_parse_category_path($cPath);
@@ -471,9 +484,7 @@ if (xtc_not_null($cPath)) {
 // include the breadcrumb class and start the breadcrumb trail
 require (DIR_WS_CLASSES.'breadcrumb.php');
 $breadcrumb = new breadcrumb;
-
 $breadcrumb->add(HEADER_TITLE_TOP, "/");
-
 
 // initialize the message stack for output messages
 require (DIR_WS_CLASSES.'message_stack.php');
@@ -521,19 +532,6 @@ if (TRACKING_ECONDA_ACTIVE=='true') {
 	
 	require(DIR_WS_INCLUDES . 'econda/emos.php');
 }
-
-
-$smarty = new Smarty;
-$smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
-$smarty->assign('CURRENT_LOGO',CURRENT_LOGO);
-$smarty->assign('CURRENT_BACKGROUND',CURRENT_BACKGROUND);
-$smarty->assign('CURRENT_CSS',CURRENT_CSS);
-
-
-
-require_once (DIR_FS_INC.'aep.php');
-
-require (DIR_FS_CATALOG.'includes/boxes.php');
 
 
 

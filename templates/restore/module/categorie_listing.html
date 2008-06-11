@@ -1,64 +1,33 @@
 {config_load file="$language/lang_$language.conf" section="categorie_listing"}
+
+<h1>{$CATEGORIES_HEADING_TITLE}</h1>
+
 <div id="categorie_listing">
-	<h1>{$CATEGORIES_NAME}</h1>
-	<ul>
-		<li>
-			<div class="empfehlungen_artikel_bild">
-				<div class="empfehlungen_artikel_bild-link">
-					<em class="listing_artikel_produktbild-container">
-						<!--[if lte IE 7]></em><table class="ie_empfehlungen_artikel_bild-container" cellspacing="0"><tr><td><![endif]-->
-							{if $CATEGORIES_IMAGE}
-								<img class="listing_artikel_produktbild-bild" src="{$CATEGORIES_IMAGE}" alt="{$CATEGORIES_IMAGE}">
-							{else}
-								<img class="listing_artikel_produktbild-bild" src="{$tpl_path}bilder/kein_bild-klein.png" alt="{$CATEGORIES_IMAGE}">
-							{/if}
-						<!--[if lte IE 7]></td></tr></table><em><![endif]-->
-					</em>
-				</div>
-			</div>
-			<div class="empfehlungen_artikel_beschreibung">
-				<div class="empfehlungen_artikel_beschreibung-inhalt"><!--[if lte IE 7]><table class="ie_empfehlungen_artikel_beschreibung-inhalt"><tr><td><![endif]-->
-					<h2>{$CATEGORIES_HEADING_TITLE}</h2>
-					{if $CATEGORIES_DESCRIPTION}
-						<div class="normaltext">
-							{$CATEGORIES_DESCRIPTION}
-						</div>
-					{/if}
-				<!--[if lte IE 7]></td></tr></table><![endif]--></div>
-			</div>
-			<br class="endefloat">
-			
-			
-			{if $module_content!=''}
-				<ul>
-					{foreach name=aussen item=module_data from=$module_content}
-						<li>
-							<div class="empfehlungen_artikel_bild">
-								<a class="empfehlungen_artikel_bild-link" href="{$module_data.CATEGORIES_LINK}" tabindex="4"><!--[if lte IE 7]></a><![endif]-->
-									<em class="listing_artikel_produktbild-container">
-										<!--[if lte IE 7]></em><table class="ie_empfehlungen_artikel_bild-container" cellspacing="0"><tr><td><a href="{$module_data.CATEGORIES_LINK}" tabindex="4"><![endif]-->
-											{if $module_data.CATEGORIES_IMAGE}
-												<img class="listing_artikel_produktbild-bild" src="{$module_data.CATEGORIES_IMAGE}" alt="{$module_data.CATEGORIES_NAME}">
-											{else}
-												<img class="listing_artikel_produktbild-bild" src="{$tpl_path}bilder/kein_bild-klein.png" alt="{$module_data.CATEGORIES_NAME}">
-											{/if}
-										<!--[if lte IE 7]></a></td></tr></table><em><![endif]-->
-									</em>
-								<!--[if lte IE 7]><a><![endif]--></a>
-							</div>
-							<div class="empfehlungen_artikel_beschreibung">
-								<div class="empfehlungen_artikel_beschreibung-inhalt"><!--[if lte IE 7]><table class="ie_empfehlungen_artikel_beschreibung-inhalt"><tr><td><![endif]-->
-									<a href="{$module_data.CATEGORIES_LINK}" tabindex="4">
-										<span class="ueberschrift">{$module_data.CATEGORIES_NAME}</span>
-										{if $module_data.CATEGORIES_DESCRIPTION}{$module_data.CATEGORIES_DESCRIPTION}{/if}
-									</a>
-								<!--[if lte IE 7]></td></tr></table><![endif]--></div>
-							</div>
-							<br class="endefloat">
-						</li>
-					{/foreach}
-				</ul>
-			{/if}
-		</li>
-	</ul>
+
+{if $CATEGORIES_DESCRIPTION}
+    <p>
+        {$CATEGORIES_DESCRIPTION}
+    </p>
+{/if}
+
+
+{if $module_content!=''}
+<ul>
+{foreach name=aussen item=module_data from=$module_content}
+    <li>
+        <a href="{$module_data.CATEGORIES_LINK}" >
+            {if $module_data.CATEGORIES_IMAGE}
+                <img src="{$module_data.CATEGORIES_IMAGE}" alt="{$module_data.CATEGORIES_NAME}">
+            {else}
+                <img src="{$tpl_path}bilder/kein_bild-thumb.png" alt="{$module_data.CATEGORIES_NAME}">
+            {/if}
+
+            <h4>{$module_data.CATEGORIES_NAME}</h4>
+            <p>{if $module_data.CATEGORIES_DESCRIPTION}{$module_data.CATEGORIES_DESCRIPTION}{/if}</p>
+        </a>
+    </li>
+{/foreach}
+</ul>
+{/if}
+
 </div>

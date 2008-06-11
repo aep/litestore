@@ -26,14 +26,14 @@
         </table>
 
         <div class="totalblock">
-            <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
+            <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
                 <span class="total">Warenwert: 0,00 EUR</span>
-            </div></div></div></div>
+            </div></div></div></div></div>
         </div>
 
         <br class="clear">
     {else}
-        <form action="/mycart/?action=update_product" method="post">
+        <form action="/cart" method="post">
             {$HIDDEN_OPTIONS}
             {$MODULE_order_details}
             {if $info_message_1!=''}

@@ -14,15 +14,15 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-require ('includes/application_top.php');
-
 $content_query = xtDBquery("SELECT
  					*
  					FROM ".TABLE_CONTENT_MANAGER."
- 					WHERE content_group='".(int) $_GET['coID']."' and languages_id = '".$_SESSION['languages_id']."'");
+ 					WHERE content_group='".(int) $APP_PATH[2]."' and languages_id = '".$_SESSION['languages_id']."'");
 $content_data = xtc_db_fetch_array($content_query, true);
-?>
 
+
+
+?>
 <html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['language_charset']; ?>" /> 

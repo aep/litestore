@@ -354,11 +354,12 @@ a:hover
     float:left;
 }
 
-#product_info_order
+#product_info_description
 {
-    float:left;
-    width:354px;
+    width:350px;
+    float:right;
 }
+
 
 #product_info_order .price
 {
@@ -370,7 +371,22 @@ a:hover
 
 
 
+#product_info table
+{
+    width:100%;
+}
+#product_info table th
+{
+    text-align:left;
+}
+
+
 /*********product_listing************/
+
+#product_listing
+{
+    margin-top:1em;
+}
 
 #product_listing #categories_description
 {
@@ -504,7 +520,6 @@ a:hover
     margin-top:2em;
     margin-right:10px;
     margin-bottom:10px;
-    border:1px solid #d2d2d2;
 }
 #shopping_cart .totalblock .total
 {
@@ -514,24 +529,32 @@ a:hover
 
 
 
-
 .x_round
 {
+    border:1px solid #d2d2d2;
+}
+
+.x_round .x_round
+{
+    border:none;
     margin:-1px;
     background:url(../../bilder/kasse_bestaetigung_gesamtbetrag1.png) top left no-repeat;
 }
-.x_round .x_round
+.x_round .x_round .x_round
 {
+    border:none;
     margin:0;
     background:url(../../bilder/kasse_bestaetigung_gesamtbetrag2.png) top right no-repeat;
 }
-.x_round .x_round .x_round
+.x_round .x_round .x_round .x_round
 {
+    border:none;
     margin:0;
     background:url(../../bilder/kasse_bestaetigung_gesamtbetrag3.png) bottom right no-repeat;
 }
-.x_round .x_round .x_round .x_round
+.x_round .x_round .x_round .x_round .x_round
 {
+    border:none;
     margin:0;
     padding:1em;
     background:url(../../bilder/kasse_bestaetigung_gesamtbetrag4.png) bottom left no-repeat;
@@ -858,6 +881,282 @@ a:hover
     margin-left:50px;
     width:200px;
     border-bottom:1px solid #bbb;
+}
+
+
+
+/********* /checkout/payment ***************/
+#payment
+{
+    background: url(../../bilder/zahlungsinformationen-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+#payment h4
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#payment input.submit
+{
+    float:right;
+    margin-top:40px;
+    margin-right:60px;
+}
+
+#payment .payment_method
+{
+    padding:20px;
+}
+#payment .agb
+{
+    margin-top:10px;
+}
+
+/********* /checkout/payment/address***************/
+#checkout_payment_address
+{
+    background: url(../../bilder/meine_adressen-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+
+
+#checkout_payment_address p
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#checkout_payment_address .address .address_o
+{
+    display:block;
+    margin-left:50px;
+    width:200px;
+    border-bottom:1px solid #bbb;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#checkout_payment_address .address h4
+{
+    display:inline;
+    padding-left:20px;
+
+}
+
+#checkout_payment_address  #new_address
+{
+    padding-top:10px;
+    padding-bottom:10px;
+    display:block;
+    margin-left:50px;
+    width:200px;
+    border-bottom:1px solid #bbb;
+}
+
+
+
+
+/********* /checkout/confirmation ***************/
+#confirmation
+{
+    background: url(../../bilder/bestaetigung-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+
+
+#confirmation p
+{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#confirmation input.submit
+{
+    float:right;
+    margin-top:40px;
+    margin-right:60px;
+}
+
+/********* /checkout/success***************/
+#checkout_success
+{
+    background: url(../../bilder/erfolgreich-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+
+/******** content *******************/
+
+#content
+{
+    padding:2em;
+}
+
+
+/********* /account *****************/
+#account_settings
+{
+    background: url(../../bilder/einstellungen-icon.png) top left no-repeat;
+    padding-left:130px;
+    float:left;
+    width:240px;
+}
+
+#account_orderhistory
+{
+    background: url(../../bilder/laufende_bestellungen-icon.png) top left no-repeat;
+    padding-left:140px;
+    float:right;
+    width:200px;
+}
+
+
+#account_settings ul  , #account_orderhistory ul
+{
+    list-style:none;
+}
+
+#account_orderhistory li a
+{
+    display:block;
+    padding-top:10px;
+    color:black;
+}
+
+/******** /account/history *********/
+
+#account_history
+{
+    background: url(../../bilder/laufende_bestellungen-icon.png) top left no-repeat;
+    padding-left:140px;
+
+}
+
+#account_history ul
+{
+    list-style:none;
+}
+
+#account_history li a
+{
+    display:block;
+    padding-top:10px;
+    color:black;
+}
+
+
+/******** /account/history/order *********/
+
+#account_history_order
+{
+    background: url(../../bilder/bestellung-icon.png) top left no-repeat;
+    padding-left:130px;
+
+}
+
+#account_history_order .total
+{  
+    font-weight:bold;
+    font-size:1.4em;
+}
+
+
+#account_history_order p
+{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+
+#account_history_order table
+{
+    width:100%;
+    margin-bottom:10px;
+}
+#account_history_order th
+{
+    text-align:left;
+}
+
+
+/*************** /address_book ******************/
+
+#address_book
+{
+    background: url(../../bilder/meine_adressen-icon.png) top left no-repeat;
+    padding-left:130px;
+
+}
+
+#address_book p
+{
+    margin-top:10px;
+    margin-bottom:10px;
+
+}
+
+/************ /account/pasword ****************/
+
+
+#account_password
+{
+    background: url(../../bilder/login-icon.png) top left no-repeat;
+    padding-left:130px;
+
+}
+
+
+/************ /account/newsletter ****************/
+
+
+#newsletter
+{
+    background: url(../../bilder/newsletter-icon.png) top left no-repeat;
+    padding-left:130px;
+}
+
+
+#newsletter p label
+{
+    height:60px;
+    width:150px;
+}
+
+#newsletter p em
+{
+    height:60px;
+    width:250px;
+}
+
+
+/**************** /catalog ****************/
+#categorie_listing p
+{
+    padding:20px;
+}
+
+#categorie_listing ul
+{
+    list-style:none;
+}
+
+
+#categorie_listing ul a
+{
+    display:block;
+    padding:20px;
+}
+
+#categorie_listing ul a:hover
+{
+    background:#e1e1e1;
+}
+
+#categorie_listing ul a h4 , #categorie_listing ul a img
+{
+    margin-right:20px;
+    display:inline;
+    vertical-align:middle;
 }
 
 

@@ -1,19 +1,17 @@
 {config_load file="$language/lang_$language.conf" section="account_history"}
 <h1>{#heading_history#}</h1>
-<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}bilder/laufende_bestellungen-icon.png" alt="[Laufende Bestellungen Icon]"></div>
-<div class="spalte1_inhalt">
-	<h2>{#heading_history#}</h2>
-	<div class="normaltext">
-		<ul>
-			{foreach name=aussen item=order_data from=$order_content}
-				<li>
-					<a href="{$order_data.ORDER_URL}" tabindex="4">
-						{#text_oid#} {$order_data.ORDER_ID} ({$order_data.ORDER_DATE})
-						<span class="normal_9px-unter-12px_schwarz"><br>{#text_status#} <strong>{$order_data.ORDER_STATUS}</strong><br>{#text_articles#} <strong>{$order_data.ORDER_PRODUCTS}</strong><br>{#text_total#} <strong>{$order_data.ORDER_TOTAL}</strong></span>
-					</a>
-				</li>
-			{/foreach}
-		</ul>
-	</div>
+<div id="account_history">
+    <h3>{#heading_history#}</h3>
+    <ul>
+        {foreach name=aussen item=order_data from=$order_content}
+        <li>
+            <a href="{$order_data.ORDER_URL}" tabindex="4">
+                {#text_oid#} {$order_data.ORDER_ID} ({$order_data.ORDER_DATE})<br>
+                {#text_status#} <strong>{$order_data.ORDER_STATUS}</strong><br>
+                {#text_articles#} <strong>{$order_data.ORDER_PRODUCTS}</strong><br>
+                {#text_total#} <strong>{$order_data.ORDER_TOTAL}</strong>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
 </div>
-<br class="endefloat">

@@ -1,80 +1,75 @@
 <?php
 
-/* -----------------------------------------------------------------------------------------
-   $Id: index.php 1321 2005-10-26 20:55:07Z mz $   
+$APP_PATH=split('/',$_GET["path"]);
 
-   ReStore - an XT-Commerce fork to restore sanity
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   -----------------------------------------------------------------------------------------
-   based on:
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(default.php,v 1.84 2003/05/07); www.oscommerce.com
-   (c) 2003	 nextcommerce (default.php,v 1.13 2003/08/17); www.nextcommerce.org
-
-   Released under the GNU General Public License
-   -----------------------------------------------------------------------------------------
-   Third Party contributions:
-   Enable_Disable_Categories 1.3        	Autor: Mikel Williams | mikel@ladykatcostumes.com
-   Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
-
-   Released under the GNU General Public License
-   ---------------------------------------------------------------------------------------*/
 include ('includes/application_top.php');
-require_once (DIR_FS_INC.'xtc_customer_greeting.inc.php');
+require_once (DIR_FS_INC.'aep.php');
+
+$routes=array
+(
+    '/catalog'                  =>  'catalog.php',
+    '/checkout/process'         =>  'checkout_process.php',
+    '/checkout/success'         =>  'checkout_success.php',
+    '/checkout/confirmation'    =>  'checkout_confirmation.php',
+    '/checkout/payment/address' =>  'checkout_payment_address.php',
+    '/checkout/payment'         =>  'checkout_payment.php',
+    '/checkout/shipping/address'=>  'checkout_shipping_address.php',
+    '/checkout'                 =>  'checkout_shipping.php',
+    '/address_book/process'     =>  'address_book_process.php',
+    '/address_book'             =>  'address_book.php',
+    '/account/password'         =>  'account_password.php',
+    '/account/newsletter'       =>  'newsletter.php',
+    '/account/edit'             =>  'account_edit.php',
+    '/account/history/order'    =>  'account_history_info.php',
+    '/account/history'          =>  'account_history.php',
+    '/account'                  =>  'account.php',
+    '/login/lost/code'          =>  'display_vvcodes.php',
+    '/login/lost'               =>  'password_double_opt.php',
+    '/login'                    =>  'login.php',
+    '/logout'                   =>  'logoff.php',
+    '/cookiefail'               =>  'cookie_usage.php',
+    '/content'                  =>  'content.php',
+    '/contact'                  =>  'contact.php',
+    '/create_account'           =>  'create_account.php',
+    '/cart'                     =>  'shopping_cart.php',
+    '/products'                 =>  'product_info.php',
+    '/popup_content'            =>  'popup_content.php'
+
+);
+
+$filename="default.php";
+
+foreach($routes as $route=>$fn)
+{
+    if(beginswith($_GET["path"],$route))
+    {
+        $filename=$fn;
+        break;
+    }
+}
+
+include ($filename);
+
+
+if(!function_exists("module"))
+    return;
+
+$main_content=module();
+
+
+$smarty = new Smarty;
+$smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
+$smarty->assign('CURRENT_LOGO',CURRENT_LOGO);
+$smarty->assign('CURRENT_BACKGROUND',CURRENT_BACKGROUND);
+$smarty->assign('CURRENT_CSS',CURRENT_CSS);
+
 require (DIR_WS_INCLUDES.'header.php');
+require (DIR_FS_CATALOG.'includes/boxes.php');
 
 
-
-$default_smarty = new smarty;
-$default_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
-$default_smarty->assign('session', session_id());
- // default page
-if (GROUP_CHECK == 'true') 
-{
-    $group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
-}
-$shop_content_query = xtDBquery("SELECT
-                      content_title,
-                      content_heading,
-                      content_text,
-                      content_file
-                      FROM ".TABLE_CONTENT_MANAGER."
-                      WHERE content_group='5'
-                      ".$group_check."
-                      AND languages_id='".$_SESSION['languages_id']."'");
-$shop_content_data = xtc_db_fetch_array($shop_content_query,true);
-
-$default_smarty->assign('title', $shop_content_data['content_heading']);
-
-include (DIR_WS_INCLUDES.FILENAME_CENTER_MODULES);
-
-if ($shop_content_data['content_file'] != '') 
-{
-    ob_start();
-    if (strpos($shop_content_data['content_file'], '.txt'))
-    echo '<pre>';
-    include (DIR_FS_CATALOG.'media/content/'.$shop_content_data['content_file']);
-    if (strpos($shop_content_data['content_file'], '.txt'))
-    echo '</pre>';
-    $shop_content_data['content_text'] = ob_get_contents();
-    ob_end_clean();
-}
-
-$default_smarty->assign('text', str_replace('{$greeting}', xtc_customer_greeting(), $shop_content_data['content_text']));
-$default_smarty->assign('language', $_SESSION['language']);
-
-$default_smarty->caching = 0;
-$smarty->assign('main_content', $default_smarty->fetch(CURRENT_TEMPLATE.'/module/main_content.html'));
+$smarty->assign('main_content', $main_content);
 $smarty->assign('language', $_SESSION['language']);
-$smarty->assign('realm', "home");
+$smarty->assign('realm', $APP_PATH[1]);
 $smarty->caching = 0;
-
-
-
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
 $smarty->display(CURRENT_TEMPLATE.'/index.html');
-include ('includes/application_bottom.php');  
 ?>

@@ -17,5 +17,4 @@
     $module_smarty->caching = 0;
     $module= $module_smarty->fetch(CURRENT_TEMPLATE.'/module/error_message.html');
     $product_info=$module;
-    $smarty->assign('main_content',$module);
 ?>

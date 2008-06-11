@@ -22,49 +22,42 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-include ('includes/application_top.php');
-
-
-
-$breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
-$breadcrumb->addCategory($cPath_array);
-
-// add the products model/name to the breadcrumb trail
-if ($product->isProduct()) 
+function module()
 {
-    $breadcrumb->add($product->getBreadcrumbModel(), "/products/".$product->data['products_id']."/".rawurlencode($product->data["products_name"]));
+    global $breadcrumb,$product ;
+
+
+
+    $breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
+    $breadcrumb->addCategory($cPath_array);
+    
+    // add the products model/name to the breadcrumb trail
+    if ($product->isProduct()) 
+    {
+        $breadcrumb->add($product->getBreadcrumbModel(), "/products/".$product->data['products_id']."/".rawurlencode($product->data["products_name"]));
+    }
+    
+    
+    
+    if ($_GET['products_id']) {
+	    $cat = xtc_db_query("SELECT categories_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id='".(int) $_GET['products_id']."'");
+	    $catData = xtc_db_fetch_array($cat);
+	    require_once (DIR_FS_INC.'xtc_get_path.inc.php');
+	    if ($catData['categories_id'])
+		    $cPath = xtc_input_validation(xtc_get_path($catData['categories_id']), 'cPath', '');
+    
+    }
+    
+    
+    // include needed functions
+    
+    
+    if ($_GET['action'] == 'get_download') {
+	    xtc_get_download($_GET['cID']);
+    }
+
+    $product_info="";
+    include (DIR_WS_MODULES.'product_info.php');
+    return $product_info;
 }
-
-
-
-if ($_GET['products_id']) {
-	$cat = xtc_db_query("SELECT categories_id FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id='".(int) $_GET['products_id']."'");
-	$catData = xtc_db_fetch_array($cat);
-	require_once (DIR_FS_INC.'xtc_get_path.inc.php');
-	if ($catData['categories_id'])
-		$cPath = xtc_input_validation(xtc_get_path($catData['categories_id']), 'cPath', '');
-
-}
-
-
-// include needed functions
-
-
-if ($_GET['action'] == 'get_download') {
-	xtc_get_download($_GET['cID']);
-}
-
-
-include (DIR_WS_MODULES.'product_info.php');
-
-
-require (DIR_WS_INCLUDES.'header.php');
-$smarty->assign('language', $_SESSION['language']);
-$smarty->assign('realm', "catalog");
-
-$smarty->caching = 0;
-if (!defined(RM))
-	$smarty->load_filter('output', 'note');
-$smarty->display(CURRENT_TEMPLATE.'/index.html');
-include ('includes/application_bottom.php');
 ?>

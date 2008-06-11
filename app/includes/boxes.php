@@ -1,5 +1,6 @@
 <?php
 
+
     define('DIR_WS_BOXES',DIR_FS_CATALOG .'includes/boxes/');
 
 

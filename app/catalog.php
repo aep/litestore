@@ -22,59 +22,51 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
-include ('includes/application_top.php');
-// $breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
-$breadcrumb->addCategory($cPath_array);
-// add category names or the manufacturer name to the breadcrumb trail
-
-
-// the following cPath references come from application_top.php
-$category_depth = 'top';
-
-
-require (DIR_WS_INCLUDES.'header.php');
-
-if (isset ($cPath) && xtc_not_null($cPath)) 
+function module()
 {
-    $categories_products_query = "select count(*) as total from ".TABLE_PRODUCTS_TO_CATEGORIES." where categories_id = '".$current_category_id."'";
-    $categories_products_query = xtDBquery($categories_products_query);
-    $cateqories_products = xtc_db_fetch_array($categories_products_query, true);
-    if ($cateqories_products['total'] > 0) 
+    global $breadcrumb,$cPath,$cPath_array,$current_category_id,$product,$category_depth;
+    $smarty=new Smarty;
+    // $breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
+    $breadcrumb->addCategory($cPath_array);
+    // add category names or the manufacturer name to the breadcrumb trail
+    
+    
+    // the following cPath references come from application_top.php
+    $category_depth = 'top';
+    
+    
+    require (DIR_WS_INCLUDES.'header.php');
+    
+    if (isset ($cPath) && xtc_not_null($cPath)) 
     {
-        $category_depth = 'products'; // display products
-    } 
-    else 
-    {
-        $category_parent_query = "select count(*) as total from ".TABLE_CATEGORIES." where parent_id = '".$current_category_id."'";
-        $category_parent_query = xtDBquery($category_parent_query);
-        $category_parent = xtc_db_fetch_array($category_parent_query, true);
-        if ($category_parent['total'] > 0) 
+        $categories_products_query = "select count(*) as total from ".TABLE_PRODUCTS_TO_CATEGORIES." where categories_id = '".$current_category_id."'";
+        $categories_products_query = xtDBquery($categories_products_query);
+        $cateqories_products = xtc_db_fetch_array($categories_products_query, true);
+        if ($cateqories_products['total'] > 0) 
         {
-            $category_depth = 'nested'; // navigate through the categories
+            $category_depth = 'products'; // display products
         } 
         else 
         {
-            $category_depth = 'products'; // category has no products, but display the 'no products' message
+            $category_parent_query = "select count(*) as total from ".TABLE_CATEGORIES." where parent_id = '".$current_category_id."'";
+            $category_parent_query = xtDBquery($category_parent_query);
+            $category_parent = xtc_db_fetch_array($category_parent_query, true);
+            if ($category_parent['total'] > 0) 
+            {
+                $category_depth = 'nested'; // navigate through the categories
+            } 
+            else 
+            {
+                $category_depth = 'products'; // category has no products, but display the 'no products' message
+            }
         }
+        $module='';
+        include (DIR_WS_MODULES.'default.php');
+        return $module;
     }
-
-
-    include (DIR_WS_MODULES.'default.php');
+    else
+    {
+        return $smarty->_tpl_vars['box_CATEGORIES'];
+    }
 }
-else
-{
-    $smarty->assign("main_content",$smarty->_tpl_vars['box_CATEGORIES']);
-}
-
-
-
-$smarty->assign('language', $_SESSION['language']);
-$smarty->assign('realm', "catalog");
-$smarty->caching = 0;
-if (!defined(RM))
-    $smarty->load_filter('output', 'note');
-
-$smarty->display(CURRENT_TEMPLATE.'/index.html');
-
-include ('includes/application_bottom.php');
 ?>

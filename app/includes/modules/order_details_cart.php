@@ -28,9 +28,12 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
+
+global $xtPrice;
+
 $module_smarty = new Smarty;
 $module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
-require_once (DIR_FS_INC . 'xtc_draw_input_field_ib_1.inc.php');
+require_once (DIR_FS_INC . 'xtc_draw_input_field.inc.php');
 require_once (DIR_FS_INC.'xtc_check_stock.inc.php');
 require_once (DIR_FS_INC.'xtc_get_products_stock.inc.php');
 require_once (DIR_FS_INC.'xtc_remove_non_numeric.inc.php');
@@ -134,11 +137,12 @@ if ($customer_status_value['customers_status_ot_discount'] != 0) {
 	$total_content .= TEXT_CART_OT_DISCOUNT.$customer_status_value['customers_status_ot_discount'].'%';
 }
 if (SHOW_SHIPPING == 'true') {
-	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.xtc_href_link(FILENAME_POPUP_CONTENT, 'coID='.SHIPPING_INFOS).'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');
+	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.FILENAME_POPUP_CONTENT. '/'.SHIPPING_INFOS.'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');
 }
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 $module_smarty->assign('UST_CONTENT', $_SESSION['cart']->show_tax());
 }
+$module_smarty->assign('MAX_PRODUCTS_QTY', MAX_PRODUCTS_QTY);
 $module_smarty->assign('TOTAL_CONTENT', $total_content);
 $module_smarty->assign('language', $_SESSION['language']);
 $module_smarty->assign('module_content', $module_content);

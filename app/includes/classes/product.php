@@ -374,7 +374,8 @@ function getCrossSells() {
         {
             if (($_SESSION['customers_status']['customers_fsk18'] == '0') || ($array['products_fsk18'] == '0'))
             {
-                $buy_now =  xtc_href_link($PHP_SELF,'action=buy_now&amp;BUYproducts_id='.$array['products_id'].xtc_get_all_get_params(array ('action')), 'NONSSL');
+                $buy_now =
+                    $_GET["path"].'?action=buy_now&amp;BUYproducts_id='.$array['products_id'].xtc_get_all_get_params(array ('action'));
 
             }
         }

@@ -34,7 +34,6 @@ require_once (DIR_FS_INC.'xtc_create_random_value.inc.php');
 require_once (DIR_FS_INC.'xtc_get_prid.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_form.inc.php');
 require_once (DIR_FS_INC.'xtc_draw_input_field.inc.php');
-require_once (DIR_FS_INC.'xtc_image_submit.inc.php');
 require_once (DIR_FS_INC.'xtc_get_tax_description.inc.php');
 
 class shoppingCart {

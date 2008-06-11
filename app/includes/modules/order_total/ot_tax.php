@@ -32,7 +32,6 @@
 
     function process() {
       global $order, $xtPrice;
-	//echo $order->info['total'];
       reset($order->info['tax_groups']);
       while (list($key, $value) = each($order->info['tax_groups'])) {
         if ($value > 0) {
