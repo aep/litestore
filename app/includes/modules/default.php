@@ -55,7 +55,7 @@ else
             where c.categories_id = '".$current_category_id."'
             and cd.categories_id = '".$current_category_id."'
             ".$group_check."
-            and cd.language_id = '".(int) $_SESSION['languages_id']."'";
+            and cd.languages_id = '".(int) $_SESSION['languages_id']."'";
 
         $category_query = xtDBquery($category_query);
 
@@ -86,7 +86,7 @@ else
                                             and c.parent_id = '".$category_links[$i]."'
                                             and c.categories_id = cd.categories_id
                                             ".$group_check."
-                                            and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                            and cd.languages_id = '".(int) $_SESSION['languages_id']."'
                                             order by sort_order, cd.categories_name";
                 $categories_query = xtDBquery($categories_query);
 
@@ -116,7 +116,7 @@ else
                                         and c.parent_id = '".$current_category_id."'
                                         and c.categories_id = cd.categories_id
                                         ".$group_check."
-                                        and cd.language_id = '".(int) $_SESSION['languages_id']."'
+                                        and cd.languages_id = '".(int) $_SESSION['languages_id']."'
                                         order by sort_order, cd.categories_name";
 
 
@@ -230,7 +230,7 @@ else
                                     and pd.products_id = p2c.products_id
                                     ".$group_check."
                                     ".$fsk_lock."
-                                    and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                    and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                     and p2c.categories_id = '".(int) $_GET['filter_id']."'".$sorting;
             }
             else 
@@ -263,7 +263,7 @@ else
                                 and pd.products_id = p.products_id
                                 ".$group_check."
                                 ".$fsk_lock."
-                                and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                 and p.manufacturers_id = m.manufacturers_id
                                 and m.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
             }
@@ -316,7 +316,7 @@ else
                                   and pd.products_id = p2c.products_id
                                   ".$group_check."
                                   ".$fsk_lock."
-                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                  and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                   and p2c.categories_id = '".$current_category_id."'".$sorting;
             } 
             else 
@@ -363,7 +363,7 @@ else
                                 and pd.products_id = p2c.products_id
                                 ".$group_check."
                                 ".$fsk_lock."                             
-                                and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                 and p2c.categories_id = '".$current_category_id."'".$sorting; */
       $listing_sql = "(SELECT
                         p.products_fsk18,
@@ -395,7 +395,7 @@ else
                         and pd.products_id = p2c.products_id
                         ".$group_check."
                         ".$fsk_lock."
-                        and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                        and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                         and p2c.categories_id = '".$current_category_id."')"
                       . " UNION DISTINCT
                       (SELECT DISTINCT
@@ -430,7 +430,7 @@ else
                         and ibc_as2os.ibc_alternative_supplies = p.ibc_supplies
                         and p.products_status = '1'
                         and pd.products_id = p.products_id
-                        and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                        and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                         ".$fsk_lock."
                         )";
             }
@@ -440,7 +440,7 @@ else
         {
             if (isset ($_GET['manufacturers_id'])) 
             {
-                $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '".(int) $_SESSION['languages_id']."' and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."' order by cd.categories_name";
+                $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_TO_CATEGORIES." p2c, ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.languages_id = '".(int) $_SESSION['languages_id']."' and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."' order by cd.categories_name";
             } 
             else 
             {

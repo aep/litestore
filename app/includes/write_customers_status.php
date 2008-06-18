@@ -29,7 +29,7 @@
                                             FROM
                                                 " . TABLE_CUSTOMERS_STATUS . "
                                             WHERE
-                                                customers_status_id = '" . $customers_status_value_1['customers_status'] . "' AND language_id = '" . $_SESSION['languages_id'] . "'");
+                                                customers_status_id = '" . $customers_status_value_1['customers_status'] . "' AND languages_id = '" . $_SESSION['languages_id'] . "'");
 
     $customers_status_value = xtc_db_fetch_array($customers_status_query);
 
@@ -62,7 +62,7 @@
                                             FROM
                                                 " . TABLE_CUSTOMERS_STATUS . "
                                             WHERE
-                                                customers_status_id = '" . DEFAULT_CUSTOMERS_STATUS_ID_GUEST . "' AND language_id = '" . $_SESSION['languages_id'] . "'");
+                                                customers_status_id = '" . DEFAULT_CUSTOMERS_STATUS_ID_GUEST . "' AND languages_id = '" . $_SESSION['languages_id'] . "'");
     $customers_status_value = xtc_db_fetch_array($customers_status_query);
 
     $_SESSION['customers_status'] = array();

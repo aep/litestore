@@ -23,9 +23,9 @@ FROM
 Inner Join ".TABLE_PRODUCTS_OPTIONS." po ON po.products_options_id = pa.options_id
 Inner Join ".TABLE_PRODUCTS_OPTIONS_VALUES." pov ON pa.options_values_id = pov.products_options_values_id
 WHERE
-po.language_id = '".$language."' AND
+po.languages_id = '".$language."' AND
 po.products_options_name = '".$options_name."' AND
-pov.language_id = '".$language."' AND
+pov.languages_id = '".$language."' AND
 pov.products_options_values_name = '".$attribute_name."'");
 
 

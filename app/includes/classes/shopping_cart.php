@@ -344,7 +344,7 @@ class shoppingCart {
 		reset($this->contents);
 		while (list ($products_id,) = each($this->contents)) {
 			if($this->contents[$products_id]['qty'] != 0 || $this->contents[$products_id]['qty'] !=''){			
-			$products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_shippingtime, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($products_id)."' and pd.products_id = p.products_id and pd.language_id = '".$_SESSION['languages_id']."'");
+			$products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_shippingtime, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($products_id)."' and pd.products_id = p.products_id and pd.languages_id = '".$_SESSION['languages_id']."'");
 			if ($products = xtc_db_fetch_array($products_query)) {
 				$prid = $products['products_id'];
 

@@ -225,8 +225,8 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 								                                and pa.options_id = popt.products_options_id
 								                                and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
 								                                and pa.options_values_id = poval.products_options_values_id
-								                                and popt.language_id = '".$_SESSION['languages_id']."'
-								                                and poval.language_id = '".$_SESSION['languages_id']."'";
+								                                and popt.languages_id = '".$_SESSION['languages_id']."'
+								                                and poval.languages_id = '".$_SESSION['languages_id']."'";
 				$attributes = xtc_db_query($attributes_query);
 			} else {
 				$attributes = xtc_db_query("select popt.products_options_name,
@@ -239,8 +239,8 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 								                                             and pa.options_id = popt.products_options_id
 								                                             and pa.options_values_id = '".$order->products[$i]['attributes'][$j]['value_id']."'
 								                                             and pa.options_values_id = poval.products_options_values_id
-								                                             and popt.language_id = '".$_SESSION['languages_id']."'
-								                                             and poval.language_id = '".$_SESSION['languages_id']."'");
+								                                             and popt.languages_id = '".$_SESSION['languages_id']."'
+								                                             and poval.languages_id = '".$_SESSION['languages_id']."'");
 			}
 			// update attribute stock
 			xtc_db_query("UPDATE ".TABLE_PRODUCTS_ATTRIBUTES." set

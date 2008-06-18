@@ -115,7 +115,7 @@
                                             " . TABLE_PRODUCTS_DESCRIPTION . " pd,
                                             " . TABLE_SPECIALS . "
                                             s where p.products_id = pd.products_id
-                                            and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
+                                            and pd.languages_id = '" . (int)$_SESSION['languages_id'] . "'
                                             and p.products_id = s.products_id
                                             and s.specials_id = '" . (int)$_GET['sID'] . "'");
       $product = xtc_db_fetch_array($product_query);
@@ -194,7 +194,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-    $specials_query_raw = "select p.products_id, pd.products_name,p.products_tax_class_id, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified, s.expires_date, s.date_status_change, s.status from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' and p.products_id = s.products_id order by pd.products_name";
+    $specials_query_raw = "select p.products_id, pd.products_name,p.products_tax_class_id, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified, s.expires_date, s.date_status_change, s.status from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.languages_id = '" . $_SESSION['languages_id'] . "' and p.products_id = s.products_id order by pd.products_name";
     $specials_split = new splitPageResults($_GET['page'], '20', $specials_query_raw, $specials_query_numrows);
     $specials_query = xtc_db_query($specials_query_raw);
     while ($specials = xtc_db_fetch_array($specials_query)) {

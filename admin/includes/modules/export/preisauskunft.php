@@ -80,7 +80,7 @@ define('CAMPAIGNS_DESC','Mit Kampagne zur Nachverfolgung verbinden.');
                            ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
                              " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            ON p.products_id = pd.products_id AND
-                            pd.language_id = '".$_SESSION['languages_id']."' LEFT JOIN
+                            pd.languages_id = '".$_SESSION['languages_id']."' LEFT JOIN
                              " . TABLE_SPECIALS . " s
                            ON p.products_id = s.products_id
                          WHERE

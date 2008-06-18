@@ -25,9 +25,9 @@
       $languages = xtc_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $shipping_status_name_array = $_POST['shipping_status_name'];
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('shipping_status_name' => xtc_db_prepare_input($shipping_status_name_array[$language_id]));
+        $sql_data_array = array('shipping_status_name' => xtc_db_prepare_input($shipping_status_name_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
           if (!xtc_not_null($shipping_status_id)) {
@@ -37,11 +37,11 @@
           }
 
           $insert_sql_data = array('shipping_status_id' => $shipping_status_id,
-                                   'language_id' => $language_id);
+                                   'languages_id' => $language_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array, 'update', "shipping_status_id = '" . xtc_db_input($shipping_status_id) . "' and language_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array, 'update', "shipping_status_id = '" . xtc_db_input($shipping_status_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
 
@@ -100,7 +100,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $shipping_status_query_raw = "select shipping_status_id, shipping_status_name,shipping_status_image from " . TABLE_SHIPPING_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "' order by shipping_status_id";
+  $shipping_status_query_raw = "select shipping_status_id, shipping_status_name,shipping_status_image from " . TABLE_SHIPPING_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by shipping_status_id";
   $shipping_status_split = new splitPageResults($_GET['page'], '20', $shipping_status_query_raw, $shipping_status_query_numrows);
   $shipping_status_query = xtc_db_query($shipping_status_query_raw);
   while ($shipping_status = xtc_db_fetch_array($shipping_status_query)) {

@@ -84,7 +84,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
                            ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
                              " . TABLE_PRODUCTS_DESCRIPTION . " pd
                            ON p.products_id = pd.products_id AND
-                            pd.language_id = '".$_SESSION['languages_id']."' LEFT JOIN
+                            pd.languages_id = '".$_SESSION['languages_id']."' LEFT JOIN
                              " . TABLE_SPECIALS . " s
                            ON p.products_id = s.products_id
                          WHERE
@@ -200,7 +200,7 @@ define('DATE_FORMAT_EXPORT', '%d.%m.%Y');  // this is used for strftime()
 
                while ($this->getParent($catID)!=0 || $catID!=0)
                {
-                    $cat_select=xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and language_id='".$_SESSION['languages_id']."'");
+                    $cat_select=xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and languages_id='".$_SESSION['languages_id']."'");
                     $cat_data=xtc_db_fetch_array($cat_select);
                     $catID=$this->getParent($catID);
                     $cat[]=$cat_data['categories_name'];

@@ -44,7 +44,7 @@ if ($_GET['action'] == "address_edit") {
 	$lang_query = xtc_db_query("select languages_id from ".TABLE_LANGUAGES." where directory = '".$order->info['language']."'");
 	$lang = xtc_db_fetch_array($lang_query);
 
-	$status_query = xtc_db_query("select customers_status_name from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$_POST['customers_status']."' and language_id = '".$lang['languages_id']."' ");
+	$status_query = xtc_db_query("select customers_status_name from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$_POST['customers_status']."' and languages_id = '".$lang['languages_id']."' ");
 	$status = xtc_db_fetch_array($status_query);
 
 	$sql_data_array = array ('customers_vat_id' => xtc_db_prepare_input($_POST['customers_vat_id']), 'customers_status' => xtc_db_prepare_input($_POST['customers_status']), 'customers_status_name' => xtc_db_prepare_input($status['customers_status_name']), 'customers_company' => xtc_db_prepare_input($_POST['customers_company']), 'customers_name' => xtc_db_prepare_input($_POST['customers_name']), 'customers_street_address' => xtc_db_prepare_input($_POST['customers_street_address']), 'customers_city' => xtc_db_prepare_input($_POST['customers_city']), 'customers_postcode' => xtc_db_prepare_input($_POST['customers_postcode']), 'customers_country' => xtc_db_prepare_input($_POST['customers_country']), 'customers_telephone' => xtc_db_prepare_input($_POST['customers_telephone']), 'customers_email_address' => xtc_db_prepare_input($_POST['customers_email_address']), 'delivery_company' => xtc_db_prepare_input($_POST['delivery_company']), 'delivery_name' => xtc_db_prepare_input($_POST['delivery_name']), 'delivery_street_address' => xtc_db_prepare_input($_POST['delivery_street_address']), 'delivery_city' => xtc_db_prepare_input($_POST['delivery_city']), 'delivery_postcode' => xtc_db_prepare_input($_POST['delivery_postcode']), 'delivery_country' => xtc_db_prepare_input($_POST['delivery_country']), 'billing_company' => xtc_db_prepare_input($_POST['billing_company']), 'billing_name' => xtc_db_prepare_input($_POST['billing_name']), 'billing_street_address' => xtc_db_prepare_input($_POST['billing_street_address']), 'billing_city' => xtc_db_prepare_input($_POST['billing_city']), 'billing_postcode' => xtc_db_prepare_input($_POST['billing_postcode']), 'billing_country' => xtc_db_prepare_input($_POST['billing_country']));
@@ -83,7 +83,7 @@ if ($_GET['action'] == "product_ins") {
 	$status_query = xtc_db_query("select customers_status_show_price_tax from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$order->info['status']."'");
 	$status = xtc_db_fetch_array($status_query);
 
-	$product_query = xtc_db_query("select p.products_model, p.products_tax_class_id, pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id = '".$_POST['products_id']."' and pd.products_id = p.products_id and pd.language_id = '".$_SESSION['languages_id']."'");
+	$product_query = xtc_db_query("select p.products_model, p.products_tax_class_id, pd.products_name from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id = '".$_POST['products_id']."' and pd.products_id = p.products_id and pd.languages_id = '".$_SESSION['languages_id']."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	$c_info = xtc_oe_customer_infos($order->customer['ID']);
@@ -144,10 +144,10 @@ if ($_GET['action'] == "product_option_ins") {
 	$products_attributes_query = xtc_db_query("select options_id, options_values_id, options_values_price, price_prefix from ".TABLE_PRODUCTS_ATTRIBUTES." where products_attributes_id = '".$_POST['aID']."'");
 	$products_attributes = xtc_db_fetch_array($products_attributes_query);
 
-	$products_options_query = xtc_db_query("select products_options_name from ".TABLE_PRODUCTS_OPTIONS." where products_options_id = '".$products_attributes['options_id']."' and language_id = '".$_SESSION['languages_id']."'");
+	$products_options_query = xtc_db_query("select products_options_name from ".TABLE_PRODUCTS_OPTIONS." where products_options_id = '".$products_attributes['options_id']."' and languages_id = '".$_SESSION['languages_id']."'");
 	$products_options = xtc_db_fetch_array($products_options_query);
 
-	$products_options_values_query = xtc_db_query("select products_options_values_name from ".TABLE_PRODUCTS_OPTIONS_VALUES." where products_options_values_id = '".$products_attributes['options_values_id']."' and language_id = '".$_SESSION['languages_id']."'");
+	$products_options_values_query = xtc_db_query("select products_options_values_name from ".TABLE_PRODUCTS_OPTIONS_VALUES." where products_options_values_id = '".$products_attributes['options_values_id']."' and languages_id = '".$_SESSION['languages_id']."'");
 	$products_options_values = xtc_db_fetch_array($products_options_values_query);
 
 	$sql_data_array = array ('orders_id' => xtc_db_prepare_input($_POST['oID']), 'orders_products_id' => xtc_db_prepare_input($_POST['opID']), 'products_options' => xtc_db_prepare_input($products_options['products_options_name']), 'products_options_values' => xtc_db_prepare_input($products_options_values['products_options_values_name']), 'options_values_price' => xtc_db_prepare_input($products_attributes['options_values_price']));
@@ -180,8 +180,8 @@ if ($_GET['action'] == "product_option_ins") {
 										                                and pa.options_id = popt.products_options_id
 										                                and pa.options_values_id = '".$products_attributes['options_values_id']."'
 										                                and pa.options_values_id = poval.products_options_values_id
-										                                and popt.language_id = '".$_SESSION['languages_id']."'
-										                                and poval.language_id = '".$_SESSION['languages_id']."'";
+										                                and popt.languages_id = '".$_SESSION['languages_id']."'
+										                                and poval.languages_id = '".$_SESSION['languages_id']."'";
 		$attributes = xtc_db_query($attributes_query);
 
 		$attributes_values = xtc_db_fetch_array($attributes);
@@ -289,7 +289,7 @@ if ($_GET['action'] == "lang_edit") {
 	$order_products_query = xtc_db_query("select orders_products_id , products_id from ".TABLE_ORDERS_PRODUCTS." where orders_id = '".$_POST['oID']."'");
 	while ($order_products = xtc_db_fetch_array($order_products_query)) {
 
-		$products_query = xtc_db_query("select products_name from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$order_products['products_id']."' and language_id = '".$_POST['lang']."' ");
+		$products_query = xtc_db_query("select products_name from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$order_products['products_id']."' and languages_id = '".$_POST['lang']."' ");
 		$products = xtc_db_fetch_array($products_query);
 
 		$sql_data_array = array ('products_name' => xtc_db_prepare_input($products['products_name']));

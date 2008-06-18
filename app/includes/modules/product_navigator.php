@@ -34,7 +34,7 @@ $products_query = xtDBquery("SELECT
                                  WHERE categories_id='".$current_category_id."'
                                  and p.products_id=pc.products_id
                                  and p.products_id = pd.products_id
-                                 and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                 and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                  and p.products_status=1 
                                  ".$fsk_lock.$group_check);
 $i = 0;

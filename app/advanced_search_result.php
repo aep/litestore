@@ -189,7 +189,7 @@ if ($error == 1 && $keyerror != 1) {
 	}
 
 	//where-string
-	$where_str = " WHERE p.products_status = '1' "." AND pd.language_id = '".(int) $_SESSION['languages_id']."'".$subcat_where.$fsk_lock.$manu_check.$group_check.$tax_where.$pfrom_check.$pto_check;
+	$where_str = " WHERE p.products_status = '1' "." AND pd.languages_id = '".(int) $_SESSION['languages_id']."'".$subcat_where.$fsk_lock.$manu_check.$group_check.$tax_where.$pfrom_check.$pto_check;
 
 	//go for keywords... this is the main search process
 	if (isset ($_GET['keywords']) && xtc_not_null($_GET['keywords'])) {
@@ -214,7 +214,7 @@ if ($error == 1 && $keyerror != 1) {
 						$where_str .= "OR p.products_model LIKE ('%".addslashes($search_keywords[$i])."%') ";
 						if (SEARCH_IN_ATTR == 'true') {
 						   $where_str .= "OR (pov.products_options_values_name LIKE ('%".addslashes($search_keywords[$i])."%') ";
-						   $where_str .= "AND pov.language_id = '".(int) $_SESSION['languages_id']."')";
+						   $where_str .= "AND pov.languages_id = '".(int) $_SESSION['languages_id']."')";
 						}
 						$where_str .= " ) ";
 						break;

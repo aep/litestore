@@ -30,27 +30,27 @@
       $insert_id = xtc_db_insert_id();
 
       // create additional categories_description records
-      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.language_id = '" . $_SESSION['languages_id'] . "'");
+      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($categories = xtc_db_fetch_array($categories_query)) {
-        xtc_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $insert_id . "', '" . xtc_db_input($categories['categories_name']) . "')");
+        xtc_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, languages_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $insert_id . "', '" . xtc_db_input($categories['categories_name']) . "')");
       }
 
       // create additional products_description records
-      $products_query = xtc_db_query("select p.products_id, pd.products_name, pd.products_description, pd.products_url from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where pd.language_id = '" . $_SESSION['languages_id'] . "'");
+      $products_query = xtc_db_query("select p.products_id, pd.products_name, pd.products_description, pd.products_url from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where pd.languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($products = xtc_db_fetch_array($products_query)) {
-        xtc_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url) values ('" . $products['products_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products['products_name']) . "', '" . xtc_db_input($products['products_description']) . "', '" . xtc_db_input($products['products_url']) . "')");
+        xtc_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, languages_id, products_name, products_description, products_url) values ('" . $products['products_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products['products_name']) . "', '" . xtc_db_input($products['products_description']) . "', '" . xtc_db_input($products['products_url']) . "')");
       }
 
       // create additional products_options records
-      $products_options_query = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $_SESSION['languages_id'] . "'");
+      $products_options_query = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($products_options = xtc_db_fetch_array($products_options_query)) {
-        xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, language_id, products_options_name) values ('" . $products_options['products_options_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products_options['products_options_name']) . "')");
+        xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, languages_id, products_options_name) values ('" . $products_options['products_options_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products_options['products_options_name']) . "')");
       }
 
       // create additional products_options_values records
-      $products_options_values_query = xtc_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $_SESSION['languages_id'] . "'");
+      $products_options_values_query = xtc_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($products_options_values = xtc_db_fetch_array($products_options_values_query)) {
-        xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $products_options_values['products_options_values_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products_options_values['products_options_values_name']) . "')");
+        xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, languages_id, products_options_values_name) values ('" . $products_options_values['products_options_values_id'] . "', '" . $insert_id . "', '" . xtc_db_input($products_options_values['products_options_values_name']) . "')");
       }
 
       // create additional manufacturers_info records
@@ -60,21 +60,21 @@
       }
 
       // create additional orders_status records
-      $orders_status_query = xtc_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "'");
+      $orders_status_query = xtc_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
-        xtc_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, language_id, orders_status_name) values ('" . $orders_status['orders_status_id'] . "', '" . $insert_id . "', '" . xtc_db_input($orders_status['orders_status_name']) . "')");
+        xtc_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, languages_id, orders_status_name) values ('" . $orders_status['orders_status_id'] . "', '" . $insert_id . "', '" . xtc_db_input($orders_status['orders_status_name']) . "')");
       }
       
       // create additional shipping_status records
-      $shipping_status_query = xtc_db_query("select shipping_status_id, shipping_status_name from " . TABLE_SHIPPING_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "'");
+      $shipping_status_query = xtc_db_query("select shipping_status_id, shipping_status_name from " . TABLE_SHIPPING_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($shipping_status = xtc_db_fetch_array($shipping_status_query)) {
-        xtc_db_query("insert into " . TABLE_SHIPPING_STATUS . " (shipping_status_id, language_id, shipping_status_name) values ('" . $shipping_status['shipping_status_id'] . "', '" . $insert_id . "', '" . xtc_db_input($shipping_status['shipping_status_name']) . "')");
+        xtc_db_query("insert into " . TABLE_SHIPPING_STATUS . " (shipping_status_id, languages_id, shipping_status_name) values ('" . $shipping_status['shipping_status_id'] . "', '" . $insert_id . "', '" . xtc_db_input($shipping_status['shipping_status_name']) . "')");
       }
       
       // create additional orders_status records
-      $xsell_grp_query = xtc_db_query("select products_xsell_grp_name_id,xsell_sort_order, groupname from " . TABLE_PRODUCTS_XSELL_GROUPS . " where language_id = '" . $_SESSION['languages_id'] . "'");
+      $xsell_grp_query = xtc_db_query("select products_xsell_grp_name_id,xsell_sort_order, groupname from " . TABLE_PRODUCTS_XSELL_GROUPS . " where languages_id = '" . $_SESSION['languages_id'] . "'");
       while ($xsell_grp = xtc_db_fetch_array($xsell_grp_query)) {
-        xtc_db_query("insert into " . TABLE_PRODUCTS_XSELL_GROUPS . " (products_xsell_grp_name_id,xsell_sort_order, language_id, groupname) values ('" . $xsell_grp['products_xsell_grp_name_id'] . "','" . $xsell_grp['xsell_sort_order'] . "', '" . $insert_id . "', '" . xtc_db_input($xsell_grp['groupname']) . "')");
+        xtc_db_query("insert into " . TABLE_PRODUCTS_XSELL_GROUPS . " (products_xsell_grp_name_id,xsell_sort_order, languages_id, groupname) values ('" . $xsell_grp['products_xsell_grp_name_id'] . "','" . $xsell_grp['xsell_sort_order'] . "', '" . $insert_id . "', '" . xtc_db_input($xsell_grp['groupname']) . "')");
       }
       
       // create additional customers status
@@ -89,7 +89,7 @@
       $group_data=xtc_db_fetch_array($customers_status_data_query);
  	$c_data=array(
  		'customers_status_id'=>$data['customers_status_id'],
- 		'language_id'=>$insert_id,
+ 		'languages_id'=>$insert_id,
  		'customers_status_name'=>$group_data['customers_status_name'],
  		'customers_status_public'=>$group_data['customers_status_public'],
  		'customers_status_image'=>$group_data['customers_status_image'],
@@ -142,16 +142,16 @@
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
       }
 
-      xtc_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . xtc_db_input($lID) . "'");
-      xtc_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . xtc_db_input($lID) . "'");
-      xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . xtc_db_input($lID) . "'");
-      xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where languages_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where languages_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where languages_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where languages_id = '" . xtc_db_input($lID) . "'");
       xtc_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . xtc_db_input($lID) . "'");
-      xtc_db_query("delete from " . TABLE_ORDERS_STATUS . " where language_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_ORDERS_STATUS . " where languages_id = '" . xtc_db_input($lID) . "'");
       xtc_db_query("delete from " . TABLE_LANGUAGES . " where languages_id = '" . xtc_db_input($lID) . "'");
       xtc_db_query("delete from " . TABLE_CONTENT_MANAGER . " where languages_id = '" . xtc_db_input($lID) . "'");
       xtc_db_query("delete from " . TABLE_PRODUCTS_CONTENT . " where languages_id = '" . xtc_db_input($lID) . "'");
-      xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where language_id = '" . xtc_db_input($lID) . "'");
+      xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where languages_id = '" . xtc_db_input($lID) . "'");
 
       xtc_redirect(xtc_href_link(FILENAME_LANGUAGES, 'page=' . $_GET['page']));
       break;

@@ -43,7 +43,7 @@ function module()
     while ($i < $max) {
     
 	    
-	    $product_history_query = xtDBquery("select * from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id=pd.products_id and pd.language_id='".(int) $_SESSION['languages_id']."' and p.products_status = '1' and p.products_id = '".$_SESSION['tracking']['products_history'][$i]."'");
+	    $product_history_query = xtDBquery("select * from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id=pd.products_id and pd.languages_id='".(int) $_SESSION['languages_id']."' and p.products_status = '1' and p.products_id = '".$_SESSION['tracking']['products_history'][$i]."'");
 	    $history_product = xtc_db_fetch_array($product_history_query, true);
     $cpath = xtc_get_product_path($_SESSION['tracking']['products_history'][$i]);
 	    if ($history_product['products_status'] != 0) {
@@ -73,7 +73,7 @@ function module()
 	                                    and o.orders_id = ot.orders_id
 	                                    and ot.class = 'ot_total'
 	                                    and o.orders_status = s.orders_status_id
-	                                    and s.language_id = '".(int) $_SESSION['languages_id']."'
+	                                    and s.languages_id = '".(int) $_SESSION['languages_id']."'
 	                                    order by orders_id desc limit 3");
     
 	    while ($orders = xtc_db_fetch_array($orders_query)) {

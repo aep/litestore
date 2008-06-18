@@ -42,7 +42,7 @@ if ((!isset ($new_products_category_id)) || ($new_products_category_id == '0'))
                             p.products_startpage = '1'
                             ".$group_check."
                             ".$fsk_lock."
-                            and p.products_status = '1' and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                            and p.products_status = '1' and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                             order by p.products_startpage_sort ASC limit ".MAX_DISPLAY_NEW_PRODUCTS;
 }
 else 
@@ -66,7 +66,7 @@ else
                         ".$group_check."
                         ".$fsk_lock."
                         and c.parent_id = '".$new_products_category_id."'
-                        and p.products_status = '1' and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                        and p.products_status = '1' and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                         order by p.products_date_added DESC limit ".MAX_DISPLAY_NEW_PRODUCTS;
 }
 $row = 0;

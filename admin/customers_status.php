@@ -49,10 +49,10 @@
         $customers_status_read_reviews = $_POST['customers_status_read_reviews'];
         $customers_base_status = $_POST['customers_base_status'];        
 
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
         $sql_data_array = array(
-          'customers_status_name' => xtc_db_prepare_input($customers_status_name_array[$language_id]),
+          'customers_status_name' => xtc_db_prepare_input($customers_status_name_array[$languages_id]),
           'customers_status_public' => xtc_db_prepare_input($customers_status_public),
           'customers_status_show_price' => xtc_db_prepare_input($customers_status_show_price),
           'customers_status_show_price_tax' => xtc_db_prepare_input($customers_status_show_price_tax),
@@ -94,12 +94,12 @@
 
           }
 
-          $insert_sql_data = array('customers_status_id' => xtc_db_prepare_input($customers_status_id), 'language_id' => xtc_db_prepare_input($language_id));
+          $insert_sql_data = array('customers_status_id' => xtc_db_prepare_input($customers_status_id), 'languages_id' => xtc_db_prepare_input($language_id));
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array);
  
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and language_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
        
@@ -195,7 +195,7 @@
   $customers_status_write_reviews_array = array(array('id' => '0', 'text' => ENTRY_NO), array('id' => '1', 'text' => ENTRY_YES));
   $customers_status_read_reviews_array = array(array('id' => '0', 'text' => ENTRY_NO), array('id' => '1', 'text' => ENTRY_YES));
 
-  $customers_status_query_raw = "select * from " . TABLE_CUSTOMERS_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "' order by customers_status_id";
+  $customers_status_query_raw = "select * from " . TABLE_CUSTOMERS_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by customers_status_id";
 
   $customers_status_split = new splitPageResults($_GET['page'], '20', $customers_status_query_raw, $customers_status_query_numrows);
   $customers_status_query = xtc_db_query($customers_status_query_raw);

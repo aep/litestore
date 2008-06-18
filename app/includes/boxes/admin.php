@@ -42,7 +42,7 @@ class BoxAdmin extends AbstractVCBox
         $orders_status_validating = xtc_db_num_rows(xtc_db_query("select orders_status from " . TABLE_ORDERS ." where orders_status ='0'"));
         $orders_contents .='<a href="/admin/' .FILENAME_ORDERS. '?selected_box=customers&status=0' . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; 
         
-        $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$_SESSION['languages_id'] . "'");
+        $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where languages_id = '" . (int)$_SESSION['languages_id'] . "'");
         
         while ($orders_status = xtc_db_fetch_array($orders_status_query)) 
         {

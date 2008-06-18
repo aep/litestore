@@ -27,9 +27,9 @@
       $languages = xtc_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $products_vpe_name_array = $_POST['products_vpe_name'];
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('products_vpe_name' => xtc_db_prepare_input($products_vpe_name_array[$language_id]));
+        $sql_data_array = array('products_vpe_name' => xtc_db_prepare_input($products_vpe_name_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
           if (!xtc_not_null($products_vpe_id)) {
@@ -39,11 +39,11 @@
           }
 
           $insert_sql_data = array('products_vpe_id' => $products_vpe_id,
-                                   'language_id' => $language_id);
+                                   'languages_id' => $language_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array, 'update', "products_vpe_id = '" . xtc_db_input($products_vpe_id) . "' and language_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array, 'update', "products_vpe_id = '" . xtc_db_input($products_vpe_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
 
@@ -95,7 +95,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $products_vpe_query_raw = "select products_vpe_id, products_vpe_name from " . TABLE_PRODUCTS_VPE . " where language_id = '" . $_SESSION['languages_id'] . "' order by products_vpe_id";
+  $products_vpe_query_raw = "select products_vpe_id, products_vpe_name from " . TABLE_PRODUCTS_VPE . " where languages_id = '" . $_SESSION['languages_id'] . "' order by products_vpe_id";
   $products_vpe_split = new splitPageResults($_GET['page'], '20', $products_vpe_query_raw, $products_vpe_query_numrows);
   $products_vpe_query = xtc_db_query($products_vpe_query_raw);
   while ($products_vpe = xtc_db_fetch_array($products_vpe_query)) {

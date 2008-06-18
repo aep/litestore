@@ -37,7 +37,7 @@ function module()
     if (($orders_total = xtc_count_customer_orders()) > 0) 
     {
     
-	    $history_query_raw = "select o.orders_id, o.date_purchased, o.delivery_name, o.billing_name, ot.text as order_total, s.orders_status_name from ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot, ".TABLE_ORDERS_STATUS." s where o.customers_id = '".(int) $_SESSION['customer_id']."' and o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.language_id = '".(int) $_SESSION['languages_id']."' order by orders_id DESC";
+	    $history_query_raw = "select o.orders_id, o.date_purchased, o.delivery_name, o.billing_name, ot.text as order_total, s.orders_status_name from ".TABLE_ORDERS." o, ".TABLE_ORDERS_TOTAL." ot, ".TABLE_ORDERS_STATUS." s where o.customers_id = '".(int) $_SESSION['customer_id']."' and o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.languages_id = '".(int) $_SESSION['languages_id']."' order by orders_id DESC";
     
 	    $history_query = xtc_db_query($history_query_raw);
     

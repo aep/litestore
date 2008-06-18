@@ -52,7 +52,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 	if (ACTIVATE_NAVIGATOR == 'true')
 		include (DIR_WS_MODULES.'product_navigator.php');
 
-	xtc_db_query("update ".TABLE_PRODUCTS_DESCRIPTION." set products_viewed = products_viewed+1 where products_id = '".$product->data['products_id']."' and language_id = '".$_SESSION['languages_id']."'");
+	xtc_db_query("update ".TABLE_PRODUCTS_DESCRIPTION." set products_viewed = products_viewed+1 where products_id = '".$product->data['products_id']."' and languages_id = '".$_SESSION['languages_id']."'");
 
 
 		$products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = true, 1, $product->data['products_tax_class_id'], $product->data['products_price'], 1);

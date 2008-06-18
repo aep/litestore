@@ -82,7 +82,7 @@
                     where cd.categories_id = '".$cPath_array[$i]."'
                     and c.categories_id=cd.categories_id
                     ".$group_check."
-                    and cd.language_id='".(int) $_SESSION['languages_id']."'");
+                    and cd.languages_id='".(int) $_SESSION['languages_id']."'");
                 if (xtc_db_num_rows($categories_query,true) > 0) 
                 {
                     $categories = xtc_db_fetch_array($categories_query,true);

@@ -24,14 +24,14 @@
       case 'add_product_options':
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $_POST['option_name'];
-          xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . $_POST['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
+          xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, languages_id) values ('" . $_POST['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
         }
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); 
         break;
       case 'add_product_option_values':
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $value_name = $_POST['value_name'];
-          xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $_POST['value_id'] . "', '" . $languages[$i]['id'] . "', '" . $value_name[$languages[$i]['id']] . "')");
+          xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, languages_id, products_options_values_name) values ('" . $_POST['value_id'] . "', '" . $languages[$i]['id'] . "', '" . $value_name[$languages[$i]['id']] . "')");
         }
         xtc_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " (products_options_id, products_options_values_id) values ('" . $_POST['option_id'] . "', '" . $_POST['value_id'] . "')");
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
@@ -47,14 +47,14 @@
       case 'update_option_name':
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $_POST['option_name'];
-          xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+          xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $_POST['option_id'] . "' and languages_id = '" . $languages[$i]['id'] . "'");
         }
         xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_value':
        $value_name = $_POST['value_name'];
        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-         xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $_POST['value_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+         xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $_POST['value_id'] . "' and languages_id = '" . $languages[$i]['id'] . "'");
        }
        xtc_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " set products_options_id = '" . $_POST['option_id'] . "' where products_options_values_id = '" . $_POST['value_id'] . "'");
        xtc_redirect(xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
@@ -118,7 +118,7 @@
 <!-- options //-->
 <?php
   if ($_GET['action'] == 'delete_product_option') { // delete product option
-    $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+    $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $_GET['option_id'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
     $options_values = xtc_db_fetch_array($options);
 ?>
               <tr>
@@ -131,7 +131,7 @@
                     <td colspan="3"><?php echo xtc_black_line(); ?></td>
                   </tr>
 <?php
-    $products = xtc_db_query("select p.products_id, pd.products_name, pov.products_options_values_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pov.language_id = '" . $_SESSION['languages_id'] . "' and pd.language_id = '" . $_SESSION['languages_id'] . "' and pa.products_id = p.products_id and pa.options_id='" . $_GET['option_id'] . "' and pov.products_options_values_id = pa.options_values_id order by pd.products_name");
+    $products = xtc_db_query("select p.products_id, pd.products_name, pov.products_options_values_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pov.languages_id = '" . $_SESSION['languages_id'] . "' and pd.language_id = '" . $_SESSION['languages_id'] . "' and pa.products_id = p.products_id and pa.options_id='" . $_GET['option_id'] . "' and pov.products_options_values_id = pa.options_values_id order by pd.products_name");
     if (xtc_db_num_rows($products)) {
 ?>
                   <tr class="dataTableHeadingRow">
@@ -215,12 +215,12 @@
     $per_page = MAX_ROW_LISTS_OPTIONS;
     	if (isset ($_GET['searchoption'])) {
 		$options = "select * from ".TABLE_PRODUCTS_OPTIONS." 
-					where language_id = '".$_SESSION['languages_id']."' 
+					where languages_id = '".$_SESSION['languages_id']."' 
 					and products_options_name LIKE '%".$_GET['searchoption']."%'
 					order by ".$option_order_by;
 	} else {
 		$options = "select * from ".TABLE_PRODUCTS_OPTIONS." 
-					where language_id = '".$_SESSION['languages_id']."' 
+					where languages_id = '".$_SESSION['languages_id']."' 
 					order by ".$option_order_by;
 	}
     if (!$option_page) {
@@ -288,7 +288,7 @@
         echo '<form name="option" action="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name&option_page='.$_GET['option_page'], 'NONSSL') . '" method="post">';
         $inputs = '';
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-          $option_name = xtc_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+          $option_name = xtc_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and languages_id = '" . $languages[$i]['id'] . "'");
           $option_name = xtc_db_fetch_array($option_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
         }
@@ -348,7 +348,7 @@
 <!-- value //-->
 <?php
   if ($_GET['action'] == 'delete_option_value') { // delete product option value
-    $values = xtc_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $_GET['value_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+    $values = xtc_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $_GET['value_id'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
     $values_values = xtc_db_fetch_array($values);
 ?>
               <tr>
@@ -361,7 +361,7 @@
                     <td colspan="3"><?php echo xtc_black_line(); ?></td>
                   </tr>
 <?php
-    $products = xtc_db_query("select p.products_id, pd.products_name, po.products_options_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $_SESSION['languages_id'] . "' and po.language_id = '" . $_SESSION['languages_id'] . "' and pa.products_id = p.products_id and pa.options_values_id='" . $_GET['value_id'] . "' and po.products_options_id = pa.options_id order by pd.products_name");
+    $products = xtc_db_query("select p.products_id, pd.products_name, po.products_options_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.languages_id = '" . $_SESSION['languages_id'] . "' and po.language_id = '" . $_SESSION['languages_id'] . "' and pa.products_id = p.products_id and pa.options_values_id='" . $_GET['value_id'] . "' and po.products_options_id = pa.options_id order by pd.products_name");
     if (xtc_db_num_rows($products)) {
 ?>
                   <tr class="dataTableHeadingRow">
@@ -436,7 +436,7 @@
 						".TABLE_PRODUCTS_OPTIONS_VALUES." pov 
 						left join ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS." pov2po 
 						on pov.products_options_values_id = pov2po.products_options_values_id 
-					where pov.language_id = '".$_SESSION['languages_id']."' 
+					where pov.languages_id = '".$_SESSION['languages_id']."' 
 					and pov2po.products_options_id = po.products_options_id
 					and (po.products_options_name LIKE '%".$_GET['search_optionsname']."%' or pov.products_options_values_name LIKE '%".$_GET['search_optionsname']."%')
 					order by pov.products_options_values_id";
@@ -448,7 +448,7 @@
 					from ".TABLE_PRODUCTS_OPTIONS_VALUES." pov 
 						left join ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS." pov2po 
 						on pov.products_options_values_id = pov2po.products_options_values_id 
-					where pov.language_id = '".$_SESSION['languages_id']."' 
+					where pov.languages_id = '".$_SESSION['languages_id']."' 
 					order by pov.products_options_values_id";
 	}
 	if (!$_GET['value_page']) {
@@ -519,7 +519,7 @@
         echo '<form name="values" action="' . xtc_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_value&value_page='.$_GET['value_page'], 'NONSSL') . '" method="post">';
         $inputs = '';
         for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
-          $value_name = xtc_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_values['products_options_values_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+          $value_name = xtc_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_values['products_options_values_id'] . "' and languages_id = '" . $languages[$i]['id'] . "'");
           $value_name = xtc_db_fetch_array($value_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
         }
@@ -527,7 +527,7 @@
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<?php echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo "\n"; ?><select name="option_id">
 <?php
-        $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $_SESSION['languages_id'] . "' order by products_options_name");
+        $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by products_options_name");
         while ($options_values = xtc_db_fetch_array($options)) {
           echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '"';
           if ($values_values['products_options_id'] == $options_values['products_options_id']) { 
@@ -568,7 +568,7 @@
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<select name="option_id">
 <?php
-      $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $_SESSION['languages_id'] . "' order by products_options_name");
+      $options = xtc_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by products_options_name");
       while ($options_values = xtc_db_fetch_array($options)) {
         echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
       }
