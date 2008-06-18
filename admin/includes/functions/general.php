@@ -579,41 +579,41 @@ function xtc_get_languages() {
 }
 
 function xtc_get_categories_name($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_name from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_name from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 
 	return $category['categories_name'];
 }
 
 function xtc_get_categories_heading_title($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_heading_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_heading_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 	return $category['categories_heading_title'];
 }
 
 function xtc_get_categories_description($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 
 	return $category['categories_description'];
 }
 
 function xtc_get_categories_meta_title($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_meta_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_meta_title from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 
 	return $category['categories_meta_title'];
 }
 
 function xtc_get_categories_meta_description($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_meta_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_meta_description from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 
 	return $category['categories_meta_description'];
 }
 
 function xtc_get_categories_meta_keywords($category_id, $languages_id) {
-	$category_query = xtc_db_query("select categories_meta_keywords from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$language_id."'");
+	$category_query = xtc_db_query("select categories_meta_keywords from ".TABLE_CATEGORIES_DESCRIPTION." where categories_id = '".$category_id."' and languages_id = '".$languages_id."'");
 	$category = xtc_db_fetch_array($category_query);
 
 	return $category['categories_meta_keywords'];
@@ -623,7 +623,7 @@ function xtc_get_orders_status_name($orders_status_id, $languages_id = '') {
 
 	if (!$languages_id)
 		$languages_id = $_SESSION['languages_id'];
-	$orders_status_query = xtc_db_query("select orders_status_name from ".TABLE_ORDERS_STATUS." where orders_status_id = '".$orders_status_id."' and languages_id = '".$language_id."'");
+	$orders_status_query = xtc_db_query("select orders_status_name from ".TABLE_ORDERS_STATUS." where orders_status_id = '".$orders_status_id."' and languages_id = '".$languages_id."'");
 	$orders_status = xtc_db_fetch_array($orders_status_query);
 
 	return $orders_status['orders_status_name'];
@@ -633,7 +633,7 @@ function xtc_get_cross_sell_name($cross_sell_group, $languages_id = '') {
 
 	if (!$languages_id)
 		$languages_id = $_SESSION['languages_id'];
-	$cross_sell_query = xtc_db_query("select groupname from ".TABLE_PRODUCTS_XSELL_GROUPS." where products_xsell_grp_name_id = '".$cross_sell_group."' and languages_id = '".$language_id."'");
+	$cross_sell_query = xtc_db_query("select groupname from ".TABLE_PRODUCTS_XSELL_GROUPS." where products_xsell_grp_name_id = '".$cross_sell_group."' and languages_id = '".$languages_id."'");
 	$cross_sell = xtc_db_fetch_array($cross_sell_query);
 
 	return $cross_sell['groupname'];
@@ -645,7 +645,7 @@ function xtc_get_shipping_status_name($shipping_status_id, $languages_id = '') {
 
 	if (!$languages_id)
 		$languages_id = $_SESSION['languages_id'];
-	$shipping_status_query = xtc_db_query("select shipping_status_name from ".TABLE_SHIPPING_STATUS." where shipping_status_id = '".$shipping_status_id."' and languages_id = '".$language_id."'");
+	$shipping_status_query = xtc_db_query("select shipping_status_name from ".TABLE_SHIPPING_STATUS." where shipping_status_id = '".$shipping_status_id."' and languages_id = '".$languages_id."'");
 	$shipping_status = xtc_db_fetch_array($shipping_status_query);
 
 	return $shipping_status['shipping_status_name'];
@@ -679,7 +679,7 @@ function xtc_get_products_vpe_name($products_vpe_id, $languages_id = '') {
 
 	if (!$languages_id)
 		$languages_id = $_SESSION['languages_id'];
-	$products_vpe_query = xtc_db_query("select products_vpe_name from ".TABLE_PRODUCTS_VPE." where products_vpe_id = '".$products_vpe_id."' and languages_id = '".$language_id."'");
+	$products_vpe_query = xtc_db_query("select products_vpe_name from ".TABLE_PRODUCTS_VPE." where products_vpe_id = '".$products_vpe_id."' and languages_id = '".$languages_id."'");
 	$products_vpe = xtc_db_fetch_array($products_vpe_query);
 
 	return $products_vpe['products_vpe_name'];
@@ -696,60 +696,61 @@ function xtc_get_shipping_status() {
 	return $shipping_status_array;
 }
 
-function xtc_get_products_name($product_id, $languages_id = 0) {
+function xtc_get_products_name($product_id, $languages_id = 0) 
+{
 
-	if ($languages_id == 0)
-		$languages_id = $_SESSION['languages_id'];
-	$product_query = xtc_db_query("select products_name from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
-	$product = xtc_db_fetch_array($product_query);
-
-	return $product['products_name'];
+    if ($languages_id == 0)
+        $languages_id = $_SESSION['languages_id'];
+    $product_query = xtc_db_query("select products_name from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
+    $product = xtc_db_fetch_array($product_query);
+    pr($product);
+    return $product['products_name'];
 }
 
 function xtc_get_products_description($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_description'];
 }
 
 function xtc_get_products_short_description($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_short_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_short_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_short_description'];
 }
 
 function xtc_get_products_keywords($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_keywords'];
 }
 
 function xtc_get_products_meta_title($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_meta_title from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_meta_title from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_meta_title'];
 }
 
 function xtc_get_products_meta_description($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_meta_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_meta_description from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_meta_description'];
 }
 
 function xtc_get_products_meta_keywords($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_meta_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_meta_keywords from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_meta_keywords'];
 }
 
 function xtc_get_products_url($product_id, $languages_id) {
-	$product_query = xtc_db_query("select products_url from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$language_id."'");
+	$product_query = xtc_db_query("select products_url from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
 	$product = xtc_db_fetch_array($product_query);
 
 	return $product['products_url'];
@@ -1382,7 +1383,7 @@ function xtc_get_order_status_name($order_status_id, $languages_id = '') {
 	if (!is_numeric($languages_id))
 		$languages_id = $_SESSION['languages_id'];
 
-	$status_query = xtc_db_query("select orders_status_name from ".TABLE_ORDERS_STATUS." where orders_status_id = '".$order_status_id."' and languages_id = '".$language_id."'");
+	$status_query = xtc_db_query("select orders_status_name from ".TABLE_ORDERS_STATUS." where orders_status_id = '".$order_status_id."' and languages_id = '".$languages_id."'");
 	$status = xtc_db_fetch_array($status_query);
 
 	return $status['orders_status_name'];
@@ -1444,7 +1445,7 @@ function xtc_get_customers_status_name($customers_status_id, $languages_id = '')
 
 	if (!$languages_id)
 		$languages_id = $_SESSION['languages_id'];
-	$customers_status_query = xtc_db_query("select customers_status_name from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$customers_status_id."' and languages_id = '".$language_id."'");
+	$customers_status_query = xtc_db_query("select customers_status_name from ".TABLE_CUSTOMERS_STATUS." where customers_status_id = '".$customers_status_id."' and languages_id = '".$languages_id."'");
 	$customers_status = xtc_db_fetch_array($customers_status_query);
 	return $customers_status['customers_status_name'];
 }

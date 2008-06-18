@@ -24,6 +24,11 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
+
+
+
+// 
+
 if (($_GET['pID']) && (!$_POST)) {
 	$product_query = xtc_db_query("select *, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available 
 	                               from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
@@ -71,6 +76,7 @@ while ($tax_class = xtc_db_fetch_array($tax_class_query)) {
 $shipping_statuses = array ();
 $shipping_statuses = xtc_get_shipping_status();
 $languages = xtc_get_languages();
+
 
 switch ($pInfo->products_status) {
 	case '0' :
