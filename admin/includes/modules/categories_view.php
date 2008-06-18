@@ -22,109 +22,87 @@
 
    Released under the GNU General Public License
    --------------------------------------------------------------*/
- defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');  
+defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');  
+
     // get sorting option and switch accordingly        
-    if ($_GET['sorting']) {
-    switch ($_GET['sorting']){
-        case 'sort'         : 
-            $catsort    = 'c.sort_order ASC';
-            $prodsort   = 'p.products_sort ASC';
-            break;
-        case 'sort-desc'    :
-            $catsort    = 'c.sort_order DESC';
-            $prodsort   = 'p.products_sort DESC';
-        case 'name'         :
-            $catsort    = 'cd.categories_name ASC';
-            $prodsort   = 'pd.products_name ASC';
-            break;
-        case 'name-desc'    :
-            $catsort    = 'cd.categories_name DESC';
-            $prodsort   = 'pd.products_name DESC';
-            break;                  
-        case 'status'       :
-            $catsort    = 'c.categories_status ASC';
-            $prodsort   = 'p.products_status ASC';
-            break;
-        case 'status-desc'  :
-            $catsort    = 'c.categories_status DESC';
-            $prodsort   = 'p.products_status DESC';
-            break;             
-        case 'price'        :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_price ASC';            
-            break;
-        case 'price-desc'   :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_price DESC';            
-            break;            
-        case 'stock'        :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_quantity ASC';            
-            break;
-        case 'stock-desc'   :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_quantity DESC';            
-            break;            
-        case 'discount'     :
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_discount_allowed ASC';            
-            break;  
-        case 'discount-desc':
-            $catsort    = 'c.sort_order ASC'; //default
-            $prodsort   = 'p.products_discount_allowed DESC';            
-            break;                                   
-        default             :
-            $catsort    = 'cd.categories_name ASC';
-            $prodsort   = 'pd.products_name ASC';
-            break;
+if ($_GET['sorting']) 
+{
+    switch ($_GET['sorting'])
+    {
+    case 'sort'         : 
+        $catsort    = 'c.sort_order ASC';
+        $prodsort   = 'p.products_sort ASC';
+        break;
+    case 'sort-desc'    :
+        $catsort    = 'c.sort_order DESC';
+        $prodsort   = 'p.products_sort DESC';
+    case 'name'         :
+        $catsort    = 'cd.categories_name ASC';
+        $prodsort   = 'pd.products_name ASC';
+        break;
+    case 'name-desc'    :
+        $catsort    = 'cd.categories_name DESC';
+        $prodsort   = 'pd.products_name DESC';
+        break;                  
+    case 'status'       :
+        $catsort    = 'c.categories_status ASC';
+        $prodsort   = 'p.products_status ASC';
+        break;
+    case 'status-desc'  :
+        $catsort    = 'c.categories_status DESC';
+        $prodsort   = 'p.products_status DESC';
+        break;             
+    case 'price'        :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_price ASC';            
+        break;
+    case 'price-desc'   :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_price DESC';            
+        break;            
+    case 'stock'        :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_quantity ASC';            
+        break;
+    case 'stock-desc'   :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_quantity DESC';            
+        break;            
+    case 'discount'     :
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_discount_allowed ASC';            
+        break;  
+    case 'discount-desc':
+        $catsort    = 'c.sort_order ASC'; //default
+        $prodsort   = 'p.products_discount_allowed DESC';            
+        break;                                   
+    default             :
+        $catsort    = 'cd.categories_name ASC';
+        $prodsort   = 'pd.products_name ASC';
+        break;
     }
-    } else {
-            $catsort    = 'c.sort_order, cd.categories_name ASC';
-            $prodsort   = 'p.products_sort, pd.products_name ASC';
-    }       
+}
+else 
+{
+    $catsort    = 'c.sort_order, cd.categories_name ASC';
+    $prodsort   = 'p.products_sort, pd.products_name ASC';
+}
+
+
+
+
+echo xtc_draw_form('search', FILENAME_CATEGORIES, '', 'get'); 
+echo HEADING_TITLE_SEARCH . ' ' . xtc_draw_input_field('search', $_GET['search']).xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
+echo '</form>';
+echo xtc_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
+echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
+echo '</form>';
+
 ?>
 
-    <!-- categories_view HTML part begin -->
-
-    <tr>
-     <td>
-        <table border="0" width="100%" cellspacing="0" cellpadding="0">
-        <tr>
-         <td align="right">
-            <!-- search and quickjump -->
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-             <td class="smallText" align="right">
-                <?php 
-                    echo xtc_draw_form('search', FILENAME_CATEGORIES, '', 'get'); 
-                    echo HEADING_TITLE_SEARCH . ' ' . xtc_draw_input_field('search', $_GET['search']).xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
-                ?>
-                </form>
-             </td>
-            </tr>
-            <tr>
-             <td class="smallText" align="right">
-                <?php 
-                    echo xtc_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
-                    echo HEADING_TITLE_GOTO . ' ' . xtc_draw_pull_down_menu('cPath', xtc_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"').xtc_draw_hidden_field(xtc_session_name(), xtc_session_id()); 
-                ?>
-                </form>
-             </td>
-            </tr>
-            </table>
-        </td>
-       </tr>
-       </table>
-     </td>
-    </tr>
-    <tr>
-     <td>     
-        <table border="0" width="100%" cellspacing="0" cellpadding="0">
-        <tr>
-         <!-- categories & products column STARTS -->
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
          <td valign="top">
-         
-            <!-- categories and products table -->
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
             <tr class="dataTableHeadingRow">
              <td class="dataTableHeadingContent" width="5%" align="center">
@@ -179,9 +157,9 @@
     $categories_count = 0;
     $rows = 0;
     if ($_GET['search']) {
-      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' and cd.categories_name like '%" . $_GET['search'] . "%' order by " . $catsort);
+      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and cd.categories_name like '%" . $_GET['search'] . "%' order by " . $catsort);
     } else {
-      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by " . $catsort);
+      $categories_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.languages_id = '" . (int)$_SESSION['languages_id'] . "' order by " . $catsort);
     } 
 
     while ($categories = xtc_db_fetch_array($categories_query)) {
@@ -258,10 +236,11 @@
 // ----------------------------------------------------------------------------------------------------- //     
    
     //get products data 
-    $products_count = 0;
-    if ($_GET['search']) {
-        $products_query = xtc_db_query("
-        SELECT
+$products_count = 0;
+if ($_GET['search']) 
+{
+    $products_query = xtc_db_query
+    ("  SELECT
         p.products_tax_class_id,
         p.products_id,
         pd.products_name,
@@ -274,69 +253,88 @@
         p.products_date_available,
         p.products_status,
         p.products_startpage,
-        p.products_startpage_sort,
-        p2c.categories_id FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
-        WHERE p.products_id = pd.products_id AND pd.language_id = '" . $_SESSION['languages_id'] . "' AND
-        p.products_id = p2c.products_id AND (pd.products_name like '%" . $_GET['search'] . "%' OR
-        p.products_model = '" . $_GET['search'] . "') ORDER BY " . $prodsort);
-    } else {
-        if($current_category_id)
+        p.products_startpage_sort
+        FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd 
+        WHERE p.products_id = pd.products_id AND pd.languages_id = '" . $_SESSION['languages_id'] . "' AND
+        (pd.products_name like '%" . $_GET['search'] . "%' OR
+        p.products_model = '" . $_GET['search'] . "') ORDER BY " . $prodsort
+    );
+} 
+else 
+{
+    if($current_category_id > 0)
+    {
+            $products_query = xtc_db_query
+            (" SELECT 
+                p.products_tax_class_id,
+                p.products_id, 
+                pd.products_name, 
+                p.products_quantity, 
+                p.products_price, 
+                p.products_discount_allowed, 
+                p.products_date_added, 
+                p.products_last_modified, 
+                p.products_date_available, 
+                p.products_status,
+                p.products_startpage,
+                p.products_startpage_sort FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c 
+                WHERE p.products_id = pd.products_id AND pd.languages_id = '" . (int)$_SESSION['languages_id'] . "' AND 
+                p.products_id = p2c.products_id AND p2c.categories_id = '" . $current_category_id . "'"
+            );
+        }
+        else if  ($current_category_id<0)
         {
-            $products_query = xtc_db_query("
-            SELECT 
-            p.products_tax_class_id,
-            p.products_id, 
-            pd.products_name, 
-            p.products_quantity, 
-            p.products_price, 
-            p.products_discount_allowed, 
-            p.products_date_added, 
-            p.products_last_modified, 
-            p.products_date_available, 
-            p.products_status,
-            p.products_startpage,
-            p.products_startpage_sort FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c 
-            WHERE p.products_id = pd.products_id AND pd.language_id = '" . (int)$_SESSION['languages_id'] . "' AND 
-            p.products_id = p2c.products_id AND p2c.categories_id = '" . $current_category_id . "'");
+            $products_query = xtc_db_query
+            ("   select
+                p.products_tax_class_id,
+                p.products_id, 
+                pd.products_name, 
+                p.products_quantity, 
+                p.products_price, 
+                p.products_discount_allowed, 
+                p.products_date_added, 
+                p.products_last_modified, 
+                p.products_date_available, 
+                p.products_status,
+                p.products_startpage,
+                p.products_startpage_sort
+                from products p
+                join products_description pd
+                where  p.products_id = pd.products_id and pd.languages_id = '" . (int)$_SESSION['languages_id'] . "'
+                and p.products_id  not in (SELECT  distinct products_id FROM  products_to_categories )
+                and p.products_id  not in (
+                    select distinct products_id from
+                    categories c,
+                    products p, ibc_original_supplies_to_devices  ibc_os2d, 
+                    ibc_alternative_supplies_to_original_supplies ibc_as2os
+                    where c.ibc_devices = ibc_os2d.ibc_devices
+                    and ibc_os2d.ibc_original_supplies = ibc_as2os.ibc_original_supplies
+                    and ibc_as2os.ibc_alternative_supplies = p.ibc_supplies
+                )"
+            );
+
         }
         else
         {
-            $products_query = xtc_db_query("
-            select
-            p.products_tax_class_id,
-            p.products_id, 
-            pd.products_name, 
-            p.products_quantity, 
-            p.products_price, 
-            p.products_discount_allowed, 
-            p.products_date_added, 
-            p.products_last_modified, 
-            p.products_date_available, 
-            p.products_status,
-            p.products_startpage,
-            p.products_startpage_sort
-            from products p
-            join products_description pd
-            where  p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'
-            and p.products_id  not in (SELECT  distinct products_id FROM  products_to_categories )
-            union 
-            SELECT 
-            p.products_tax_class_id,
-            p.products_id, 
-            pd.products_name, 
-            p.products_quantity, 
-            p.products_price, 
-            p.products_discount_allowed, 
-            p.products_date_added, 
-            p.products_last_modified, 
-            p.products_date_available, 
-            p.products_status,
-            p.products_startpage,
-            p.products_startpage_sort FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c 
-            WHERE p.products_id = pd.products_id AND pd.language_id = '" . (int)$_SESSION['languages_id'] . "' AND 
-            p.products_id = p2c.products_id AND p2c.categories_id = '" . $current_category_id . "' ");
-        }
+            $products_query = xtc_db_query
+            ("  SELECT 
+                p.products_tax_class_id,
+                p.products_id, 
+                pd.products_name, 
+                p.products_quantity, 
+                p.products_price, 
+                p.products_discount_allowed, 
+                p.products_date_added, 
+                p.products_last_modified, 
+                p.products_date_available, 
+                p.products_status,
+                p.products_startpage,
+                p.products_startpage_sort FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c 
+                WHERE p.products_id = pd.products_id AND pd.languages_id = '" . (int)$_SESSION['languages_id'] . "' AND 
+                p.products_id = p2c.products_id AND p2c.categories_id = '" . $current_category_id . "' "
+            );
     }
+}
 
 // ----------------------------------------------------------------------------------------------------- //    
 // WHILE loop to display products STARTS
@@ -518,7 +516,7 @@
             
             if (is_array($_POST['multi_categories'])) {
                 foreach ($_POST['multi_categories'] AS $multi_category) {
-                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
                     $category = xtc_db_fetch_array($category_query);
                     $category_childs   = array('childs_count'   => $catfunc->count_category_childs($multi_category));
                     $category_products = array('products_count' => $catfunc->count_category_products($multi_category, true));
@@ -561,7 +559,7 @@
             
             if (is_array($_POST['multi_categories'])) {
                 foreach ($_POST['multi_categories'] AS $multi_category) {
-                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
                     $category = xtc_db_fetch_array($category_query);
                     $category_childs   = array('childs_count'   => $catfunc->count_category_childs($multi_category));
                     $category_products = array('products_count' => $catfunc->count_category_products($multi_category, true));
@@ -609,7 +607,7 @@
             
             if (is_array($_POST['multi_categories'])) {
                 foreach ($_POST['multi_categories'] AS $multi_category) {
-                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+                    $category_query = xtc_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $multi_category . "' and c.categories_id = cd.categories_id and cd.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
                     $category = xtc_db_fetch_array($category_query);
                     $category_childs   = array('childs_count'   => $catfunc->count_category_childs($multi_category));
                     $category_products = array('products_count' => $catfunc->count_category_products($multi_category, true));
@@ -794,7 +792,3 @@
 
         </tr>
         </table>
-     </td>
-    </tr>
-    <tr>
-     <td>

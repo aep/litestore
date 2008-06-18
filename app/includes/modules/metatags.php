@@ -65,7 +65,7 @@ else
                                                     categories_name
                                                     FROM " . TABLE_CATEGORIES_DESCRIPTION . "
                                                     WHERE categories_id='" . $_cPath . "' and
-                                                    language_id='" . $_SESSION['languages_id'] . "'");
+                                                    languages_id='" . $_SESSION['languages_id'] . "'");
         $categories_meta = xtc_db_fetch_array($categories_meta_query, true);
         if ($categories_meta['categories_meta_keywords'] == '') 
         {

@@ -183,12 +183,12 @@ class categories {
 
 
 			if ($action == 'insert') {
-				$insert_sql_data = array ('categories_id' => $categories_id, 'language_id' => $lang['id']);
+				$insert_sql_data = array ('categories_id' => $categories_id, 'languages_id' => $lang['id']);
 				$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 				xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array);
 			}
 			elseif ($action == 'update') {
-				xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array, 'update', 'categories_id = \''.$categories_id.'\' and language_id = \''.$lang['id'].'\'');
+				xtc_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array, 'update', 'categories_id = \''.$categories_id.'\' and languages_id = \''.$lang['id'].'\'');
 			}
 		}
 
@@ -320,7 +320,7 @@ class categories {
 
 			//copy descriptions
 			while ($cdcopy_values = xtc_db_fetch_array($cdcopy_query)) {
-				xtDBquery("INSERT INTO ".TABLE_CATEGORIES_DESCRIPTION." (categories_id, language_id, categories_name, categories_heading_title, categories_description, categories_meta_title, categories_meta_description, categories_meta_keywords) VALUES ('".$new_cat_id."' , '".$cdcopy_values['language_id']."' , '".addslashes($cdcopy_values['categories_name'])."' , '".addslashes($cdcopy_values['categories_heading_title'])."' , '".addslashes($cdcopy_values['categories_description'])."' , '".addslashes($cdcopy_values['categories_meta_title'])."' , '".addslashes($cdcopy_values['categories_meta_description'])."' , '".addslashes($cdcopy_values['categories_meta_keywords'])."')");
+				xtDBquery("INSERT INTO ".TABLE_CATEGORIES_DESCRIPTION." (categories_id, languages_id, categories_name, categories_heading_title, categories_description, categories_meta_title, categories_meta_description, categories_meta_keywords) VALUES ('".$new_cat_id."' , '".$cdcopy_values['language_id']."' , '".addslashes($cdcopy_values['categories_name'])."' , '".addslashes($cdcopy_values['categories_heading_title'])."' , '".addslashes($cdcopy_values['categories_description'])."' , '".addslashes($cdcopy_values['categories_meta_title'])."' , '".addslashes($cdcopy_values['categories_meta_description'])."' , '".addslashes($cdcopy_values['categories_meta_keywords'])."')");
 			}
 
 			//get child categories of current category
@@ -633,7 +633,7 @@ class categories {
 		$i = 0;
 		$group_query = xtc_db_query("SELECT customers_status_id
 					                               FROM ".TABLE_CUSTOMERS_STATUS."
-					                              WHERE language_id = '".(int) $_SESSION['languages_id']."'
+					                              WHERE languages_id = '".(int) $_SESSION['languages_id']."'
 					                                AND customers_status_id != '0'");
 		while ($group_values = xtc_db_fetch_array($group_query)) {
 			// load data into array
@@ -676,7 +676,7 @@ class categories {
 		$i = 0;
 		$group_query = xtc_db_query("SELECT customers_status_id
 					                               FROM ".TABLE_CUSTOMERS_STATUS."
-					                              WHERE language_id = '".(int) $_SESSION['languages_id']."'
+					                              WHERE languages_id = '".(int) $_SESSION['languages_id']."'
 					                                AND customers_status_id != '0'");
 		while ($group_values = xtc_db_fetch_array($group_query)) {
 			// load data into array
@@ -712,16 +712,16 @@ class categories {
 			}
 		}
 		foreach ($languages AS $lang) {
-			$language_id = $lang['id'];
-			$sql_data_array = array ('products_name' => xtc_db_prepare_input($products_data['products_name'][$language_id]), 'products_description' => xtc_db_prepare_input($products_data['products_description_'.$language_id]), 'products_short_description' => xtc_db_prepare_input($products_data['products_short_description_'.$language_id]), 'products_keywords' => xtc_db_prepare_input($products_data['products_keywords'][$language_id]), 'products_url' => xtc_db_prepare_input($products_data['products_url'][$language_id]), 'products_meta_title' => xtc_db_prepare_input($products_data['products_meta_title'][$language_id]), 'products_meta_description' => xtc_db_prepare_input($products_data['products_meta_description'][$language_id]), 'products_meta_keywords' => xtc_db_prepare_input($products_data['products_meta_keywords'][$language_id]));
+			$languages_id = $lang['id'];
+			$sql_data_array = array ('products_name' => xtc_db_prepare_input($products_data['products_name'][$languages_id]), 'products_description' => xtc_db_prepare_input($products_data['products_description_'.$language_id]), 'products_short_description' => xtc_db_prepare_input($products_data['products_short_description_'.$language_id]), 'products_keywords' => xtc_db_prepare_input($products_data['products_keywords'][$language_id]), 'products_url' => xtc_db_prepare_input($products_data['products_url'][$language_id]), 'products_meta_title' => xtc_db_prepare_input($products_data['products_meta_title'][$language_id]), 'products_meta_description' => xtc_db_prepare_input($products_data['products_meta_description'][$language_id]), 'products_meta_keywords' => xtc_db_prepare_input($products_data['products_meta_keywords'][$language_id]));
 
 			if ($action == 'insert') {
-				$insert_sql_data = array ('products_id' => $products_id, 'language_id' => $language_id);
+				$insert_sql_data = array ('products_id' => $products_id, 'languages_id' => $language_id);
 				$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
 				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
 			}
 			elseif ($action == 'update') {
-				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and language_id = \''.$language_id.'\'');
+				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and languages_id = \''.$language_id.'\'');
 			}
 		}
 	} // insert_product ends
@@ -800,7 +800,7 @@ class categories {
 		while ($description = xtc_db_fetch_array($description_query)) {
 			xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_DESCRIPTION."
 						    		                 SET products_id                = '".$dup_products_id."',                                      
-						    		                     language_id                = '".$description['language_id']."',                           
+						    		                     languages_id                = '".$description['language_id']."',                           
 						    		                     products_name              = '".addslashes($description['products_name'])."',             
 						    		                     products_description       = '".addslashes($description['products_description'])."',      
 						    		                     products_keywords          = '".addslashes($description['products_keywords'])."',
@@ -845,7 +845,7 @@ class categories {
 		$i = 0;
 		$group_query = xtc_db_query("SELECT customers_status_id
 				    	                               FROM ".TABLE_CUSTOMERS_STATUS."
-				    	                              WHERE language_id = '".(int) $_SESSION['languages_id']."'
+				    	                              WHERE languages_id = '".(int) $_SESSION['languages_id']."'
 				    	                                AND customers_status_id != '0'");
 
 		while ($group_values = xtc_db_fetch_array($group_query)) {

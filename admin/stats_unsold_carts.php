@@ -299,7 +299,7 @@ group by cb.customers_id order by bdate desc");
                                     " . TABLE_LANGUAGES . " l
                             where   p.products_id = '" . $inrec['pid'] . "' and
                                     pd.products_id = p.products_id and
-                                    l.languages_id = pd.language_id");
+                                    l.languages_id = pd.languages_id");
 
       $inrec2 = xtc_db_fetch_array($query2);
       $tprice = $tprice + ($inrec['qty'] * $inrec2['price']);

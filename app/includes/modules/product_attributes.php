@@ -30,7 +30,7 @@ $module_smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 
 
 if ($product->getAttributesCount() > 0) {
-	$products_options_name_query = xtDBquery("select distinct popt.products_options_id, popt.products_options_name from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$product->data['products_id']."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."' order by popt.products_options_name");
+	$products_options_name_query = xtDBquery("select distinct popt.products_options_id, popt.products_options_name from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$product->data['products_id']."' and patrib.options_id = popt.products_options_id and popt.languages_id = '".(int) $_SESSION['languages_id']."' order by popt.products_options_name");
 
 	$row = 0;
 	$col = 0;
@@ -52,7 +52,7 @@ if ($product->getAttributesCount() > 0) {
 		                                                 where pa.products_id = '".$product->data['products_id']."'
 		                                                 and pa.options_id = '".$products_options_name['products_options_id']."'
 		                                                 and pa.options_values_id = pov.products_options_values_id
-		                                                 and pov.language_id = '".(int) $_SESSION['languages_id']."'
+		                                                 and pov.languages_id = '".(int) $_SESSION['languages_id']."'
 		                                                 order by pa.sortorder");
 		$col = 0;
 		while ($products_options = xtc_db_fetch_array($products_options_query,true)) {

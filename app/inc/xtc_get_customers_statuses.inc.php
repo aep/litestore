@@ -20,15 +20,15 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
    
-// Return all customers statuses for a specified language_id and return an array(array())
+// Return all customers statuses for a specified languages_id and return an array(array())
 // Use it to make pull_down_menu, checkbox....
   function xtc_get_customers_statuses() {
 
      $customers_statuses_array = array(array());
      if ($_SESSION['languages_id']=='') {
-     $customers_statuses_query = xtc_db_query("select * from " . TABLE_CUSTOMERS_STATUS . " where language_id = '1' order by customers_status_id");
+     $customers_statuses_query = xtc_db_query("select * from " . TABLE_CUSTOMERS_STATUS . " where languages_id = '1' order by customers_status_id");
      } else {
-     $customers_statuses_query = xtc_db_query("select * from " . TABLE_CUSTOMERS_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "' order by customers_status_id");
+     $customers_statuses_query = xtc_db_query("select * from " . TABLE_CUSTOMERS_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by customers_status_id");
      }
 
      $i=1;

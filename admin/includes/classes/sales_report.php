@@ -62,7 +62,7 @@
       $first = xtc_db_fetch_array($firstQuery);
       $this->globalStartDate = mktime(0, 0, 0, date("m", $first['first']), date("d", $first['first']), date("Y", $first['first']));
             
-      $statusQuery = xtc_db_query("select * from ".TABLE_ORDERS_STATUS." where language_id='".$_SESSION['languages_id']."'");
+      $statusQuery = xtc_db_query("select * from ".TABLE_ORDERS_STATUS." where languages_id='".$_SESSION['languages_id']."'");
       $i = 0;
       while ($outResp = xtc_db_fetch_array($statusQuery)) {
         $status[$i] = $outResp;

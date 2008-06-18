@@ -25,9 +25,9 @@
       $languages = xtc_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $orders_status_name_array = $_POST['orders_status_name'];
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('orders_status_name' => xtc_db_prepare_input($orders_status_name_array[$language_id]));
+        $sql_data_array = array('orders_status_name' => xtc_db_prepare_input($orders_status_name_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
           if (!xtc_not_null($orders_status_id)) {
@@ -37,11 +37,11 @@
           }
 
           $insert_sql_data = array('orders_status_id' => $orders_status_id,
-                                   'language_id' => $language_id);
+                                   'languages_id' => $language_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and language_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
 
@@ -105,7 +105,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $orders_status_query_raw = "select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $_SESSION['languages_id'] . "' order by orders_status_id";
+  $orders_status_query_raw = "select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by orders_status_id";
   $orders_status_split = new splitPageResults($_GET['page'], '20', $orders_status_query_raw, $orders_status_query_numrows);
   $orders_status_query = xtc_db_query($orders_status_query_raw);
   while ($orders_status = xtc_db_fetch_array($orders_status_query)) {

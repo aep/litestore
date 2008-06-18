@@ -29,7 +29,7 @@ if (($_GET['pID']) && (!$_POST)) {
 	                               from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
                                   where p.products_id = '".(int) $_GET['pID']."'
                                   and p.products_id = pd.products_id
-                                  and pd.language_id = '".$_SESSION['languages_id']."'");
+                                  and pd.languages_id = '".$_SESSION['languages_id']."'");
 
 	$product = xtc_db_fetch_array($product_query);
 	$pInfo = new objectInfo($product);
@@ -58,7 +58,7 @@ while ($manufacturers = xtc_db_fetch_array($manufacturers_query)) {
 }
 
 $vpe_array = array (array ('id' => '', 'text' => TEXT_NONE));
-$vpe_query = xtc_db_query("select products_vpe_id, products_vpe_name from ".TABLE_PRODUCTS_VPE." WHERE language_id='".$_SESSION['languages_id']."' order by products_vpe_name");
+$vpe_query = xtc_db_query("select products_vpe_id, products_vpe_name from ".TABLE_PRODUCTS_VPE." WHERE languages_id='".$_SESSION['languages_id']."' order by products_vpe_name");
 while ($vpe = xtc_db_fetch_array($vpe_query)) {
 	$vpe_array[] = array ('id' => $vpe['products_vpe_id'], 'text' => $vpe['products_vpe_name']);
 }
@@ -101,7 +101,7 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
 
 
 
-<table class="main"  style="border: 1px solid; border-color: #cccccc; background:#f3f3f3;" border="1px">
+<table style="border: 1px solid; border-color: #cccccc; background:#f3f3f3;" border="1px">
 <tr>
     <td>
         <?php echo TEXT_PRODUCTS_STATUS; ?>

@@ -39,7 +39,7 @@ class BoxCategories extends AbstractVCBox
             where c.categories_status = '1'
             ".$group_check."
             and c.categories_id = cd.categories_id
-            and cd.language_id='".(int) $_SESSION['languages_id']."'
+            and cd.languages_id='".(int) $_SESSION['languages_id']."'
             order by sort_order, cd.categories_name");
 
         $m_tt=array();

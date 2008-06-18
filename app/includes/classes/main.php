@@ -27,7 +27,7 @@
                                      shipping_status_name,
                                      shipping_status_image,shipping_status_id
                                      FROM ".TABLE_SHIPPING_STATUS."
-                                     where language_id = '".(int)$_SESSION['languages_id']."'");
+                                     where languages_id = '".(int)$_SESSION['languages_id']."'");
          
          while ($status_data=xtc_db_fetch_array($status_query,true)) {
          	$this->SHIPPING[$status_data['shipping_status_id']]=array('name'=>$status_data['shipping_status_name'],'image'=>$status_data['shipping_status_image']);

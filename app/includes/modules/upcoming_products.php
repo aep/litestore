@@ -36,7 +36,7 @@ $expected_query = xtDBquery("select p.products_id,
                                   and p.products_id = pd.products_id
                                   ".$group_check."
                                   ".$fsk_lock."
-                                  and pd.language_id = '".(int) $_SESSION['languages_id']."'
+                                  and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                   order by ".EXPECTED_PRODUCTS_FIELD." ".EXPECTED_PRODUCTS_SORT."
                                   limit ".MAX_DISPLAY_UPCOMING_PRODUCTS);
 if (xtc_db_num_rows($expected_query,true) > 0) {

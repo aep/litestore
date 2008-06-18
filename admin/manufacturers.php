@@ -46,17 +46,17 @@
       $languages = xtc_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $manufacturers_url_array = $_POST['manufacturers_url'];
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('manufacturers_url' => xtc_db_prepare_input($manufacturers_url_array[$language_id]));
+        $sql_data_array = array('manufacturers_url' => xtc_db_prepare_input($manufacturers_url_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
           $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
-                                   'languages_id' => $language_id);
+                                   'languages_id' => $languages_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . xtc_db_input($manufacturers_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . xtc_db_input($manufacturers_id) . "' and languages_id = '" . $languages_id . "'");
         }
       }
 

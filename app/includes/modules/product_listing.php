@@ -45,7 +45,7 @@ if ($listing_split->number_of_rows > 0)
 			where c.categories_id = '".$current_category_id."'
 			and cd.categories_id = '".$current_category_id."'
 			".$group_check."
-			and cd.language_id = '".$_SESSION['languages_id']."'");
+			and cd.languages_id = '".$_SESSION['languages_id']."'");
 
 		$category = xtc_db_fetch_array($category_query,true);
 		$image = '';

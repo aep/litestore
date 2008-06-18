@@ -14,7 +14,7 @@
 
 defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 // select article data
-$article_query = "SELECT products_name FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE products_id='".(int) $_GET['current_product_id']."' and language_id = '".$_SESSION['languages_id']."'";
+$article_query = "SELECT products_name FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE products_id='".(int) $_GET['current_product_id']."' and languages_id = '".$_SESSION['languages_id']."'";
 $article_data = xtc_db_fetch_array(xtc_db_query($article_query));
 
 $cross_sell_groups = xtc_get_cross_sell_groups();
@@ -25,7 +25,7 @@ function buildCAT($catID) {
 	$tmpID = $catID;
 
 	while (getParent($catID) != 0 || $catID != 0) {
-		$cat_select = xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and language_id='".$_SESSION['languages_id']."'");
+		$cat_select = xtc_db_query("SELECT categories_name FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id='".$catID."' and languages_id='".$_SESSION['languages_id']."'");
 		$cat_data = xtc_db_fetch_array($cat_select);
 		$catID = getParent($catID);
 		$cat[] = $cat_data['categories_name'];
@@ -85,7 +85,7 @@ echo xtc_draw_hidden_field('cpath', $_GET['cpath']);
 <?php
 
 
-$cross_query = "SELECT cs.ID,cs.products_id,pd.products_name,cs.sort_order,p.products_model,p.products_id,cs.products_xsell_grp_name_id FROM ".TABLE_PRODUCTS_XSELL." cs, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS." p WHERE cs.products_id = '".(int) $_GET['current_product_id']."' and cs.xsell_id=p.products_id and p.products_id=pd.products_id  and pd.language_id = '".$_SESSION['languages_id']."' ORDER BY cs.sort_order";
+$cross_query = "SELECT cs.ID,cs.products_id,pd.products_name,cs.sort_order,p.products_model,p.products_id,cs.products_xsell_grp_name_id FROM ".TABLE_PRODUCTS_XSELL." cs, ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS." p WHERE cs.products_id = '".(int) $_GET['current_product_id']."' and cs.xsell_id=p.products_id and p.products_id=pd.products_id  and pd.languages_id = '".$_SESSION['languages_id']."' ORDER BY cs.sort_order";
 $cross_query = xtc_db_query($cross_query);
 if (!xtc_db_num_rows($cross_query)) {
 ?>
@@ -175,7 +175,7 @@ while ($cross_data = xtc_db_fetch_array($cross_query)) {
   <?php
 
 
-		$search_query = "SELECT * FROM ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS." p WHERE p.products_id=pd.products_id and pd.language_id='".$_SESSION['languages_id']."' and p.products_id!='".$_GET['current_product_id']."' and (pd.products_name LIKE '%".$_GET['search']."%' or p.products_model LIKE '%".$_GET['search']."%')";
+		$search_query = "SELECT * FROM ".TABLE_PRODUCTS_DESCRIPTION." pd, ".TABLE_PRODUCTS." p WHERE p.products_id=pd.products_id and pd.languages_id='".$_SESSION['languages_id']."' and p.products_id!='".$_GET['current_product_id']."' and (pd.products_name LIKE '%".$_GET['search']."%' or p.products_model LIKE '%".$_GET['search']."%')";
 		$search_query = xtc_db_query($search_query);
 
 		while ($search_data = xtc_db_fetch_array($search_query)) {

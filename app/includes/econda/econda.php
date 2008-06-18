@@ -38,7 +38,7 @@ function product_path_by_name($product, $lang) {
 	$new_product_path_by_name = '';
 
 	for ($i = 0, $n = sizeof($product_categories_id); $i < $n; $i++) {
-		$product_path_by_name_query = xtc_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $product_categories_id[$i] . "' and language_id = '". (int)$lang ."'");
+		$product_path_by_name_query = xtc_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $product_categories_id[$i] . "' and languages_id = '". (int)$lang ."'");
 		$product_path_by_name = xtc_db_fetch_array($product_path_by_name_query);
 		$new_product_path_by_name .= $product_path_by_name['categories_name'];
 		if (($i+1) < $n) {
@@ -51,7 +51,7 @@ function product_path_by_name($product, $lang) {
 function product_to_EMOSItem($product, $lang, $quant, $cedit_id = 0) {
 	require_once (DIR_FS_INC.'xtc_get_tax_rate.inc.php');
 	require_once (DIR_FS_CATALOG.'includes/classes/xtcPrice.php');
-	$product_to_emos_query = xtc_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$product. "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$lang . "'");
+	$product_to_emos_query = xtc_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$product. "' and pd.products_id = p.products_id and pd.languages_id = '" . (int)$lang . "'");
 	$product_to_emos = xtc_db_fetch_array($product_to_emos_query);
 	$emos_xtPrice = new xtcPrice(DEFAULT_CURRENCY,$_SESSION['customers_status']['customers_status_id']);
 	$product_to_emos_price = $emos_xtPrice->xtcGetPrice($product_to_emos['products_id'], false, $quant, $product_to_emos['products_tax_class_id'], $product_to_emos['products_price'], '', $cedit_id);

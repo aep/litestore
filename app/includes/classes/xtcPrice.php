@@ -45,7 +45,7 @@ class xtcPrice {
 				                                        FROM
 				                                             ".TABLE_CUSTOMERS_STATUS."
 				                                        WHERE
-				                                             customers_status_id = '".$this->actualGroup."' AND language_id = '".$_SESSION['languages_id']."'";
+				                                             customers_status_id = '".$this->actualGroup."' AND languages_id = '".$_SESSION['languages_id']."'";
 		$customers_status_query = xtDBquery($customers_status_query);
 		$customers_status_value = xtc_db_fetch_array($customers_status_query, true);
 		$this->cStatus = array ('customers_status_id' => $this->actualGroup, 'customers_status_name' => $customers_status_value['customers_status_name'], 'customers_status_image' => $customers_status_value['customers_status_image'], 'customers_status_public' => $customers_status_value['customers_status_public'], 'customers_status_discount' => $customers_status_value['customers_status_discount'], 'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'], 'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'], 'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'], 'customers_status_show_price' => $customers_status_value['customers_status_show_price'], 'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'], 'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'], 'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'], 'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'], 'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'], 'customers_fsk18' => $customers_status_value['customers_fsk18'], 'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']);
@@ -284,7 +284,7 @@ class xtcPrice {
 		if (!$this->showFrom_Attributes) return;
 		if ($pID == 0)
 			return;
-		$products_attributes_query = "select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$pID."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."'";
+		$products_attributes_query = "select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$pID."' and patrib.options_id = popt.products_options_id and popt.languages_id = '".(int) $_SESSION['languages_id']."'";
 		$products_attributes = xtDBquery($products_attributes_query);
 		$products_attributes = xtc_db_fetch_array($products_attributes, true);
 		if ($products_attributes['total'] > 0)

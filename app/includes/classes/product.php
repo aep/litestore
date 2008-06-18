@@ -47,7 +47,7 @@ class product {
 										                                      and p.products_id = '".$this->pID."'
 										                                      and pd.products_id = p.products_id
 										                                      ".$group_check.$fsk_lock."
-										                                      and pd.language_id = '".(int) $_SESSION['languages_id']."'";
+										                                      and pd.languages_id = '".(int) $_SESSION['languages_id']."'";
 
 		$product_query = xtDBquery($product_query);
 
@@ -68,7 +68,7 @@ class product {
 
 	function getAttributesCount() {
 
-		$products_attributes_query = xtDBquery("select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$this->pID."' and patrib.options_id = popt.products_options_id and popt.language_id = '".(int) $_SESSION['languages_id']."'");
+		$products_attributes_query = xtDBquery("select count(*) as total from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_ATTRIBUTES." patrib where patrib.products_id='".$this->pID."' and patrib.options_id = popt.products_options_id and popt.languages_id = '".(int) $_SESSION['languages_id']."'");
 		$products_attributes = xtc_db_fetch_array($products_attributes_query, true);
 		return $products_attributes['total'];
 
@@ -173,7 +173,7 @@ class product {
 				    and opb.products_id != '".$this->pID."'														                                  and opb.products_id = p.products_id
 				    and opb.orders_id = o.orders_id
 				    and p.products_status = '1'
-    				    and pd.language_id = '".(int) $_SESSION['languages_id']."'
+    				    and pd.languages_id = '".(int) $_SESSION['languages_id']."'
 		                    and opb.products_id = pd.products_id
 		                    ".$group_check."
 		                    ".$fsk_lock."
@@ -228,7 +228,7 @@ function getCrossSells() {
                                                     xp.sort_order from ".TABLE_PRODUCTS_XSELL." xp, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
                                                     where xp.products_id = '".$this->pID."' and xp.xsell_id = p.products_id ".$fsk_lock.$group_check."
 		                                    and p.products_id = pd.products_id and xp.products_xsell_grp_name_id='".$cross_sells['products_xsell_grp_name_id']."'
-		                                    and pd.language_id = '".$_SESSION['languages_id']."'
+		                                    and pd.languages_id = '".$_SESSION['languages_id']."'
 		                                    and p.products_status = '1'
 		                                    order by xp.sort_order asc";
 
@@ -279,7 +279,7 @@ function getCrossSells() {
 						     xp.sort_order from ".TABLE_PRODUCTS_XSELL." xp, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
 						     where xp.xsell_id = '".$this->pID."' and xp.products_id = p.products_id ".$fsk_lock.$group_check."
 						     and p.products_id = pd.products_id
-						     and pd.language_id = '".$_SESSION['languages_id']."'
+						     and pd.languages_id = '".$_SESSION['languages_id']."'
 						       and p.products_status = '1'
                                                      order by xp.sort_order asc");
 

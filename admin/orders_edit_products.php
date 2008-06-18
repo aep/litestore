@@ -134,7 +134,7 @@ if ($_GET['action'] =='product_search') {
      " . TABLE_PRODUCTS_DESCRIPTION . " pd
      where
      p.products_id = pd.products_id
-     and pd.language_id = '" . $_SESSION['languages_id'] . "' and
+     and pd.languages_id = '" . $_SESSION['languages_id'] . "' and
      (pd.products_name like '%" . $_GET['search'] . "%' OR p.products_model = '" . $_GET['search'] . "') order by pd.products_name");
 
 ?>

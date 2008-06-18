@@ -41,7 +41,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
   $tempTextID = '1999043';
 
   // Lets get all of the possible options
-  $query = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS." where products_options_id LIKE '%' AND language_id = '" . $_SESSION['languages_id'] . "'";
+  $query = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS." where products_options_id LIKE '%' AND languages_id = '" . $_SESSION['languages_id'] . "'";
   $result = xtc_db_query($query);
   $matches = xtc_db_num_rows($result);
 
@@ -80,7 +80,7 @@ echo xtc_draw_hidden_field(xtc_session_name(), xtc_session_id());
             $CHECKED = '';
           }
 
-          $query3 = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS_VALUES." WHERE products_options_values_id = '" . $current_value_id . "' AND language_id = '" . $_SESSION['languages_id'] . "'";
+          $query3 = "SELECT * FROM ".TABLE_PRODUCTS_OPTIONS_VALUES." WHERE products_options_values_id = '" . $current_value_id . "' AND languages_id = '" . $_SESSION['languages_id'] . "'";
           $result3 = xtc_db_query($query3);
           while($line = xtc_db_fetch_array($result3)) {
             $current_value_name = $line['products_options_values_name'];

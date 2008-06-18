@@ -57,7 +57,7 @@ $scheme=array
 //                 )
 // 
 //             ),
-//             'language_id'=>array
+//             'languages_id'=>array
 //             (
 //                 'type'  =>'oneToOne',
 //                 'local' =>'sql',
@@ -88,7 +88,7 @@ $scheme=array
                 'local' =>'main_a',
                 'var'   =>'products_id'
             ),
-            'language_id'=>array
+            'languages_id'=>array
             (
                 'type'  =>'oneToOne',
                 'local' =>'sql',

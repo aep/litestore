@@ -25,9 +25,9 @@
       $languages = xtc_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $cross_sell_name_array = $_POST['cross_sell_group_name'];
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('groupname' => xtc_db_prepare_input($cross_sell_name_array[$language_id]));
+        $sql_data_array = array('groupname' => xtc_db_prepare_input($cross_sell_name_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
           if (!xtc_not_null($cross_sell_id)) {
@@ -37,11 +37,11 @@
           }
 
           $insert_sql_data = array('products_xsell_grp_name_id' => $cross_sell_id,
-                                   'language_id' => $language_id);
+                                   'languages_id' => $language_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, $sql_data_array, 'update', "products_xsell_grp_name_id = '" . xtc_db_input($cross_sell_id) . "' and language_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_PRODUCTS_XSELL_GROUPS, $sql_data_array, 'update', "products_xsell_grp_name_id = '" . xtc_db_input($cross_sell_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
 
@@ -104,7 +104,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  $cross_sell_query_raw = "select products_xsell_grp_name_id, groupname from " . TABLE_PRODUCTS_XSELL_GROUPS . " where language_id = '" . $_SESSION['languages_id'] . "' order by products_xsell_grp_name_id";
+  $cross_sell_query_raw = "select products_xsell_grp_name_id, groupname from " . TABLE_PRODUCTS_XSELL_GROUPS . " where languages_id = '" . $_SESSION['languages_id'] . "' order by products_xsell_grp_name_id";
   $cross_sell_split = new splitPageResults($_GET['page'], '20', $cross_sell_query_raw, $cross_sell_query_numrows);
   $cross_sell_query = xtc_db_query($cross_sell_query_raw);
   while ($cross_sell = xtc_db_fetch_array($cross_sell_query)) {

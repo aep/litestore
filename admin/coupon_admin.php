@@ -61,7 +61,7 @@
     }
     $coupon_query = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon_result = xtc_db_fetch_array($coupon_query);
-    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
     $coupon_name = xtc_db_fetch_array($coupon_name_query);
 
     $from = xtc_db_prepare_input($_POST['from']);
@@ -114,9 +114,9 @@
       $_POST['coupon_code'] = trim($_POST['coupon_code']);
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-          $_POST['coupon_name'][$language_id] = trim($_POST['coupon_name'][$language_id]);
-          $_POST['coupon_desc'][$language_id] = trim($_POST['coupon_desc'][$language_id]);
+          $languages_id = $languages[$i]['id'];
+          $_POST['coupon_name'][$languages_id] = trim($_POST['coupon_name'][$language_id]);
+          $_POST['coupon_desc'][$languages_id] = trim($_POST['coupon_desc'][$language_id]);
         }
       $_POST['coupon_amount'] = trim($_POST['coupon_amount']);
       $update_errors = 0;
@@ -164,9 +164,9 @@
                                 'date_modified' => 'now()');
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-          $sql_data_marray[$i] = array('coupon_name' => xtc_db_prepare_input($_POST['coupon_name'][$language_id]),
-                                 'coupon_description' => xtc_db_prepare_input($_POST['coupon_desc'][$language_id])
+          $languages_id = $languages[$i]['id'];
+          $sql_data_marray[$i] = array('coupon_name' => xtc_db_prepare_input($_POST['coupon_name'][$languages_id]),
+                                 'coupon_description' => xtc_db_prepare_input($_POST['coupon_desc'][$languages_id])
                                  );
         }
 //        $query = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_code = '" . xtc_db_prepare_input($_POST['coupon_code']) . "'");
@@ -174,8 +174,8 @@
         if ($_GET['oldaction']=='voucheredit') {
           xtc_db_perform(TABLE_COUPONS, $sql_data_array, 'update', "coupon_id='" . $_GET['cid']."'");
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-            $update = xtc_db_query("update " . TABLE_COUPONS_DESCRIPTION . " set coupon_name = '" . xtc_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . xtc_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $language_id . "'");
+          $languages_id = $languages[$i]['id'];
+            $update = xtc_db_query("update " . TABLE_COUPONS_DESCRIPTION . " set coupon_name = '" . xtc_db_prepare_input($_POST['coupon_name'][$languages_id]) . "', coupon_description = '" . xtc_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $language_id . "'");
 //            tep_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i], 'update', "coupon_id='" . $_GET['cid']."'");
           }
         } else {
@@ -183,9 +183,9 @@
           $insert_id = xtc_db_insert_id($query);
 
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-            $language_id = $languages[$i]['id'];
+            $languages_id = $languages[$i]['id'];
             $sql_data_marray[$i]['coupon_id'] = $insert_id;
-            $sql_data_marray[$i]['language_id'] = $language_id;
+            $sql_data_marray[$i]['languages_id'] = $language_id;
             xtc_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i]);
           }
 //        }
@@ -266,7 +266,7 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
     $heading = array();
     $contents = array();
-      $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+      $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
       $coupon_desc = xtc_db_fetch_array($coupon_description_query);
       $count_customers = xtc_db_query("select * from " . TABLE_COUPON_REDEEM_TRACK . " where coupon_id = '" . $_GET['cid'] . "' and customer_id = '" . $cInfo->customer_id . "'");
        
@@ -286,7 +286,7 @@ $customer = xtc_db_fetch_array($customer_query);
   case 'preview_email': 
     $coupon_query = xtc_db_query("select coupon_code from " .TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon_result = xtc_db_fetch_array($coupon_query);
-    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
     $coupon_name = xtc_db_fetch_array($coupon_name_query);
     switch ($_POST['customers_email_address']) {
     case '***':
@@ -370,7 +370,7 @@ $customer = xtc_db_fetch_array($customer_query);
   case 'email':
     $coupon_query = xtc_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon_result = xtc_db_fetch_array($coupon_query);
-    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+    $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $_GET['cid'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
     $coupon_name = xtc_db_fetch_array($coupon_name_query);
 ?>
       <td  class="boxCenter" width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -477,22 +477,22 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-            $language_id = $languages[$i]['id'];
+            $languages_id = $languages[$i]['id'];
 ?>
       <tr>
         <td align="left"><?php echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo $_POST['coupon_name'][$language_id]; ?></td>
+        <td align="left"><?php echo $_POST['coupon_name'][$languages_id]; ?></td>
       </tr>
 <?php
 }
 
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-            $language_id = $languages[$i]['id'];
+            $languages_id = $languages[$i]['id'];
 ?>
       <tr>
         <td align="left"><?php echo COUPON_DESC; ?></td>
-        <td align="left"><?php echo $_POST['coupon_desc'][$language_id]; ?></td>
+        <td align="left"><?php echo $_POST['coupon_desc'][$languages_id]; ?></td>
       </tr>
 <?php
 }
@@ -572,9 +572,9 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-          echo xtc_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
-          echo xtc_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
+          $languages_id = $languages[$i]['id'];
+          echo xtc_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$languages_id]);
+          echo xtc_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$languages_id]);
        }
     echo xtc_draw_hidden_field('coupon_amount', $_POST['coupon_amount']);
     echo xtc_draw_hidden_field('coupon_min_order', $_POST['coupon_min_order']);
@@ -603,11 +603,11 @@ $customer = xtc_db_fetch_array($customer_query);
   case 'voucheredit':
     $languages = xtc_get_languages();
     for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-      $language_id = $languages[$i]['id'];
-      $coupon_query = xtc_db_query("select coupon_name,coupon_description from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" .  $_GET['cid'] . "' and language_id = '" . $language_id . "'");
+      $languages_id = $languages[$i]['id'];
+      $coupon_query = xtc_db_query("select coupon_name,coupon_description from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" .  $_GET['cid'] . "' and languages_id = '" . $language_id . "'");
       $coupon = xtc_db_fetch_array($coupon_query);
-      $coupon_name[$language_id] = $coupon['coupon_name'];
-      $coupon_desc[$language_id] = $coupon['coupon_description'];
+      $coupon_name[$languages_id] = $coupon['coupon_name'];
+      $coupon_desc[$languages_id] = $coupon['coupon_description'];
     }
     $coupon_query = xtc_db_query("select coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date, coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories from " . TABLE_COUPONS . " where coupon_id = '" . $_GET['cid'] . "'");
     $coupon = xtc_db_fetch_array($coupon_query);
@@ -646,11 +646,11 @@ $customer = xtc_db_fetch_array($customer_query);
 <?php
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 ?>
       <tr>
         <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+        <td align="left"><?php echo xtc_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$languages_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
         <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
@@ -658,12 +658,12 @@ $customer = xtc_db_fetch_array($customer_query);
 
         $languages = xtc_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-        $language_id = $languages[$i]['id'];
+        $languages_id = $languages[$i]['id'];
 ?>
 
       <tr>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
+        <td align="left" valign="top"><?php echo xtc_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$languages_id]) . '&nbsp;' . xtc_image(DIR_WS_LANGUAGES.$languages[$i]['directory'].'/admin/images/'.$languages[$i]['image']); ?></td>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php
@@ -800,7 +800,7 @@ $customer = xtc_db_fetch_array($customer_query);
       } else {
         echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . xtc_href_link('coupon_admin.php', xtc_get_all_get_params(array('cid', 'action')) . 'cid=' . $cc_list['coupon_id']) . '\'">' . "\n";
       }
-      $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cc_list['coupon_id'] . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+      $coupon_description_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cc_list['coupon_id'] . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
       $coupon_desc = xtc_db_fetch_array($coupon_description_query);
 ?>
                 <td class="dataTableContent"><?php echo $coupon_desc['coupon_name']; ?></td>
@@ -878,7 +878,7 @@ $customer = xtc_db_fetch_array($customer_query);
         if ($cInfo->restrict_to_categories) {
           $cat_details = '<A HREF="listcategories.php?cid=' . $cInfo->coupon_id . '" TARGET="_blank" ONCLICK="window.open(\'listcategories.php?cid=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
-        $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cInfo->coupon_id . "' and language_id = '" . $_SESSION['languages_id'] . "'");
+        $coupon_name_query = xtc_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cInfo->coupon_id . "' and languages_id = '" . $_SESSION['languages_id'] . "'");
         $coupon_name = xtc_db_fetch_array($coupon_name_query);
         $contents[] = array('text'=>COUPON_NAME . '&nbsp;::&nbsp; ' . $coupon_name['coupon_name'] . '<br />' .
                      COUPON_AMOUNT . '&nbsp;::&nbsp; ' . $amount . '<br />' .

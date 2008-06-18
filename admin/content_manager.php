@@ -685,7 +685,7 @@ echo xtc_draw_pull_down_menu('select_file',$files,$default_value);
                                 products_id,
                                 products_name
                                 FROM ".TABLE_PRODUCTS_DESCRIPTION."
-                                WHERE language_id='".(int)$_SESSION['languages_id']."'");
+                                WHERE languages_id='".(int)$_SESSION['languages_id']."'");
  $products_array=array();
 
  while ($products_data=xtc_db_fetch_array($products_query)) {
@@ -845,7 +845,7 @@ if (!$_GET['action']) {
                                 pc.products_id,
                                 pd.products_name
                                 FROM ".TABLE_PRODUCTS_CONTENT." pc, ".TABLE_PRODUCTS_DESCRIPTION." pd
-                                WHERE pd.products_id=pc.products_id and pd.language_id='".(int)$_SESSION['languages_id']."'");
+                                WHERE pd.products_id=pc.products_id and pd.languages_id='".(int)$_SESSION['languages_id']."'");
  
  $products_ids=array();
  while ($products_id_data=xtc_db_fetch_array($products_id_query)) {

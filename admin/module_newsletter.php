@@ -313,7 +313,7 @@ switch ($_GET['action']) {
                                      customers_status_image
                                      FROM ".TABLE_CUSTOMERS_STATUS."
                                      WHERE
-                                     language_id='".$_SESSION['languages_id']."'");
+                                     languages_id='".$_SESSION['languages_id']."'");
  $customer_group=array();
  while ($customer_group_data=xtc_db_fetch_array($customer_group_query)) {
 

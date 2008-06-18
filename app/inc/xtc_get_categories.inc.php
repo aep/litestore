@@ -29,7 +29,7 @@
                                        where parent_id = '" . xtc_db_input($parent_id) . "'
                                        and c.categories_id = cd.categories_id
                                        and c.categories_status != 0
-                                       and cd.language_id = '" . $_SESSION['languages_id'] . "'
+                                       and cd.languages_id = '" . $_SESSION['languages_id'] . "'
                                        order by sort_order, cd.categories_name";
 
     $categories_query  = xtDBquery($categories_query);
