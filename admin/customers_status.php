@@ -127,8 +127,6 @@
 
       // We want to drop the existing corresponding personal_offers table
       xtc_db_query("drop table IF EXISTS personal_offers_by_customers_status_" . xtc_db_input($cID) . "");
-      xtc_db_query("ALTER TABLE `products` DROP `group_permission_" . xtc_db_input($cID) . "`");
-      xtc_db_query("ALTER TABLE `categories` DROP `group_permission_" . xtc_db_input($cID) . "`");
       xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page']));
       break;
 
