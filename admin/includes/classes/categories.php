@@ -155,11 +155,7 @@ class categories {
 		
 		// set pointer to last key
 		end($customers_statuses_array);		
-		for ($i = 0; $n = key($customers_statuses_array), $i < $n+1; $i ++) {
-			if (isset($customers_statuses_array[$i]['id'])) {
-				$permission_array = array_merge($permission_array, array ('group_permission_'.$customers_statuses_array[$i]['id'] => $permission[$customers_statuses_array[$i]['id']]));
-			}
-		}
+
 
 
 		$sql_data_array = array ('sort_order' => $sort_order, 'categories_status' => $categories_status, 'products_sorting' => xtc_db_prepare_input($categories_data['products_sorting']), 'products_sorting2' => xtc_db_prepare_input($categories_data['products_sorting2']), 'categories_template' => xtc_db_prepare_input($categories_data['categories_template']), 'listing_template' => xtc_db_prepare_input($categories_data['listing_template']));
@@ -175,7 +171,6 @@ class categories {
 			$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
 			xtc_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', 'categories_id = \''.$categories_id.'\'');
 		}
-		xtc_set_groups($categories_id, $permission_array);
 		$languages = xtc_get_languages();
 		foreach ($languages AS $lang) {
 			$categories_name_array = $categories_data['name'];
@@ -282,11 +277,11 @@ class categories {
 			
 			
 					$customers_statuses_array = xtc_get_customers_statuses();
-
+/*
 		for ($i = 0; $n = sizeof($customers_statuses_array), $i < $n; $i ++) {
 			if (isset($customers_statuses_array[$i]['id']))
 				$sql_data_array = array_merge($sql_data_array, array ('group_permission_'.$customers_statuses_array[$i]['id'] => $product['group_permission_'.$customers_statuses_array[$i]['id']]));
-		}
+		}*/
 			
 			xtc_db_perform(TABLE_CATEGORIES, $sql_data_array);
 
@@ -471,11 +466,11 @@ class categories {
 		
 		// set pointer to last key
 		end($customers_statuses_array);		
-		for ($i = 0; $n = key($customers_statuses_array), $i < $n+1; $i ++) {
+/*		for ($i = 0; $n = key($customers_statuses_array), $i < $n+1; $i ++) {
 			if (isset($customers_statuses_array[$i]['id'])) {
 				$permission_array = array_merge($permission_array, array ('group_permission_'.$customers_statuses_array[$i]['id'] => $permission[$customers_statuses_array[$i]['id']]));
 			}
-		}
+		}*/
 		//
 		$sql_data_array = array 
         (
@@ -761,11 +756,11 @@ class categories {
 						
 		$customers_statuses_array = xtc_get_customers_statuses();
 
-		for ($i = 0; $n = sizeof($customers_statuses_array), $i < $n; $i ++) {
+/*		for ($i = 0; $n = sizeof($customers_statuses_array), $i < $n; $i ++) {
 			if (isset($customers_statuses_array[$i]['id']))
 				$sql_data_array = array_merge($sql_data_array, array ('group_permission_'.$customers_statuses_array[$i]['id'] => $product['group_permission_'.$customers_statuses_array[$i]['id']]));
 
-		}
+		}*/
 		
 		xtc_db_perform(TABLE_PRODUCTS, $sql_data_array);
 
