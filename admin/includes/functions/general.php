@@ -703,7 +703,6 @@ function xtc_get_products_name($product_id, $languages_id = 0)
         $languages_id = $_SESSION['languages_id'];
     $product_query = xtc_db_query("select products_name from ".TABLE_PRODUCTS_DESCRIPTION." where products_id = '".$product_id."' and languages_id = '".$languages_id."'");
     $product = xtc_db_fetch_array($product_query);
-    pr($product);
     return $product['products_name'];
 }
 

@@ -140,7 +140,7 @@ if (isset($cartaction))
 			if (isset ($_GET['BUYproducts_id'])) {
 				// check permission to view product
 
-				$permission_query = xtc_db_query("SELECT group_permission_" . $_SESSION['customers_status']['customers_status_id'] . " as customer_group, products_fsk18,products_trading_unit from " . TABLE_PRODUCTS . " where products_id='" . (int) $_GET['BUYproducts_id'] . "'");
+				$permission_query = xtc_db_query("SELECT products_fsk18,products_trading_unit from " . TABLE_PRODUCTS . " where products_id='" . (int) $_GET['BUYproducts_id'] . "'");
 				$permission = xtc_db_fetch_array($permission_query);
 
 				// check for FSK18

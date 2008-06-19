@@ -28,6 +28,7 @@ $default_smarty->assign('session', session_id());
 $module = '';
 
 
+
 require_once (DIR_FS_INC.'xtc_get_path.inc.php');
 require_once (DIR_FS_INC.'xtc_check_categories_status.inc.php');
 
