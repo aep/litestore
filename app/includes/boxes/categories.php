@@ -28,11 +28,6 @@ class BoxCategories extends AbstractVCBox
         
         
         $categories_string = '';
-        if (GROUP_CHECK == 'true') 
-        {
-            $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
-        }
-        
         $categories_query = xtDBquery("select c.categories_id,
             cd.categories_name,
             c.parent_id from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
