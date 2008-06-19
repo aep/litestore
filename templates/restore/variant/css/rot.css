@@ -464,7 +464,10 @@ a:hover
 }
 
 
-
+#product_listing #manufacturer_dropdown form
+{
+    display:inline;
+}
 
 
 

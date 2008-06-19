@@ -450,7 +450,7 @@ else
             $filterlist_query = xtDBquery($filterlist_sql);
             if (xtc_db_num_rows($filterlist_query, true) > 1) 
             {
-                $manufacturer_dropdown = xtc_draw_form('filter', FILENAME_DEFAULT, 'get');
+                $manufacturer_dropdown = xtc_draw_form('filter', $_GET["path"], 'get');
                 if (isset ($_GET['manufacturers_id'])) 
                 {
                     $manufacturer_dropdown .= xtc_draw_hidden_field('manufacturers_id', (int)$_GET['manufacturers_id']);
