@@ -37,7 +37,8 @@ $routes=array
     '/create_account'           =>  'create_account.php',
     '/cart'                     =>  'shopping_cart.php',
     '/products'                 =>  'product_info.php',
-    '/popup_content'            =>  'popup_content.php'
+    '/popup_content'            =>  'popup_content.php',
+    '/search'                   =>  'advanced_search_result.php'
 
 );
 

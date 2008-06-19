@@ -32,7 +32,7 @@
     {
         if($_POST['scheme'] && in_array ( $_POST['scheme'] , $schemes ) )
         {
-            $vengeance="/home/aep/cpp/vengeance/vengeance";
+            $vengeance="/usr/bin/vengeance";
             $o=array();
             echo "<pre>";
             system(
