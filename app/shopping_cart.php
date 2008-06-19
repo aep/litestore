@@ -35,7 +35,6 @@ function module()
     $breadcrumb->add(NAVBAR_TITLE_SHOPPING_CART, '/cart');
     
     require (DIR_WS_INCLUDES.'header.php');
-    include (DIR_WS_MODULES.'gift_cart.php');
     
     if ($_SESSION['cart']->count_contents() > 0) 
     {

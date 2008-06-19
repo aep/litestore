@@ -143,8 +143,6 @@ require_once (DIR_FS_INC.'xtc_setcookie.inc.php');
 require_once (DIR_FS_INC.'xtc_check_agent.inc.php');
 require_once (DIR_FS_INC.'xtc_count_cart.inc.php');
 require_once (DIR_FS_INC.'xtc_get_qty.inc.php');
-require_once (DIR_FS_INC.'create_coupon_code.inc.php');
-require_once (DIR_FS_INC.'xtc_gv_account_update.inc.php');
 require_once (DIR_FS_INC.'xtc_get_tax_rate_from_desc.inc.php');
 require_once (DIR_FS_INC.'xtc_get_tax_rate.inc.php');
 require_once (DIR_FS_INC.'xtc_add_tax.inc.php');
