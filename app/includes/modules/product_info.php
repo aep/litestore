@@ -92,6 +92,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 			$info_smarty->assign('PRODUCTS_SHIPPING_LINK',$main->getShippingLink());
 		}
 		$info_smarty->assign('PRODUCTS_TRADING_UNIT', $product->data['products_trading_unit']);
+        $info_smarty->assign('PRODUCTS_TRADING_UNIT_NAME', $product->data['products_trading_unit_name']);
 		$info_smarty->assign('PRODUCTS_MODEL', $product->data['products_model']);
 		$info_smarty->assign('PRODUCTS_EAN', $product->data['products_ean']);
 		$info_smarty->assign('PRODUCTS_QUANTITY', $product->data['products_quantity']);
