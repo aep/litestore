@@ -81,7 +81,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
 		$info_smarty->assign('FORM_END', '</form>');
 		$info_smarty->assign('PRODUCTS_PRICE', $products_price['formated']);
 		if ($product->data['products_vpe_status'] == 1 && $product->data['products_vpe_value'] != 0.0 && $products_price['plain'] > 0)
-			$info_smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product->data['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product->data['products_vpe']));
+			$info_smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product->data['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product->data['products_vpe_id']));
 		$info_smarty->assign('PRODUCTS_ID', $product->data['products_id']);
 		$info_smarty->assign('PRODUCTS_NAME', $product->data['products_name']);
 		if ($_SESSION['customers_status']['customers_status_show_price'] != 0) {

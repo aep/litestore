@@ -327,7 +327,7 @@ function getCrossSells() {
 			if ($product_info['products_vpe_status'] == 1 && $product_info['products_vpe_value'] != 0.0 && $staffel[$i]['price'] > 0) {
 				$vpe = $staffel[$i]['price'] - $staffel[$i]['price'] / 100 * $discount;
 				$vpe = $vpe * (1 / $product_info['products_vpe_value']);
-				$vpe = $xtPrice->xtcFormat($vpe, true, $product_info['products_tax_class_id']).TXT_PER.xtc_get_vpe_name($product_info['products_vpe']);
+				$vpe = $xtPrice->xtcFormat($vpe, true, $product_info['products_tax_class_id']).TXT_PER.xtc_get_vpe_name($product_info['products_vpe_id']);
 			}
 			$staffel_data[$i] = array ('QUANTITY' => $quantity, 'VPE' => $vpe, 'PRICE' => $xtPrice->xtcFormat($staffel[$i]['price'] - $staffel[$i]['price'] / 100 * $discount, true, $this->data['products_tax_class_id']));
 		}
@@ -354,7 +354,7 @@ function getCrossSells() {
 			$product = $this->data;
 
 		if ($product['products_vpe_status'] == 1 && $product['products_vpe_value'] != 0.0 && $price > 0) {
-			return $xtPrice->xtcFormat($price * (1 / $product['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product['products_vpe']);
+			return $xtPrice->xtcFormat($price * (1 / $product['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product['products_vpe_id']);
 		}
 
 		return;
