@@ -4,14 +4,20 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 $dttr_self=xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('productimagesaction','imagenr')));
 
 
-$querystring= "select row_id,url_small,url_middle,url_big from products_images where products_id='".xtc_db_input($_GET['pID'])."'";
+$querystring= "select products_id,image_nr,url_small,url_middle,url_big from products_images where products_id='".xtc_db_input($_GET['pID'])."'";
+
+
+
+
 
 if(isset($_GET["imagenr"]) && $_GET["imagenr"]=="new")
 {
-    xtc_db_query("insert into products_images (products_id) values ('".xtc_db_input($_GET['pID'])."')");
+    $c=xtc_db_fetch_array(xtc_db_query("select count(image_nr) from products_images where products_id='".xtc_db_input($_GET['pID'])."'"));;
+
+    xtc_db_query("insert into products_images (products_id,image_nr) values ('".xtc_db_input($_GET['pID'])."','".($c["count(image_nr)"]+1)."')");
 
 }
-else if(isset($_GET["imagenr"]) && $_FILES["datafile"]["name"])
+else if(isset($_GET["imagenr"]) && isset($_GET["products_id"])  && $_FILES["datafile"]["name"])
 {
     $file=$_FILES["datafile"];
 
@@ -30,19 +36,19 @@ else if(isset($_GET["imagenr"]) && $_FILES["datafile"]["name"])
         ."url_small   = '/images/product_images/thumbnail_images/$products_image_name'  , "
         ."url_middle  = '/images/product_images/info_images/$products_image_name'  , "
         ."url_big     = '/images/product_images/popup_images/$products_image_name'   "
-        ."where row_id='".xtc_db_input($_GET['imagenr'])."'");
+        ."where image_nr='".xtc_db_input($_GET['imagenr'])."'  and products_id='".xtc_db_input($_GET["products_id"])."' ");
 
 }
 
-else if(isset($_GET["imagenr"]) && $_POST)
+else if(isset($_GET["imagenr"]) && isset($_GET["products_id"]) && $_POST)
 {
     $query = xtc_db_query($querystring);
     while($img = xtc_db_fetch_array($query))
     {
-        $i=$img["row_id"];
+        $i=$img["image_nr"];
         if (isset($_POST["delete_$i"]))
         {
-            xtc_db_query("delete from products_images where row_id='$i'");
+            xtc_db_query("delete from products_images where image_nr='$i'  and products_id='".xtc_db_input($_GET["products_id"])."' ");
         }
         else if (isset($_POST["save_$i"]))
         {
@@ -50,7 +56,7 @@ else if(isset($_GET["imagenr"]) && $_POST)
                 ."url_small  = \"".xtc_db_input($_POST["url_small_$i"])     ."\" , "
                 ."url_middle = \"".xtc_db_input($_POST["url_middle_$i"])    ."\" , "
                 ."url_big    = \"".xtc_db_input($_POST["url_big_$i"])       ."\" "
-                ."where row_id='$i'");
+                ."where image_nr='$i' and products_id='".xtc_db_input($_GET["products_id"])."' ");
         }
     }
 }
@@ -70,8 +76,8 @@ $query = xtc_db_query($querystring);
 <hr/>
 
 
-<?php while($img = xtc_db_fetch_array($query)){ $i=$img["row_id"]; ?>
-    <form action="<?php echo $dttr_self."&amp;imagenr=$i" ?>"  method="post" enctype="multipart/form-data"  >
+<?php while($img = xtc_db_fetch_array($query)){ $i=$img["image_nr"]; ?>
+    <form action="<?php echo $dttr_self."&amp;imagenr=$i&amp;products_id=".$img['products_id'] ?>"  method="post" enctype="multipart/form-data"  >
 
 
         <div style="margin:1em;border:1px solid grey;">
