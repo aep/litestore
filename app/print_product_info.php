@@ -105,7 +105,7 @@ if ($_SESSION['customers_status']['customers_status_public'] == 1 && $_SESSION['
 }
 
 if ($product_info['products_vpe_status'] == 1 && $product_info['products_vpe_value'] != 0.0 && $products_price['plain'] > 0)
-	$smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product_info['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product_info['products_vpe']));
+	$smarty->assign('PRODUCTS_VPE', $xtPrice->xtcFormat($products_price['plain'] * (1 / $product_info['products_vpe_value']), true).TXT_PER.xtc_get_vpe_name($product_info['products_vpe_id']));
 $smarty->assign('module_content', $module_content);
 
 //more images - by Novalis
