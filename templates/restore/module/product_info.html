@@ -3,7 +3,17 @@
 {$PRODUCT_NAVIGATOR}
 <h1>{$PRODUCTS_NAME}</h1>
 <div id="product_info">
-    <div id="slideshowContainer" class="slideshowContainer" ></div>
+
+
+    {if $PRODUCTS_IMAGES_COUNT>0}
+    <div id="slideshowContainer">
+        <img src="{$PRODUCTS_IMAGES[0].url_big}" alt="" >
+    </div>
+    {else}
+    <div id="slideshowContainer" >
+        <img src="{$tpl_path}/bilder/kein_bild-gross.png" alt="">
+    </div>
+    {/if}
 
 
     <div id="product_info_description">
@@ -93,36 +103,37 @@
 
         {/if}
     </div>
-
-    <div id="product_info_slideshow_preview">
-        {if $PRODUCTS_IMAGES}
-            {foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
-                <a href="{$product_image.url_big}" class="slideshowThumbnail">
-                    <img  src="{$product_image.url_small}" alt="">
-                </a>
-            {/foreach}
-        {else}
-                <a href="{$tpl_path}/bilder/kein_bild.png" class="slideshowThumbnail">
-                    <img src="{$tpl_path}/bilder/kein_bild-thumb.png" alt="">
-                </a>
-        {/if}
-        <script type="text/javascript">
-            {literal}
-                window.addEvent('domready',function()
-                {
-                    var obj = 
+    {if $PRODUCTS_IMAGES_COUNT>1}
+        <div id="product_info_slideshow_preview">
+            {if $PRODUCTS_IMAGES}
+                {foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
+                    <a href="{$product_image.url_big}" class="slideshowThumbnail">
+                        <img  src="{$product_image.url_small}" alt="">
+                    </a>
+                {/foreach}
+            {else}
+                    <a href="{$tpl_path}/bilder/kein_bild.png" class="slideshowThumbnail">
+                        <img src="{$tpl_path}/bilder/kein_bild-thumb.png" alt="">
+                    </a>
+            {/if}
+            <script type="text/javascript">
+                {literal}
+                    window.addEvent('domready',function()
                     {
-                        wait: 3000, 
-                        effect: 'fade',
-                        duration: 1000, 
-                        loop: true, 
-                        thumbnails: true,
-                        backgroundSlider: true
-                    }
-                    show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
-                    show.play();
-                });
-            {/literal}
-        </script>
-    </div>
+                        var obj = 
+                        {
+                            wait: 3000, 
+                            effect: 'fade',
+                            duration: 1000, 
+                            loop: true, 
+                            thumbnails: true,
+                            backgroundSlider: true
+                        }
+                        show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
+                        show.play();
+                    });
+                {/literal}
+            </script>
+        </div>
+    {/if}
 </div>
