@@ -125,6 +125,7 @@ if (!is_object($product) || !$product->isProduct()) { // product not found in da
         }
 
         $info_smarty->assign('PRODUCTS_IMAGES', $PRODUCTS_IMAGES);
+        $info_smarty->assign('PRODUCTS_IMAGES_COUNT', count($PRODUCTS_IMAGES));
 
 
 
