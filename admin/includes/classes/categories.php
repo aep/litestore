@@ -696,17 +696,38 @@ class categories {
 		}
 
 
-		foreach ($languages AS $lang) {
-			$languages_id = $lang['id'];
-			$sql_data_array = array ('products_name' => xtc_db_prepare_input($products_data['products_name'][$languages_id]), 'products_description' => xtc_db_prepare_input($products_data['products_description_'.$language_id]), 'products_short_description' => xtc_db_prepare_input($products_data['products_short_description_'.$language_id]), 'products_keywords' => xtc_db_prepare_input($products_data['products_keywords'][$language_id]), 'products_url' => xtc_db_prepare_input($products_data['products_url'][$language_id]), 'products_meta_title' => xtc_db_prepare_input($products_data['products_meta_title'][$language_id]), 'products_meta_description' => xtc_db_prepare_input($products_data['products_meta_description'][$language_id]), 'products_meta_keywords' => xtc_db_prepare_input($products_data['products_meta_keywords'][$language_id]));
+        foreach ($languages AS $lang) 
+        {
 
-			if ($action == 'insert') {
-				$insert_sql_data = array ('products_id' => $products_id, 'languages_id' => $languages_id);
-				$sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
-				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
-			}
-			elseif ($action == 'update') {
-				xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and languages_id = \''.$languages_id.'\'');
+
+            $languages_id = $lang['id'];
+
+
+
+
+            $sql_data_array = array (
+                    'products_name' => xtc_db_prepare_input($products_data['products_name'][$languages_id]), 
+                    'products_description' => xtc_db_prepare_input($products_data['products_description_'.$languages_id]),
+                    'products_short_description' => xtc_db_prepare_input($products_data['products_short_description_'.$languages_id]), 
+                    'products_keywords' => xtc_db_prepare_input($products_data['products_keywords'][$languages_id]), 
+                    'products_url' => xtc_db_prepare_input($products_data['products_url'][$languages_id]), 
+                    'products_meta_title' => xtc_db_prepare_input($products_data['products_meta_title'][$languagse_id]), 
+                    'products_meta_description' => xtc_db_prepare_input($products_data['products_meta_description'][$languages_id]), 
+                    'products_meta_keywords' => xtc_db_prepare_input($products_data['products_meta_keywords'][$languages_id])
+                    );
+
+
+
+
+            if ($action == 'insert') 
+            {
+                $insert_sql_data = array ('products_id' => $products_id, 'languages_id' => $languages_id);
+                $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+                xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
+            }
+            elseif ($action == 'update') 
+            {
+                xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and languages_id = \''.$languages_id.'\'');
 			}
 		}
 	} // insert_product ends
