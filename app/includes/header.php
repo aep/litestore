@@ -30,8 +30,11 @@
 include(DIR_WS_MODULES.FILENAME_METATAGS);
 require('javascript/general.js.php');
 
-$smarty->assign("CHARSET",$_SESSION['language_charset'] );
+$smarty->assign("CHARSET","utf-8");
 $smarty->assign("HTML_PARAMS",HTML_PARAMS );
+
+
+header("Content-Type","text/html; charset=utf-8");
 
 
 require_once('inc/xtc_output_warning.inc.php');
