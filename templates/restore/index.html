@@ -36,8 +36,13 @@
             {$banner}
         </div>
 
+
+
+
         <div id="banner">
+            
             <div id="login">
+
                 {php}   if (isset($_SESSION['customer_id'])) {   {/php}
                 <form action="/logout" method="get">
                     <p>
@@ -61,7 +66,10 @@
                     </table>
                 </form>
                 {php}   }   {/php}
+
             </div>
+
+
 
             <img id="logo" src="{$tpl_path}variant/logo/{$CURRENT_LOGO}" alt="{$store_name}">
 
@@ -76,10 +84,11 @@
                     <li><a href="/login">Konto erstellen</a></li>
                     {php}   }   {/php}
                 </ul>
+                <div id="breadcrumb">{$navtrail}</div>
+
             </div>
         </div>
         <div id="indexhtml_content_wrap">
-            <div id="breadcrumb">Sie sind hier: {$navtrail}</div>
             <div id="indexhtml_content">
                 {$main_content}
             </div>
