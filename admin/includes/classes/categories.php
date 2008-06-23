@@ -494,7 +494,7 @@ class categories {
             'products_fsk18' => xtc_db_prepare_input($products_data['fsk18']), 
             'products_vpe_value' => xtc_db_prepare_input($products_data['products_vpe_value']), 
             'products_vpe_status' => xtc_db_prepare_input($products_data['products_vpe_status']), 
-            'products_vpe' => xtc_db_prepare_input($products_data['products_vpe'])
+            'products_vpe_id' => xtc_db_prepare_input($products_data['products_vpe_id'])
         );
 		$sql_data_array = array_merge($sql_data_array, $permission_array);
 		//get the next ai-value from table products if no products_id is set
