@@ -17,7 +17,7 @@
    -----------------------------------------------------------------------------------------
    Third Party contributions:
    Enable_Disable_Categories 1.3        	Autor: Mikel Williams | mikel@ladykatcostumes.com
-   Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS : http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
+   Customers Status v3.x  (c) 2002-2003 Copyright Elari elari@free.fr | www.unlockgsm.com/dload-osc/ | CVS :    http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/elari/?sortby=date#dirlist
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
@@ -251,12 +251,15 @@ function module()
                 $categories_query = xtDBquery($categories_query);
         }
 
+
+
+
         $rows = 0;
         while ($categories = xtc_db_fetch_array($categories_query, true)) 
         {
-
             $rows ++;
-            $cPath_new = "/catalog/".$categories['categories_id'];
+            $cPath_new = "/catalog/".implode("/",$cPath_array)."/".$categories['categories_id'];
+
             $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
             $image = '';
             if ($categories['categories_image'] != '') 
