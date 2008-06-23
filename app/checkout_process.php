@@ -336,7 +336,7 @@ if (!$tmp) {
 
 	// NEW EMAIL configuration !
 	$order_totals = $order_total_modules->apply_credit();
-	include ('send_order.php');
+	include (DIR_WS_INCLUDES.'send_order.php');
 
 	// load the after_process function from the payment modules
 	$payment_modules->after_process();
