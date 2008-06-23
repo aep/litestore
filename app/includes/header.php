@@ -33,8 +33,7 @@ require('javascript/general.js.php');
 $smarty->assign("CHARSET",$_SESSION['language_charset']);
 $smarty->assign("HTML_PARAMS",HTML_PARAMS );
 
-
-header("Content-Type","text/html; charset="+$_SESSION['language_charset']);
+header('Content-Type: text/html; charset='.$_SESSION['language_charset']);
 
 
 require_once('inc/xtc_output_warning.inc.php');
