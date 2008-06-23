@@ -71,6 +71,8 @@ a:hover
 
 #indexhtml_content_wrap
 {
+    padding-top:24px;
+
     float:left;
     width:916px;
     margin:0 auto;
@@ -202,7 +204,6 @@ a:hover
 
 #sidebar
 {
-    padding-top:24px;
     float:right;
     width:180px;
 }
