@@ -1,25 +1,13 @@
+Hallo {$NAME},
 
-{$address_label_customer}
+Vielen Dank für Ihre Bestellung.
 
-{if $PAYMENT_METHOD}Zahlungsmethode: {$PAYMENT_METHOD}{/if}
+
 Bestellnummer: {$oID}
 Datum: {$DATE}
 {if $csID}Kundennummer :{$csID}{/if}
-----------------------------------------------------------------------
 
 
-Hallo {$NAME},
-
-Dies ist nur ein Standardtext
-
-{$PAYMENT_INFO_TXT}
-
-{if $COMMENTS}
-Ihre Anmerkungen:
-{$COMMENTS}
-{/if}
-
-Ihre Bestellten Produkte zur Kontrollle
 ----------------------------------------------------------------------
 {foreach name=aussen item=order_values from=$order_data} 
 {$order_values.PRODUCTS_QTY} x {$order_values.PRODUCTS_NAME} {$order_values.PRODUCTS_PRICE}
@@ -32,11 +20,35 @@ Ihre Bestellten Produkte zur Kontrollle
 {/foreach}
 
 
+
+{if $PAYMENT_METHOD}
+{$PAYMENT_METHOD}
+----------------------------------------------------------------------
+{$PAYMENT_INFO_TXT}
+{/if}
+
+
+
+
 {if $address_label_payment}
-Rechnungsadresse
+Rechnungsadresse:
 ----------------------------------------------------------------------
 {$address_label_payment}
 {/if}
-Versandadresse 
+
+
+
+
+{if $address_label_shipping}
+Versandadresse:
 ----------------------------------------------------------------------
 {$address_label_shipping}
+{/if}
+
+
+
+{if $COMMENTS}
+Ihre Anmerkungen:
+----------------------------------------------------------------------
+{$COMMENTS}
+{/if}
