@@ -39,8 +39,3 @@ function xtc_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $pa
     return $$link;
 }
 ?>
-
-
-
-
-
