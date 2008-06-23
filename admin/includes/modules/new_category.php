@@ -1,4 +1,5 @@
 <?php
+
 /* --------------------------------------------------------------
    $Id: new_category.php 799 2005-02-23 18:08:06Z novalis $
 
@@ -66,10 +67,11 @@
 
 
         <td><table border="0" cellspacing="0" cellpadding="2"><tr><td  colspan="2">
- <table "width="100%"  border="0">
-<tr>
-            <td class="main" width="200" valign="top"><?php echo TEXT_EDIT_CATEGORIES_IMAGE; ?></td>
-            <td class="main"><?php echo xtc_draw_file_field('categories_image') . '<br />' . xtc_draw_separator('pixel_trans.gif', '24', '15') . xtc_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?>
+
+<table class="main" border="0">
+    <tr>
+        <td width="200" valign="top"><?php echo TEXT_EDIT_CATEGORIES_IMAGE; ?></td>
+        <td ><?php echo xtc_draw_file_field('categories_image') . '<br />' . xtc_draw_separator('pixel_trans.gif', '24', '15') . xtc_draw_hidden_field('categories_previous_image', $cInfo->categories_image); ?>
             <?php
             if ($cInfo->categories_image) {
             	?>
@@ -79,7 +81,24 @@
             
             } ?>
             </td>
-          </tr>
+    </tr>
+
+    <tr>
+        <td width="200" valign="top"><?php echo TEXT_EDIT_CATEGORIES_TEASER; ?></td>
+        <td ><?php echo xtc_draw_file_field('categories_teaser') . '<br />' . xtc_draw_separator('pixel_trans.gif', '24', '15') . xtc_draw_hidden_field('categories_previous_teaser', $cInfo->categories_teaser); ?>
+            <?php
+            if ($cInfo->categories_teaser) {
+                ?>
+            <br><img src="<?php echo DIR_WS_CATALOG.'images/categories_teaser/'.$cInfo->categories_teaser; ?>" width="200">
+            <br><?php echo '&nbsp;' .$cInfo->categories_image;
+            echo xtc_draw_selection_field('del_cat_teaser', 'checkbox', 'yes').TEXT_DELETE;
+            
+            } ?>
+            </td>
+    </tr>
+
+
+
           <tr><td colspan="2"><?php echo xtc_draw_separator('pixel_trans.gif', '1', '10'); ?></td></tr>
 
              	  <tr>
