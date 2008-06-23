@@ -61,6 +61,7 @@ define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name:');
 define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Kategorie &Uuml;berschrift:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild:');
+define('TEXT_EDIT_CATEGORIES_TEASER', 'Kategorie Teaser:');
 
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
 

@@ -187,6 +187,12 @@ class categories {
 			}
 		}
 
+
+
+
+
+
+
 		if ($categories_image = & xtc_try_upload('categories_image', DIR_FS_CATALOG_IMAGES.'categories/')) {
 			$cname_arr = explode('.', $categories_image->filename);
 			$cnsuffix = array_pop($cname_arr);
@@ -204,6 +210,32 @@ class categories {
 						    		                 SET categories_image = ''
 						    		               WHERE categories_id    = '".(int) $categories_id."'");
 		}
+
+
+
+
+        if ($categories_teaser = & xtc_try_upload('categories_teaser', DIR_FS_CATALOG_IMAGES.'categories_teaser/')) {
+            $cname_arr = explode('.', $categories_teaser->filename);
+            $cnsuffix = array_pop($cname_arr);
+            $categories_teaser_name = $categories_id.'.'.$cnsuffix;
+            @ unlink(DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser_name);
+            rename(DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser->filename, DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser_name);
+            xtc_db_query("UPDATE ".TABLE_CATEGORIES."
+                                                     SET categories_teaser = '".xtc_db_input($categories_teaser_name)."'
+                                                   WHERE categories_id = '".(int) $categories_id."'");
+        }
+
+        if ($categories_data['del_cat_teaser'] == 'yes') {
+            @ unlink(DIR_FS_CATALOG_IMAGES.'categories/'.$categories_data['categories_previous_teaser']);
+            xtc_db_query("UPDATE ".TABLE_CATEGORIES."
+                                                     SET categories_teaser = ''
+                                                   WHERE categories_id    = '".(int) $categories_id."'");
+        }
+
+
+
+
+
 
 	} // insert_category ends
 

@@ -41,7 +41,8 @@ if ($listing_split->number_of_rows > 0)
 			cd.categories_name,
 			cd.categories_heading_title,
 			c.listing_template,
-			c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+			c.categories_teaser 
+            from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
 			where c.categories_id = '".$current_category_id."'
 			and cd.categories_id = '".$current_category_id."'
 			".$group_check."
@@ -49,12 +50,12 @@ if ($listing_split->number_of_rows > 0)
 
 		$category = xtc_db_fetch_array($category_query,true);
 		$image = '';
-		if ($category['categories_image'] != '')
-			$image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
+		if ($category['categories_teaser'] != '')
+			$image = DIR_WS_IMAGES.'categories_teaser/'.$category['categories_teaser'];
 		$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
 		$module_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
 
-		$module_smarty->assign('CATEGORIES_IMAGE', $image);
+		$module_smarty->assign('CATEGORIES_TEASER', $image);
 		$module_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
 
 		$rows = 0;
