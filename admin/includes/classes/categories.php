@@ -663,7 +663,6 @@ class categories {
 			}
 		}
 
-        pr($languages);
 
 		foreach ($languages AS $lang) {
 			$languages_id = $lang['id'];
