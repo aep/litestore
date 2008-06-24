@@ -8,6 +8,8 @@ restoreInit= function ()
         var id=em[i].readAttribute('id');
         id=id.replace('quickbuy_','');
         em[i].writeAttribute('href','javascript:restoreQuickBuy(\''+id+'\')');
+
+        restoreQuickBuy(id);
     }
 }
 
