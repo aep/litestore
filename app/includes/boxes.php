@@ -4,7 +4,7 @@
     define('DIR_WS_BOXES',DIR_FS_CATALOG .'includes/boxes/');
 
 
-    require(DIR_WS_INCLUDES . 'visualcontent/nodes.php');
+    require_once(DIR_WS_INCLUDES . 'visualcontent/nodes.php');
     include_all_once(DIR_WS_BOXES."*.php");
 
 

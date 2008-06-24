@@ -440,8 +440,14 @@ a:hover
     padding-top:4px;
     padding-bottom:4px;
     padding-left:10px;
-    
 }
+
+
+a.quickbuy_loading
+{
+    background:url(../../bilder/ajax-loader.gif) 10px 0px no-repeat;
+}
+
 
 
 

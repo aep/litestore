@@ -4,9 +4,9 @@ $APP_PATH=split('/',$_GET["path"]);
 
 
 
-
 include ('includes/application_top.php');
 require_once (DIR_FS_INC.'aep.php');
+
 
 
 $routes=array
@@ -38,7 +38,8 @@ $routes=array
     '/cart'                     =>  'shopping_cart.php',
     '/products'                 =>  'product_info.php',
     '/popup_content'            =>  'popup_content.php',
-    '/search'                   =>  'advanced_search_result.php'
+    '/search'                   =>  'advanced_search_result.php',
+    '/ajax'                     =>  'ajax.php'
 
 );
 
