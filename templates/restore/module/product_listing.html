@@ -41,7 +41,7 @@
         </a>
 
         {if $module_data.ALLOWED_TO_SEE_PRICE}
-            <a class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">{$module_data.PRODUCTS_PRICE}</a>
+            <a id="quickbuy_{$module_data.PRODUCTS_ID}" class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">{$module_data.PRODUCTS_PRICE}</a>
         {/if}
     </div>
     {/foreach}
