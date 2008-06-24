@@ -1,6 +1,4 @@
 <?php
-    sleep(3);
-
     if($APP_PATH[2]=="cart")
     {
         require_once(DIR_WS_INCLUDES . 'visualcontent/nodes.php');
