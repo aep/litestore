@@ -4,17 +4,14 @@ restoreInit= function ()
 
     for(var i = 0;i < em.length;i++)
     {
-
         var id=em[i].readAttribute('id');
         id=id.replace('quickbuy_','');
-        em[i].writeAttribute('href','javascript:restoreQuickBuy(\''+id+'\')');
-
-        restoreQuickBuy(id);
+        restoreQuickBuy(id,false);
     }
 }
 
 
-restoreQuickBuy= function ( em )
+restoreQuickBuy= function ( em ,actuallybuy )
 {
 
     var a=$('quickbuy_'+em);
@@ -26,23 +23,20 @@ restoreQuickBuy= function ( em )
 
     a.removeAttribute('href');
 
-    new Ajax.Request('/ajax/cart/?action=buy_now&BUYproducts_id='+em, 
+
+    var uri='/ajax/cart/'
+    if(actuallybuy)
+        uri+='?action=buy_now&BUYproducts_id='+em;
+
+    new Ajax.Request(uri, 
     {
         method: 'post',
         onSuccess: function(transport) 
         {
-            a.writeAttribute('href','javascript:restoreQuickBuy(\''+em+'\')');
+            a.writeAttribute('href','javascript:restoreQuickBuy(\''+em+'\',true)');
             a.removeClassName('quickbuy_loading');
             $('box_shopping_cart').removeClassName('shopping_cart_loading');
-
             $('box_shopping_cart').replace(transport.responseText);
         }
     });
-
-
-
-
-
-
-
 }
