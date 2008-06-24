@@ -71,7 +71,6 @@ a:hover
 
 #indexhtml_content_wrap
 {
-
     float:left;
     width:916px;
     margin:0 auto;
@@ -85,13 +84,13 @@ a:hover
 #banner
 {
     float:left;
-
     width:916px;
-    margin:0 auto;
     padding-left:32px;
     padding-right:32px;
-    padding-top:34px;
-    background:url(../../bilder/hintergrund/bannerpapier.png);
+    margin:0 auto;
+    background:#000;
+    background:url(../../variant/logo/schwarzkult.png) no-repeat;
+    color:#fff;
 }
 
 #footer
@@ -102,21 +101,23 @@ a:hover
     margin:0 auto;
     height:56px;
     padding:32px;
-    background:url(../../bilder/hintergrund/footerpapier.png);
+    background:url(../../bilder/hintergrund/footerkasten.png);
     text-align:center;
 }
 
 
 #breadcrumb
 {
-    margin-top:-24px;
-    padding-right:20px;
-    color:#fff;
+    margin-top:-35px;
+    font-size:xx-small;
+    padding:1em;
+    color:#ddd;
     float:right;
 }
 #breadcrumb a
 {
-    color:#faa;
+
+    color:#fff;
 }
 
 
@@ -157,12 +158,13 @@ a:hover
 
 #topnav 
 {
+    margin-top:10px;
     margin-bottom:35px;
 
     width:910px;
     height:32px;
     padding-left:6px;
-    background-image:url(../../bilder/farben/rot_navigation1.png);
+    background-image:url(../../bilder/farben/schwarz_navigation1.png);
 }
 
 #topnav ul
@@ -185,12 +187,12 @@ a:hover
     line-height:32px;
     padding-left:16px;
     padding-right:16px;
-    background:url(../../bilder/farben/rot_navigation1_hover.png) bottom right no-repeat;
+    background:url(../../bilder/farben/schwarz_navigation1_hover.png) bottom right no-repeat;
     color:#fff;
 }
 #topnav ul li a:hover
 {
-    background:url(../../bilder/farben/rot_navigation1_hover.png) top right no-repeat;
+    background:url(../../bilder/farben/schwarz_navigation1_hover.png) top right no-repeat;
 }
 
 
@@ -215,7 +217,7 @@ a:hover
 }
 
 
-.box h5
+.box h3
 {
     color:#333;
     font-weight:normal;
@@ -260,7 +262,7 @@ a:hover
     padding-bottom:8px;
     display:block;
     color:#000;
-    background:url(../../bilder/farben/rot_kategorienstart.png) left top no-repeat;
+    background:url(../../bilder/farben/schwarz_kategorienstart.png) left top no-repeat;
 }
 #box_categories ul li ul li a
 {
@@ -396,7 +398,7 @@ a:hover
     padding:10px;
 
 }
-#product_listing .categories_teaser
+#product_listing .categories_image
 {
     max-width:700px;
 }
@@ -467,10 +469,7 @@ a:hover
 }
 
 
-#product_listing #manufacturer_dropdown form
-{
-    display:inline;
-}
+
 
 
 
@@ -1163,6 +1162,72 @@ a:hover
     margin-right:20px;
     display:inline;
     vertical-align:middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+/** FIXME this is the actual variant **/
+
+
+
+
+#banner
+{
+    float:left;
+    width:916px;
+    padding:0;
+    margin:0 auto;
+    color:#fff;
+    background:none;
+}
+
+#banner #logo
+{
+    float:left;
+}
+
+
+#topnav
+{
+
+}
+
+
+
+#topnav ul li a
+{
+    float:left;
+    display:block;
+    height:32px;
+    line-height:32px;
+    padding-left:16px;
+    padding-right:16px;
+    background:url(../../bilder/farben/schwarz_navigation1_hover.png) bottom right no-repeat;
+    color:#fff;
+}
+#topnav ul li a:hover
+{
+    background:url(../../bilder/farben/schwarz_navigation1_hover.png) top right no-repeat;
+}
+
+
+
+#box_categories ul li a
+{
+    padding-left:32px;
+    padding-top:8px;
+    padding-bottom:8px;
+    display:block;
+    color:#000;
+    background:url(../../bilder/farben/schwarz_kategorienstart.png) left top no-repeat;
 }
 
 

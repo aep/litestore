@@ -30,17 +30,14 @@
 <body style="background-image:url({$tpl_path}variant/background/{$CURRENT_BACKGROUND});" >
     <div id="indexhtml_s_wrap">
 
-
+        {if $banner}
         <div id="advertising">
             Werbung
             {$banner}
         </div>
-
-
-
+        {/if}
 
         <div id="banner">
-            
             <div id="login">
 
                 {php}   if (isset($_SESSION['customer_id'])) {   {/php}
@@ -69,10 +66,9 @@
 
             </div>
 
-
-
             <img id="logo" src="{$tpl_path}variant/logo/{$CURRENT_LOGO}" alt="{$store_name}">
-
+        </div>
+        <div id="indexhtml_content_wrap">
             <div id="topnav">
                 <ul >
                     <li><a href="/">Shop-Startseite</a></li>
@@ -85,10 +81,9 @@
                     {php}   }   {/php}
                 </ul>
                 <div id="breadcrumb">{$navtrail}</div>
-
             </div>
-        </div>
-        <div id="indexhtml_content_wrap">
+
+
             <div id="indexhtml_content">
                 {$main_content}
             </div>
