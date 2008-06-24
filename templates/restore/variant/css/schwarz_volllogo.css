@@ -32,16 +32,18 @@
 
 
 
+
 #banner
 {
     float:left;
-    width:916px;
-    padding-left:32px;
-    padding-right:32px;
+    width:932px;
+    padding-left:19px;
+    padding-right:19px;
+    padding-top:0px;
     margin:0 auto;
-    background:#000;
-    background:url(../../variant/logo/schwarzkult.png) no-repeat;
+    background:url(../../bilder/hintergrund/contentpapier.png);
     color:#fff;
+    height:150px;
 }
 
 #footer
@@ -59,9 +61,8 @@
 
 #breadcrumb
 {
-    margin-top:-35px;
-    font-size:xx-small;
-    padding:1em;
+    margin-top:-32px;
+    line-height:32px;
     color:#ddd;
     float:right;
 }
@@ -88,7 +89,7 @@
 
 
 
-
+/*
 #banner
 {
     float:left;
@@ -97,7 +98,7 @@
     margin:0 auto;
     color:#fff;
     background:none;
-}
+}*/
 
 #banner #logo
 {
