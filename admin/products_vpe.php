@@ -39,11 +39,11 @@
           }
 
           $insert_sql_data = array('products_vpe_id' => $products_vpe_id,
-                                   'languages_id' => $language_id);
+                                   'languages_id' => $languages_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array, 'update', "products_vpe_id = '" . xtc_db_input($products_vpe_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_PRODUCTS_VPE, $sql_data_array, 'update', "products_vpe_id = '" . xtc_db_input($products_vpe_id) . "' and languages_id = '" . $languages_id . "'");
         }
       }
 
