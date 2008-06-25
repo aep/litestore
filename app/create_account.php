@@ -53,7 +53,7 @@ function module()
     
 
     
-        global $gender, $firstname,  $lastname, $email_address, $postcode, $city, $zone_id,  $country, $telephone, $fax, $newsletter, $password, $confirmation;
+        global $gender, $firstname,  $lastname, $email_address, $postcode, $city, $zone_id,  $country, $telephone, $fax, $newsletter, $password, $confirmation,$dob,$street_address;
 
 
 
