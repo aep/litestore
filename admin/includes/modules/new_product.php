@@ -159,7 +159,7 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
     </td>
 
     <td>
-        <?php echo TEXT_PRODUCTS_VPE. xtc_draw_pull_down_menu('products_vpe', $vpe_array, $pInfo->products_vpe_id='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe_id); ?>
+        <?php echo TEXT_PRODUCTS_VPE. xtc_draw_pull_down_menu('products_vpe_id', $vpe_array, $pInfo->products_vpe_id='' ?  DEFAULT_PRODUCTS_VPE_ID : $pInfo->products_vpe_id); ?>
     </td>
 </tr>
 <tr>
