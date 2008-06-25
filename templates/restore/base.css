@@ -347,7 +347,7 @@ a:hover
     height:357px;
     text-align:center;
     vertical-align:middle;
-    background:url(bilder/javascript.png) center no-repeat;
+    line-height:357px;
 }
 
 #product_info_slideshow_preview

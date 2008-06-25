@@ -8,6 +8,21 @@ restoreInit= function ()
         id=id.replace('quickbuy_','');
         restoreQuickBuy(id,false);
     }
+
+
+    var slp=document.getElementsByClassName('slideshowThumbnail');
+
+    for(var i = 0;i < slp.length;i++)
+    {
+        var hr=slp[i].readAttribute('href');
+        slp[i].writeAttribute('href','javascript:restoreSlideShow( \''+hr+'\')');
+    }
+}
+
+
+restoreSlideShow = function (img)
+{
+    var a=$('slideshowImg').writeAttribute('src',img);
 }
 
 

@@ -7,7 +7,7 @@
 
     {if $PRODUCTS_IMAGES_COUNT>0}
     <div id="slideshowContainer">
-        <img src="{$PRODUCTS_IMAGES[0].url_big}" alt="" >
+        <img id="slideshowImg" src="{$PRODUCTS_IMAGES[0].url_big}" alt="" >
     </div>
     {else}
     <div id="slideshowContainer" >
@@ -116,24 +116,6 @@
                         <img src="{$tpl_path}/bilder/kein_bild-thumb.png" alt="">
                     </a>
             {/if}
-            <script type="text/javascript">
-                {literal}
-                    window.addEvent('domready',function()
-                    {
-                        var obj = 
-                        {
-                            wait: 3000, 
-                            effect: 'fade',
-                            duration: 1000, 
-                            loop: true, 
-                            thumbnails: true,
-                            backgroundSlider: true
-                        }
-                        show = new SlideShow('slideshowContainer','slideshowThumbnail',obj);
-                        show.play();
-                    });
-                {/literal}
-            </script>
         </div>
     {/if}
 </div>
