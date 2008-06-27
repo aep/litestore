@@ -258,7 +258,10 @@ function module()
         while ($categories = xtc_db_fetch_array($categories_query, true)) 
         {
             $rows ++;
-            $cPath_new = "/catalog/".implode("/",$cPath_array)."/".$categories['categories_id'];
+            if($cPath_array)
+                $cPath_new = "/catalog/".implode("/",$cPath_array)."/".$categories['categories_id'];
+            else
+                $cPath_new = "/catalog/".$categories['categories_id'];
 
             $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
             $image = '';
