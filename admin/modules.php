@@ -122,9 +122,6 @@
     for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++) 
     {
         $file = $directory_array[$i];
-
-        pr(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file);
-
         include(DIR_FS_LANGUAGES . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file);
         include($module_directory . $file);
 
