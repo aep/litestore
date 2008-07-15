@@ -15,10 +15,9 @@
    ---------------------------------------------------------------------------------------*/
 
 
-  define('MODULE_PAYMENT_EUTRANSFER_TEXT_TITLE', 'EU-Standard Bank Transfer');
-  define('MODULE_PAYMENT_EUSTANDARDTRANSFER_TEXT_TITLE', 'EU-Standard Bank Transfer');
-  define('MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION', '<br />Die billigste und einfachste Zahlungsmethode innerhalb der EU ist die &Uuml;berweisung mittels IBAN und BIC.' .
-													   '<br />Bitte verwenden Sie folgende Daten f&uuml;r die &Uuml;berweisung des Gesamtbetrages:<br />' .
+  define('MODULE_PAYMENT_EUTRANSFER_TEXT_TITLE', 'Vorkasse');
+  define('MODULE_PAYMENT_EUSTANDARDTRANSFER_TEXT_TITLE', 'Vorkasse');
+  define('MODULE_PAYMENT_EUTRANSFER_TEXT_DESCRIPTION', 'Bitte verwenden Sie folgende Daten f&uuml;r die &Uuml;berweisung des Gesamtbetrages:<br />' .
                                                        '<br />Name der Bank: ' . MODULE_PAYMENT_EUTRANSFER_BANKNAM .
                                                        '<br />Zweigstelle: ' . MODULE_PAYMENT_EUTRANSFER_BRANCH .
                                                        '<br />Kontoname: ' . MODULE_PAYMENT_EUTRANSFER_ACCNAM .
@@ -26,7 +25,7 @@
                                                        '<br />IBAN: ' . MODULE_PAYMENT_EUTRANSFER_ACCIBAN .
                                                        '<br />BIC/SWIFT: ' . MODULE_PAYMENT_EUTRANSFER_BANKBIC .
 //                                                     '<br />Sort Code: ' . MODULE_PAYMENT_EUTRANSFER_SORTCODE .
-                                                       '<br /><br />Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.<br />');
+                                                       '<br /><br />Die Ware wird ausgeliefert sobald der Betrag auf unserem Konto eingegangen ist.<br />');
 
   define('MODULE_PAYMENT_EUTRANSFER_TEXT_INFO','&Uuml;berweisen Sie den Rechnungsbetrag auf unser Konto. Die Kontodaten erhalten Sie nach Bestellannahme per E-Mail');
   define('MODULE_PAYMENT_EUTRANSFER_STATUS_TITLE','Allow Bank Transfer Payment');
