@@ -5,7 +5,7 @@ declare variable $stdin external;
 
     return <product>
     {
-        for $i in $p/(products_model,products_ean,products_quantity,products_price,products_status,products_tax_class_id,ibc_supplies,products_vpe_value,products_vpe_status,products_fsk18,products_vpe_status,products_vpe_value,products_sort)
+        for $i in $p/(products_model,products_ean,products_quantity,products_price,products_status,products_tax_class_id,ibc_supplies,products_vpe_value,products_vpe_status,products_fsk18,products_vpe_status,products_vpe_value,products_sort,shipping_status_id)
         return attribute{fn:node-name($i)}{fn:string($i)}
     }
         <products_description>
@@ -22,18 +22,6 @@ declare variable $stdin external;
             for $i in $p/products_vpe_name
             return   <products_vpe products_vpe_name="{fn:string($i)}" > <language code="{fn:string($p/code)}" /> </products_vpe>
         }
-
-
-
-
-
-        {
-            for $i in $p/products_shippingtime
-            return <shipping_status shipping_status_name="{fn:string($i)}"  shipping_status_id="{fn:string($p/shipping_status_id)}" >
-                        <language code="{fn:string($p/code)}" /> 
-                    </shipping_status>
-        }
-
 
         {
             for $i in $p/manufacturers_name
