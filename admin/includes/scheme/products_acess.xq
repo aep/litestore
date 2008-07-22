@@ -29,7 +29,9 @@ declare variable $stdin external;
 
         {
             for $i in $p/products_shippingtime
-            return <shipping_status shipping_status_name="{fn:string($i)}" > <language code="{fn:string($p/code)}" /> </shipping_status>
+            return <shipping_status shipping_status_name="{fn:string($i)}"  shipping_status_id="{fn:string($p/shipping_status_id)}" >
+                        <language code="{fn:string($p/code)}" /> 
+                    </shipping_status>
         }
 
 
