@@ -84,7 +84,7 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 	xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, EMAIL_BILLING_ADDRESS, STORE_NAME, EMAIL_BILLING_FORWARDING_STRING, $order->customer['email_address'], $order->customer['firstname'], '', '', $order_subject, $html_mail, $txt_mail);
 
 	// send mail to customer
-    if (sizeof($order->customer['email_address'])>1)
+    if (strlen($order->customer['email_address'])>1)
 	    xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, $order->customer['email_address'], $order->customer['firstname'].' '.$order->customer['lastname'], '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', $order_subject, $html_mail, $txt_mail);
 
 	if (AFTERBUY_ACTIVATED == 'true') {
