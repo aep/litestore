@@ -211,7 +211,7 @@
 		$specials['specials_new_products_price']=xtc_round($new_price,PRICE_PRECISION);
     
       if ( ((!$_GET['sID']) || ($_GET['sID'] == $specials['specials_id'])) && (!$sInfo) ) {
-        $products_query = xtc_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $specials['products_id'] . "'");
+        $products_query = xtc_db_query("select products_id from " . TABLE_PRODUCTS . " where products_id = '" . $specials['products_id'] . "'");
         $products = xtc_db_fetch_array($products_query);
         $sInfo_array = xtc_array_merge($specials, $products);
         $sInfo = new objectInfo($sInfo_array);
