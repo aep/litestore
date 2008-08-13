@@ -71,7 +71,6 @@
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['adsense'] == '1')) echo '<a href="/admin/adsense.php" class="menuBoxContentLink"> -Google Adsense</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['export'] == '1')) echo '<a href="' . xtc_href_link('export.php') . '" class="menuBoxContentLink"> -Export</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['csv_backend'] == '1')) echo '<a href="' . xtc_href_link('csv_backend.php') . '" class="menuBoxContentLink"> -Import</a>';
-  if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['filemanager'] == '1')) echo '<a href="' . xtc_href_link('filemanager.php') . '" class="menuBoxContentLink"> -Datei Manager</a>';
 
 
 if (ACTIVATE_GIFT_SYSTEM=='true') {
