@@ -1,5 +1,4 @@
 <?php
-require_once("includes/application_top.php");
 /*********************************************************************************************************
  This code is part of the FileManager software (www.gerd-tentler.de/tools/filemanager), copyright by
  Gerd Tentler. Obtain permission before selling this code or hosting it on a commercial website or
@@ -29,15 +28,15 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 //========================================================================================================
 
   if($HTTP_HOST == 'localhost' || $HTTP_HOST == '127.0.0.1' || ereg('^192\.168\.0\.[0-9]+$', $HTTP_HOST)) {
-    include('includes/fm/config_local.inc.php');
+    include('config_local.inc.php');
   }
   else {
-    include('includes/fm/config_main.inc.php');
+    include('config_main.inc.php');
   }
 
   if(!isset($language)) $language = 'en';
-  include("includes/fm/languages/lang_$language.inc");
-  include('includes/fm/fmlib.inc.php');
+  include("languages/lang_$language.inc");
+  include('fmlib.inc.php');
 
 //========================================================================================================
 // Main
