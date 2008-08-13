@@ -201,7 +201,7 @@ function fmFileInfo(permissions, owner, group, size, changed, name, thumb, width
       }
       else if($enableDownload) {
         $tooltip = $msg['cmdGetFile'];
-        $url = "/admin/get_file.php?file=" . urlencode($file);
+        $url = "$fmWebPath/get_file.php?file=" . urlencode($file);
 ?>
         <a href="<?php echo $url; ?>"
          title="<?php echo $tooltip; ?>"
