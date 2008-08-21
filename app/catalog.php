@@ -295,7 +295,10 @@ function module()
 
         $default_smarty->assign('CATEGORIES_IMAGE', $image);
         $default_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
-        $default_smarty->assign('CATEGORIES_TEASER', $category['categories_teaser']);
+
+
+        if ($category['categories_teaser'] != '')
+            $default_smarty->assign('CATEGORIES_TEASER',DIR_WS_IMAGES.'categories_teaser/'.$category['categories_teaser']);
         $default_smarty->assign('language', $_SESSION['language']);
         $default_smarty->assign('module_content', $categories_content);
 
