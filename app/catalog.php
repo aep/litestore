@@ -185,6 +185,7 @@ function module()
         $category_query = "select
             cd.categories_description,
             cd.categories_name,
+            c.categories_teaser,
             cd.categories_heading_title,
             c.categories_template,
             c.categories_image from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
@@ -270,7 +271,14 @@ function module()
                 $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
             }
 
-            $categories_content[] = array ('CATEGORIES_NAME' => $categories['categories_name'], 'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'], 'CATEGORIES_IMAGE' => $image, 'CATEGORIES_LINK' => $cPath_new, 'CATEGORIES_DESCRIPTION' => $categories['categories_description']);
+            $categories_content[] = array 
+            (
+                'CATEGORIES_NAME' => $categories['categories_name'], 
+                'CATEGORIES_HEADING_TITLE' => $categories['categories_heading_title'], 
+                'CATEGORIES_IMAGE' => $image,
+                'CATEGORIES_LINK' => $cPath_new, 
+                'CATEGORIES_DESCRIPTION' => $categories['categories_description']
+            );
         }
 
 
@@ -287,7 +295,7 @@ function module()
 
         $default_smarty->assign('CATEGORIES_IMAGE', $image);
         $default_smarty->assign('CATEGORIES_DESCRIPTION', $category['categories_description']);
-
+        $default_smarty->assign('CATEGORIES_TEASER', $category['categories_teaser']);
         $default_smarty->assign('language', $_SESSION['language']);
         $default_smarty->assign('module_content', $categories_content);
 
