@@ -1,5 +1,7 @@
 <?php
 
+
+
 /* --------------------------------------------------------------
    $Id: orders.php 1189 2005-08-28 15:27:00Z hhgag $
 
@@ -26,6 +28,7 @@
    --------------------------------------------------------------*/
 
 require ('includes/application_top.php');
+
 require_once (DIR_FS_CATALOG.DIR_WS_CLASSES.'class.phpmailer.php');
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
 require_once (DIR_FS_INC.'xtc_add_tax.inc.php');
@@ -94,9 +97,9 @@ switch ($_GET['action']) {
 				$smarty->caching = false;
 
 				// set dirs manual
-				$smarty->template_dir = DIR_FS_CATALOG.'templates';
-				$smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
-				$smarty->config_dir = DIR_FS_CATALOG.'lang';
+				$smarty->template_dir = DIR_FS_CATALOG.'/../templates';
+				$smarty->compile_dir = DIR_FS_CATALOG.'/templates_c';
+				$smarty->config_dir = DIR_FS_CATALOG.'/lang';
 
 				$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 				$smarty->assign('logo_path', HTTP_SERVER.DIR_WS_CATALOG.'templates/'.CURRENT_TEMPLATE.'/img/');
@@ -108,10 +111,14 @@ switch ($_GET['action']) {
 				$smarty->assign('NOTIFY_COMMENTS', $notify_comments);
 				$smarty->assign('ORDER_STATUS', $orders_status_array[$status]);
 
+
+                                           
 				$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/admin/mail/'.$order->info['language'].'/change_order_mail.html');
 				$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/admin/mail/'.$order->info['language'].'/change_order_mail.txt');
 
 				xtc_php_mail(EMAIL_BILLING_ADDRESS, EMAIL_BILLING_NAME, $check_status['customers_email_address'], $check_status['customers_name'], '', EMAIL_BILLING_REPLY_ADDRESS, EMAIL_BILLING_REPLY_ADDRESS_NAME, '', '', EMAIL_BILLING_SUBJECT, $html_mail, $txt_mail);
+
+
 				$customer_notified = '1';
 			}
 

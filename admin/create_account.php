@@ -322,7 +322,7 @@ if ($_GET['action'] == 'edit') {
 			$smarty->caching = false;
 
 			// set dirs manual
-			$smarty->template_dir = DIR_FS_CATALOG.'templates';
+			$smarty->template_dir = DIR_FS_CATALOG.'/../templates';
 			$smarty->compile_dir = DIR_FS_CATALOG.'templates_c';
 			$smarty->config_dir = DIR_FS_CATALOG.'lang';
 
