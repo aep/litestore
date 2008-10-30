@@ -1,5 +1,6 @@
 <?php
 
+
 /* --------------------------------------------------------------
    $Id: new_category.php 799 2005-02-23 18:08:06Z novalis $
 
@@ -75,7 +76,7 @@
             <?php
             if ($cInfo->categories_image) {
             	?>
-            <br><img src="<?php echo DIR_WS_CATALOG.'images/categories/'.$cInfo->categories_image; ?>" width="200">
+            <br><img src="<?php echo $cInfo->categories_image; ?>" width="200">
             <br><?php echo '&nbsp;' .$cInfo->categories_image;
             echo xtc_draw_selection_field('del_cat_pic', 'checkbox', 'yes').TEXT_DELETE;
             
@@ -89,7 +90,7 @@
             <?php
             if ($cInfo->categories_teaser) {
                 ?>
-            <br><img src="<?php echo DIR_WS_CATALOG.'images/categories_teaser/'.$cInfo->categories_teaser; ?>" width="200">
+            <br><img src="<?php echo $cInfo->categories_teaser; ?>" width="200">
             <br><?php echo '&nbsp;' .$cInfo->categories_image;
             echo xtc_draw_selection_field('del_cat_teaser', 'checkbox', 'yes').TEXT_DELETE;
             

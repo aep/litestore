@@ -1,5 +1,6 @@
 <?php
 
+
 /* -----------------------------------------------------------------------------------------
    $Id: index.php 1321 2005-10-26 20:55:07Z mz $   
 
@@ -266,9 +267,11 @@ function module()
 
             $width = (int) (100 / MAX_DISPLAY_CATEGORIES_PER_ROW).'%';
             $image = '';
+
+
             if ($categories['categories_image'] != '') 
             {
-                $image = DIR_WS_IMAGES.'categories/'.$categories['categories_image'];
+                $image = $categories['categories_image'];
             }
 
             $categories_content[] = array 
@@ -279,6 +282,8 @@ function module()
                 'CATEGORIES_LINK' => $cPath_new, 
                 'CATEGORIES_DESCRIPTION' => $categories['categories_description']
             );
+
+
         }
 
 
@@ -288,7 +293,7 @@ function module()
         $image = '';
         if ($category['categories_image'] != '') 
         {
-            $image = DIR_WS_IMAGES.'categories/'.$category['categories_image'];
+            $image = $category['categories_image'];
         }
         $default_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
         $default_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
@@ -298,7 +303,7 @@ function module()
 
 
         if ($category['categories_teaser'] != '')
-            $default_smarty->assign('CATEGORIES_TEASER',DIR_WS_IMAGES.'categories_teaser/'.$category['categories_teaser']);
+            $default_smarty->assign('CATEGORIES_TEASER',$category['categories_teaser']);
         $default_smarty->assign('language', $_SESSION['language']);
         $default_smarty->assign('module_content', $categories_content);
 
