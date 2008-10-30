@@ -51,7 +51,9 @@ if ($listing_split->number_of_rows > 0)
 		$category = xtc_db_fetch_array($category_query,true);
 		$image = '';
 		if ($category['categories_teaser'] != '')
-			$image = DIR_WS_IMAGES.'categories_teaser/'.$category['categories_teaser'];
+        {
+			$image = $category['categories_teaser'];
+        }
 		$module_smarty->assign('CATEGORIES_NAME', $category['categories_name']);
 		$module_smarty->assign('CATEGORIES_HEADING_TITLE', $category['categories_heading_title']);
 
