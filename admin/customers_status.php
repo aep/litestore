@@ -25,6 +25,7 @@
   switch ($_GET['action']) {
     case 'insert':
     case 'save':
+
       $customers_status_id = xtc_db_prepare_input($_GET['cID']);
 
       $languages = xtc_get_languages();
@@ -50,6 +51,8 @@
         $customers_base_status = $_POST['customers_base_status'];        
 
         $languages_id = $languages[$i]['id'];
+        $language_id  =$languages_id;  /// FUCKING PHP!
+
 
         $sql_data_array = array(
           'customers_status_name' => xtc_db_prepare_input($customers_status_name_array[$languages_id]),
@@ -99,6 +102,8 @@
           xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array);
  
         } elseif ($_GET['action'] == 'save') {
+
+
           xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
