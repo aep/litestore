@@ -93,13 +93,15 @@ function module()
         $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
 
 
+
         $manufacturers_q='';
         if (isset ($_GET['manufacturers_id'])) 
         {
             $manufacturers_q = "and p.manufacturers_id = '".(int) $_GET['manufacturers_id']."'";
         }
 
-        $listing_sql = "(SELECT
+
+        $listing_sql = "SELECT
             p.products_fsk18,
             p.products_shippingtime,
             p.products_model,
@@ -131,45 +133,11 @@ function module()
             ".$fsk_lock."
             ".$manufacturers_q."
             and pd.languages_id = '".(int) $_SESSION['languages_id']."'
-            and p2c.categories_id = '".$current_category_id."') 
-            UNION DISTINCT
-            (SELECT DISTINCT
-            p.products_fsk18,
-            p.products_shippingtime,
-            p.products_model,
-            p.products_ean,
-            pd.products_name,
-            m.manufacturers_name,
-            p.products_quantity,
-            p.products_weight,
-            pd.products_short_description,
-            pd.products_description,
-            p.products_id,
-            p.manufacturers_id,
-            p.products_price,
-            p.products_vpe_id,
-            p.products_vpe_status,
-            p.products_vpe_value,
-            p.products_discount_allowed,
-            p.products_tax_class_id
-            FROM  "
-            .TABLE_CATEGORIES." c, ibc_original_supplies_to_devices  ibc_os2d, "
-            ."ibc_alternative_supplies_to_original_supplies ibc_as2os, "
-            .TABLE_PRODUCTS_DESCRIPTION." pd, "
-            .TABLE_PRODUCTS." p left join ".TABLE_MANUFACTURERS." m on p.manufacturers_id = m.manufacturers_id
-            left join ".TABLE_SPECIALS." s on p.products_id = s.products_id
-            WHERE
-            c.categories_id = '".$current_category_id."'
-            and c.ibc_devices = ibc_os2d.ibc_devices
-            and ibc_os2d.ibc_original_supplies = ibc_as2os.ibc_original_supplies
-            and ibc_as2os.ibc_alternative_supplies = p.ibc_supplies
-            and p.products_status = '1'
-            and pd.products_id = p.products_id
-            and pd.languages_id = '".(int) $_SESSION['languages_id']."'
-            ".$group_check."
-            ".$fsk_lock."
-            ".$manufacturers_q."
-            )";
+            and p2c.categories_id = '".$current_category_id."'
+            ".$sorting."
+            ";
+
+
 
         $module="";
         include (DIR_WS_MODULES.FILENAME_PRODUCT_LISTING);
