@@ -480,6 +480,19 @@ a.quickbuy_loading
 
 
 
+.productOldPrice
+{
+    color:red;
+    text-decoration:line-through;
+}
+/*
+.productNewPrice
+{
+    text-decoration:blink;
+}
+*/
+
+
 #pagination
 {
     padding-top:20px;
