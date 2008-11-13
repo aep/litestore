@@ -42,7 +42,7 @@ class BoxContent extends AbstractVCBox
         while ($content_data = xtc_db_fetch_array($content_query, true)) 
         {
             $links[]=array('name'=>$content_data['content_title'],
-                'url'=>"/content/".$content_data['content_group']."/".rawurlencode($content_data['content_title']));
+                'url'=>"/content/".$content_data['content_group']."/".rawurlencode(str_replace(' ','-',$content_data['content_title'])));
         }
         
         if(count($links))
