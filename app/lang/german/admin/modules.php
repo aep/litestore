@@ -17,7 +17,7 @@
 
 define('HEADING_TITLE_MODULES_PAYMENT', 'Zahlungsweisen');
 define('HEADING_TITLE_MODULES_SHIPPING', 'Versandarten');
-define('HEADING_TITLE_MODULES_ORDER_TOTAL', 'Order Total Modul');
+define('HEADING_TITLE_MODULES_ORDER_TOTAL', 'Zusammenfassung');
 
 define('TABLE_HEADING_MODULES', 'Module');
 define('TABLE_HEADING_SORT_ORDER', 'Sortierreihenfolge');

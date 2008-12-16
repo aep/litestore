@@ -48,7 +48,7 @@
  	}
  	
  		function getShippingLink() {
-		return ' '.SHIPPING_EXCL.'<script language="javascript">document.write(\'<a href="javascript:newWin=void(window.open(\\\''.FILENAME_POPUP_CONTENT. '/'.SHIPPING_INFOS.'\\\', \\\'popup\\\', \\\'toolbar=0, scrollbars=yes, resizable=yes, height=400, width=400\\\'))">'.SHIPPING_COSTS.'</a>\');</script><noscript><a href="'.FILENAME_POPUP_CONTENT. '/'.SHIPPING_INFOS.'"target=_blank">'.SHIPPING_COSTS.'</a></noscript>';
+		return ' '.SHIPPING_EXCL.' <a href="'.FILENAME_CONTENT. '/'.SHIPPING_INFOS.'">'.SHIPPING_COSTS.'</a>';
 	}
 
 	function getTaxNotice() {

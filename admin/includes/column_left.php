@@ -37,7 +37,7 @@
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['customers'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CUSTOMERS . '</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['customers_status'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS_STATUS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CUSTOMERS_STATUS . '</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['orders'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_ORDERS, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_ORDERS . '</a>';
-  if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['stats_unsold_carts'] == '1')) echo '<a href="' . xtc_href_link("stats_unsold_carts.php", '', 'NONSSL') . '" class="menuBoxContentLink"> -Offene Warenk&oumlrbe </a>';
+  if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['stats_unsold_carts'] == '1')) echo '<a href="' . xtc_href_link("stats_unsold_carts.php", '', 'NONSSL') . '" class="menuBoxContentLink"> -Offene Warenk&ouml;rbe </a>';
 
   echo ('<div class="dataTableHeadingContent"><b>'.BOX_HEADING_PRODUCTS.'</b></div>');
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['categories'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="menuBoxContentLink"> -' . BOX_CATEGORIES . '</a>';
@@ -69,6 +69,7 @@
 
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['banner_manager'] == '1')) echo '<a href="' . xtc_href_link(FILENAME_BANNER_MANAGER) . '" class="menuBoxContentLink"> -' . BOX_BANNER_MANAGER . '</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['adsense'] == '1')) echo '<a href="/admin/adsense.php" class="menuBoxContentLink"> -Google Adsense</a>';
+  if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['adwords'] == '1')) echo '<a href="/admin/adwords.php" class="menuBoxContentLink"> -Google Adwords</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['export'] == '1')) echo '<a href="' . xtc_href_link('export.php') . '" class="menuBoxContentLink"> -Export</a>';
   if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($admin_access['csv_backend'] == '1')) echo '<a href="' . xtc_href_link('csv_backend.php') . '" class="menuBoxContentLink"> -Import</a>';
 
