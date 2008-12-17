@@ -79,7 +79,7 @@ a:hover
     padding-left:32px;
     padding-right:32px; 
 }
-#indexhtml_content_wrap ul li
+#indexhtml_content_wrap #indexhtml_content ul li
 {
 	list-style:inside;
 }
