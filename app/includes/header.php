@@ -28,7 +28,7 @@
    ---------------------------------------------------------------------------------------*/
 
 include(DIR_WS_MODULES.FILENAME_METATAGS);
-require('javascript/general.js.php');
+require('javascript.php');
 
 $smarty->assign("CHARSET",$_SESSION['language_charset']);
 $smarty->assign("HTML_PARAMS",HTML_PARAMS );

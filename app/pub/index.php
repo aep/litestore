@@ -1,7 +1,10 @@
 <?php
 
-$APP_PATH=split('/',$_GET["path"]);
+$APPDIR= $_SERVER["DOCUMENT_ROOT"].'/../';
+chdir  ($APPDIR);
 
+
+$APP_PATH=split('/',$_GET["path"]);
 
 
 include ('includes/application_top.php');
@@ -66,7 +69,7 @@ $main_content=module();
 
 
 $smarty = new Smarty;
-$smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
+$smarty->assign('tpl_path','/user/templates/'.CURRENT_TEMPLATE.'/');
 $smarty->assign('CURRENT_LOGO',CURRENT_LOGO);
 $smarty->assign('CURRENT_BACKGROUND',CURRENT_BACKGROUND);
 $smarty->assign('CURRENT_CSS',CURRENT_CSS);

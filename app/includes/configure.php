@@ -20,8 +20,8 @@
   define('HTTPS_SERVER', 'https://'.$_SERVER["SERVER_NAME"]); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', false); // secure webserver for checkout procedure?
   define('DIR_WS_CATALOG', '/'); // absolute path required
-  define('DIR_FS_DOCUMENT_ROOT', $_SERVER["DOCUMENT_ROOT"]."/");
-  define('DIR_FS_CATALOG', $_SERVER["DOCUMENT_ROOT"]."/");
+  define('DIR_FS_DOCUMENT_ROOT', $APPDIR);
+  define('DIR_FS_CATALOG', $APPDIR);
   define('DIR_WS_IMAGES', '/images/');
   define('DIR_WS_ORIGINAL_IMAGES', DIR_WS_IMAGES .'product_images/original_images/');
   define('DIR_WS_THUMBNAIL_IMAGES', DIR_WS_IMAGES .'product_images/thumbnail_images/');
@@ -32,19 +32,23 @@
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
-  define('DIR_WS_LANGUAGES', DIR_FS_CATALOG . 'lang/');
-
+  define('DIR_WS_LANGUAGES', DIR_FS_CATALOG . 'lang/');
   define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG . 'pub/');
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');
   define('DIR_FS_INC', DIR_FS_CATALOG . 'inc/');
 
 
+
+  define('DIR_FS_TEMPLATES', $APPDIR.'../user/templates/');
+
+
+
 // define our database connection
-  define('DB_SERVER', 'localhost'); // eg, localhost - should not be empty for productive servers
-  define('DB_SERVER_USERNAME', 'root');
-  define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'restore');
+  define('DB_SERVER', getenv("RESTORE_DB_HOST")); // eg, localhost - should not be empty for productive servers
+  define('DB_SERVER_USERNAME', getenv("RESTORE_DB_USER"));
+  define('DB_SERVER_PASSWORD', getenv("RESTORE_DB_PASS"));
+  define('DB_DATABASE', getenv("RESTORE_DB_NAME"));
   define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
 
