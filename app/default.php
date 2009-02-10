@@ -14,7 +14,7 @@
 function module()
 {
     $default_smarty = new smarty;
-    $default_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
+    $default_smarty->assign('tpl_path', '/user/templates/'.CURRENT_TEMPLATE.'/');
     $default_smarty->assign('session', session_id());
     // default page
     if (GROUP_CHECK == 'true') 

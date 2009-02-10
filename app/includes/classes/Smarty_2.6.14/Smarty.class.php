@@ -72,7 +72,7 @@ class Smarty
      *
      * @var string
      */
-    var $template_dir    =  '../templates';
+    var $template_dir    =  DIR_FS_TEMPLATES;
 
     /**
      * The directory where compiled templates are located.
@@ -1118,6 +1118,8 @@ class Smarty
      */
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
+
+
         static $_cache_info = array();
         
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
