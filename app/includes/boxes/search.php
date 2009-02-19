@@ -37,17 +37,8 @@ class BoxSearch extends AbstractVCBox
         require_once (DIR_FS_INC.'xtc_hide_session_id.inc.php');
         
         $box_smarty->assign('language', $_SESSION['language']);
-        // set cache ID
-        if (!CacheCheck()) {
-	        $box_smarty->caching = 0;
-	        $box_search = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_search.html');
-        } else {
-	        $box_smarty->caching = 1;
-	        $box_smarty->cache_lifetime = CACHE_LIFETIME;
-	        $box_smarty->cache_modified_check = CACHE_CHECK;
-	        $cache_id = $_SESSION['language'];
-	        $box_search = $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_search.html', $cache_id);
-        }
+        // set cache ID        $box_smarty->caching = 0;
+        $box_search = $box_smarty->fetch('boxes/box_search.html');
         
         return $box_search;
     }

@@ -1,0 +1,143 @@
+{config_load file="$language/lang_$language.conf" section="create_account"}
+<h1>{#heading_create_account#}</h1>
+<div class="spalte1_icons"><img class="spalte1_icons_img" src="{$tpl_path}/bilder/neues_benutzer-konto_erstellen-icon.png" alt="[Neues Benutzer-Konto erstellen Icon]"></div>
+<div class="spalte1_inhalt">
+	<form id="create_account" action="create_guest_account.php" method="post" onsubmit="return check_form(create_account);"><div><input type="hidden" name="action" value="process">
+		{if $error!=''}
+			<div id="fehler">
+				{$error}
+			</div>
+		{/if}
+		<h2>{#title_personal#}</h2>
+		<div class="normaltext">
+			{if $gender=='1'}
+				<div class="formularzeile">
+					<div class="formularspalte-150px">{#text_gender#}</div>
+					<div class="formularspalte-204pxmin"><div id="male_female">
+						<div class="formular_radio-2"><label>{$INPUT_FEMALE}</label></div>
+						<div class="formular_radio-2"><label>{$INPUT_MALE}</label></div>
+						<br class="endefloat">
+					</div></div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#160;&#42;</span></div>
+					<br class="endefloat">
+				</div>
+			{/if}
+			<div class="create_account_inputs">
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="vorname">{#text_firstname#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_FIRSTNAME}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="nachname">{#text_lastname#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_LASTNAME}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				{if $birthdate=='1'}
+					<div class="formularzeile">
+						<div class="formularspalte-150px"><label for="geburtsdatum">{#text_birthdate#}</label></div>
+						<div class="formularspalte-204pxmin">{$INPUT_DOB}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+						<br class="endefloat">
+					</div>
+				{/if}
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="e-mail-adresse">{#text_email#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_EMAIL}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="create_account_inputs">
+			{if $company=='1'}
+				<h2>{#title_company#}</h2>
+				<div class="normaltext">
+					<div class="formularzeile">
+						<div class="formularspalte-150px"><label for="firmenname">{#text_company#}</label></div>
+						<div class="formularspalte-204pxmin">{$INPUT_COMPANY}</div>
+						<br class="endefloat">
+					</div>
+				</div>
+				{if $vat=='1'}
+					<div class="normaltext">
+						<div class="formularzeile">
+							<div class="formularspalte-150px"><label for="ustid">{#text_ustid#}</label></div>
+							<div class="formularspalte-204pxmin">{$INPUT_VAT}</div>
+							<br class="endefloat">
+						</div>
+					</div>
+				{/if}
+				<br>
+			{/if}
+			<h2>{#title_address#}</h2>
+			<div class="normaltext">
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="strasse_nr">{#text_street#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_STREET}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				{if $suburb=='1'}
+					<div class="formularzeile">
+						<div class="formularspalte-150px"><label for="vorort">{#text_suburb#}</label></div>
+						<div class="formularspalte-204pxmin">{$INPUT_SUBURB}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+						<br class="endefloat">
+					</div>
+				{/if}
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="plz">{#text_code#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_CODE}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="ort">{#text_city#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_CITY}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				{if $state=='1'}
+					<div class="formularzeile">
+						<div class="formularspalte-150px"><label for="staat">{#text_state#}</label></div>
+						<div class="formularspalte-204pxmin">{$INPUT_STATE}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+						<br class="endefloat">
+					</div>
+				{/if}
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="land">{#text_country#}</label></div>
+					<div class="formularspalte-204pxmin">{$SELECT_COUNTRY}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+			</div>
+			<br>
+			<h2>{#title_contact#}</h2>
+			<div class="normaltext">
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="telefonnummer">{#text_tel#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_TEL}</div>
+					<div class="formularspalte"><span class="textfarbe-rot">&#42;</span></div>
+					<br class="endefloat">
+				</div>
+				<div class="formularzeile">
+					<div class="formularspalte-150px"><label for="telefaxnummer">{#text_fax#}</label></div>
+					<div class="formularspalte-204pxmin">{$INPUT_FAX}</div>
+					<br class="endefloat">
+				</div>
+			</div>
+			<div class="formular_buttons">
+				<div class="formularspalte-150px"></div>
+				<div class="formularspalte-204pxmin"><input class="buttons2" type="submit" value="Konto erstellen!" tabindex="4"></div>
+				<br class="endefloat">
+			</div>
+			<span class="normal_9px-unter-16px">{#text_must#}</span>
+		</div>
+	</div></form>
+</div>
+<br class="endefloat">

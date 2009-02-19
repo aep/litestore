@@ -69,7 +69,6 @@ $main_content=module();
 
 
 $smarty = new Smarty;
-$smarty->assign('tpl_path','/user/templates/'.CURRENT_TEMPLATE.'/');
 $smarty->assign('CURRENT_LOGO',CURRENT_LOGO);
 $smarty->assign('CURRENT_BACKGROUND',CURRENT_BACKGROUND);
 $smarty->assign('CURRENT_CSS',CURRENT_CSS);
@@ -82,5 +81,5 @@ $smarty->assign('main_content', $main_content);
 $smarty->assign('language', $_SESSION['language']);
 $smarty->assign('realm', $APP_PATH[1]);
 $smarty->caching = 0;
-$smarty->display(CURRENT_TEMPLATE.'/index.html');
+$smarty->display('index.html');
 ?>

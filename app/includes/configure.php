@@ -40,7 +40,7 @@
 
 
 
-  define('DIR_FS_TEMPLATES', $APPDIR.'../user/templates/');
+  define('DIR_FS_USER',getenv("RESTORE_USER_PATH").'/');
 
 
 

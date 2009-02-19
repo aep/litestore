@@ -1,0 +1,121 @@
+{config_load file="$language/lang_$language.conf" section="product_info"}
+
+{$PRODUCT_NAVIGATOR}
+<h1>{$PRODUCTS_NAME}</h1>
+<div id="product_info">
+
+
+    {if $PRODUCTS_IMAGES_COUNT>0}
+    <div id="slideshowContainer">
+        <img id="slideshowImg" src="{$PRODUCTS_IMAGES[0].url_big}" alt="" >
+    </div>
+    {else}
+    <div id="slideshowContainer" >
+        <img src="{$tpl_path}/bilder/kein_bild-gross.png" alt="">
+    </div>
+    {/if}
+
+
+    <div id="product_info_description">
+        {if $PRODUCTS_DESCRIPTION !='' OR $PRODUCTS_FSK18=='true'}
+            <h4>Artikelbeschreibung</h4>
+            {$PRODUCTS_DESCRIPTION}
+            {if $PRODUCTS_FSK18=='true'}
+                <img src="{$tpl_path}img/fsk18.gif" alt="">
+            {/if}
+        {/if}
+
+        {if $PRODUCTS_MODEL!='' OR $SHIPPING_NAME}
+            <h4>Daten</h4>
+
+            <table>
+            {if $PRODUCTS_MODEL!=''}
+                <tr>
+                    <th>{#model#}</th>
+                    <td>{$PRODUCTS_MODEL}</td>
+                </tr>
+            {/if}
+            {if $SHIPPING_NAME}
+                <tr>
+                    <th>{#text_shippingtime#}</th>
+                    <td>{$SHIPPING_NAME}</td>
+                </tr>
+            {/if}
+        {/if}
+        
+        {if $MODULE_product_options}
+            <tr><td colspan="2">{$MODULE_product_options}</td></tr>
+        {/if}
+            <tr><th>Verpackungseinheit:</th><td> {$PRODUCTS_TRADING_UNIT} {$PRODUCTS_TRADING_UNIT_NAME}</td></tr>
+        {if $PRODUCTS_VPE}
+            <tr><th>Grundpreis:</th> <td>{$PRODUCTS_VPE}</td></tr>
+        {/if}
+        {if $PRODUCTS_DISCOUNT}
+            <tr><td colspan="2">{$PRODUCTS_DISCOUNT}</td></tr>
+        {/if}
+        {if $MODULE_graduated_price !=''}
+            <tr><td colspan="2">{$MODULE_graduated_price}</td></tr>
+        {/if}
+        {if $PRODUCTS_EAN}
+            <tr><th>EAN:</th><td> {$PRODUCTS_EAN}</td></tr>
+        {/if}
+        </table>
+
+
+
+        {if $ADD_CART_BUTTON}
+        <h4>Bestellen</h4>
+
+            <p>{$PRODUCTS_SHIPPING_LINK}</p>
+            {if $PRODUCTS_TAX_INFO}
+                <p>{$PRODUCTS_TAX_INFO}</p>
+            {/if}
+
+
+            <form action="?info=p{$PRODUCTS_ID}&amp;action=add_product" method="post">
+            <p><input type="hidden" name="products_id" value="{$PRODUCTS_ID}"></p>
+            <table style="width:100%"> 
+                <tr>
+                    <td class="price">{$PRODUCTS_PRICE}</td>
+                    <td><label for="products_qty_{$PRODUCTS_ID}">Anzahl:</label></td>
+                    <td><input class="text" type="text" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" id="products_qty_{$PRODUCTS_ID}" ></td>
+                    <td><input class="image" type="image" src="{$tpl_path}/bilder/kaufen_020-200-000.png" alt="[In den Warenkorb legen]"></td>
+                </tr>
+            </table>
+            </form>
+
+            <script type="text/javascript" language="javascript">
+                var inp = document.getElementById("products_qty_{$PRODUCTS_ID}");
+                var d_parent = inp.parentNode;
+                var spinCtrl = new SpinControl
+                (
+                    {$PRODUCTS_TRADING_UNIT},
+                    {$PRODUCTS_TRADING_UNIT},
+                    {$MAX_PRODUCTS_QTY},
+                    {$PRODUCTS_TRADING_UNIT},
+                    'products_qty'
+                );
+                spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(1, 500));
+                spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
+                d_parent.replaceChild(spinCtrl.GetContainer(),inp);
+                spinCtrl.StartListening();
+            </script>
+
+        {/if}
+    </div>
+    {if $PRODUCTS_IMAGES_COUNT>1}
+        <div id="product_info_slideshow_preview">
+            {if $PRODUCTS_IMAGES}
+                {foreach name=aussen item=product_image from=$PRODUCTS_IMAGES}
+                    <a href="{$product_image.url_big}" class="slideshowThumbnail">
+                        <img  src="{$product_image.url_small}" alt="">
+                    </a>
+                {/foreach}
+            {else}
+                    <a href="{$tpl_path}/bilder/kein_bild.png" class="slideshowThumbnail">
+                        <img src="{$tpl_path}/bilder/kein_bild-thumb.png" alt="">
+                    </a>
+            {/if}
+        </div>
+    {/if}
+</div>

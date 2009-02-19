@@ -240,8 +240,7 @@
   require_once(DIR_FS_INC . 'xtc_add_tax.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_tax_rate.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_qty.inc.php');
-  require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
-
+  require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
 
   // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)

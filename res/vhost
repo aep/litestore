@@ -18,6 +18,7 @@
     RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
 
 
+    SetEnv RESTORE_USER_PATH  "/www/<<RSTI_UNIXUSER>>/"
     SetEnv RESTORE_DB_HOST  "localhost"
     SetEnv RESTORE_DB_NAME  "restore"
     SetEnv RESTORE_DB_USER  "root"

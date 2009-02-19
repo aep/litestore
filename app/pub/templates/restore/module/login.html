@@ -1,0 +1,43 @@
+{config_load file="$language/lang_$language.conf" section="login"}
+<h1>{#heading_login#}</h1>
+<div id="login_new" class="login_html_block">
+    <h4>{#title_new#}</h4>
+    {#text_new#}
+    <form action="{$URI_NEW_ACCOUNT}" method="get"><p>
+        <input class="submit" type="submit" value="Neu anmelden!">
+    </p></form>
+
+    {if $account_option=='both' or $account_option=='guest'}
+        - oder -
+        <h4>{#title_guest#}</h4>
+        {#text_guest#}
+        <form action="{$URI_GUEST}" method="get"><p>
+            <input class="submit" type="submit" value="Als Gast bestellen!" >
+        </p></form>
+    {/if}
+</div>
+
+
+<div id="login_returning" class="login_html_block">
+    {if $info_message!=''}
+        <div id="error">{$info_message}</div>
+    {/if}
+    <h4>{#title_returning#}</h4>
+    <form action="/login" method="post">
+        <p>
+            {#text_email#}
+            <input class="text" type="text" name="email_address" maxlength="50" >
+        </p>
+        <p>
+            {#text_password#}
+            <input class="text" type="password" name="password" maxlength="50" >
+        </p>
+        <p>
+            <em><a href="{$LINK_LOST_PASSWORD}" >{#text_lost_password#}</a></em>
+        </p>
+        <p>
+            <input class="submit" type="submit" value="Einloggen!" >
+        </p>
+      </form>
+</div>
+<br class="clear">

@@ -1,0 +1,49 @@
+{config_load file="$language/lang_$language.conf" section="checkout_payment_address"}
+<h1>{#heading_address#}</h1>
+<div id="checkout_payment_address">
+
+
+<form  action="/checkout/payment/address" method="post" onsubmit="return check_form_optional(checkout_address);">
+        <p>
+            Wh&auml;len Sie eine Rechnungsdresse aus Ihrem Adressbuch aus, oder f&uuml;gen Sie eine Neue hinzu.
+        </p>
+
+        <div class="address">
+            {foreach name=aussen item=addresses from=$address_data}
+                {$addresses.radio}
+                <h4> {$addresses.gender} {$addresses.firstname}  {$addresses.lastname}</h4>
+                <em class="address_o">
+                    {$addresses.company}<br>
+                    {$addresses.street_address}<br>
+                    {$addresses.suburb}<br>
+                    {$addresses.postcode}<br>
+                    {$addresses.city}<br>
+                    {$addresses.state}<br>
+                    {$addresses.country_id}<br>
+                </em>
+            {/foreach}
+        </div>
+
+        {if $MODULE_new_address}
+        <div class="address">
+
+            {$RADIO_NEW} <h4> Neue Adresse</h4>
+                {if $error!=''}
+                    <div class="error">{$error}</div>
+                {/if}
+
+            <div id="new_address">
+                {$MODULE_new_address}
+            </div>
+        </div>
+        {/if}
+
+
+    <p>
+        <input type="hidden" name="action" value="submit">
+        <input class="submit" type="submit" value="Best&#228;tigen!" tabindex="4">
+    </p>
+</form>
+
+
+</div>

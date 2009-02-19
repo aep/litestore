@@ -1,7 +1,7 @@
 <?php 
 
 require('includes/application_top.php'); 
-
+require_once (DIR_FS_INC.'xtc_template_path.inc.php');
 
 
 
@@ -40,17 +40,30 @@ if ($_POST['action']=="save")
 
 
 <?php
-    if ($dir = opendir(DIR_FS_CATALOG.'../templates/')) {
+    $templates_array=array();
+    if ($dir = opendir(DIR_FS_CATALOG.'pub/templates/'))
+    {
         while (($templates = readdir($dir)) !== false) 
         {
-            if (is_dir(DIR_FS_CATALOG.'../templates/'."//".$templates) and ($templates != "CVS") and ($templates != ".") and ($templates != "..")) {
-                $templates_array[] = array ('id' => $templates, 'text' => $templates);
+            if (is_dir(DIR_FS_CATALOG.'/pub/templates/'.$templates) and ($templates != "CVS") and ($templates != ".") and ($templates != "..")) 
+            {
+                $templates_array[] = array ('id' => 'default/'.$templates, 'text' => 'default/'.$templates);
             }
         }
-        closedir($dir);
-        sort($templates_array);
-        echo xtc_draw_pull_down_menu("CURRENT_TEMPLATE", $templates_array, CURRENT_TEMPLATE);
-    }
+        closedir($dir);    }
+    if ($dir = opendir(DIR_FS_USER.'templates/')) 
+    {
+        while (($templates = readdir($dir)) !== false) 
+        {
+            if (is_dir(DIR_FS_USER.'templates'."//".$templates) and ($templates != "CVS") and ($templates != ".") and ($templates != "..")) 
+            {
+                $templates_array[] = array ('id' => 'user/'.$templates, 'text' => 'user/'.$templates);
+            }
+        }
+        closedir($dir);    }
+
+    sort($templates_array);
+    echo xtc_draw_pull_down_menu("CURRENT_TEMPLATE", $templates_array, CURRENT_TEMPLATE);
 ?>
 
 
@@ -69,9 +82,8 @@ if ($_POST['action']=="save")
         <td style="background-color:#FCF2CF ; border: 1px solid; border-color: #CCCCCC;" class="dataTableContent">
 
 
-<?php
-
-    $cssdir= DIR_FS_CATALOG.'../templates/'.CURRENT_TEMPLATE.'/variant/css/';
+<?php
+    $cssdir= xtc_template_fs_path(CURRENT_TEMPLATE).'/variant/css/';
 
     if ($dir = opendir($cssdir)) 
     {
@@ -112,7 +124,7 @@ if ($_POST['action']=="save")
 
 <?php
 
-    $backdir= DIR_FS_CATALOG.'../templates/'.CURRENT_TEMPLATE.'/variant/background/';
+    $backdir= xtc_template_fs_path(CURRENT_TEMPLATE).'/variant/background/';
 
     if ($dir = opendir($backdir)) {
         while (($templates = readdir($dir)) !== false) {
@@ -141,7 +153,7 @@ if ($_POST['action']=="save")
         <td style="background-color:#FCF2CF ; border: 1px solid; border-color: #CCCCCC;" class="dataTableContent">
 <?php
 
-    $logodir= DIR_FS_CATALOG.'../templates/'.CURRENT_TEMPLATE.'/variant/logo/';
+    $logodir= xtc_template_fs_path(CURRENT_TEMPLATE).'/variant/logo/';
 
     if ($dir = opendir($logodir)) {
         while (($templates = readdir($dir)) !== false) {
