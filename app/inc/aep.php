@@ -6,7 +6,6 @@ function pr($d)
 	echo "</pre>";
 }
 
-
 function include_all_once ($pattern)
 {
     foreach (glob($pattern) as $file) 
@@ -14,10 +13,6 @@ function include_all_once ($pattern)
         include $file;
     }
 }
-
-
-
-
 
 function endswith($Haystack, $Needle)
 {

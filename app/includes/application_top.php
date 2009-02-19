@@ -140,6 +140,7 @@ require_once (DIR_FS_INC.'xtc_currency_exists.inc.php');
 require_once (DIR_FS_INC.'xtc_remove_non_numeric.inc.php');
 require_once (DIR_FS_INC.'xtc_get_ip_address.inc.php');
 require_once (DIR_FS_INC.'xtc_setcookie.inc.php');
+require_once (DIR_FS_INC.'xtc_template_path.inc.php');
 require_once (DIR_FS_INC.'xtc_check_agent.inc.php');
 require_once (DIR_FS_INC.'xtc_count_cart.inc.php');
 require_once (DIR_FS_INC.'xtc_get_qty.inc.php');

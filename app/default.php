@@ -13,8 +13,9 @@
 
 function module()
 {
+
     $default_smarty = new smarty;
-    $default_smarty->assign('tpl_path', '/user/templates/'.CURRENT_TEMPLATE.'/');
+    $default_smarty->assign('tpl_path',xtc_template_path(CURRENT_TEMPLATE));
     $default_smarty->assign('session', session_id());
     // default page
     if (GROUP_CHECK == 'true') 
@@ -52,6 +53,6 @@ function module()
     $default_smarty->assign('language', $_SESSION['language']);
     
     $default_smarty->caching = 0;
-    return  $default_smarty->fetch(CURRENT_TEMPLATE.'/module/main_content.html');
+    return  $default_smarty->fetch('module/main_content.html');
 }
 ?>

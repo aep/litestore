@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+#indexhtml_content_wrap
+{
+    background:url(../../bilder/hintergrund/contentpapier.png);
+}
+
+#banner
+{
+    background:url(../../bilder/hintergrund/bannerpapier.png);
+}
+
+#footer
+{
+    background:url(../../bilder/hintergrund/footerpapier.png);
+}
+
+#topnav 
+{
+    background-image:url(../../bilder/farben/rot_navigation1.png);
+}
+#topnav ul li a
+{
+    background:url(../../bilder/farben/rot_navigation1_hover.png) bottom right no-repeat;
+}
+#topnav ul li a:hover
+{
+    background:url(../../bilder/farben/rot_navigation1_hover.png) top right no-repeat;
+}

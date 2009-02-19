@@ -49,7 +49,7 @@ class BoxContent extends AbstractVCBox
             $box_smarty->assign('BOX_CONTENT', $links);
         
         
-        return $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_content.html');
+        return $box_smarty->fetch('boxes/box_content.html');
     }
 }
 ?>

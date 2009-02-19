@@ -1,0 +1,35 @@
+{config_load file="$language/lang_$language.conf" section="checkout_new_address"}
+
+<div id="checkout_new_address" class="twoColumnFormular">
+
+
+{if $gender=='1'}
+    <p><label>{#text_gender#}</label><em class="radiohax" >{$INPUT_FEMALE}{$INPUT_MALE}</em></p>
+{/if}
+
+<p> <label for="vorname">{#text_firstname#}</label><em> {$INPUT_FIRSTNAME}</em> </p>
+<p> <label for="nachname">{#text_lastname#}</label><em> {$INPUT_LASTNAME}</em> </p>
+
+{if $company=='1'}
+    <p><label for="firmenname">{#text_company#}</label><em>{$INPUT_COMPANY}</em></label>
+{/if}
+
+<p> <label for="strasse_nr">{#text_street#}</label><em> {$INPUT_STREET}</em> </p>
+{if $suburb=='1'}
+    <p> <label for="vorort">{#text_suburb#}</label><em> {$INPUT_SUBURB}</em> </p>
+{/if}
+    <p> <label for="plz">{#text_code#}</label><em> {$INPUT_CODE}</em> </p>
+    <p> <label for="ort">{#text_city#}</label><em> {$INPUT_CITY}</em> </p>
+    {if $state=='1'}
+        <p> <label for="staat">{#text_state#}</label><em> {$INPUT_STATE}</em> </p>
+    {/if}
+    <p> <label for="land">{#text_country#}</label><em> {$SELECT_COUNTRY}</em> </p>
+
+
+    {if $new=='1'}
+        <p><label>{$CHECKBOX_PRIMARY}{#text_standard#}</label></p>
+    {/if}
+
+    <p><em class="must">{#text_must#}</em></p>
+    <br clear="both">
+</div>

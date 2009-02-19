@@ -75,7 +75,7 @@ class BoxAdmin extends AbstractVCBox
         
             $box_smarty->caching = 0;
             $box_smarty->assign('language', $_SESSION['language']);
-            return $box_smarty->fetch(CURRENT_TEMPLATE.'/boxes/box_admin.html');
+            return $box_smarty->fetch('boxes/box_admin.html');
     }
     function metatype()
     {
