@@ -10,6 +10,9 @@
     </ul>
 </div>
 
+
+
+
 <div id="account_orderhistory">
     <h3>{#title_orders#}</h3>
     <ul>
@@ -17,7 +20,7 @@
             {foreach name=aussen item=order_data from=$order_content}
             <li>
                 <a href="{$order_data.ORDER_LINK}">
-                    {#order_nr#} {$order_data.ORDER_ID} (25.02.2008)<br>
+                    {#order_nr#} {$order_data.ORDER_ID} ({$order_data.ORDER_DATE})<br>
                     {#order_status#} <strong>{$order_data.ORDER_STATUS}</strong><br>
                     {#order_total#} <strong>{$order_data.ORDER_TOTAL}</strong>
                 </a>
