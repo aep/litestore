@@ -165,7 +165,7 @@ SET character_set_client = @saved_cs_client;
 LOCK TABLES `admin_access` WRITE;
 /*!40000 ALTER TABLE `admin_access` DISABLE KEYS */;
 INSERT INTO `admin_access` 
-VALUES ('1',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),   
+VALUES ('1',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),   
   ('groups',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,3,3,3,3,3,3,4,4,4,4,2,4,2,2,2,2,5,5,5,5,5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1);
 /*!40000 ALTER TABLE `admin_access` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -747,7 +747,7 @@ INSERT INTO `configuration` VALUES
     (340,'MODULE_PAYMENT_COD_STATUS','True',6,1,NULL,'2008-04-03 14:01:36',NULL,'xtc_cfg_select_option(array(\'True\', \'False\'), '),
     (336,'MODULE_PAYMENT_BANKTRANSFER_FAX_CONFIRMATION','false',6,2,NULL,'2008-04-03 14:01:33',NULL,'xtc_cfg_select_option(array(\'true\', \'false\'), '),
     (337,'MODULE_PAYMENT_BANKTRANSFER_DATABASE_BLZ','false',6,0,NULL,'2008-04-03 14:01:33',NULL,'xtc_cfg_select_option(array(\'true\', \'false\'), '),
-    (1021,'GOOGLE_CONVERSION_REGISTER','',76,3,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_textarea(');
+    (1021,'GOOGLE_CONVERSION_REGISTER','',76,3,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_textarea('),
     (1022,'GOOGLE_CONVERSION_BUY','',76,2,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_textarea('),
     (228,'GOOGLE_CONVERSION','false',76,0,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_select_option(array(\'true\', \'false\'),');
 /*!40000 ALTER TABLE `configuration` ENABLE KEYS */;
