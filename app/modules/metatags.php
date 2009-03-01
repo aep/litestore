@@ -13,15 +13,29 @@
 
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
-$head[]=array('name'=>"robots"          ,'content'=>META_ROBOTS);
-$head[]=array('name'=>"language"        ,'content'=>$_SESSION['language_code']);
-$head[]=array('name'=>"author"          ,'content'=>META_AUTHOR);
-$head[]=array('name'=>"publisher"       ,'content'=>META_PUBLISHER);
-$head[]=array('name'=>"company"         ,'content'=>META_COMPANY);
-$head[]=array('name'=>"page-topic"      ,'content'=>META_TOPIC);
-$head[]=array('name'=>"reply-to"        ,'content'=>META_REPLY_TO);
-$head[]=array('name'=>"distribution"    ,'content'=>"global");
-$head[]=array('name'=>"revisit-after"   ,'content'=>META_REVISIT_AFTER);
+
+
+
+$meta_description='';
+$meta_keywords='';
+
+$cfg_group_query = xtc_db_query('select id,name,content from metatags');while($cfg = xtc_db_fetch_array($cfg_group_query))
+{
+    if($cfg['name']=='description')
+    {
+        $meta_description=$cfg['content'];
+    }
+    else if($cfg['name']=='keywords')
+    {
+        $meta_keywords=$cfg['content'];
+    }
+    else
+    {
+        $head[]=array('name'=>$cfg['name'],'content'=>$cfg['content']);
+    }
+}
+
+
 
 
 
@@ -38,8 +52,8 @@ if (strstr($APP_PATH[1], "products"))
     } 
     else 
     {
-        $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
-        $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+        $head[]=array('name'=>"description" ,'content'=>$meta_description);
+        $head[]=array('name'=>"keywords" ,'content'=>$meta_keywords);
         $smarty->assign("HEAD_TITLE",TITLE);
     }
 } 
@@ -56,11 +70,11 @@ else if (strstr($APP_PATH[1], "catalog"))
     $categories_meta = xtc_db_fetch_array($categories_meta_query, true);
     if ($categories_meta['categories_meta_keywords'] == '') 
     {
-        $categories_meta['categories_meta_keywords'] = META_KEYWORDS;
+        $categories_meta['categories_meta_keywords'] = $meta_keywords;
     }
     if ($categories_meta['categories_meta_description'] == '') 
     {
-        $categories_meta['categories_meta_description'] = META_DESCRIPTION;
+        $categories_meta['categories_meta_description'] = $meta_description;
     }
     if ($categories_meta['categories_meta_title'] == '') 
     {
@@ -83,8 +97,8 @@ else
                                                     languages_id='" . $_SESSION['languages_id'] . "'");
         $contents_meta = xtc_db_fetch_array($contents_meta_query, true);
 
-        $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
-        $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+        $head[]=array('name'=>"description" ,'content'=>$meta_description);
+        $head[]=array('name'=>"keywords" ,'content'=>$meta_keywords);
         $smarty->assign("HEAD_TITLE",TITLE." - ".$contents_meta['content_heading']);
 
 
@@ -92,8 +106,8 @@ else
     else 
     {
 
-        $head[]=array('name'=>"description" ,'content'=>META_DESCRIPTION);
-        $head[]=array('name'=>"keywords" ,'content'=>META_KEYWORDS);
+        $head[]=array('name'=>"description" ,'content'=>$meta_description);
+        $head[]=array('name'=>"keywords" ,'content'=>$meta_keywords);
         $smarty->assign("HEAD_TITLE",TITLE);
 
     }

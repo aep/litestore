@@ -97,6 +97,7 @@ define('BOX_CONFIGURATION_17', 'Zusatzmodule');
 define('BOX_CONFIGURATION_18', 'UST ID');
 define('BOX_CONFIGURATION_19', 'xt:C Partner');
 define('BOX_CONFIGURATION_22', 'Such-Optionen');
+define('BOX_CONFIGURATION_76', 'Conversion tracking');
 
 define('BOX_MODULES', 'Zahlungs-/Versand-/Verrechnungs-Module');
 define('BOX_PAYMENT', 'Zahlungsoptionen');
