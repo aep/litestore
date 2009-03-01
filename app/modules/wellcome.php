@@ -32,44 +32,24 @@ function module()
     global $breadcrumb;
     $smarty = new Smarty;
     // if the customer is not logged on, redirect them to the shopping cart page
-    if (!isset ($_SESSION['customer_id'])) {
-	    xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
+    if (!isset ($_SESSION['customer_id'])) 
+    {
+        xtc_redirect(xtc_href_link(FILENAME_SHOPPING_CART));
     }
-    
-    if (isset ($_GET['action']) && ($_GET['action'] == 'update')) {
-    
-	    if ($_SESSION['account_type'] != 1) {
-		    xtc_redirect(xtc_href_link(FILENAME_DEFAULT));
-	    } else {
-		    xtc_redirect(xtc_href_link(FILENAME_LOGOFF));
-	    }
-    }
-    $breadcrumb->add(NAVBAR_TITLE_1_CHECKOUT_SUCCESS);
-    $breadcrumb->add(NAVBAR_TITLE_2_CHECKOUT_SUCCESS);
-    
+        $breadcrumb->add("willkommen");    
     require (DIR_WS_INCLUDES.'header.php');
-    
-    $orders_query = xtc_db_query("select orders_id, orders_status from ".TABLE_ORDERS." where customers_id = '".$_SESSION['customer_id']."' order by orders_id desc limit 1");
-    $orders = xtc_db_fetch_array($orders_query);
-    $last_order = $orders['orders_id'];
-    $order_status = $orders['orders_status'];
-    
-    $smarty->assign('FORM_ACTION', xtc_draw_form('order', xtc_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL')));
-    $smarty->assign('BUTTON_PRINT', '<img src="'.'templates/'.CURRENT_TEMPLATE.'/buttons/'.$_SESSION['language'].'/button_print.gif" style="cursor:hand" onclick="window.open(\''.xtc_href_link(FILENAME_PRINT_ORDER, 'oID='.$orders['orders_id']).'\', \'popup\', \'toolbar=0, width=640, height=600\')" />');
-    $smarty->assign('FORM_END', '</form>');
+
     // Google Conversion tracking
+
     if (GOOGLE_CONVERSION == 'true') 
     {
 	    $smarty->assign('google_tracking', 'true');
-	    $smarty->assign('tracking_code', GOOGLE_CONVERSION_BUY);
+	    $smarty->assign('tracking_code', GOOGLE_CONVERSION_REGISTER);
     }
-    if (DOWNLOAD_ENABLED == 'true')
-	    include (DIR_WS_MODULES.'downloads.php');
+
     $smarty->assign('language', $_SESSION['language']);
-    $smarty->assign('realm', "checkout");
-    
-    $smarty->assign('PAYMENT_BLOCK', $payment_block);
+    $smarty->assign('realm', "account");
     $smarty->caching = 0;
-    return $smarty->fetch('module/checkout_success.html');
+    return $smarty->fetch('module/wellcome.html');
 }
 ?>

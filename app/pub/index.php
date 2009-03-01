@@ -44,7 +44,8 @@ $routes=array
     '/products'                 =>  'product_info.php',
     '/popup_content'            =>  'popup_content.php',
     '/search'                   =>  'advanced_search_result.php',
-    '/ajax'                     =>  'ajax.php'
+    '/ajax'                     =>  'ajax.php',
+    '/wellcome'                  =>  'wellcome.php',
 
 );
 
