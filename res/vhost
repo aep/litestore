@@ -1,8 +1,6 @@
-NameVirtualHost *:80
-
 <VirtualHost *:80>
 
-    DocumentRoot "/srv/http/restore/app/pup"
+    DocumentRoot "/srv/http/restore/app/pub"
 
     RewriteEngine on
 
@@ -10,8 +8,8 @@ NameVirtualHost *:80
     RewriteRule  ^/admin/export/(.*)\.xml$            /admin/export.php?format=xml&scheme=$1 [PT]
 
     Alias /user        /www/USER
-    Alias /pub         /srv/http/restore/app/pup
-    Alias /admin       /srv/http/restore/app/pup/admin
+    Alias /pub         /srv/http/restore/app/pub
+    Alias /admin       /srv/http/restore/app/pub/admin
 
     RewriteCond  %{REQUEST_URI} !^/(admin|user|pub)/.*$
     RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
@@ -23,7 +21,7 @@ NameVirtualHost *:80
     SetEnv RESTORE_DB_USER    "USER"
     SetEnv RESTORE_DB_PASS    "PASS"
 
-    <Directory /srv/http/restore/app/pup >
+    <Directory /srv/http/restore/app/pub >
             DirectoryIndex index.php index.html
             AddHandler application/x-httpd-php .php
             AllowOverride None
