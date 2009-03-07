@@ -7,7 +7,7 @@ function xtc_template_fs_path($identifier)
 
     if(count($l)<2)
     {
-        throw new Exception ('no identifier prefix in '.$identifier);    
+        die ('no identifier prefix in '.$identifier);    
     }
 
     if($l[0]=='default')
@@ -20,7 +20,7 @@ function xtc_template_fs_path($identifier)
     }
     else
     {
-        throw new Exception ('undefined identifier prefix'.$l[0]);
+        die ('undefined identifier prefix'.$l[0]);
     }
 }
 
@@ -31,7 +31,7 @@ function xtc_template_path($identifier)
 
     if(count($l)<2)
     {
-        throw new Exception ('no identifier prefix in '.$identifier);    
+        die ('no identifier prefix in '.$identifier);    
     }
 
     if($l[0]=='default')
@@ -44,7 +44,7 @@ function xtc_template_path($identifier)
     }
     else
     {
-        throw new Exception ('undefined identifier prefix'.$l[0]);
+        die ('undefined identifier prefix'.$l[0]);
     }
 }
 
