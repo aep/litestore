@@ -18,10 +18,10 @@
 // Auto expire products on special
   function xtc_expire_specials() {
     $specials_query = xtc_db_query("select specials_id from " . TABLE_SPECIALS . " where status = '1' and datetime('now') >= expires_date and expires_date > 0");
-    if (xtc_db_num_rows($specials_query)) {
+
       while ($specials = xtc_db_fetch_array($specials_query)) {
         xtc_set_specials_status($specials['specials_id'], '0');
       }
-    }
+
   }
  ?>

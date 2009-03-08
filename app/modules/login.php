@@ -37,12 +37,11 @@ function module()
     
     if (isset ($_POST['email_address']))
     {
-        $email_address = xtc_db_prepare_input($_POST['email_address']);
-        $password = xtc_db_prepare_input($_POST['password']);
-    
-        // Check if email exists
-        $check_customer_query = xtc_db_query("select customers_id, customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where ( customers_email_address = '".xtc_db_input($email_address)."' or  customers_cid = '".xtc_db_input($email_address)."' )  and account_type = '0'");
-        if (!xtc_db_num_rows($check_customer_query))
+        global $db;
+        $sth = $db->prepare("select customers_id, customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where ( customers_email_address = :mail or  customers_cid = :mail )  and account_type = '0'");
+        $sth->execute(array(':mail' => $_POST['email_address']));
+        $check_customer = $sth->fetch();
+        if (!$check_customer )
         {
             $_GET['login'] = 'fail';
             //we don't like getting probed. XTC can do that all day if they like it....
@@ -50,9 +49,8 @@ function module()
         }
         else
         {
-            $check_customer = xtc_db_fetch_array($check_customer_query);
             // Check that password is good
-            if (!xtc_validate_password($password, $check_customer['customers_password'])) 
+            if ($_POST['password'] != $check_customer['customers_password'])
             {
                 $_GET['login'] = 'fail';
                 $info_message = TEXT_LOGIN_ERROR;

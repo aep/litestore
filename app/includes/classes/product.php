@@ -41,17 +41,17 @@ class product {
 			$fsk_lock = ' and p.products_fsk18!=1';
 		}
 
-		$product_query = "select * FROM ".TABLE_PRODUCTS." p,
+
+        global $db;
+        $product_query=$db->query("select COUNT(*) FROM ".TABLE_PRODUCTS." p,
 										                                      ".TABLE_PRODUCTS_DESCRIPTION." pd
 										                                      where p.products_status = '1'
 										                                      and p.products_id = '".$this->pID."'
 										                                      and pd.products_id = p.products_id
 										                                      ".$group_check.$fsk_lock."
-										                                      and pd.languages_id = '".(int) $_SESSION['languages_id']."'";
+										                                      and pd.languages_id = '".(int) $_SESSION['languages_id']."'")->fetch();
 
-		$product_query = xtDBquery($product_query);
-
-		if (!xtc_db_num_rows($product_query, true)) {
+		if (!$product_query["COUNT(*)"]) {
 			$this->isProduct = false;
 		} else {
 			$this->isProduct = true;
