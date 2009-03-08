@@ -29,16 +29,18 @@ if ($_SESSION['customers_status']['customers_fsk18_display'] == '0')
 if (GROUP_CHECK == 'true')
 	$group_check = "and p.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
 
+return;
 $expected_query = xtDBquery("select p.products_id,
                                   pd.products_name,
                                   products_date_available as date_expected from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd
-                                  where to_days(products_date_available) >= to_days(now())
-                                  and p.products_id = pd.products_id
+                                  where to_days(products_date_available) >= to_days(datetime('now'))
+                                  and p.products_id = pd.products_id 
                                   ".$group_check."
                                   ".$fsk_lock."
                                   and pd.languages_id = '".(int) $_SESSION['languages_id']."'
                                   order by ".EXPECTED_PRODUCTS_FIELD." ".EXPECTED_PRODUCTS_SORT."
                                   limit ".MAX_DISPLAY_UPCOMING_PRODUCTS);
+
 if (xtc_db_num_rows($expected_query,true) > 0) {
 
 	$row = 0;

@@ -61,6 +61,11 @@ define('SMARTY_PHP_ALLOW',      3);
 /**
  * @package Smarty
  */
+class SmartyException extends Exception
+{
+}
+
+
 class Smarty
 {
     /**#@+
@@ -821,7 +826,7 @@ class Smarty
                       ,false);
 
         } else {
-            trigger_error("malformed function-list for '$type' in register_resource");
+            throw new SmartyException("malformed function-list for '$type' in register_resource");
 
         }
     }

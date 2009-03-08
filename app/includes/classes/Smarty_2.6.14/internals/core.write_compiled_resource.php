@@ -17,10 +17,10 @@ function smarty_core_write_compiled_resource($params, &$smarty)
     if(!@is_writable($smarty->compile_dir)) {
         // compile_dir not writable, see if it exists
         if(!@is_dir($smarty->compile_dir)) {
-            $smarty->trigger_error('the $compile_dir \'' . $smarty->compile_dir . '\' does not exist, or is not a directory.', E_USER_ERROR);
+            throw new SmartyException('the $compile_dir \'' . $smarty->compile_dir . '\' does not exist, or is not a directory.', E_USER_ERROR);
             return false;
         }
-        $smarty->trigger_error('unable to write to $compile_dir \'' . realpath($smarty->compile_dir) . '\'. Be sure $compile_dir is writable by the web server user.', E_USER_ERROR);
+        throw new SmartyException ('unable to write to $compile_dir \'' . realpath($smarty->compile_dir) . '\'. Be sure $compile_dir is writable by the web server user.', E_USER_ERROR);
         return false;
     }
 

@@ -1,4 +1,16 @@
 <?php
+
+function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+if( $errno==E_NOTICE)
+{
+    return false;
+}
+throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("exception_error_handler");
+
+
+
 try
 {
     $APPDIR= $_SERVER["DOCUMENT_ROOT"].'/../';
@@ -8,7 +20,7 @@ try
     $APP_PATH=split('/',$_GET["path"]);
 
 
-    include ('includes/application_top.php');
+    require_once ('includes/application_top.php');
     require_once (DIR_FS_INC.'aep.php');
 
 
@@ -166,7 +178,7 @@ a:hover
 #bt    
 {
 	padding-left: 6px;
-	border-left: 1px dashed #66c;
+	border-left: 1px dashed #222;
 	position: absolute;
 	top: 120px;
 	left: 40px;
@@ -174,6 +186,33 @@ a:hover
 	height: auto;
 	visibility: visible;
 	display: block
+}
+
+.arg
+{
+    color:#f66;
+}
+
+.literal
+{
+    color:#f66;
+}
+
+.string
+{
+    color:#f66;
+    font-style:italic;
+}
+
+
+.file
+{
+    font-weight:bold;
+}
+
+.funct
+{
+    color:#cfc;
 }
 
 
@@ -198,21 +237,75 @@ td
 
                     <table>
                     <?php 
+                        $exception_error_handler_fix_args=null;
                         foreach ($e->getTrace() as $n=>$r)
                         {
+                            if(isset($r['function']) && $r['function']=='exception_error_handler')
+                            {
+                                if(isset($r['args']))
+                                    $exception_error_handler_fix_args=$r['args'];
+                                $r['args']=array();
+                            }
+                            if(!isset($r['args']) && $exception_error_handler_fix_args)
+                            {
+                                $r['args']=$exception_error_handler_fix_args;
+                            }
+
                             echo "<tr>";
-                            echo "<td>$n</td>";
-                            echo "<td>".$r["file"].":".$r["line"]."</td>";
+                            echo "<td>$n -> &nbsp;</td>";
+                            if(isset($r['file']))
+                                echo '<td><span  class="dir">'.dirname($r["file"]).'/</span><span class="file">'.basename($r["file"]).':'.$r["line"]."</span></td>";
+                            else
+                                echo '<td></td>';
                             echo "</tr>";
 
                             echo "<tr>";
                             echo "<td></td>";
-                            echo "<td>".$r["class"].'::'.$r["function"].' (';
-                            foreach ($r["args"] as $a)
+                            if(isset($r['function']))
                             {
-                                echo $a;
+                                if(isset($r['class']))
+                                {
+                                    echo '<td class="funct">'.$r["class"].'::'.$r["function"].' ( ';
+                                }
+                                else
+                                {
+                                    echo '<td class="funct">'.$r["function"].' ( ';
+                                }
+
+                                if(isset($r['args']))
+                                {
+                                    $da=array();
+                                    foreach ($r["args"] as $a)
+                                    {
+                                        if(is_object($a))
+                                        {
+                                            $da[]= '<span class="arg">'.get_class($a).'</span>';
+                                        }
+                                        else if (is_int($a))
+                                        {
+                                            $da[]= '<span class="literal">'.$a.'</span>';
+                                        }      
+                                        else if (is_bool($a))
+                                        {
+                                            $da[]= '<span class="literal">'.$a.'</span>';
+                                        }                                          
+                                        else if (is_string($a))
+                                        {
+                                            $da[]= '<span class="string">"'.$a.'"</span>';
+                                        }
+                                        else
+                                        {
+                                            $da[]= '<span class="arg">'.gettype($a).'</span>';
+                                        }
+                                    }
+                                    echo implode(', ',$da);
+                                }
+                                echo ' )</td>';
                             }
-                            echo ')</td>';
+                            else
+                            {
+                                echo '<td></td>';
+                            }
                             echo '</tr>';
                         }
                     ?>

@@ -15,15 +15,18 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
    
-  function xtc_random_select($query) {
-    $random_product = '';
-    $random_query = xtc_db_query($query);
-    $num_rows = xtc_db_num_rows($random_query);
-    if ($num_rows > 0) {
-      $random_row = xtc_rand(0, ($num_rows - 1));
-      xtc_db_data_seek($random_query, $random_row);
-      $random_product = xtc_db_fetch_array($random_query);
-    }
+    function xtc_random_select($query) 
+    {
+        global $db;
+        $random_product = '';
+        $random_query = $db->query($query);
+        $num_rows = $random_query->rowCount();
+        if ($num_rows > 0) 
+        {
+            $random_row = xtc_rand(0, ($num_rows - 1));
+            $random_product = $random_query->fetchAll();
+            $random_product= $random_product[$random_row];
+        }
 
     return $random_product;
   }
