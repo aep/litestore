@@ -16,9 +16,9 @@
    ---------------------------------------------------------------------------------------*/
    
   function xtc_get_zone_name($country_id, $zone_id, $default_zone) {
-    $zone_query = xtc_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_id . "' and zone_id = '" . $zone_id . "'");
-    if (xtc_db_num_rows($zone_query)) {
-      $zone = xtc_db_fetch_array($zone_query);
+    $zone = xtc_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_id . "' and zone_id = '" . $zone_id . "'")->fetch();
+    if ($zone) {
+
       return $zone['zone_name'];
     } else {
       return $default_zone;
