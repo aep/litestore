@@ -1,5 +1,10 @@
 <?php
 
+class TemplateFsException extends Exception
+{
+}
+
+
 function xtc_template_fs_path($identifier)
 {
 
@@ -7,7 +12,7 @@ function xtc_template_fs_path($identifier)
 
     if(count($l)<2)
     {
-        die ('no identifier prefix in '.$identifier);    
+        throw new TemplateFsException  ('no identifier prefix in identifier "'.$identifier.'"');    
     }
 
     if($l[0]=='default')
@@ -20,7 +25,7 @@ function xtc_template_fs_path($identifier)
     }
     else
     {
-        die ('undefined identifier prefix'.$l[0]);
+              throw  new TemplateFsException  ('undefined identifier prefix'.$l[0]);
     }
 }
 
@@ -31,7 +36,7 @@ function xtc_template_path($identifier)
 
     if(count($l)<2)
     {
-        die ('no identifier prefix in '.$identifier);    
+        throw new TemplateFsException  ('no identifier prefix in identifier "'.$identifier.'"');    
     }
 
     if($l[0]=='default')
@@ -44,7 +49,7 @@ function xtc_template_path($identifier)
     }
     else
     {
-        die ('undefined identifier prefix'.$l[0]);
+        throw new TemplateFsException ('undefined identifier prefix'.$l[0]);
     }
 }
 

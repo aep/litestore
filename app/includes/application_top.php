@@ -62,45 +62,13 @@ require (DIR_WS_INCLUDES.'database_tables.php');
 // SQL caching dir
 define('SQL_CACHEDIR', DIR_FS_CATALOG.'cache/');
 
-// Below are some defines which affect the way the discount coupon/gift voucher system work
-// Be careful when editing them.
-//
-// Set the length of the redeem code, the longer the more secure
-define('SECURITY_CODE_LENGTH', '10');
-//
-// The settings below determine whether a new customer receives an incentive when they first signup
-//
-// Set the amount of a Gift Voucher that the new signup will receive, set to 0 for none
-//  define('NEW_SIGNUP_GIFT_VOUCHER_AMOUNT', '10');  // placed in the admin configuration mystore
-//
-// Set the coupon ID that will be sent by email to a new signup, if no id is set then no email :)
-//  define('NEW_SIGNUP_DISCOUNT_COUPON', '3'); // placed in the admin configuration mystore
 
-// Store DB-Querys in a Log File
-define('STORE_DB_TRANSACTIONS', 'false');
 
 // graduated prices model or products assigned ?
 define('GRADUATED_ASSIGN', 'true');
 
 // include used functions
 
-// Database
-require_once (DIR_FS_INC.'xtc_db_connect.inc.php');
-require_once (DIR_FS_INC.'xtc_db_close.inc.php');
-require_once (DIR_FS_INC.'xtc_db_error.inc.php');
-require_once (DIR_FS_INC.'xtc_db_perform.inc.php');
-require_once (DIR_FS_INC.'xtc_db_query.inc.php');
-require_once (DIR_FS_INC.'xtc_db_queryCached.inc.php');
-require_once (DIR_FS_INC.'xtc_db_fetch_array.inc.php');
-require_once (DIR_FS_INC.'xtc_db_num_rows.inc.php');
-require_once (DIR_FS_INC.'xtc_db_data_seek.inc.php');
-require_once (DIR_FS_INC.'xtc_db_insert_id.inc.php');
-require_once (DIR_FS_INC.'xtc_db_free_result.inc.php');
-require_once (DIR_FS_INC.'xtc_db_fetch_fields.inc.php');
-require_once (DIR_FS_INC.'xtc_db_output.inc.php');
-require_once (DIR_FS_INC.'xtc_db_input.inc.php');
-require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
-require_once (DIR_FS_INC.'xtc_get_top_level_domain.inc.php');
 
 // html basics
 require_once (DIR_FS_INC.'xtc_php_mail.inc.php');
@@ -151,12 +119,15 @@ require_once (DIR_FS_INC.'xtc_cleanName.inc.php');
 require_once (DIR_FS_INC.'xtc_calculate_tax.inc.php');
 require_once (DIR_FS_INC.'xtc_input_validation.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
+require_once (DIR_FS_INC.'/xtc_get_top_level_domain.inc.php');
 
-// make a connection to the database... now
-xtc_db_connect() or die('Unable to connect to database server!');
 
-$configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from '.TABLE_CONFIGURATION);
-while ($configuration = xtc_db_fetch_array($configuration_query)) {
+require_once (DIR_WS_CLASSES.'db.php');
+
+
+
+foreach ($db->query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration') as $configuration)
+{
 	define($configuration['cfgKey'], $configuration['cfgValue']);
 }
 
@@ -195,28 +166,7 @@ if ((GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')
 }
 
 
-// set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
-if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
-	if (strlen(getenv('PATH_INFO')) > 1) {
-		$GET_array = array ();
-		$PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
-		$vars = explode('/', substr(getenv('PATH_INFO'), 1));
-		for ($i = 0, $n = sizeof($vars); $i < $n; $i ++) {
-			if (strpos($vars[$i], '[]')) {
-				$GET_array[substr($vars[$i], 0, -2)][] = $vars[$i +1];
-			} else {
-				$_GET[$vars[$i]] = htmlspecialchars($vars[$i +1]);
-			}
-			$i ++;
-		}
 
-		if (sizeof($GET_array) > 0) {
-			while (list ($key, $value) = each($GET_array)) {
-				$_GET[$key] = htmlspecialchars($value);
-			}
-		}
-	}
-}
 // check GET/POST/COOKIE VARS
 require (DIR_WS_CLASSES.'class.inputfilter.php');
 $InputFilter = new InputFilter();

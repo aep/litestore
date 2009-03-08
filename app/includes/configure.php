@@ -41,15 +41,4 @@
 
     define('DIR_FS_USER',getenv("RESTORE_USER_PATH").'/');
 
-
-
-    // define our database connection
-    define('DB_SERVER',           getenv("RESTORE_DB_HOST")); // eg, localhost - should not be empty for productive servers
-    define('DB_SERVER_USERNAME',  getenv("RESTORE_DB_USER"));
-    define('DB_SERVER_PASSWORD',  getenv("RESTORE_DB_PASS"));
-    define('DB_DATABASE',         getenv("RESTORE_DB_NAME"));
-    define('USE_PCONNECT',        'false'); // use persistent connections?
-    define('STORE_SESSIONS',      'mysql'); // leave empty '' for default handler or set to 'mysql'
-
-
 ?>
