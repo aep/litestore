@@ -2,26 +2,25 @@ default:  migrate
 
 
 current:
-	echo "0" >  current 
+	@echo "0" >  current 
 
-migrate: current 
-	@echo "migrating";
-	@echo "current is" $$(cat current) 
-	@for i in *.sql;do \
+
+
+MIGRATEFILES :=  $(patsubst %.sql,%.sql.migrate,$(wildcard *.sql))
+
+
+migrate: current $(MIGRATEFILES)
+	@echo "current is" $$(cat current)
+
+%.sql.migrate:
+	@i=$@;\
 	f=$${i%%.*}; \
 	if test $$f -gt $$(cat current); then \
-		echo "   "$$f; \
-		sqlite3 -batch restore.db  < $$i ; \
+		echo "migrating "$$f; \
+		sqlite3 -batch restore.db  < $$f.sql 2>/dev/null ; \
 		echo $$f > current;\
-	fi; \
-	done
-
-
-
-
-#	( sqlite3 -batch restore.db  < ../build/restore.sql  ) || (  rm restore.db ; exit 1  )
-
-
+	fi
 
 drop: 
 	rm -f current restore.db
+
