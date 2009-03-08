@@ -31,10 +31,5 @@ function xtc_db_fetch_array($bla)
 }
 
 
-function xtc_db_num_rows($bla)
-{
-    return $bla->rowCount();
-}
-
 
 ?>

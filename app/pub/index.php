@@ -1,6 +1,7 @@
 <?php
 
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+
 if( $errno==E_NOTICE)
 {
     return false;

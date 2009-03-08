@@ -17,13 +17,12 @@
 
 // Auto activate banners
   function xtc_activate_banners() {
-    $banners_query = xtc_db_query("select banners_id, date_scheduled from " . TABLE_BANNERS . " where date_scheduled != ''");
-    if (xtc_db_num_rows($banners_query)) {
+    $banners_query = xtc_db_query("select banners_id, date_scheduled from " . TABLE_BANNERS . " where date_scheduled != ''");
       while ($banners = xtc_db_fetch_array($banners_query)) {
         if (date('Y-m-d H:i:s') >= $banners['date_scheduled']) {
           xtc_set_banner_status($banners['banners_id'], '1');
         }
       }
-    }
+
   }
  ?>

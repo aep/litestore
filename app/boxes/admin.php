@@ -31,6 +31,7 @@ class BoxAdmin extends AbstractVCBox
     }
     function evaluate()
     {
+        global $db;
         if ($_SESSION['customers_status']['customers_status_id'] != 0)
             return;
 
@@ -39,7 +40,8 @@ class BoxAdmin extends AbstractVCBox
         $box_smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
         
         $orders_contents = '';
-        $orders_status_validating = xtc_db_num_rows(xtc_db_query("select orders_status from " . TABLE_ORDERS ." where orders_status ='0'"));
+        
+        $orders_status_validating = $db->query("select count(*) from " . TABLE_ORDERS ." where orders_status ='0'")->fetchColumn();
         $orders_contents .='<a href="/admin/' .FILENAME_ORDERS. '?selected_box=customers&status=0' . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; 
         
         $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where languages_id = '" . (int)$_SESSION['languages_id'] . "'");
