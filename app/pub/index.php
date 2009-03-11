@@ -1,12 +1,15 @@
 <?php
 
-function exception_error_handler($errno, $errstr, $errfile, $errline ) {
-
-if( $errno==E_NOTICE)
+function exception_error_handler($errno, $errstr, $errfile, $errline ) 
 {
-    return false;
-}
-throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+
+    if( $errno==E_USER_ERROR || $errno==E_PARSE  || $errno == E_CORE_ERROR || $errno == E_COMPILE_ERROR || $errno == E_USER_ERROR  || $errno ==	E_RECOVERABLE_ERROR)
+    {
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        return false;
+    }
+
+    return true;
 }
 set_error_handler("exception_error_handler");
 
@@ -79,6 +82,7 @@ try
 
     if(!function_exists("module"))
         return;
+
 
     $main_content=module();
 
