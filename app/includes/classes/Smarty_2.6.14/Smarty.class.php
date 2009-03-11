@@ -84,7 +84,7 @@ class Smarty
      *
      * @var string
      */
-    var $compile_dir     =  DIR_FS_USER.'templates_c';
+    var $compile_dir     =  string;
 
     /**
      * The directory where config files are located.
@@ -575,7 +575,8 @@ class Smarty
         $this->assign('tpl_path',xtc_template_path(CURRENT_TEMPLATE));
         $this->template_dir=xtc_template_fs_path(CURRENT_TEMPLATE);    
         $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
-                    : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);
+                    : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);    
+        $this->compile_dir =  DIR_FS_USER.'templates_c';
     }
 
     /**
