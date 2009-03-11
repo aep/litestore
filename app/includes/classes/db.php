@@ -44,5 +44,12 @@ function xtc_db_fetch_array($bla)
 }
 
 
+function xtc_db_insert_id()
+{
+    global $LitestoreDatabase;
+    return $LitestoreDatabase->lastInsertId();
+}
+
+
 
 ?>

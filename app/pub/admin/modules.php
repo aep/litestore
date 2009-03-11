@@ -204,11 +204,13 @@
     }
 
     ksort($installed_modules);
-    $check_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_key . "'");
-    if (xtc_db_num_rows($check_query)) 
+
+    global $db;
+
+    $check = $db->query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_key . "'")->fetch();
+    if ($check) 
     {
-        $check = xtc_db_fetch_array($check_query);
-        if ($check['configuration_value'] != implode(';', $installed_modules)) 
+        if ($check['configuration_value'] != implode(';', $installed_modules))
         {
             xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . implode(';', $installed_modules) . "', last_modified = now() where configuration_key = '" . $module_key . "'");
         }
