@@ -475,7 +475,7 @@ INSERT INTO `configuration` VALUES
     (16,'DEFAULT_CUSTOMERS_STATUS_ID_GUEST','1',1,21,NULL,'0000-00-00 00:00:00','xtc_get_customers_status_name','xtc_cfg_pull_down_customers_status_list('),
     (17,'DEFAULT_CUSTOMERS_STATUS_ID','2',1,23,NULL,'0000-00-00 00:00:00','xtc_get_customers_status_name','xtc_cfg_pull_down_customers_status_list('),
     (18,'ALLOW_ADD_TO_CART','false',1,24,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_select_option(array(\'true\', \'false\'),'),
-    (19,'CURRENT_TEMPLATE','restore',666,26,NULL,'0000-00-00 00:00:00',NULL,''),
+    (19,'CURRENT_TEMPLATE','default/restore',666,26,NULL,'0000-00-00 00:00:00',NULL,''),
     (20,'PRICE_IS_BRUTTO','false',1,27,NULL,'0000-00-00 00:00:00',NULL,'xtc_cfg_select_option(array(\'true\', \'false\'),'),
     (21,'PRICE_PRECISION','4',1,28,NULL,'0000-00-00 00:00:00',NULL,''),
     (22,'CC_KEYCHAIN','64854354354',1,29,NULL,'0000-00-00 00:00:00',NULL,''),
