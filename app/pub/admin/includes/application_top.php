@@ -218,21 +218,10 @@
   
  
   // include needed functions
-  require_once(DIR_FS_INC . 'xtc_db_connect.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_close.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_error.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_query.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_queryCached.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_perform.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_fetch_array.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_num_rows.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_data_seek.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_insert_id.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_free_result.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_fetch_fields.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_output.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_input.inc.php');
-  require_once(DIR_FS_INC . 'xtc_db_prepare_input.inc.php');
+require_once (DIR_FS_INC.'../classes/db.php');
+
+require_once (DIR_FS_INC.'xtc_db_perform.inc.php');
+require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_ip_address.inc.php');
   require_once(DIR_FS_INC . 'xtc_setcookie.inc.php');
   require_once(DIR_FS_INC . 'xtc_validate_email.inc.php');
@@ -240,7 +229,7 @@
   require_once(DIR_FS_INC . 'xtc_add_tax.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_tax_rate.inc.php');
   require_once(DIR_FS_INC . 'xtc_get_qty.inc.php');
-  require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
+  require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
 
   // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -256,8 +245,8 @@
   // include the database functions
 //  require(DIR_WS_FUNCTIONS . 'database.php');
 
-  // make a connection to the database... now
-  xtc_db_connect() or die('Unable to connect to database server!');
+
+
 
   // set application wide parameters
   $configuration_query = xtc_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
