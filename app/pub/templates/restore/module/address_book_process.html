@@ -1,0 +1,23 @@
+{config_load file="$language/lang_$language.conf" section="address_book_process"}
+<h1>{#heading_address#}</h1>
+<div id="address_book">
+    <form action="{$FORM_ACTION}" method="post" onsubmit="return check_form(addressbook);">
+        {if $error!=''}<div class="error">{$error}</div>{/if}
+        {$MODULE_address_book_details}
+        {if $delete!=''}
+            <h3>{#title_delete#}</h3>
+            {#text_delete#}
+            <p><em>{$ADDRESS}</em></p>
+
+            <a href="?delete={$delete}&amp;action=deleteconfirm">Wirklich l&ouml;schen</a>
+        {else}
+            {if $update=='1'}
+                <input type="hidden" name="action"  value="update">
+            {else}
+                <input type="hidden" name="action"  value="process">
+            {/if}
+            <input class="submit" type="submit" value="Absenden">
+
+        {/if}
+    </form>
+</div>

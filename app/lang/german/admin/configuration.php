@@ -562,7 +562,7 @@ define('DEFAULT_CUSTOMERS_VAT_STATUS_ID_DESC' , 'W&auml;hlen Sie den Kundenstatu
 define('ACCOUNT_COMPANY_VAT_CHECK_TITLE' , 'Umsatzsteuer ID &Uuml;berpr&uuml;fen');
 define('ACCOUNT_COMPANY_VAT_CHECK_DESC' , 'Die Umsatzsteuer ID auf Plausibilit&auml;t &Uuml;berpr&uuml;fen');
 define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_TITLE' , 'Umsatzsteuer ID Live &Uuml;berpr&uuml;fen');
-define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_DESC' , 'Die Umsatzsteuer ID auf Live Plausibilit&ouml;t &Uuml;berpr&uuml;fen falls keine Berechnungsgrundlage vorhanden? (Gateway des Bundesamt f�r Finanzen)');
+define('ACCOUNT_COMPANY_VAT_LIVE_CHECK_DESC' , 'Die Umsatzsteuer ID auf Live Plausibilit&ouml;t &Uuml;berpr&uuml;fen falls keine Berechnungsgrundlage vorhanden? (Gateway des Bundesamt f&auml;r Finanzen)');
 define('ACCOUNT_COMPANY_VAT_GROUP_TITLE' , 'Kundengruppe nach UST ID Check anpassen?');
 define('ACCOUNT_COMPANY_VAT_GROUP_DESC' , 'Durch einschalten dieser Option wird die Kundengruppe nach einen postiven UST ID Check ge&auml;ndert');
 define('ACCOUNT_VAT_BLOCK_ERROR_TITLE' , 'Eintragung falscher oder ungepr&uuml;fter UstID Nummern sperren?');
@@ -601,20 +601,20 @@ define('REVOCATION_ID_DESC','Content ID des Widerrufrechts');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_TITLE','Anzeige Widerrufrecht?');
 define('DISPLAY_REVOCATION_ON_CHECKOUT_DESC','Widerrufrecht auf checkout_confirmation anzeigen?');
 
-define('RCS_BASE_DAYS_TITLE', 'Tage zur�ckschauen');
+define('RCS_BASE_DAYS_TITLE', 'Tage zur&auml;ckschauen');
 define('RCS_BASE_DAYS_DESC', 'Anzahl vergangene Tage ab Heute welche angezeigt werden sollen!.');
 define('RCS_REPORT_DAYS_TITLE', 'Absatzerfolg-Reporttage');
-define('RCS_REPORT_DAYS_DESC', 'Anzahl Tage die Reportiert werden sollen. Beachten!: Je mehr Tage, desto gr�sser die SQL queries!.');
+define('RCS_REPORT_DAYS_DESC', 'Anzahl Tage die Reportiert werden sollen. Beachten!: Je mehr Tage, desto gr&auml;sser die SQL queries!.');
 define('RCS_EMAIL_TTL_TITLE', 'E-Mail Verfallsanzeige');
 define('RCS_EMAIL_TTL_DESC','Anzahl Tage welche E-Mails als gesendet angezeigt werden sollen.');
 define('RCS_EMAIL_FRIENDLY_TITLE', 'Freundliche E-Mails');
-define('RCS_EMAIL_FRIENDLY_DESC', 'Wenn <b>true</b> dann, wird der Name des Kunden im Gruss verwendet. Wenn <b>false</b> dann, wird ein generischer Gru� verwendet.');
+define('RCS_EMAIL_FRIENDLY_DESC', 'Wenn <b>true</b> dann, wird der Name des Kunden im Gruss verwendet. Wenn <b>false</b> dann, wird ein generischer Gru&auml; verwendet.');
 define('RCS_EMAIL_COPIES_TO_TITLE', 'E-Mail Kopien an');
 define('RCS_EMAIL_COPIES_TO_DESC', 'Wenn Sie eine Kopie der durch dieses Modul generierten E-Mail die Sie an den Kunden senden w&uuml;nschen, tragen Sie eine eMail Adresse hier ein. Wenn leer, werden keine Kopien gesendet.');
 define('RCS_SHOW_ATTRIBUTES_TITLE', 'Zeige Produktoptionen');
 define('RCS_SHOW_ATTRIBUTES_DESC', 'Kontrollanzeige der Einzelteilattribute.<br><br>Einige Produkte haben Attribute (Optionen/Zubeh&ouml;r).<br><br>Stellen Sie auf <b>true</b> wenn sie Attribute anzeigen m&ouml;chten, wenn nicht, stellen sie auf <b>false</b>.');
 define('RCS_CHECK_SESSIONS_TITLE', 'Ignoriere Kunden mit aktiven Sessions');
-define('RCS_CHECK_SESSIONS_DESC', 'Wenn sie diese Funktion w&uuml;nschen, Kunden mit aktiven Sessions nicht anzuzeigen (ie, warscheinlich gerade noch am shoppen) stellen sie auf <b>true</b>.<br><br>Stellen sie dies auf <b>false</b> werden standardm�ssig Sessions ignoriert, verwendet weniger Ressourcen.');
+define('RCS_CHECK_SESSIONS_DESC', 'Wenn sie diese Funktion w&uuml;nschen, Kunden mit aktiven Sessions nicht anzuzeigen (ie, warscheinlich gerade noch am shoppen) stellen sie auf <b>true</b>.<br><br>Stellen sie dies auf <b>false</b> werden standardm&auml;ssig Sessions ignoriert, verwendet weniger Ressourcen.');
 define('RCS_CURCUST_COLOR_TITLE', 'Farbe aktive Kunden');
 define('RCS_CURCUST_COLOR_DESC', 'Farbe welche zur Anzeige von bereits registrierten Kunden verwendet wird<br><br>Kunden welche ein Konto registriert haben und in der Vergangenheit bereits gekauft haben!.');
 define('RCS_UNCONTACTED_COLOR_TITLE', 'Farbe unkontaktierte Kunden');
@@ -622,9 +622,9 @@ define('RCS_UNCONTACTED_COLOR_DESC', 'Farbe mit der unkontaktierte Kunden in der
 define('RCS_CONTACTED_COLOR_TITLE', 'Farbe kontaktierte Kunden');
 define('RCS_CONTACTED_COLOR_DESC', 'Farbe mit der bereits kontaktierte Kunden in der Liste angezeigt werden sollen.<br><br>Kontaktierte Kunden werden sobald sie diese mit diesem Modul kontaktiert <i>haben</i> in dieser Farbe angezeigt.');
 define('RCS_MATCHED_ORDER_COLOR_TITLE', 'Farbe zusammenpassende Auftr&auml;ge');
-define('RCS_MATCHED_ORDER_COLOR_DESC', 'Farbe f&uuml;r Eintr&auml;ge, die zusammenpassen k�nnten .<br><br>Eine Eintragung wird mit dieser Farbe gekennzeichnet, wenn ein Auftrag eins oder mehr eines Einzelteils in dem verlassenen Warenkorb enth&auml;lt <b>und</b> entweder die Kundenemailadresse oder Datenbank ID des Warenkorbs zusammenpasst.');
+define('RCS_MATCHED_ORDER_COLOR_DESC', 'Farbe f&uuml;r Eintr&auml;ge, die zusammenpassen k&auml;nnten .<br><br>Eine Eintragung wird mit dieser Farbe gekennzeichnet, wenn ein Auftrag eins oder mehr eines Einzelteils in dem verlassenen Warenkorb enth&auml;lt <b>und</b> entweder die Kundenemailadresse oder Datenbank ID des Warenkorbs zusammenpasst.');
 define('RCS_SKIP_MATCHED_CARTS_TITLE', 'Ignorieren von zusammenpassenden Warenk&ouml;rben');
-define('RCS_SKIP_MATCHED_CARTS_DESC', 'Um zusammenpassende Warenk&ouml;rbe anzuzeigen, stellen Sie auf <b>true</b>.<br><br>Stellen Sie auf <b>false</b> wenn Sie zusammenpassende Warenk�rbe, zusammen mit dem passenden Auftrags-Status nicht anzeigen wollen.<br><br>Schauen Sie in die Dokumentation f&uuml;r mehr Details.');
+define('RCS_SKIP_MATCHED_CARTS_DESC', 'Um zusammenpassende Warenk&ouml;rbe anzuzeigen, stellen Sie auf <b>true</b>.<br><br>Stellen Sie auf <b>false</b> wenn Sie zusammenpassende Warenk&auml;rbe, zusammen mit dem passenden Auftrags-Status nicht anzeigen wollen.<br><br>Schauen Sie in die Dokumentation f&uuml;r mehr Details.');
 define('RCS_AUTO_CHECK_TITLE', 'Autocheck "safe" carts to email');
 define('RCS_AUTO_CHECK_DESC', 'To check entries which are most likely safe to email (ie, not existing customers, not previously emailed, etc.) set this to <b>true</b>.<br><br>Setting this to <b>false</b> will leave all entries unchecked (must manually check entries to send an email to).');
 define('RCS_CARTS_MATCH_ALL_DATES_TITLE', 'Match orders from any date');
@@ -635,8 +635,16 @@ define('RCS_REPORT_EVEN_STYLE_TITLE', 'Report Even Row Style');
 define('RCS_REPORT_EVEN_STYLE_DESC', 'Style for even rows in results report. Typical options are <i>dataTableRow</i> and <i>attributes-even</i>.');
 define('RCS_REPORT_ODD_STYLE_TITLE', 'Report Odd Row Style');
 define('RCS_REPORT_ODD_STYLE_DESC', 'Style for odd rows in results report. Typical options are NULL (ie, no entry) and <i>attributes-odd</i>.');
-define('RCS_SHOW_BRUTTO_PRICE_TITLE','Ausw�hlen der Preisanzeige.');
-define('RCS_SHOW_BRUTTO_PRICE_DESC','W�hlen sie aus wie die Preise angezeigt werden sollen. Wenn <b>true</b> werden die Preise Brutto <b>inkl. MwSt. </b>angezeigt. Wenn <b>false</b> werden die Preise Netto <b>excl. MwSt.</b> angezeigt!');
+define('RCS_SHOW_BRUTTO_PRICE_TITLE','Ausw&auml;hlen der Preisanzeige.');
+define('RCS_SHOW_BRUTTO_PRICE_DESC','W&auml;hlen sie aus wie die Preise angezeigt werden sollen. Wenn <b>true</b> werden die Preise Brutto <b>inkl. MwSt. </b>angezeigt. Wenn <b>false</b> werden die Preise Netto <b>excl. MwSt.</b> angezeigt!');
+
+
+
+
+define('GOOGLE_CONVERSION_REGISTER_TITLE','Conversion tracking: Neuanmeldung.');
+define('GOOGLE_CONVERSION_REGISTER_DESC','F&uuml;gen Sie den von Google zur Verf&uuml;gung gestellten Code, zum Z&auml;hlen der Neuanmeldungen, ein.');
+define('GOOGLE_CONVERSION_BUY_TITLE','Conversion tracking: Bestellung.');
+define('GOOGLE_CONVERSION_BUY_DESC','F&uuml;gen Sie den von Google zur Verf&uuml;gung gestellten Code, zum Z&auml;hlen der Bestellungen, ein.');
 
 
 
