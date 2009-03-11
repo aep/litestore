@@ -108,13 +108,16 @@ class invoice {
 		return false;
 	}
 
-	function check() {
-		if (!isset ($this->_check)) {
-			$check_query = xtc_db_query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_INVOICE_STATUS'");
-			$this->_check = xtc_db_num_rows($check_query);
-		}
-		return $this->_check;
-	}
+    function check() 
+    {
+        if (!isset($this->_check)) 
+        {
+            global $db;
+            $x=$db->query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_INVOICE_STATUS'")->fetch();
+            $this->_check= $x['COUNT(*)'];
+        }
+        return $this->_check;
+    }
 
 	function install() {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, set_function, date_added) values ('MODULE_PAYMENT_INVOICE_STATUS', 'True',  '6', '1', 'xtc_cfg_select_option(array(\'True\', \'False\'), ', now())");

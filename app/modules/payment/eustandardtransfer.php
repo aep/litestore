@@ -72,13 +72,17 @@ class eustandardtransfer {
 		return false;
 	}
 
-	function check() {
-		if (!isset ($this->check)) {
-			$check_query = xtc_db_query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_EUTRANSFER_STATUS'");
-			$this->check = xtc_db_num_rows($check_query);
-		}
-		return $this->check;
-	}
+
+    function check() 
+    {
+        if (!isset($this->_check)) 
+        {
+            global $db;
+            $x=$db->query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_EUTRANSFER_STATUS'")->fetch();
+            $this->_check= $x['COUNT(*)'];
+        }
+        return $this->_check;
+    }
 
 	function install() {
 		xtc_db_query("insert into ".TABLE_CONFIGURATION." ( configuration_key, configuration_value,  configuration_group_id, sort_order, date_added) values ('MODULE_PAYMENT_EUSTANDARDTRANSFER_ALLOWED', '', '6', '0', now())");
