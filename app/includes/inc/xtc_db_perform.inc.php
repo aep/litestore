@@ -15,50 +15,66 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
    
-  function xtc_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') {
-    reset($data);
+    function xtc_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') 
+    {
+        reset($data);
 
-    if ($action == 'insert') {
-      $query = 'insert into ' . $table . ' (';
-      while (list($columns, ) = each($data)) {
-        $query .= $columns . ', ';
-      }
-      $query = substr($query, 0, -2) . ') values (';
-      reset($data);
-      while (list(, $value) = each($data)) {
-      	 $value = (is_Float($value) & PHP4_3_10) ? sprintf("%.F",$value) : (string)($value);
-        switch ($value) {
-          case 'now()':
-            $query .= 'now(), ';
-            break;
-          case 'null':
-            $query .= 'null, ';
-            break;
-          default:
-            $query .= '\'' . xtc_db_input($value) . '\', ';
-            break;
+        $pdata=array();
+
+        if ($action == 'insert') 
+        {
+            $query = 'insert into ' . $table . ' (';
+            while (list($columns, ) = each($data)) 
+            {
+                $query .= $columns . ', ';
+            }
+            $query = substr($query, 0, -2) . ') values (';
+            reset($data);
+            while (list(, $value) = each($data)) 
+            {
+                $value = (is_Float($value) & PHP4_3_10) ? sprintf("%.F",$value) : (string)($value);
+                switch ($value) 
+                {
+                    case 'now()':
+                        $query .= 'now(), ';
+                        break;
+                    case 'null':
+                        $query .= 'null, ';
+                        break;
+                    default:
+                        $query .= '?, ';
+                        $pdata []= $value;
+                        break;
+                }
+            }
+            $query = substr($query, 0, -2) . ')';
+        } 
+        elseif ($action == 'update') 
+        {
+            $query = 'update ' . $table . ' set ';
+            while (list($columns, $value) = each($data)) 
+            {
+                $value = (is_Float($value) & PHP4_3_10) ? sprintf("%.F",$value) : (string)($value);
+                switch ($value) 
+                {
+                    case 'now()':
+                        $query .= $columns . ' = now(), ';
+                        break;
+                    case 'null':
+                        $query .= $columns .= ' = null, ';
+                        break;
+                    default:
+                        $query .= $columns . ' = ?, ';
+                        $pdata []= $value;
+                        break;
+                }
+            }
+            $query = substr($query, 0, -2) . ' where ' . $parameters;
         }
-      }
-      $query = substr($query, 0, -2) . ')';
-    } elseif ($action == 'update') {
-      $query = 'update ' . $table . ' set ';
-      while (list($columns, $value) = each($data)) {
-         $value = (is_Float($value) & PHP4_3_10) ? sprintf("%.F",$value) : (string)($value);
-      	switch ($value) {
-          case 'now()':
-            $query .= $columns . ' = now(), ';
-            break;
-          case 'null':
-            $query .= $columns .= ' = null, ';
-            break;
-          default:
-            $query .= $columns . ' = \'' . xtc_db_input($value) . '\', ';
-            break;
-        }
-      }
-      $query = substr($query, 0, -2) . ' where ' . $parameters;
+
+        global $db;
+        $q=$db->prepare($query);
+
+        return $q->execute($pdata);
     }
-
-    return xtc_db_query($query, $link);
-  }
- ?>
+?>
