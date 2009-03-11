@@ -1,16 +1,16 @@
 create table `address_book` 
 (
-    `address_book_id`       integer primary key autoincrement,
+    `address_book_id`       integer primary key auto_increment,
     `customers_id`          integer references `customers`(`customers_id`),
     `entry_gender`          char not null,
-    `entry_company`         varchar default null,
-    `entry_firstname`       varchar not null,
-    `entry_lastname`        varchar not null,
-    `entry_street_address`  varchar not null,
-    `entry_suburb`          varchar default null,
-    `entry_postcode`        varchar not null,
-    `entry_city`            varchar not null,
-    `entry_state`           varchar default null,
+    `entry_company`         text default null,
+    `entry_firstname`       text not null,
+    `entry_lastname`        text not null,
+    `entry_street_address`  text not null,
+    `entry_suburb`          text default null,
+    `entry_postcode`        text not null,
+    `entry_city`            text not null,
+    `entry_state`           text default null,
     `entry_country_id`      integer not null default '0',
     `entry_zone_id`         integer not null default '0',
     `address_date_added`    datetime default '0000-00-00 00:00:00',
@@ -23,9 +23,9 @@ insert into `address_book` values (1,1,'','<<RSTI_COMPANY_NAME>>','<<RSTI_OWNER_
 
 create table `address_format` 
 (
-    `address_format_id` integer primary key autoincrement,
-    `address_format`    varchar NOT NULL,
-    `address_summary`   varchar NOT NULL
+    `address_format_id` integer primary key auto_increment,
+    `address_format`    text NOT NULL,
+    `address_summary`   text NOT NULL
 );
 
 insert into `address_format` values (1,'$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
@@ -116,10 +116,10 @@ insert into `admin_access` values
 create table `banktransfer` 
 (
     `orders_id`               integer primary key references `orders` (`orders_id`),
-    `banktransfer_owner`      varchar default NULL,
-    `banktransfer_number`     varchar default NULL,
-    `banktransfer_bankname`   varchar default NULL,
-    `banktransfer_blz`        varchar default NULL,
+    `banktransfer_owner`      text default NULL,
+    `banktransfer_number`     text default NULL,
+    `banktransfer_bankname`   text default NULL,
+    `banktransfer_blz`        text default NULL,
     `banktransfer_status`     integer default NULL,
     `banktransfer_prz`        char    default NULL,
     `banktransfer_fax`        char    default NULL
@@ -128,11 +128,11 @@ create table `banktransfer`
 
 create table `banners` 
 (
-    `banners_id`            integer primary key  autoincrement,
-    `banners_title`         varchar NOT NULL,
-    `banners_url`           varchar NOT NULL,
-    `banners_image`         varchar NOT NULL,
-    `banners_group`         varchar NOT NULL,
+    `banners_id`            integer primary key  auto_increment,
+    `banners_title`         text NOT NULL,
+    `banners_url`           text NOT NULL,
+    `banners_image`         text NOT NULL,
+    `banners_group`         text NOT NULL,
     `banners_html_text`     text,
     `expires_impressions`   integer default '0',
     `expires_date`          datetime default NULL,
@@ -145,7 +145,7 @@ create table `banners`
 
 create table `banners_history` 
 (
-    `banners_history_id`   integer primary key  autoincrement,
+    `banners_history_id`   integer primary key  auto_increment,
     `banners_id`           integer references `banners` (`banners_id`),
     `banners_shown`        integer NOT NULL default '0',
     `banners_clicked`      integer NOT NULL default '0',
@@ -155,9 +155,9 @@ create table `banners_history`
 
 create table `campaigns` 
 (
-	`campaigns_id`      integer primary key  autoincrement,
-	`campaigns_name`    varchar NOT NULL default '' unique,
-	`campaigns_refID`   varchar default NULL,
+	`campaigns_id`      integer primary key  auto_increment,
+	`campaigns_name`    varchar(1000) NOT NULL default '' unique,
+	`campaigns_refID`   text default NULL,
 	`campaigns_leads`   integer NOT NULL default '0',
 	`date_added`        datetime default NULL,
 	`last_modified`     datetime default NULL
@@ -166,16 +166,16 @@ create table `campaigns`
 
 create table `campaigns_ip` 
 (
-    `user_ip`   varchar  NOT NULL,
+    `user_ip`   text  NOT NULL,
     `time`      datetime NOT NULL,
-    `campaign`  varchar  NOT NULL
+    `campaign`  text  NOT NULL
 );
 
 
 create table `card_blacklist` 
 (
-    `blacklist_id`          integer primary key  autoincrement,
-    `blacklist_card_number` varchar  NOT NULL default '',
+    `blacklist_id`          integer primary key  auto_increment,
+    `blacklist_card_number` text  NOT NULL default '',
     `date_added`            datetime default NULL,
     `last_modified`         datetime default NULL
 );
@@ -183,20 +183,20 @@ create table `card_blacklist`
 
 create table `categories` 
 (
-    `categories_id`         integer primary key  autoincrement,
-    `categories_image`      varchar default NULL,
-    `categories_teaser`     varchar default '',
+    `categories_id`         integer primary key  auto_increment,
+    `categories_image`      text default NULL,
+    `categories_teaser`     text default '',
     `parent_id`             integer NOT NULL default '0' references `categories`(`categories_id`),
     `categories_status`     integer NOT NULL default '1',
-    `categories_template`   varchar default NULL,
-    `listing_template`      varchar default NULL,
+    `categories_template`   text default NULL,
+    `listing_template`      text default NULL,
     `sort_order`            integer NOT NULL default '0',
-    `products_sorting`      varchar default NULL,
-    `products_sorting2`     varchar default NULL,
+    `products_sorting`      text default NULL,
+    `products_sorting2`     text default NULL,
     `date_added`            datetime default NULL,
     `last_modified`         datetime default NULL,
-    `categories_key`        varchar default '',
-    `ibc_devices`           varchar default NULL
+    `categories_key`        text default '',
+    `ibc_devices`           text default NULL
 );
 
 
@@ -204,26 +204,26 @@ create table `categories_description`
 (
     `categories_id`                 integer NOT NULL default '0' references `categories`(`categories_id`),
     `languages_id`                  integer NOT NULL default '1' references `languages` (`language_id`),
-    `categories_name`               varchar NOT NULL default '',
-    `categories_heading_title`      varchar NOT NULL default '',
+    `categories_name`               text NOT NULL default '',
+    `categories_heading_title`      text NOT NULL default '',
     `categories_description`        text NOT NULL,
-    `categories_meta_title`         varchar NOT NULL default '',
-    `categories_meta_description`   varchar NOT NULL default '',
-    `categories_meta_keywords`      varchar NOT NULL default '',
+    `categories_meta_title`         text NOT NULL default '',
+    `categories_meta_description`   text NOT NULL default '',
+    `categories_meta_keywords`      text NOT NULL default '',
     primary key (`categories_id`,`languages_id`)
 );
 
 create table `configuration` 
 (
-    `configuration_id`          integer primary key  autoincrement,
-    `configuration_key`         varchar NOT NULL,
-    `configuration_value`       varchar NOT NULL,
+    `configuration_id`          integer primary key  auto_increment,
+    `configuration_key`         text NOT NULL,
+    `configuration_value`       text NOT NULL,
     `configuration_group_id`    integer  NOT NULL,
     `sort_order`                integer default NULL,
     `last_modified`             datetime default NULL,
     `date_added`                datetime NOT NULL,
-    `use_function`              varchar default NULL,
-    `set_function`              varchar default NULL
+    `use_function`              text default NULL,
+    `set_function`              text default NULL
 );
 
 insert into `configuration` 
@@ -524,9 +524,9 @@ insert into `configuration`
 
 create table `configuration_group` 
 (
-    `configuration_group_id`            integer primary key  autoincrement,
-    `configuration_group_title`         varchar NOT NULL,
-    `configuration_group_description`   varchar NOT NULL,
+    `configuration_group_id`            integer primary key  auto_increment,
+    `configuration_group_title`         text NOT NULL,
+    `configuration_group_description`   text NOT NULL,
     `sort_order`                        integer default NULL,
     `visible`                           integer default '1'
 );
@@ -555,7 +555,7 @@ insert into `configuration_group` values (22,'Search Options','Additional Option
 
 create table `content_manager` 
 (
-    `content_id`        integer primary key  autoincrement,
+    `content_id`        integer primary key  auto_increment,
     `categories_id`     integer  NOT NULL default '0',
     `parent_id`         integer  NOT NULL default '0' references `content_manager` (`content_id`),
     `group_ids`         text,
@@ -565,7 +565,7 @@ create table `content_manager`
     `content_text`      text NOT NULL,
     `sort_order`        integer NOT NULL default '0',
     `file_flag`         integer NOT NULL default '0',
-    `content_file`      varchar NOT NULL default '',
+    `content_file`      text NOT NULL default '',
     `content_status`    integer NOT NULL default '0',
     `content_group`     integer  NOT NULL,
     `content_delete`    integer NOT NULL default '1'
@@ -593,10 +593,10 @@ create table `counter_history`
 
 create table `countries` 
 (
-    `countries_id` integer primary key  autoincrement,
-    `countries_name` varchar NOT NULL,
-    `countries_iso_code_2` varchar NOT NULL,
-    `countries_iso_code_3` varchar NOT NULL,
+    `countries_id` integer primary key  auto_increment,
+    `countries_name` text NOT NULL,
+    `countries_iso_code_2` text NOT NULL,
+    `countries_iso_code_3` text NOT NULL,
     `address_format_id` integer  NOT NULL,
     `status` integer default '1'
 );
@@ -844,11 +844,11 @@ insert into `countries` values (239,'Zimbabwe','ZW','ZWE',1,1);
 
 create table `currencies` 
 (
-    `currencies_id`     integer primary key  autoincrement,
-    `title`             varchar  NOT NULL,
-    `code`              varchar NOT NULL,
-    `symbol_left`       varchar default NULL,
-    `symbol_right`      varchar default NULL,
+    `currencies_id`     integer primary key  auto_increment,
+    `title`             text  NOT NULL,
+    `code`              text NOT NULL,
+    `symbol_left`       text default NULL,
+    `symbol_right`      text default NULL,
     `decimal_point`     char default NULL,
     `thousands_point`   char default NULL,
     `decimal_places`    char default NULL,
@@ -861,42 +861,42 @@ insert into `currencies` values (1,'Euro','EUR','','EUR',',','.','2',1.00000000,
 
 create table `customers` 
 (
-    `customers_id`                  integer  primary key  autoincrement,
-    `customers_cid`                 varchar  default NULL unique,
-    `customers_vat_id`              varchar  default NULL,
+    `customers_id`                  integer  primary key  auto_increment,
+    `customers_cid`                 varchar(1000)  default NULL unique,
+    `customers_vat_id`              text  default NULL,
     `customers_vat_id_status`       integer  NOT NULL default '0',
-    `customers_warning`             varchar  default NULL,
+    `customers_warning`             text  default NULL,
     `customers_status`              integer  NOT NULL default '1' references `customers_status`(`customers_status_id`),
     `customers_gender`              char     NOT NULL,
-    `customers_firstname`           varchar  NOT NULL,
-    `customers_lastname`            varchar  NOT NULL,
+    `customers_firstname`           text  NOT NULL,
+    `customers_lastname`            text  NOT NULL,
     `customers_dob`                 datetime NOT NULL default '0000-00-00 00:00:00',
-    `customers_email_address`       varchar NOT NULL,
+    `customers_email_address`       text NOT NULL,
     `customers_default_address_id`  integer  NOT NULL,
-    `customers_telephone`           varchar  NOT NULL,
-    `customers_fax`                 varchar  default NULL,
-    `customers_password`            varchar NOT NULL,
+    `customers_telephone`           text  NOT NULL,
+    `customers_fax`                 text  default NULL,
+    `customers_password`            text NOT NULL,
     `customers_newsletter`          char default NULL,
     `customers_newsletter_mode`     char NOT NULL default '0',
     `member_flag`                   char NOT NULL default '0',
     `delete_user`                   char NOT NULL default '1',
     `account_type`                  integer NOT NULL default '0',
-    `password_request_key`          varchar  NOT NULL,
-    `payment_unallowed`             varchar NOT NULL,
-    `shipping_unallowed`            varchar NOT NULL,
+    `password_request_key`          text  NOT NULL,
+    `payment_unallowed`             text NOT NULL,
+    `shipping_unallowed`            text NOT NULL,
     `refferers_id`                  integer NOT NULL default '0',
     `customers_date_added`          datetime default '0000-00-00 00:00:00',
     `customers_last_modified`       datetime default '0000-00-00 00:00:00'
 );
 
-insert into `customers` values (1,'admin','',0,NULL,0,'m','<<RSTI_OWNER_FIRST_NAME>>','<<RSTI_OWNER_LAST_NAME>>','2987-01-26 00:00:00','<<RSTI_OWNER_MAIL>>',1,'000','','<<RSTI_OWNER_POSTCODE>>','1','0','0','0',0,'','','',0,'0000-00-00 00:00:00','2008-05-15 13:08:17');
+insert into `customers` values (1,'admin','',0,NULL,0,'m','<<RSTI_OWNER_FIRST_NAME>>','<<RSTI_OWNER_LAST_NAME>>','2987-01-26 00:00:00','<<RSTI_OWNER_MAIL>>',1,'000','','21232f297a57a5a743894a0e4a801fc3','1','0','0','0',0,'','','',0,'0000-00-00 00:00:00','2008-05-15 13:08:17');
 
 
 
 create table `customers_basket` 
 (
-    `customers_basket_id`           integer  primary key  autoincrement,
-    `customers_id`                  references `customers` (`customers_id`),
+    `customers_basket_id`           integer  primary key  auto_increment,
+    `customers_id`                  integer references `customers` (`customers_id`),
     `products_id`                   text NOT NULL,
     `customers_basket_quantity`     integer NOT NULL,
     `final_price`                   real NOT NULL,
@@ -906,7 +906,7 @@ create table `customers_basket`
 
 create table `customers_basket_attributes` 
 (
-    `customers_basket_attributes_id`    integer  primary key  autoincrement,
+    `customers_basket_attributes_id`    integer  primary key  auto_increment,
     `customers_id`                      integer  NOT NULL references `customers` (`customers_id`),
     `products_id`                       text NOT NULL,
     `products_options_id`               integer    NOT NULL,
@@ -928,19 +928,19 @@ create table `customers_info`
 
 create table `customers_ip` 
 (
-    `customers_ip_id`       integer  primary key  autoincrement,
+    `customers_ip_id`       integer  primary key  auto_increment,
     `customers_id`          integer  NOT NULL default '0' references `customers` (`customers_id`),
-    `customers_ip`          varchar  NOT NULL default '',
+    `customers_ip`          text  NOT NULL default '',
     `customers_ip_date`     datetime NOT NULL default '0000-00-00 00:00:00',
-    `customers_host`        varchar NOT NULL default '',
-    `customers_advertiser`  varchar default NULL,
-    `customers_referer_url` varchar default NULL
+    `customers_host`        text NOT NULL default '',
+    `customers_advertiser`  text default NULL,
+    `customers_referer_url` text default NULL
 );
 
 
 create table `customers_memo` 
 (
-    `memo_id`       integer  primary key  autoincrement,
+    `memo_id`       integer  primary key  auto_increment,
     `customers_id`  integer  NOT NULL default '0',
     `memo_date`     date NOT NULL default '0000-00-00',
     `memo_title`    text NOT NULL,
@@ -953,20 +953,20 @@ create table `customers_status`
 (
     `customers_status_id`               integer  NOT NULL default '0',
     `languages_id`                      integer  NOT NULL default '1'  references `languages` (`language_id`),
-    `customers_status_name`             varchar  NOT NULL default '',
+    `customers_status_name`             text  NOT NULL default '',
     `customers_status_public`           integer NOT NULL default '1',
     `customers_status_min_order`        integer default NULL,
     `customers_status_max_order`        integer default NULL,
-    `customers_status_image`            varchar default NULL,
+    `customers_status_image`            text default NULL,
     `customers_status_discount`         real default '0.00',
     `customers_status_ot_discount_flag` char NOT NULL default '0',
     `customers_status_ot_discount`      real default '0.00',
-    `customers_status_graduated_prices` varchar NOT NULL default '0',
+    `customers_status_graduated_prices` varchar(1000) NOT NULL default '0',
     `customers_status_show_price`       integer NOT NULL default '1',
     `customers_status_show_price_tax`   integer NOT NULL default '1',
     `customers_status_add_tax_ot`       integer NOT NULL default '0',
-    `customers_status_payment_unallowed` varchar NOT NULL default '',
-    `customers_status_shipping_unallowed` varchar NOT NULL default '',
+    `customers_status_payment_unallowed` text NOT NULL default '',
+    `customers_status_shipping_unallowed` text NOT NULL default '',
     `customers_status_discount_attributes` integer NOT NULL default '0',
     `customers_fsk18`                   integer NOT NULL default '1',
     `customers_fsk18_display`           integer NOT NULL default '1',
@@ -984,7 +984,7 @@ insert into `customers_status` values (4,2,'Kunde, Rechnung',1,0,0,NULL,'0.00','
 
 create table `customers_status_history` 
 (
-    `customers_status_history_id`   integer primary key  autoincrement,
+    `customers_status_history_id`   integer primary key  auto_increment,
     `customers_id`                  integer  NOT NULL default '0' references `customers` (`customers_id`),
     `new_value`                     integer NOT NULL default '0',
     `old_value`                     integer default NULL,
@@ -995,9 +995,9 @@ create table `customers_status_history`
 
 create table `geo_zones` 
 (
-    `geo_zone_id`           integer primary key  autoincrement,
-    `geo_zone_name`         varchar  NOT NULL,
-    `geo_zone_description`  varchar NOT NULL,
+    `geo_zone_id`           integer primary key  auto_increment,
+    `geo_zone_name`         text  NOT NULL,
+    `geo_zone_description`  text NOT NULL,
     `last_modified`         datetime default NULL,
     `date_added`            datetime NOT NULL
 );
@@ -1009,11 +1009,11 @@ insert into `geo_zones` values (7,'Steuerzone B2B','',NULL,'2008-01-20 11:12:18'
 
 create table `languages` 
 (
-    `languages_id`      integer  primary key autoincrement,
-    `name`              varchar  NOT NULL default '',
-    `code`              varchar  NOT NULL default '' unique,
-    `image`             varchar  default NULL,
-    `directory`         varchar  default NULL,
+    `languages_id`      integer  primary key auto_increment,
+    `name`              text  NOT NULL default '',
+    `code`              varchar(1000)  NOT NULL default '' unique,
+    `image`             text  default NULL,
+    `directory`         text  default NULL,
     `sort_order`        integer  default NULL,
     `language_charset`  text NOT NULL
 );
@@ -1023,9 +1023,9 @@ insert into `languages` values (2,'Deutsch','de','icon.gif','german',1,'UTF-8');
 
 create table `manufacturers` 
 (
-    `manufacturers_id`      integer  primary key autoincrement,
-    `manufacturers_name`    varchar  NOT NULL default '' unique,
-    `manufacturers_image`   varchar default NULL,
+    `manufacturers_id`      integer  primary key auto_increment,
+    `manufacturers_name`    varchar(1000)  NOT NULL default '' unique,
+    `manufacturers_image`   text default NULL,
     `date_added`            datetime default NULL,
     `last_modified`         datetime default NULL
 );
@@ -1036,10 +1036,10 @@ create table `manufacturers_info`
 (
     `manufacturers_id`               integer  NOT NULL references `manufacturers` (`manufacturers_id`),
     `languages_id`                   integer  NOT NULL references `languages` (`languages_id`),
-    `manufacturers_meta_title`       varchar NOT NULL,
-    `manufacturers_meta_description` varchar NOT NULL,
-    `manufacturers_meta_keywords`    varchar NOT NULL,
-    `manufacturers_url`              varchar NOT NULL,
+    `manufacturers_meta_title`       text NOT NULL,
+    `manufacturers_meta_description` text NOT NULL,
+    `manufacturers_meta_keywords`    text NOT NULL,
+    `manufacturers_url`              text NOT NULL,
     `url_clicked`                    integer NOT NULL default '0',
     `date_last_click`                datetime default NULL,
     primary key (`manufacturers_id`,`languages_id`)
@@ -1048,7 +1048,7 @@ create table `manufacturers_info`
 
 create table `module_newsletter` 
 (
-    `newsletter_id` integer  primary key autoincrement,
+    `newsletter_id` integer  primary key auto_increment,
     `title`         text NOT NULL,
     `bc`            text NOT NULL,
     `cc`            text NOT NULL,
@@ -1060,24 +1060,24 @@ create table `module_newsletter`
 
 create table `newsletter_recipients` 
 (
-    `mail_id`                 integer  primary key autoincrement,
-    `customers_email_address` varchar NOT NULL default '',
+    `mail_id`                 integer  primary key auto_increment,
+    `customers_email_address` text NOT NULL default '',
     `customers_id`            integer  NOT NULL default '0',
     `customers_status`        integer NOT NULL default '0',
-    `customers_firstname`     varchar  NOT NULL default '',
-    `customers_lastname`      varchar  NOT NULL default '',
+    `customers_firstname`     text  NOT NULL default '',
+    `customers_lastname`      text  NOT NULL default '',
     `mail_status`             integer NOT NULL default '0',
-    `mail_key`                varchar  NOT NULL default '',
+    `mail_key`                text  NOT NULL default '',
     `date_added`              datetime NOT NULL default '0000-00-00 00:00:00'
 );
 
 
 create table `newsletters` 
 (
-  `newsletters_id`          integer  primary key autoincrement,
-  `title`                   varchar NOT NULL,
+  `newsletters_id`          integer  primary key auto_increment,
+  `title`                   text NOT NULL,
   `content`                 text NOT NULL,
-  `module`                  varchar NOT NULL,
+  `module`                  text NOT NULL,
   `date_added`              datetime NOT NULL,
   `date_sent`               datetime default NULL,
   `status`                  integer default NULL,
@@ -1094,89 +1094,89 @@ create table `newsletters_history`
 
 create table `orders` 
 (
-    `orders_id`                     integer primary key autoincrement,
+    `orders_id`                     integer primary key auto_increment,
     `customers_id`                  integer NOT NULL references `customers` (`customers_id`),
-    `customers_cid`                 varchar default NULL,
-    `customers_vat_id`              varchar default NULL,
+    `customers_cid`                 text default NULL,
+    `customers_vat_id`              text default NULL,
     `customers_status`              integer default NULL,
-    `customers_status_name`         varchar NOT NULL,
-    `customers_status_image`        varchar default NULL,
+    `customers_status_name`         text NOT NULL,
+    `customers_status_image`        text default NULL,
     `customers_status_discount`     real    default NULL,
-    `customers_name`                varchar NOT NULL,
-    `customers_firstname`           varchar NOT NULL,
-    `customers_lastname`            varchar NOT NULL,
-    `customers_company`             varchar default NULL,
-    `customers_street_address`      varchar NOT NULL,
-    `customers_suburb`              varchar default NULL,
-    `customers_city`                varchar NOT NULL,
-    `customers_postcode`            varchar NOT NULL,
-    `customers_state`               varchar default NULL,
-    `customers_country`             varchar NOT NULL,
-    `customers_telephone`           varchar NOT NULL,
-    `customers_email_address`       varchar NOT NULL,
+    `customers_name`                text NOT NULL,
+    `customers_firstname`           text NOT NULL,
+    `customers_lastname`            text NOT NULL,
+    `customers_company`             text default NULL,
+    `customers_street_address`      text NOT NULL,
+    `customers_suburb`              text default NULL,
+    `customers_city`                text NOT NULL,
+    `customers_postcode`            text NOT NULL,
+    `customers_state`               text default NULL,
+    `customers_country`             text NOT NULL,
+    `customers_telephone`           text NOT NULL,
+    `customers_email_address`       text NOT NULL,
     `customers_address_format_id`   integer NOT NULL,
-    `delivery_name`                 varchar NOT NULL,
-    `delivery_firstname`            varchar NOT NULL,
-    `delivery_lastname`             varchar NOT NULL,
-    `delivery_company`              varchar default NULL,
-    `delivery_street_address`       varchar NOT NULL,
-    `delivery_suburb`               varchar default NULL,
-    `delivery_city`                 varchar NOT NULL,
-    `delivery_postcode`             varchar NOT NULL,
-    `delivery_state`                varchar default NULL,
-    `delivery_country`              varchar NOT NULL,
-    `delivery_country_iso_code_2`   varchar NOT NULL,
+    `delivery_name`                 text NOT NULL,
+    `delivery_firstname`            text NOT NULL,
+    `delivery_lastname`             text NOT NULL,
+    `delivery_company`              text default NULL,
+    `delivery_street_address`       text NOT NULL,
+    `delivery_suburb`               text default NULL,
+    `delivery_city`                 text NOT NULL,
+    `delivery_postcode`             text NOT NULL,
+    `delivery_state`                text default NULL,
+    `delivery_country`              text NOT NULL,
+    `delivery_country_iso_code_2`   text NOT NULL,
     `delivery_address_format_id`    integer NOT NULL,
-    `billing_name`                  varchar NOT NULL,
-    `billing_firstname`             varchar NOT NULL,
-    `billing_lastname`              varchar NOT NULL,
-    `billing_company`               varchar default NULL,
-    `billing_street_address`        varchar NOT NULL,
-    `billing_suburb`                varchar default NULL,
-    `billing_city`                  varchar NOT NULL,
-    `billing_postcode`              varchar NOT NULL,
-    `billing_state`                 varchar default NULL,
-    `billing_country`               varchar NOT NULL,
-    `billing_country_iso_code_2`    varchar NOT NULL,
+    `billing_name`                  text NOT NULL,
+    `billing_firstname`             text NOT NULL,
+    `billing_lastname`              text NOT NULL,
+    `billing_company`               text default NULL,
+    `billing_street_address`        text NOT NULL,
+    `billing_suburb`                text default NULL,
+    `billing_city`                  text NOT NULL,
+    `billing_postcode`              text NOT NULL,
+    `billing_state`                 text default NULL,
+    `billing_country`               text NOT NULL,
+    `billing_country_iso_code_2`    text NOT NULL,
     `billing_address_format_id`     integer NOT NULL,
-    `payment_method`                varchar NOT NULL,
-    `cc_type`                       varchar default NULL,
-    `cc_owner`                      varchar default NULL,
-    `cc_number`                     varchar default NULL,
-    `cc_expires`                    varchar default NULL,
-    `cc_start`                      varchar default NULL,
-    `cc_issue`                      varchar default NULL,
-    `cc_cvv`                        varchar default NULL,
-    `comments`                      varchar default NULL,
+    `payment_method`                text NOT NULL,
+    `cc_type`                       text default NULL,
+    `cc_owner`                      text default NULL,
+    `cc_number`                     text default NULL,
+    `cc_expires`                    text default NULL,
+    `cc_start`                      text default NULL,
+    `cc_issue`                      text default NULL,
+    `cc_cvv`                        text default NULL,
+    `comments`                      text default NULL,
     `last_modified`                 datetime default NULL,
     `date_purchased`                datetime default NULL,
     `orders_status`                 integer NOT NULL,
     `orders_date_finished`          datetime default NULL,
-    `currency`                      varchar default NULL,
+    `currency`                      text default NULL,
     `currency_value`                real default NULL,
     `account_type`                  integer NOT NULL default '0',
-    `payment_class`                 varchar NOT NULL,
-    `shipping_method`               varchar NOT NULL,
-    `shipping_class`                varchar NOT NULL,
-    `customers_ip`                  varchar NOT NULL,
-    `language`                      varchar NOT NULL,
+    `payment_class`                 text NOT NULL,
+    `shipping_method`               text NOT NULL,
+    `shipping_class`                text NOT NULL,
+    `customers_ip`                  text NOT NULL,
+    `language`                      text NOT NULL,
     `afterbuy_success`              integer NOT NULL default '0',
     `afterbuy_id`                   int NOT NULL default '0',
-    `refferers_id`                  varchar NOT NULL,
+    `refferers_id`                  text NOT NULL,
     `conversion_type`               integer NOT NULL default '0',
-    `orders_ident_key`              varchar default NULL
+    `orders_ident_key`              text default NULL
 );
 
 create table `orders_products` 
 (
-    `orders_products_id`        integer primary key autoincrement,
+    `orders_products_id`        integer primary key auto_increment,
     `orders_id`                 integer  NOT NULL references `orders` (`orders_id`),
     `products_id`               integer  NOT NULL,
-    `products_model`            varchar default NULL,
-    `products_name`             varchar NOT NULL,
+    `products_model`            text default NULL,
+    `products_name`             text NOT NULL,
     `products_price`            real NOT NULL,
     `products_discount_made`    real default NULL,
-    `products_shipping_time`    varchar default NULL,
+    `products_shipping_time`    text default NULL,
     `final_price`               real NOT NULL,
     `products_tax`              real NOT NULL,
     `products_quantity`         integer NOT NULL,
@@ -1186,11 +1186,11 @@ create table `orders_products`
 
 create table `orders_products_attributes` 
 (
-    `orders_products_attributes_id` integer primary key autoincrement,
+    `orders_products_attributes_id` integer primary key auto_increment,
     `orders_id`                     integer NOT NULL references `orders` (`orders_id`),
     `orders_products_id`            integer NOT NULL references `orders_products` (`orders_products_id`),
-    `products_options`              varchar NOT NULL,
-    `products_options_values`       varchar NOT NULL,
+    `products_options`              text NOT NULL,
+    `products_options_values`       text NOT NULL,
     `options_values_price`          real NOT NULL,
     `price_prefix`                  char NOT NULL
 );
@@ -1198,10 +1198,10 @@ create table `orders_products_attributes`
 
 create table `orders_products_download` 
 (
-    `orders_products_download_id`   integer primary key autoincrement,
+    `orders_products_download_id`   integer primary key auto_increment,
     `orders_id`                     integer  NOT NULL default '0' references `orders` (`orders_id`),
     `orders_products_id`            integer  NOT NULL default '0',
-    `orders_products_filename`      varchar NOT NULL default '',
+    `orders_products_filename`      text NOT NULL default '',
     `download_maxdays`              integer NOT NULL default '0',
     `download_count`                integer NOT NULL default '0'
 );
@@ -1209,13 +1209,13 @@ create table `orders_products_download`
 
 create table `orders_recalculate` 
 (
-    `orders_recalculate_id` integer primary key autoincrement,
+    `orders_recalculate_id` integer primary key auto_increment,
     `orders_id`             integer  NOT NULL default '0',
     `n_price`               real NOT NULL default '0.0000',
     `b_price`               real NOT NULL default '0.0000',
     `tax`                   real NOT NULL default '0.0000',
     `tax_rate`              real NOT NULL default '0.0000',
-    `class`                 varchar  NOT NULL default ''
+    `class`                 text  NOT NULL default ''
 );
 
 
@@ -1223,7 +1223,7 @@ create table `orders_status`
 (
     `orders_status_id`      integer  NOT NULL default '0',
     `languages_id`          integer  NOT NULL default '1' references `languages`(`languages_id`),
-    `orders_status_name`    varchar  NOT NULL default '',
+    `orders_status_name`    text  NOT NULL default '',
     primary key  (`orders_status_id`,`languages_id`)
 );
 
@@ -1236,7 +1236,7 @@ insert into `orders_status` values (5,2,'Bestellung storniert');
 
 create table `orders_status_history` 
 (
-    `orders_status_history_id`  integer  primary key autoincrement,
+    `orders_status_history_id`  integer  primary key auto_increment,
     `orders_id`                 integer  NOT NULL references `orders` (`orders_id`),
     `orders_status_id`          integer  NOT NULL references `orders_status` (`orders_status_id`),
     `date_added`                datetime NOT NULL,
@@ -1247,21 +1247,21 @@ create table `orders_status_history`
 
 create table `orders_total` 
 (
-    `orders_total_id`   integer primary key autoincrement,
+    `orders_total_id`   integer primary key auto_increment,
     `orders_id`         integer  NOT NULL,
-    `title`             varchar NOT NULL,
-    `text`              varchar NOT NULL,
+    `title`             text NOT NULL,
+    `text`              text NOT NULL,
     `value`             real NOT NULL,
-    `class`             varchar  NOT NULL,
+    `class`             text  NOT NULL,
     `sort_order`        integer  NOT NULL
 );
 
 
 create table `payment_moneybookers` 
 (
-    `mb_TRID`    varchar primary key NOT NULL,
+    `mb_TRID`    varchar(1000) primary key NOT NULL,
     `mb_ERRNO`   integer  unsigned NOT NULL default '0',
-    `mb_ERRTXT`  varchar NOT NULL default '',
+    `mb_ERRTXT`  text NOT NULL default '',
     `mb_DATE`    datetime NOT NULL default '0000-00-00 00:00:00',
     `mb_MBTID`   integer unsigned NOT NULL default '0',
     `mb_STATUS`  integer NOT NULL default '0',
@@ -1272,7 +1272,7 @@ create table `payment_moneybookers`
 create table `payment_moneybookers_countries` 
 (
     `osc_cID`   integer   primary key NOT NULL,
-    `mb_cID`    varchar NOT NULL default ''
+    `mb_cID`    text NOT NULL default ''
 );
 
 insert into `payment_moneybookers_countries` values (2,'ALB');
@@ -1476,8 +1476,8 @@ insert into `payment_moneybookers_countries` values (239,'ZIM');
 
 create table `payment_moneybookers_currencies` 
 (
-    `mb_currID`     varchar primary key NOT NULL,
-    `mb_currName`   varchar NOT NULL default ''
+    `mb_currID`     varchar(1000) primary key NOT NULL,
+    `mb_currName`   text NOT NULL default ''
 );
 
 insert into `payment_moneybookers_currencies` values ('AUD','Australian Dollar');
@@ -1510,10 +1510,10 @@ insert into `payment_moneybookers_currencies` values ('ZAR','South-African Rand'
 
 create table `payment_qenta` 
 (
-    `q_TRID`        varchar  primary key NOT NULL,
+    `q_TRID`        varchar(1000)  primary key NOT NULL,
     `q_DATE`        datetime NOT NULL default '0000-00-00 00:00:00',
     `q_QTID`        integer unsigned NOT NULL default '0',
-    `q_ORDERDESC`   varchar NOT NULL default '',
+    `q_ORDERDESC`   text NOT NULL default '',
     `q_STATUS`      integer NOT NULL default '0',
     `q_ORDERID`     integer  unsigned NOT NULL default '0'
 );
@@ -1521,11 +1521,11 @@ create table `payment_qenta`
 
 create table `products` 
 (
-    `products_id`               integer primary key autoincrement,
-    `products_ean`              varchar default NULL,
+    `products_id`               integer primary key auto_increment,
+    `products_ean`              text default NULL,
     `products_quantity`         integer NOT NULL default '0',
     `products_shippingtime`     integer NOT NULL default '0',
-    `products_model`            varchar default NULL unique,
+    `products_model`            varchar(1000) default NULL unique,
     `products_sort`             integer NOT NULL default '0',
     `products_price`            real NOT NULL default '0.0000',
     `products_discount_allowed` real NOT NULL default '0.00',
@@ -1535,8 +1535,8 @@ create table `products`
     `products_weight`           real NOT NULL default '0.00',
     `products_status`           integer NOT NULL default '0',
     `products_tax_class_id`     integer  NOT NULL default '0',
-    `product_template`          varchar default NULL,
-    `options_template`          varchar default NULL,
+    `product_template`          text default NULL,
+    `options_template`          text default NULL,
     `manufacturers_id`          integer  default NULL,
     `products_ordered`          integer  NOT NULL default '0',
     `products_fsk18`            integer NOT NULL default '0',
@@ -1546,19 +1546,19 @@ create table `products`
     `products_startpage`        integer NOT NULL default '0',
     `products_startpage_sort`   integer NOT NULL default '0',
     `products_trading_unit`     integer NOT NULL default '1',
-    `ibc_supplies`              varchar default NULL
+    `ibc_supplies`              text default NULL
 );
 
 
 create table `products_attributes` 
 (
-    `products_attributes_id`    integer primary key autoincrement,
+    `products_attributes_id`    integer primary key auto_increment,
     `products_id`               integer  NOT NULL,
     `options_id`                integer  NOT NULL,
     `options_values_id`         integer  NOT NULL,
     `options_values_price`      real NOT NULL,
     `price_prefix`              char NOT NULL,
-    `attributes_model`          varchar default NULL,
+    `attributes_model`          text default NULL,
     `attributes_stock`          integer default NULL,
     `options_values_weight`     real NOT NULL,
     `weight_prefix`             char NOT NULL,
@@ -1570,7 +1570,7 @@ create table `products_attributes`
 create table `products_attributes_download` 
 (
     `products_attributes_id`        integer primary key NOT NULL references `products_attributes` (`products_attributes_id`) ,
-    `products_attributes_filename`  varchar NOT NULL default '',
+    `products_attributes_filename`  text NOT NULL default '',
     `products_attributes_maxdays`   integer default '0',
     `products_attributes_maxcount`  integer default '0'
 );
@@ -1578,11 +1578,11 @@ create table `products_attributes_download`
 
 create table `products_content` 
 (
-    `content_id`    integer  primary key autoincrement,
+    `content_id`    integer  primary key auto_increment,
     `products_id`   integer  NOT NULL default '0' references `products` (`products_id`),
     `group_ids`     text,
-    `content_name`  varchar  NOT NULL default '',
-    `content_file`  varchar NOT NULL,
+    `content_name`  text  NOT NULL default '',
+    `content_file`  text NOT NULL,
     `content_link`  text NOT NULL,
     `languages_id`  integer  NOT NULL default '0' references  `languages` (`languages_id`),
     `content_read`  integer  NOT NULL default '0',
@@ -1594,16 +1594,16 @@ create table `products_description`
 (
     `products_id`                integer NOT NULL references `products` (`products_id`),
     `languages_id`               integer  NOT NULL default '1' references `languages` (`languages_id`),
-    `products_name`              varchar NOT NULL,
+    `products_name`              text NOT NULL,
     `products_description`       text,
     `products_short_description` text,
-    `products_keywords`          varchar default NULL,
+    `products_keywords`          text default NULL,
     `products_meta_title`        text NOT NULL,
     `products_meta_description`  text NOT NULL,
     `products_meta_keywords`     text NOT NULL,
-    `products_url`               varchar default NULL,
+    `products_url`               text default NULL,
     `products_viewed`            integer,
-    `products_trading_unit_name` varchar NOT NULL,
+    `products_trading_unit_name` text NOT NULL,
     primary key (`products_id`,`languages_id`)
 );
 
@@ -1618,11 +1618,11 @@ create table `products_graduated_prices`
 
 create table `products_images` 
 (
-    `image_nr`      integer primary key autoincrement,
+    `image_nr`      integer primary key auto_increment,
     `products_id`   integer NOT NULL references `products` (`products_id`),
-    `url_small`     varchar NOT NULL,
-    `url_middle`    varchar,
-    `url_big`       varchar,
+    `url_small`     text NOT NULL,
+    `url_middle`    text,
+    `url_big`       text,
     unique  (`image_nr`,`products_id`)
 );
 
@@ -1640,7 +1640,7 @@ create table `products_options`
 (
     `products_options_id`   integer  NOT NULL default '0',
     `languages_id`          integer  NOT NULL default '1' references `languages` (`languages_id`),
-    `products_options_name` varchar  NOT NULL default '',
+    `products_options_name` text  NOT NULL default '',
     primary key (`products_options_id`,`languages_id`)
 );
 
@@ -1649,14 +1649,14 @@ create table `products_options_values`
 (
     `products_options_values_id` integer  NOT NULL default '0',
     `languages_id` integer  NOT NULL default '1'  references `languages` (`languages_id`),
-    `products_options_values_name` varchar NOT NULL default '',
+    `products_options_values_name` text NOT NULL default '',
     primary key  (`products_options_values_id`,`languages_id`)
 );
 
 
 create table `products_options_values_to_products_options` 
 (
-    `products_options_values_to_products_options_id`    integer primary key autoincrement,
+    `products_options_values_to_products_options_id`    integer primary key auto_increment,
     `products_options_id`                               integer  NOT NULL references `products_options` (`products_options_id`) ,
     `products_options_values_id`                        integer  NOT NULL references `products_options_values` (`products_options_values_id`)
 );
@@ -1674,7 +1674,7 @@ create table `products_vpe`
 (
     `products_vpe_id` integer NOT NULL,
     `languages_id` integer  NOT NULL default '0' references `languages` (`languages_id`),
-    `products_vpe_name`varchar  NOT NULL default '',
+    `products_vpe_name` varchar(900)  NOT NULL default '',
     unique (`products_vpe_id`,`languages_id`),
     unique (`products_vpe_name`,`languages_id`)
 ); 
@@ -1686,7 +1686,7 @@ insert into `products_vpe` values (1,2,'kg');
 
 create table `products_xsell` 
 (
-    `ID`                            integer primary key autoincrement,
+    `ID`                            integer primary key auto_increment,
     `products_id`                   integer unsigned NOT NULL default '1' references `products` (`products_id` ) ,
     `products_xsell_grp_name_id`    integer unsigned NOT NULL default '1',
     `xsell_id`                      integer unsigned NOT NULL default '1',
@@ -1700,16 +1700,16 @@ create table `products_xsell_grp_name`
     `products_xsell_grp_name_id`    integer NOT NULL,
     `xsell_sort_order`              integer NOT NULL default '0',
     `language_id`                   integer NOT NULL default '0',
-    `groupname`                     varchar NOT NULL default ''
+    `groupname`                     text NOT NULL default ''
 );
 
 
 create table `reviews` 
 (
-    `reviews_id`        integer  primary key autoincrement,
+    `reviews_id`        integer  primary key auto_increment,
     `products_id`       integer  NOT NULL references `products` (`products_id`),
     `customers_id`      integer  default NULL references `customers` (`customers_id`),
-    `customers_name`    varchar  NOT NULL,
+    `customers_name`    text  NOT NULL,
     `reviews_rating`    integer  default NULL,
     `date_added`        datetime default NULL,
     `last_modified`     datetime default NULL,
@@ -1728,7 +1728,7 @@ create table `reviews_description`
 
 create table `sessions` 
 (
-    `sesskey`   varchar  primary key NOT NULL,
+    `sesskey`   varchar(1000)  primary key NOT NULL,
     `expiry`    integer  unsigned NOT NULL,
     `value`     text NOT NULL
 );
@@ -1738,7 +1738,7 @@ create table `shipping_status`
 (
     `shipping_status_id`    integer  NOT NULL default '0',
     `languages_id`          integer  NOT NULL default '1' references `languages`(`languages_id`) ,
-    `shipping_status_name`  varchar  NOT NULL default '',
+    `shipping_status_name`  varchar(900)  NOT NULL default '',
     `shipping_status_image` timestamp NOT NULL default CURRENT_TIMESTAMP,
     primary key  (`shipping_status_id`,`languages_id`),
     UNIQUE (`shipping_status_name`,`languages_id`)
@@ -1752,7 +1752,7 @@ insert into `shipping_status` values (2,2,'demn&auml;chst lieferbar','');
 
 create table `specials` 
 (
-    `specials_id`                   integer primary key autoincrement,
+    `specials_id`                   integer primary key auto_increment,
     `products_id`                   integer  NOT NULL references `products` (`products_id`),
     `specials_quantity`             integer NOT NULL,
     `specials_new_products_price`   real NOT NULL,
@@ -1766,9 +1766,9 @@ create table `specials`
 
 create table `tax_class` 
 (
-    `tax_class_id`          integer primary key autoincrement,
-    `tax_class_title`       varchar  NOT NULL,
-    `tax_class_description` varchar NOT NULL,
+    `tax_class_id`          integer primary key auto_increment,
+    `tax_class_title`       text  NOT NULL,
+    `tax_class_description` text NOT NULL,
     `last_modified`         datetime default NULL,
     `date_added`            datetime NOT NULL
 );
@@ -1779,12 +1779,12 @@ insert into `tax_class` values (2,'ermäßigter Steuersatz','',NULL,'2008-01-20 
 
 create table `tax_rates` 
 (
-    `tax_rates_id`  integer  primary key autoincrement,
+    `tax_rates_id`  integer  primary key auto_increment,
     `tax_zone_id`   integer  NOT NULL,
     `tax_class_id`  integer  NOT NULL references `tax_class` (`tax_class_id`),
     `tax_priority`  integer default '1',
     `tax_rate`      real NOT NULL,
-    `tax_description` varchar NOT NULL,
+    `tax_description` text NOT NULL,
     `last_modified` datetime default NULL,
     `date_added`    datetime NOT NULL
 );
@@ -1798,21 +1798,21 @@ insert into `tax_rates` values (4,6,2,1,'0.0000','EU-AUS-UST 0%','0000-00-00 00:
 create table `whos_online` 
 (
     `customer_id`       integer  default NULL,
-    `full_name`         varchar NOT NULL,
-    `session_id`        varchar NOT NULL,
-    `ip_address`        varchar  NOT NULL,
-    `time_entry`        varchar(14) NOT NULL,
-    `time_last_click`   varchar(14) NOT NULL,
-    `last_page_url`     varchar NOT NULL
+    `full_name`         text NOT NULL,
+    `session_id`        text NOT NULL,
+    `ip_address`        text  NOT NULL,
+    `time_entry`        text(14) NOT NULL,
+    `time_last_click`   text(14) NOT NULL,
+    `last_page_url`     text NOT NULL
 );
 
 
 create table `zones` 
 (
-    `zone_id`           integer primary key autoincrement,
+    `zone_id`           integer primary key auto_increment,
     `zone_country_id`   integer  NOT NULL,
-    `zone_code`         varchar  NOT NULL,
-    `zone_name`         varchar  NOT NULL
+    `zone_code`         text  NOT NULL,
+    `zone_name`         text  NOT NULL
 );
 
 insert into `zones` values (1,223,'AL','Alabama');
@@ -2666,7 +2666,7 @@ insert into `zones` values (847,222,'WILT','Wiltshire');
 
 create table `zones_to_geo_zones` 
 (
-      `association_id`  integer primary key autoincrement,
+      `association_id`  integer primary key auto_increment,
       `zone_country_id` integer  NOT NULL,
       `zone_id`         integer  default NULL,
       `geo_zone_id`     integer  default NULL,
@@ -2914,3 +2914,12 @@ insert into `zones_to_geo_zones` values (237,237,0,6,NULL,'2008-01-20 11:12:18')
 insert into `zones_to_geo_zones` values (238,238,0,6,NULL,'2008-01-20 11:12:18');
 insert into `zones_to_geo_zones` values (239,239,0,6,NULL,'2008-01-20 11:12:18');
 
+
+
+create table `system_meta`
+(
+    `db_version`    text NOT NULL
+);
+
+
+insert into  `system_meta` values ('0');
