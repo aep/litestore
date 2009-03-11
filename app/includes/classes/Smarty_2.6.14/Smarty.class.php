@@ -84,7 +84,7 @@ class Smarty
      *
      * @var string
      */
-    var $compile_dir     =  'templates_c';
+    var $compile_dir     =  DIR_FS_USER.'templates_c';
 
     /**
      * The directory where config files are located.
