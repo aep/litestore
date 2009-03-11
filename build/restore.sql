@@ -2703,3 +2703,21 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2008-06-19 14:02:34
+
+
+DROP TABLE IF EXISTS `metatags`;
+create table `metatags` 
+(
+    `id`            integer NOT null  auto_increment,
+    `name`          varchar(255) NOT NULL,
+    `content`       varchar(255) default '',
+    PRIMARY KEY  (`id`)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;;;
+
+
+
+
+
+
+
+
