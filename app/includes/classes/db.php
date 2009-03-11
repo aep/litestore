@@ -38,8 +38,20 @@ function xtc_db_query($expression)
 }
 
 
-function xtc_db_fetch_array($bla)
+function xtc_db_fetch_array($bla,$ignoreme=true)
 {
+
+    if(!is_object($bla))
+    {
+        if(is_array($bla))
+        {
+            return $bla;
+        }
+        else
+        {
+            throw new Exception ("unexpected parameter to xtc_db_fetch_array");
+        }
+    }
     return $bla->fetch();
 }
 

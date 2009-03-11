@@ -22,7 +22,7 @@
     define('DIR_WS_CATALOG',      '/'); // absolute path required
     define('DIR_FS_DOCUMENT_ROOT',$APPDIR);
     define('DIR_FS_CATALOG',      $APPDIR);
-    define('DIR_WS_IMAGES',       '/images/');
+    define('DIR_WS_IMAGES',       '/user/images/');
     define('DIR_WS_ORIGINAL_IMAGES',  DIR_WS_IMAGES .     'product_images/original_images/');
     define('DIR_WS_THUMBNAIL_IMAGES', DIR_WS_IMAGES .     'product_images/thumbnail_images/');
     define('DIR_WS_INFO_IMAGES',  DIR_WS_IMAGES .         'product_images/info_images/');

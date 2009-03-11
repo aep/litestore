@@ -607,7 +607,7 @@ class categories {
 		elseif ($action == 'update') {
 			$update_sql_data = array ('products_last_modified' => 'now()');
 			$sql_data_array = xtc_array_merge($sql_data_array, $update_sql_data);
-			xtc_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\'');
+			xtc_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \''.(integer)$products_id.'\'');
 		}
 
 		$languages = xtc_get_languages();
@@ -637,19 +637,20 @@ class categories {
 
 				if ($action == 'insert') {
 
-					xtc_db_query("DELETE FROM personal_offers_by_customers_status_".$group_data[$col]['STATUS_ID']." WHERE products_id = '".$products_id."'
-												                 AND quantity    = '1'");
+					xtc_db_query("DELETE FROM prices  WHERE products_id = '".$products_id."'
+												                 AND quantity    = '1' and `customers_status_id`='".$group_data[$col]['STATUS_ID']."'  ");
 
 					$insert_array = array ();
-					$insert_array = array ('personal_offer' => $personal_price, 'quantity' => '1', 'products_id' => $products_id);
-					xtc_db_perform("personal_offers_by_customers_status_".$group_data[$col]['STATUS_ID'], $insert_array);
+					$insert_array = array ('price' => $personal_price, 'quantity' => '1', 'products_id' => $products_id, 'customers_status_id' => $group_data[$col]['STATUS_ID']);
+					xtc_db_perform("prices", $insert_array);
 
 				} else {
 
-					xtc_db_query("UPDATE personal_offers_by_customers_status_".$group_data[$col]['STATUS_ID']."
-												                 SET personal_offer = '".$personal_price."'
+					xtc_db_query("UPDATE prices 
+												                 SET price = '".$personal_price."'
 												               WHERE products_id = '".$products_id."'
-												                 AND quantity    = '1'");
+												                 AND quantity    = '1'
+                                                                 and customers_status_id='".$group_data[$col]['STATUS_ID']."'");
 
 				}
 			}
@@ -727,7 +728,7 @@ class categories {
             }
             elseif ($action == 'update') 
             {
-                xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.xtc_db_input($products_id).'\' and languages_id = \''.$languages_id.'\'');
+                xtc_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \''.(integer)$products_id.'\' and languages_id = \''.$languages_id.'\'');
 			}
 		}
 	} // insert_product ends
@@ -888,14 +889,14 @@ class categories {
 		global $messageStack;
 		$check_query = xtc_db_query("SELECT COUNT(*) AS total
 				                                     FROM ".TABLE_PRODUCTS_TO_CATEGORIES."
-				                                     WHERE products_id   = '".xtc_db_input($src_products_id)."'
-				                                     AND   categories_id = '".xtc_db_input($dest_categories_id)."'");
+				                                     WHERE products_id   = '".(integer)$src_products_id."'
+				                                     AND   categories_id = '".(integer)$dest_categories_id."'");
 		$check = xtc_db_fetch_array($check_query);
 
 		if ($check['total'] < '1') {
 			xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_TO_CATEGORIES."
-						                          SET products_id   = '".xtc_db_input($src_products_id)."',
-						                          categories_id = '".xtc_db_input($dest_categories_id)."'");
+						                          SET products_id   = '".(integer)$src_products_id."',
+						                          categories_id = '".(integer)$dest_categories_id."'");
 						                   
 	    if ($dest_categories_id == 0) {
 			$this->set_product_status($src_products_id, $products_status);

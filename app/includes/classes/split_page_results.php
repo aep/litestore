@@ -40,14 +40,14 @@
       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
       if (strpos($this->sql_query, 'DISTINCT') || strpos($this->sql_query, 'GROUP BY')) {
-        $count_string = 'DISTINCT ' . xtc_db_input($count_key);
+        $count_string = 'DISTINCT ' .$count_key;
         //$count_string = xtc_db_input($count_key);
       } else {
-        $count_string = xtc_db_input($count_key);
+        $count_string = $count_key;
       }
 
-      $count_query = xtDBquery($query);
-      $count = xtc_db_num_rows($count_query,true);
+    global $db;
+      $count = count($db->query($query)->fetchAll());
 
       $this->number_of_rows = $count;
       $this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
