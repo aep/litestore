@@ -55,6 +55,13 @@ class product {
 			$this->isProduct = false;
 		} else {
 			$this->isProduct = true;
+            $product_query=$db->query("select * FROM ".TABLE_PRODUCTS." p,
+										                                      ".TABLE_PRODUCTS_DESCRIPTION." pd
+										                                      where p.products_status = '1'
+										                                      and p.products_id = '".$this->pID."'
+										                                      and pd.products_id = p.products_id
+										                                      ".$group_check.$fsk_lock."
+										                                      and pd.languages_id = '".(int) $_SESSION['languages_id']."'")->fetch();
 			$this->data = xtc_db_fetch_array($product_query, true);
 		}
 
@@ -203,7 +210,7 @@ function getCrossSells() {
 		$cs_groups = "SELECT products_xsell_grp_name_id FROM ".TABLE_PRODUCTS_XSELL." WHERE products_id = '".$this->pID."' GROUP BY products_xsell_grp_name_id";
 		$cs_groups = xtDBquery($cs_groups);
 		$cross_sell_data = array ();
-		if (xtc_db_num_rows($cs_groups, true)>0) {
+
 		while ($cross_sells = xtc_db_fetch_array($cs_groups, true)) {
 
 			$fsk_lock = '';
@@ -243,7 +250,7 @@ function getCrossSells() {
 
 		}
 		return $cross_sell_data;
-		}
+
 	}
 	
 	

@@ -188,9 +188,11 @@ for ($i = 0, $n = sizeof($order->products); $i < $n; $i ++) {
 	$order_products_id = xtc_db_insert_id();
 
 	// Aenderung Specials Quantity Anfang
-	$specials_result = xtc_db_query("SELECT products_id, specials_quantity from ".TABLE_SPECIALS." WHERE products_id = '".xtc_get_prid($order->products[$i]['id'])."' ");
-	if (xtc_db_num_rows($specials_result)) {
-		$spq = xtc_db_fetch_array($specials_result);
+
+    global $db;
+    $spq=    $db->query("SELECT products_id, specials_quantity from ".TABLE_SPECIALS." WHERE products_id = '".xtc_get_prid($order->products[$i]['id'])."' ")->fetch();
+	if ($spq) {
+		
 
 		$new_sp_quantity = ($spq['specials_quantity'] - $order->products[$i]['qty']);
 
@@ -297,9 +299,9 @@ if (isset ($_SESSION['tracking']['refID'])) {
 
 } else {
 
-	$customers_query = xtc_db_query("SELECT refferers_id as ref FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'");
-	$customers_data = xtc_db_fetch_array($customers_query);
-	if (xtc_db_num_rows($customers_query)) {
+    global $db;
+	$customers_data = $db->query("SELECT refferers_id as ref FROM ".TABLE_CUSTOMERS." WHERE customers_id='".$_SESSION['customer_id']."'")->fetch();
+	if ($customers_data) {
 
 		xtc_db_query("update ".TABLE_ORDERS." set
 		                                 refferers_id = '".$customers_data['ref']."'

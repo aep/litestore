@@ -144,7 +144,7 @@ function module()
         $PRODUCTS_IMAGES=array();
 
 
-        $imagesq=xtDBquery("select  url_big,url_small  from products_images where products_id=".$product->data["products_id"]);
+        $imagesq=xtDBquery("select  url_big,url_small  from products_images where products_id='".$product->data["products_id"]."'");
         while ($ik= xtc_db_fetch_array($imagesq,true))
         {
             $PRODUCTS_IMAGES[]=$ik;

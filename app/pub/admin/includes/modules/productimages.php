@@ -4,17 +4,14 @@ defined('_VALID_XTC') or die('Direct Access to this location is not allowed.');
 $dttr_self=xtc_href_link(FILENAME_CATEGORIES, xtc_get_all_get_params(array('productimagesaction','imagenr')));
 
 
-$querystring= "select products_id,image_nr,url_small,url_middle,url_big from products_images where products_id='".xtc_db_input($_GET['pID'])."'";
-
-
-
-
+$querystring= "select products_id,image_nr,url_small,url_middle,url_big from products_images where products_id='".(integer)$_GET['pID']."'";
+
 
 if(isset($_GET["imagenr"]) && $_GET["imagenr"]=="new")
 {
-    $c=xtc_db_fetch_array(xtc_db_query("select count(image_nr) from products_images where products_id='".xtc_db_input($_GET['pID'])."'"));;
+    $c=xtc_db_fetch_array(xtc_db_query("select count(image_nr) from products_images where products_id='".(integer)$_GET['pID']."'"));;
 
-    xtc_db_query("insert into products_images (products_id,image_nr) values ('".xtc_db_input($_GET['pID'])."','".($c["count(image_nr)"]+1)."')");
+    xtc_db_query("insert into products_images (products_id,image_nr) values ('".(integer)$_GET['pID']."','".($c["count(image_nr)"]+1)."')");
 
 }
 else if(isset($_GET["imagenr"]) && isset($_GET["products_id"])  && $_FILES["datafile"]["name"])
@@ -24,7 +21,7 @@ else if(isset($_GET["imagenr"]) && isset($_GET["products_id"])  && $_FILES["data
     $pname_arr = explode('.',$file["name"]);
     $nsuffix = array_pop($pname_arr);
 
-    $products_image_name=xtc_db_input($_GET['pID'])."_".xtc_db_input($_GET['imagenr']).".".$nsuffix;
+    $products_image_name=(integer)($_GET['pID'])."_".(integer)$_GET['imagenr'].".".$nsuffix;
     rename($file["tmp_name"],DIR_FS_CATALOG_ORIGINAL_IMAGES."/".$products_image_name);
 
 
@@ -32,11 +29,12 @@ else if(isset($_GET["imagenr"]) && isset($_GET["products_id"])  && $_FILES["data
     require (DIR_WS_INCLUDES.'product_info_images.php');
     require (DIR_WS_INCLUDES.'product_popup_images.php');
 
+
     xtc_db_query("update products_images set "
-        ."url_small   = '/images/product_images/thumbnail_images/$products_image_name'  , "
-        ."url_middle  = '/images/product_images/info_images/$products_image_name'  , "
-        ."url_big     = '/images/product_images/popup_images/$products_image_name'   "
-        ."where image_nr='".xtc_db_input($_GET['imagenr'])."'  and products_id='".xtc_db_input($_GET["products_id"])."' ");
+        ."url_small   = '/user/images/product_images/thumbnail_images/$products_image_name'  , "
+        ."url_middle  = '/user/images/product_images/info_images/$products_image_name'  , "
+        ."url_big     = '/user/images/product_images/popup_images/$products_image_name'   "
+        ."where image_nr='".(integer)($_GET['imagenr'])."'  and products_id='".(integer)($_GET["products_id"])."' ");
 
 }
 
@@ -48,15 +46,13 @@ else if(isset($_GET["imagenr"]) && isset($_GET["products_id"]) && $_POST)
         $i=$img["image_nr"];
         if (isset($_POST["delete_$i"]))
         {
-            xtc_db_query("delete from products_images where image_nr='$i'  and products_id='".xtc_db_input($_GET["products_id"])."' ");
+            xtc_db_query("delete from products_images where image_nr='$i'  and products_id='".(integer)($_GET["products_id"])."' ");
         }
         else if (isset($_POST["save_$i"]))
         {
-            xtc_db_query("update products_images set "
-                ."url_small  = \"".xtc_db_input($_POST["url_small_$i"])     ."\" , "
-                ."url_middle = \"".xtc_db_input($_POST["url_middle_$i"])    ."\" , "
-                ."url_big    = \"".xtc_db_input($_POST["url_big_$i"])       ."\" "
-                ."where image_nr='$i' and products_id='".xtc_db_input($_GET["products_id"])."' ");
+            $q=$db->prepare("update products_images set url_small  = ?, url_middle = ?, url_big    = ? where image_nr=? and products_id=? ");
+            $q->exec(array($_POST["url_small_$i"],$_POST["url_middle_$i"],$_POST["url_big_$i"],$i,$_GET["products_id"]));
+
         }
     }
 }
