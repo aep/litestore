@@ -14,6 +14,7 @@
 
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
+
 defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.' );
   if (STORE_SESSIONS == 'mysql') {
     if (!$SESS_LIFE = get_cfg_var('session.gc_maxlifetime')) {

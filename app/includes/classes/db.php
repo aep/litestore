@@ -22,16 +22,19 @@ class DB  extends PDO
 
 
 global $db;
+global $LitestoreDatabase;
 
 if(!$db)
+{
     $db= new DB;
-
+    $LitestoreDatabase=$db;
+}
 
 
 function xtc_db_query($expression)
 {
-    global $db;
-    return $db->query($expression);
+    global $LitestoreDatabase;
+    return $LitestoreDatabase->query($expression);
 }
 
 
