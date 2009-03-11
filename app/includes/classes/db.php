@@ -4,11 +4,21 @@ class DB  extends PDO
 {
     public function __construct()
     {
-        parent::__construct('sqlite:'.DIR_FS_USER.'/db/restore.db');
+        $file = DIR_FS_USER.'/db/db.ini';
+        if (!$settings = parse_ini_file($file, TRUE)) 
+            throw new exception('Unable to open ' . $file . '.');
+       
+        $dns = $settings['database']['driver'] . ':host=' . $settings['database']['host'] . 
+        ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
+        ';dbname=' . $settings['database']['schema'];
+       
+        parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
+
         $this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
 
 }
+
 
 
 global $db;
