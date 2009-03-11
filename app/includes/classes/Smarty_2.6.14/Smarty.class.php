@@ -32,6 +32,11 @@
 
 /* $Id: Smarty.class.php,v 1.524 2006/01/18 19:02:52 mohrt Exp $ */
 
+
+
+require_once (DIR_FS_INC.'xtc_template_path.inc.php');
+
+
 /**
  * DIR_SEP isn't used anymore, but third party apps might
  */
