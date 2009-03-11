@@ -1,0 +1,65 @@
+{config_load file="$language/lang_$language.conf" section="account_history_info"}
+<h1>Ihr Konto</h1>
+<div id="account_history_order">
+    <h3>{#text_oid#}{$ORDER_NUMBER} ({$ORDER_DATE})</h3>
+    <p>
+        <h4>{#title_history#}</h4>
+            {$HISTORY_BLOCK}
+    </p>
+    <p>
+        <h4>{#text_products#}</h4>
+        <table cellspacing="0">
+            <thead >
+                <tr>
+                    <th class="artnr">Art-nr.</th>
+                    <th class="bezeichnung">Bezeichnung</th>
+                    <th colspan="2" class="menge">Menge</th>
+                    <th class="einzelpreis">Einzelpreis</th>
+                    <th class="gesamtpreis">Gesamtpreis</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {foreach name=aussen item=order_product from=$order_data}
+                    <tr>    
+                        <td>{$order_product.PRODUCTS_MODEL}</td>
+                        <td>{$order_product.PRODUCTS_NAME}</td>
+                        <td>{$order_product.PRODUCTS_QTY}</td>
+                        <td>Stk.</td>
+                        <td>{$order_product.PRODUCTS_SINGLE_PRICE}</td>
+                        <td>{$order_product.PRODUCTS_PRICE}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+
+            <div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round"><div class="x_round">
+                <p><span class="total">{$order_total.0.TITLE}{$order_total.0.TEXT}</span></p>
+                <p>{$order_total.1.TITLE}{$order_total.1.TEXT}</p>
+                <p>{$order_total.2.TITLE}{$order_total.2.TEXT}</p>
+            </div></div></div></div></div>
+
+    </p>
+    <p>
+        <h4>{#text_shipping_address#}</h4>
+            {$DELIVERY_LABEL}
+    </p>
+    <p>
+
+        <h4>{#text_shipping_method#}</h4>
+            {$SHIPPING_METHOD}
+    </p>
+    <p>
+        <h4>{#text_payment_address#}</h4>
+            {$BILLING_LABEL}
+    </p>
+    <p>
+
+        <h4>{#text_payment_method#}</h4>        
+            {$PAYMENT_METHOD}
+    </p>
+    <p>
+        <form action="/account" method="get">
+            <input class="submit" type="submit" value="Zur&#252;ck zu &#34;Ihr Konto&#34;">
+        </form>
+    </p>
+</div>

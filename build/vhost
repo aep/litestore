@@ -1,0 +1,45 @@
+<VirtualHost *:80>
+
+    DocumentRoot "/srv/http/restore/app/pub"
+
+    RewriteEngine on
+
+    RewriteRule  ^/admin/export/(.*)\.csv$            /admin/export.php?format=csv&scheme=$1 [PT]
+    RewriteRule  ^/admin/export/(.*)\.xml$            /admin/export.php?format=xml&scheme=$1 [PT]
+
+    Alias /user        /www/USER
+    Alias /pub         /srv/http/restore/app/pub
+    Alias /admin       /srv/http/restore/app/pub/admin
+
+    RewriteCond  %{REQUEST_URI} !^/(admin|user|pub)/.*$
+    RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
+
+
+    SetEnv RESTORE_USER_PATH  "/www/USER"
+    SetEnv RESTORE_DB_HOST    "localhost"
+    SetEnv RESTORE_DB_NAME    "USER"
+    SetEnv RESTORE_DB_USER    "USER"
+    SetEnv RESTORE_DB_PASS    "PASS"
+
+    <Directory /srv/http/restore/app/pub >
+            DirectoryIndex index.php index.html
+            AddHandler application/x-httpd-php .php
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+    </Directory>
+
+    <Directory /www/USER >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+            DirectoryIndex index.html
+            RemoveHandler .php
+    </Directory>
+
+</VirtualHost>
+
+
+

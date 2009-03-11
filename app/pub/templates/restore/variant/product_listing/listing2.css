@@ -1,0 +1,84 @@
+/*...2 von 2 ausgeschnittene Fotos*/
+#listing
+{
+	background:url(../../bilder/listing2_gitter.png) top left repeat-y;
+}
+	.listing_artikel
+	{
+		float:left;
+		border-bottom:1px solid #dcdcdc;
+		width:180px;
+	}
+	.listing_artikel:hover
+	{
+		color:#FF0000;
+	}
+		.listing_artikel_inhalt-container
+		{
+			margin-bottom:-32px;
+		}
+			.listing_artikel_inhalt-link
+			{
+				display:block;
+				padding:10px;
+				height:222px;
+				text-align:center;
+				font-size:0.75em;
+				color:#000000;
+				overflow:hidden;
+			}
+			.listing_artikel_inhalt-link:hover, .listing_artikel_inhalt-link:focus
+			{
+				text-decoration:none;
+			}
+				.listing_artikel_produktbild-container
+				{
+					display:table-cell;
+					width:160px;
+					height:163px;
+					vertical-align:middle;
+				}
+					.listing_artikel_produktbild-bild
+					{
+						max-width:160px;
+						max-height:160px;
+					}
+		.listing_artikel_indenwarenkorb-container
+		{
+			height:32px;
+			text-align:center;
+		}
+#listing_ende
+{
+	position:relative;
+	top:-2px;
+	height:2px;
+	background:#fff;
+}
+#startseite_ende
+{
+	height:12px;
+}
+#detailansicht_bilder-grosscontainer
+{
+	margin-bottom:5px;
+	border-bottom:1px solid #dcdcdc;
+	padding-bottom:8px;
+	width:352px;
+}
+	img.detailansicht_bilder-kleine
+	{
+		max-width:80px;
+		max-height:80px;
+	}
+.empfehlungen_artikel
+{
+	border-top:1px solid #dcdcdc;
+	padding-top:14px;
+}
+.warenkorb_produktbild-bild
+{
+	padding:2px;
+	max-width:80px;
+	max-height:80px;
+}

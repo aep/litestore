@@ -61,6 +61,11 @@ define('SMARTY_PHP_ALLOW',      3);
 /**
  * @package Smarty
  */
+class SmartyException extends Exception
+{
+}
+
+
 class Smarty
 {
     /**#@+
@@ -72,7 +77,7 @@ class Smarty
      *
      * @var string
      */
-    var $template_dir    =  '../templates';
+    var $template_dir    =  string;
 
     /**
      * The directory where compiled templates are located.
@@ -566,8 +571,10 @@ class Smarty
      * The class constructor.
      */
     function Smarty()
-    {
-      $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
+    {       
+        $this->assign('tpl_path',xtc_template_path(CURRENT_TEMPLATE));
+        $this->template_dir=xtc_template_fs_path(CURRENT_TEMPLATE);    
+        $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
                     : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);
     }
 
@@ -819,7 +826,7 @@ class Smarty
                       ,false);
 
         } else {
-            $this->trigger_error("malformed function-list for '$type' in register_resource");
+            throw new SmartyException("malformed function-list for '$type' in register_resource");
 
         }
     }
@@ -1084,16 +1091,6 @@ class Smarty
         }
     }
 
-    /**
-     * trigger Smarty error
-     *
-     * @param string $error_msg
-     * @param integer $error_type
-     */
-    function trigger_error($error_msg, $error_type = E_USER_WARNING)
-    {
-        trigger_error("Smarty error: $error_msg", $error_type);
-    }
 
 
     /**
@@ -1118,6 +1115,8 @@ class Smarty
      */
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
+
+
         static $_cache_info = array();
         
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
@@ -1542,6 +1541,7 @@ class Smarty
         else
             $_params['resource_base_path'] = $this->template_dir;
 
+
         if ($this->_parse_resource_name($_params)) {
             $_resource_type = $_params['resource_type'];
             $_resource_name = $_params['resource_name'];
@@ -1577,7 +1577,7 @@ class Smarty
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
                 if (!is_callable($this->default_template_handler_func)) {
-                    $this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+                    trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                 } else {
                     $_return = call_user_func_array(
                         $this->default_template_handler_func,
@@ -1588,13 +1588,13 @@ class Smarty
 
         if (!$_return) {
             if (!$params['quiet']) {
-                $this->trigger_error('unable to read resource: "' . $params['resource_name'] . '"');
+                trigger_error('unable to read resource: "' . $params['resource_name'] . '"');
             }
         } else if ($_return && $this->security) {
             require_once(SMARTY_CORE_DIR . 'core.is_secure.php');
             if (!smarty_core_is_secure($_params, $this)) {
                 if (!$params['quiet'])
-                    $this->trigger_error('(secure mode) accessing "' . $params['resource_name'] . '" is not allowed');
+                    trigger_error('(secure mode) accessing "' . $params['resource_name'] . '" is not allowed');
                 $params['source_content'] = null;
                 $params['resource_timestamp'] = null;
                 return false;
@@ -1641,6 +1641,7 @@ class Smarty
                 // use the first directory where the file is found
                 foreach ((array)$params['resource_base_path'] as $_curr_path) {
                     $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];
+
                     if (file_exists($_fullpath) && is_file($_fullpath)) {
                         $params['resource_name'] = $_fullpath;
                         return true;
@@ -1814,9 +1815,9 @@ class Smarty
             $info = '';
         }
         if (isset($tpl_line) && isset($tpl_file)) {
-            $this->trigger_error('[in ' . $tpl_file . ' line ' . $tpl_line . "]: $error_msg$info", $error_type);
+            trigger_error('[in ' . $tpl_file . ' line ' . $tpl_line . "]: $error_msg$info", $error_type);
         } else {
-            $this->trigger_error($error_msg . $info, $error_type);
+            trigger_error($error_msg . $info, $error_type);
         }
     }
 
