@@ -41,6 +41,8 @@ function module()
         $sth = $db->prepare("select customers_id, customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where ( customers_email_address = :mail or  customers_cid = :mail )  and account_type = '0'");
         $sth->execute(array(':mail' => $_POST['email_address']));
         $check_customer = $sth->fetch();
+
+
         if (!$check_customer )
         {
             $_GET['login'] = 'fail';
@@ -50,7 +52,7 @@ function module()
         else
         {
             // Check that password is good
-            if ($_POST['password'] != $check_customer['customers_password'])
+            if (md5($_POST['password']) != $check_customer['customers_password'])
             {
                 $_GET['login'] = 'fail';
                 $info_message = TEXT_LOGIN_ERROR;

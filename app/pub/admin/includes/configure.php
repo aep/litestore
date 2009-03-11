@@ -59,7 +59,7 @@
   define('DB_SERVER_PASSWORD', getenv("RESTORE_DB_PASS"));
   define('DB_DATABASE', getenv("RESTORE_DB_NAME"));
   define('USE_PCONNECT', 'false'); // use persistent connections?
-  define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
+  define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 
 
 ?>

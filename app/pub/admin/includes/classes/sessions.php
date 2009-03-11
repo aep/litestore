@@ -339,6 +339,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
   }
 
   function session_start() {
+
     global $session, $SID, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_POST_VARS;
 
     // Define the global variable $SID?

@@ -174,7 +174,7 @@ function module()
 		    $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
 		    $smarty->assign('SHOP_NAME', STORE_NAME);
 		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'NONSSL')));
-		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
+		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', $_POST['email']));
 		    $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
 		    $smarty->assign('FORM_END', '</form>');
 		    $smarty->assign('language', $_SESSION['language']);

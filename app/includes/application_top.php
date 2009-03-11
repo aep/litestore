@@ -124,7 +124,8 @@ require_once (DIR_FS_INC.'/xtc_get_top_level_domain.inc.php');
 
 require_once (DIR_WS_CLASSES.'db.php');
 
-
+require_once (DIR_FS_INC.'xtc_db_perform.inc.php');
+require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
 
 foreach ($db->query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration') as $configuration)
 {
