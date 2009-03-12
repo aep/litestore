@@ -21,8 +21,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
 
+
+
 function module()
 {
+
     global $breadcrumb;
     $smarty = new Smarty;
 

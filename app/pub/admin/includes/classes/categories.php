@@ -200,7 +200,7 @@ class categories {
 			@ unlink(DIR_FS_CATALOG_IMAGES.'categories/'.$categories_image_name);
 			rename(DIR_FS_CATALOG_IMAGES.'categories/'.$categories_image->filename, DIR_FS_CATALOG_IMAGES.'categories/'.$categories_image_name);
 			xtc_db_query("UPDATE ".TABLE_CATEGORIES."
-						    		                 SET categories_image = '".xtc_db_input('/images/categories/'.$categories_image_name)."'
+						    		                 SET categories_image = '".('/user/images/categories/'.$categories_image_name)."'
 						    		               WHERE categories_id = '".(int) $categories_id."'");
 		}
 
@@ -221,7 +221,7 @@ class categories {
             @ unlink(DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser_name);
             rename(DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser->filename, DIR_FS_CATALOG_IMAGES.'categories_teaser/'.$categories_teaser_name);
             xtc_db_query("UPDATE ".TABLE_CATEGORIES."
-                                                     SET categories_teaser = '".xtc_db_input('/images/categories_teaser/'.$categories_teaser_name)."'
+                                                     SET categories_teaser = '".('/user/images/categories_teaser/'.$categories_teaser_name)."'
                                                    WHERE categories_id = '".(int) $categories_id."'");
         }
 
@@ -916,16 +916,16 @@ class categories {
         xtc_db_query
         (
             "delete from  ".TABLE_PRODUCTS_TO_CATEGORIES."
-            WHERE products_id   = '".xtc_db_input($src_products_id)."'
-            AND categories_id = '".xtc_db_input($src_category_id)."'"
+            WHERE products_id   = '".(integer)($src_products_id)."'
+            AND categories_id = '".(integer)($src_category_id)."'"
         );
 
 
         xtc_db_query
         (
             "insert into ".TABLE_PRODUCTS_TO_CATEGORIES." ( categories_id, products_id )
-            values ('".xtc_db_input($dest_category_id)."','".xtc_db_input($src_products_id)."' ) 
-            on duplicate key update categories_id = '".xtc_db_input($dest_category_id)."'"
+            values ('".(integer)($dest_category_id)."','".(integer)($src_products_id)."' ) 
+            on duplicate key update categories_id = '".(integer)($dest_category_id)."'"
         );
 
         if ($dest_category_id == 0) 

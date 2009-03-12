@@ -83,9 +83,11 @@
                     and c.categories_id=cd.categories_id
                     ".$group_check."
                     and cd.languages_id='".(int) $_SESSION['languages_id']."'");
-                if (xtc_db_num_rows($categories_query,true) > 0) 
-                {
+
                     $categories = xtc_db_fetch_array($categories_query,true);
+                if ($categories) 
+                {
+
                     $p.="/".$cPath_array[$i];
                     $this->add($categories['categories_name'], "/catalog".$p);
                 

@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     {foreach name=aussen item=module_data from=$module_content}
-        <tr>
+        <tr id="cart_product{$module_data.PRODUCTS_ID}"  >
             <td class="artikelbild">
                 <a href="{$module_data.PRODUCTS_LINK}" >
                     {if  $module_data.PRODUCTS_IMAGES[0]!=''}
@@ -53,7 +53,7 @@
             </td>
             <td class="einzelpreis"> {$module_data.PRODUCTS_SINGLE_PRICE}</td>
             <td class="gesamtpreis">{$module_data.PRODUCTS_PRICE}</td>
-            <td class="entf">{$module_data.BOX_DELETE}</td>
+            <td class="entf"><input class="checkbox cart_products_del_checkbox" type="checkbox" name="cart_delete[]" value="{$module_data.PRODUCTS_ID}" /><x/td>
 		</tr>
 	{/foreach}
 </tbody>

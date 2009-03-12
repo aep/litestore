@@ -61,11 +61,6 @@ class BoxAdmin extends AbstractVCBox
         $products = xtc_db_fetch_array($products_query);
         $reviews_query = xtc_db_query("select count(*) as count from " . TABLE_REVIEWS);
         $reviews = xtc_db_fetch_array($reviews_query);
-        if ($product->isProduct()) 
-        {
-            $admin_link='<a href="' . FILENAME_EDIT_PRODUCTS. '?cPath=' . $cPath . '&pID=' . $product->data['products_id'] . '&action=new_product' . '" onclick="window.open(this.href); return false;"> edit product</a>';
-        }
-        
         $box_content= '<b>' . BOX_TITLE_STATISTICS . '</b><br />' . $orders_contents . '<br />' .
                                                 BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
                                                 BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .

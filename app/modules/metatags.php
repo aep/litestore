@@ -48,7 +48,7 @@ if (strstr($APP_PATH[1], "products"))
         $head[]=array('name'=>"description" ,'content'=>$product->data['products_meta_description']);
         $head[]=array('name'=>"keywords" ,'content'=>$product->data['products_meta_keywords']);
 
-        $smarty->assign("HEAD_TITLE",TITLE.' - '.$product->data['products_meta_title'].' '.$product->data['products_name'].' '.$product->data['products_model'] );
+        $smarty->assign("HEAD_TITLE",$product->data['products_meta_title'].' '.$product->data['products_name'].' '.$product->data['products_model'] );
     } 
     else 
     {
@@ -84,7 +84,7 @@ else if (strstr($APP_PATH[1], "catalog"))
 
     $head[]=array('name'=>"description" ,'content'=>$categories_meta['categories_meta_description']);
     $head[]=array('name'=>"keywords" ,'content'=>$categories_meta['categories_meta_keywords']);
-    $smarty->assign("HEAD_TITLE",TITLE.' - '.$categories_meta['categories_meta_title']);
+    $smarty->assign("HEAD_TITLE",$categories_meta['categories_meta_title']);
 
 } 
 else 

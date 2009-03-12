@@ -32,7 +32,6 @@
 
 // Shopping cart actions
 
-    
 
 if (isset ($_GET['action']))
     $cartaction=$_GET['action'];

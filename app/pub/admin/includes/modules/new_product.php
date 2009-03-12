@@ -118,16 +118,18 @@ if ($pInfo->products_startpage == '1') { $startpage_checked = true; } else { $st
         ?>
     </td>
 </tr>
-
+<!--
 <tr>
     <td>
         <?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br />
         <small>(YYYY-MM-DD)</small>
     </td>
     <td>
-        <script type="text/javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script>
+        <?php echo xtc_draw_input_field('products_date_available', $pInfo->products_date_available,'size=5'); ?>
+
     </td>
 </tr>
+-->
 <tr>
     <td><?php echo TEXT_PRODUCTS_TRADING_UNIT; ?></td>
     <td><?php echo xtc_draw_input_field('products_trading_unit', $pInfo->products_trading_unit>0?$pInfo->products_trading_unit:1,'size=5'); ?></td>
