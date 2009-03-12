@@ -875,13 +875,18 @@ function xtc_cfg_textarea($text) {
 	return xtc_draw_textarea_field('configuration_value', false, 35, 5, $text);
 }
 
-function xtc_cfg_get_zone_name($zone_id) {
-	$zone_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_id = '".$zone_id."'");
+function xtc_cfg_get_zone_name($zone_id) 
+{
+    global $db;
+    
+    $zone = $db->prepare("select zone_name from ".TABLE_ZONES." where zone_id = ?")->execute(array($zone_id));
 
-	if (!xtc_db_num_rows($zone_query)) {
+	if (!$zone) 
+    {
 		return $zone_id;
-	} else {
-		$zone = xtc_db_fetch_array($zone_query);
+	} 
+    else 
+    {
 		return $zone['zone_name'];
 	}
 }
