@@ -1,76 +1,53 @@
 <?php
-/* --------------------------------------------------------------
-   $Id: stats_customers.php 899 2005-04-29 02:40:57Z hhgag $   
-
-   ReStore - an XT-Commerce fork to restore sanity
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce
-   --------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(stats_customers.php,v 1.29 2002/05/16); www.oscommerce.com 
-   (c) 2003	 nextcommerce (stats_customers.php,v 1.9 2003/08/18); www.nextcommerce.org
-
-   Released under the GNU General Public License 
-   --------------------------------------------------------------*/
-
-  require('includes/application_top.php');
-
-  require(DIR_WS_CLASSES . 'currencies.php');
-  $currencies = new currencies();
+    require('includes/application_top.php');
+    header('content-type','text/javascript');
 ?>
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<h1><?php echo HEADING_TITLE; ?></h1>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
-              </tr>
-<?php
-  if ($_GET['page'] > 1) $rows = $_GET['page'] * '20' - '20';
-  $customers_query_raw = "select c.customers_firstname, c.customers_lastname, sum(op.final_price) as ordersum from " . TABLE_CUSTOMERS . " c, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where c.customers_id = o.customers_id and o.orders_id = op.orders_id group by c.customers_firstname, c.customers_lastname order by ordersum DESC";
-  $customers_split = new splitPageResults($_GET['page'], '20', $customers_query_raw, $customers_query_numrows);
-  // fix counted customers
-  $customers_query_numrows = xtc_db_query("select customers_id from " . TABLE_ORDERS . " group by customers_id");
-  $customers_query_numrows = xtc_db_num_rows($customers_query_numrows);
+Ext.onReady(function(){
 
-  $customers_query = xtc_db_query($customers_query_raw);
-  while ($customers = xtc_db_fetch_array($customers_query)) {
-    $rows++;
 
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-?>
-              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo xtc_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'], 'NONSSL'); ?>'">
-                <td class="dataTableContent"><?php echo $rows; ?>.</td>
-                <td class="dataTableContent"><?php echo '<a href="' . xtc_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'], 'NONSSL') . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
-                <td class="dataTableContent" align="right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
-              </tr>
-<?php
-  }
-?>
-            </table></td>
-          </tr>
-          <tr>
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_query_numrows, '20', $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-                <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, '20', MAX_DISPLAY_PAGE_LINKS, $_GET['page']); ?>&nbsp;</td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+	    var myData = [
+    <?php
+            global $db;
+            $i=1;
+            $q=$db->query("select c.customers_firstname, c.customers_lastname, sum(op.final_price) as ordersum from " . TABLE_CUSTOMERS . " c, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where c.customers_id = o.customers_id and o.orders_id = op.orders_id group by c.customers_firstname, c.customers_lastname order by ordersum DESC");
+            while ($products = $q->fetch()) 
+            {
+                echo '[\''.$i.'\',\''.$products['customers_firstname'].' '.$products['customers_lastname'].'\',\''.$products['ordersum'].'€\'],';
+                ++$i;
+            }
+    ?>
+	    ];
+     
+	    var myReader = new Ext.data.ArrayReader({}, [
+		    {name: 'nr'},
+		    {name: 'artikel'},
+		    {name: 'besucht'},
+	    ]);
+     
+	    var grid = new Ext.grid.GridPanel({
+		    store: new Ext.data.Store({
+			    data: myData,
+			    reader: myReader
+		    }),
+		    columns: [
+			    {header: 'Nr.', width: '1%', sortable: true, dataIndex: 'nr'},
+			    {header: 'Name', width: 90, sortable: true, dataIndex: 'artikel'},
+			    {header: 'Bestellsumme', width: 90, sortable: true, dataIndex: 'besucht'},
+		    ],
+		    viewConfig: {
+			    forceFit: true
+		    },
+		    autoHeight: true,
+            border: false,
+            autoScroll  :  'true',
+            region:'center',
+            title: '<?php echo HEADING_TITLE; ?>'
+	    });
+     
+        mainpanel.remove(0);
+        mainpanel.add(grid );
+        mainpanel.getLayout().setActiveItem(0);
+        mainpanel.doLayout();
+
+});
+

@@ -57,8 +57,9 @@ class selfpickup
 
     function check()
     {
-        $check = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_SELFPICKUP_STATUS'");
-        $check = xtc_db_num_rows($check);
+        $check_query = xtc_db_query("select COUNT(*) from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_SELFPICKUP_STATUS'")->fetch();
+        $check = $check_query['COUNT(*)'];
+
 
         return $check;
     }

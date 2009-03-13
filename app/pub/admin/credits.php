@@ -15,11 +15,10 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
-  require('includes/application_top.php');
+    require('includes/application_top.php');
 
-?><?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+?>
 
-<h1>Credits</h1>
 
 
 
@@ -49,7 +48,7 @@ for details. <br />
 <br />
 
 
-<b>&copy; 2008 IB C SOLUTIONS LTD</b>
+<b>&copy; 2008-2009 IB C SOLUTIONS LTD</b>
 
 
 <font size="2" face="Verdana, Arial, Helvetica, sans-serif"> <br />
@@ -84,7 +83,7 @@ der Originaldateien entnehmen Sie den Copyright-Headern der einzelnen Dateien<br
       </tr>		
     </table>
 
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+
 <!-- footer_eof //-->
 </body>
 </html>

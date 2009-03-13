@@ -20,7 +20,9 @@
    Released under the GNU General Public License
    --------------------------------------------------------------*/
 
-  require('includes/application_top.php');
+    require('includes/application_top.php');
+
+    $admin_realm=HEADING_TITLE;;
 
   switch ($_GET['action']) {
     case 'insert':
@@ -163,9 +165,6 @@
   }
 ?>
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
-<h1><?php echo HEADING_TITLE; ?></h1>
-
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td></td>
@@ -410,8 +409,10 @@
 </table>
 <!-- body_eof //-->
 
-<!-- footer //-->
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+
+<?php 
+require(DIR_WS_INCLUDES . 'footer.php'); 
+?>
 <!-- footer_eof //-->
 <br />
 </body>

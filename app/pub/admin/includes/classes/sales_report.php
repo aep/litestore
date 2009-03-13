@@ -167,13 +167,13 @@
       	$filterString .= " AND o.payment_method ='" . xtc_db_prepare_input($this->paymentFilter) . "' ";
       }
       
-      $rqOrders = xtc_db_query($this->queryOrderCnt . " WHERE o.date_purchased >= '" . xtc_db_input(date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . xtc_db_input(date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString);
+      $rqOrders = xtc_db_query($this->queryOrderCnt . " WHERE o.date_purchased >= '" . (date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . (date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString);
       $order = xtc_db_fetch_array($rqOrders);
 
-      $rqShipping = xtc_db_query($this->queryShipping . " AND o.date_purchased >= '" . xtc_db_input(date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . xtc_db_input(date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString);
+      $rqShipping = xtc_db_query($this->queryShipping . " AND o.date_purchased >= '" . (date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . (date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString);
       $shipping = xtc_db_fetch_array($rqShipping);
 
-      $rqItems = xtc_db_query($this->queryItemCnt . " AND o.date_purchased >= '" . xtc_db_input(date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . xtc_db_input(date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString . " group by pid " . $this->sortString);
+      $rqItems = xtc_db_query($this->queryItemCnt . " AND o.date_purchased >= '" . (date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . (date("Y-m-d\TH:i:s", $ed)) . "'" . $filterString . " group by pid " . $this->sortString);
 
       // set the return values
       $this->actDate = $ed;
@@ -191,7 +191,7 @@
 
         // products_attributes
         // are there any attributes for this order_id ?
-        $rqAttr = xtc_db_query($this->queryAttr . " AND o.date_purchased >= '" . xtc_db_input(date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . xtc_db_input(date("Y-m-d\TH:i:s", $ed)) . "' AND op.products_id = " . $resp[$cnt]['pid'] . $filterString . " group by products_options_values order by orders_products_id");
+        $rqAttr = xtc_db_query($this->queryAttr . " AND o.date_purchased >= '" . (date("Y-m-d\TH:i:s", $sd)) . "' AND o.date_purchased < '" . (date("Y-m-d\TH:i:s", $ed)) . "' AND op.products_id = " . $resp[$cnt]['pid'] . $filterString . " group by products_options_values order by orders_products_id");
         $i = 0;
         while ($attr[$i] = xtc_db_fetch_array($rqAttr)) {
           $i++;

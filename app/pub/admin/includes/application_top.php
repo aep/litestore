@@ -475,9 +475,10 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
     xtc_redirect(xtc_href_link(FILENAME_LOGIN));
   }
 
-  if (xtc_check_permission($pagename) == '0') {
-    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-  }
+    if ($_SESSION['customers_status_id']!=0) 
+    {
+        xtc_redirect(xtc_href_link(FILENAME_LOGIN));
+    }
 
 
     // Include Template Engine

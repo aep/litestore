@@ -95,11 +95,11 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                    language,
                                    customers_status_discount
                                    from " . TABLE_ORDERS . " where
-                                   orders_id = '" . xtc_db_input($order_id) . "'");
+                                   orders_id = '" . (int)($order_id) . "'");
 
       $order = xtc_db_fetch_array($order_query);
 
-      $totals_query = xtc_db_query("select title, text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . xtc_db_input($order_id) . "' order by sort_order");
+      $totals_query = xtc_db_query("select title, text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int)($order_id) . "' order by sort_order");
       while ($totals = xtc_db_fetch_array($totals_query)) {
         $this->totals[] = array('title' => $totals['title'],
                                 'text' => $totals['text']);
@@ -168,7 +168,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
                                              from
                                                  " . TABLE_ORDERS_PRODUCTS . "
                                              where
-                                                 orders_id ='" . xtc_db_input($order_id) . "'");
+                                                 orders_id ='" . (int)($order_id) . "'");
 
       while ($orders_products = xtc_db_fetch_array($orders_products_query)) {
         $this->products[$index] = array('qty' => $orders_products['products_quantity'],
@@ -183,8 +183,7 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 					'allow_tax' => $orders_products['allow_tax']);
 
         $subindex = 0;
-        $attributes_query = xtc_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . xtc_db_input($order_id) . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
-        if (xtc_db_num_rows($attributes_query)) {
+        $attributes_query = xtc_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . (int)($order_id) . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
           while ($attributes = xtc_db_fetch_array($attributes_query)) {
             $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
                                                                      'value' => $attributes['products_options_values'],
@@ -193,7 +192,6 @@ defined( '_VALID_XTC' ) or die( 'Direct Access to this location is not allowed.'
 
             $subindex++;
           }
-        }
         $index++;
       }
     }

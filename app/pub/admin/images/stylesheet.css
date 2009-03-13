@@ -14,6 +14,7 @@ html
     clear:both;
 }
 
+
 /*text- und bildinhalt*/
 img
 {
@@ -53,6 +54,29 @@ li
 {
     margin-left:20px;
 }
+
+
+
+#action-panel .x-plain-body 
+{
+    background-color:#CAD9EC;
+    padding:3px 3px 0 5px;
+}
+
+#action-panel .x-panel 
+{
+    margin-bottom:5px;
+}
+
+.x-layout-split-west 
+{
+    background-color:#CAD9EC !important; 
+    cursor:move;
+}
+
+
+
+
 
 
 #sidebar

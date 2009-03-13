@@ -91,21 +91,7 @@ function xtc_set_admin_access($fieldname, $status, $cID) {
 	}
 }
 
-// Check whether a referer has enough permission to open an admin page
-function xtc_check_permission($pagename) {
-	if ($pagename != 'index') {
-		$access_permission_query = xtc_db_query("select ".$pagename." from ".TABLE_ADMIN_ACCESS." where customers_id = '".$_SESSION['customer_id']."'");
-		$access_permission = xtc_db_fetch_array($access_permission_query);
 
-		if (($_SESSION['customers_status']['customers_status_id'] == '0') && ($access_permission[$pagename] == '1')) {
-			return true;
-		} else {
-			return false;
-		}
-	} else {
-		xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-	}
-}
 
 ////
 // Redirect to another page or site
@@ -534,11 +520,11 @@ function xtc_address_format($address_format_id, $address, $html, $boln, $eoln) {
 function xtc_get_zone_code($country, $zone, $def_state) {
 
 	$state_prov_query = xtc_db_query("select zone_code from ".TABLE_ZONES." where zone_country_id = '".$country."' and zone_id = '".$zone."'");
-
-	if (!xtc_db_num_rows($state_prov_query)) {
+    $state_prov_values = xtc_db_fetch_array($state_prov_query);
+	if (! $state_prov_values) {
 		$state_prov_code = $def_state;
 	} else {
-		$state_prov_values = xtc_db_fetch_array($state_prov_query);
+
 		$state_prov_code = $state_prov_values['zone_code'];
 	}
 
