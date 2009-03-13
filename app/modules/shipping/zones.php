@@ -188,8 +188,8 @@
 
     function check() {
       if (!isset($this->_check)) {
-        $check_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_STATUS'");
-        $this->_check = xtc_db_num_rows($check_query);
+        $check_query = xtc_db_query("select COUNT(*) from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_STATUS'")->fetch();
+        $this->_check = $check_query['COUNT(*)'];
       }
       return $this->_check;
     }

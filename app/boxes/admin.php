@@ -31,48 +31,10 @@ class BoxAdmin extends AbstractVCBox
     }
     function evaluate()
     {
-        global $db;
-        if ($_SESSION['customers_status']['customers_status_id'] != 0)
-            return;
-
-        global $product;
         $box_smarty = new smarty;
         $box_smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
-        
-        $orders_contents = '';
-        
-        $orders_status_validating = $db->query("select count(*) from " . TABLE_ORDERS ." where orders_status ='0'")->fetchColumn();
-        $orders_contents .='<a href="/admin/' .FILENAME_ORDERS. '?selected_box=customers&status=0' . '">' . TEXT_VALIDATING . '</a>: ' . $orders_status_validating . '<br />'; 
-        
-        $orders_status_query = xtc_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-        
-        while ($orders_status = xtc_db_fetch_array($orders_status_query)) 
-        {
-            $orders_pending_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
-            $orders_pending = xtc_db_fetch_array($orders_pending_query);
-            $orders_contents .= '<a href="' . FILENAME_ORDERS. '?selected_box=customers&status=' . $orders_status['orders_status_id'] . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
-        }
-        
-        $orders_contents = substr($orders_contents, 0, -6);
-        
-        $customers_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS);
-        $customers = xtc_db_fetch_array($customers_query);
-        $products_query = xtc_db_query("select count(*) as count from " . TABLE_PRODUCTS . " where products_status = '1'");
-        $products = xtc_db_fetch_array($products_query);
-        $reviews_query = xtc_db_query("select count(*) as count from " . TABLE_REVIEWS);
-        $reviews = xtc_db_fetch_array($reviews_query);
-        $box_content= '<b>' . BOX_TITLE_STATISTICS . '</b><br />' . $orders_contents . '<br />' .
-                                                BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
-                                                BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .
-                                                BOX_ENTRY_REVIEWS . ' ' . $reviews['count'] .'<br />' .
-                                                $admin_image . '<br />' .$admin_link;
-        
-            if ($flag==true) define('SEARCH_ENGINE_FRIENDLY_URLS',true);
-            $box_smarty->assign('BOX_CONTENT', $box_content);
-        
-            $box_smarty->caching = 0;
-            $box_smarty->assign('language', $_SESSION['language']);
-            return $box_smarty->fetch('boxes/box_admin.html');
+        $box_smarty->assign('language', $_SESSION['language']);
+        return $box_smarty->fetch('boxes/box_admin.html');
     }
     function metatype()
     {

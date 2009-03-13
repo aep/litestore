@@ -27,6 +27,8 @@ require_once (DIR_FS_INC.'xtc_get_geo_zone_code.inc.php');
 require_once (DIR_FS_INC.'xtc_encrypt_password.inc.php');
 require_once (DIR_FS_INC.'xtc_js_lang.php');
 
+
+
 $customers_statuses_array = xtc_get_customers_statuses();
 
 if ($_GET['special'] == 'remove_memo') {
@@ -468,9 +470,6 @@ function check_form() {
 }
 
 ?>
-<h1>Kunden</h1>
-
-
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
 

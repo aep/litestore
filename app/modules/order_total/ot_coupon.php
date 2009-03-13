@@ -518,8 +518,9 @@ $total_price += $qty * $xtPrice->xtcGetPrice($product['products_id'], $format = 
 
 	function check() {
 		if (!isset ($this->check)) {
-			$check_query = xtc_db_query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_ORDER_TOTAL_COUPON_STATUS'");
-			$this->check = xtc_db_num_rows($check_query);
+            $check_query = xtc_db_query("select COUNT(*) from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_ORDER_TOTAL_COUPON_STATUS'")->fetch();
+            $this->_check = $check_query['COUNT(*)'];
+
 		}
 
 		return $this->check;
