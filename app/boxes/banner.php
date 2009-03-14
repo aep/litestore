@@ -12,6 +12,8 @@ class BoxBanner extends AbstractVCBox
     }
     function evaluate()
     {
+	//needs to be patched to use userdir
+	return '';
 
         require_once(DIR_FS_INC . 'xtc_banner_exists.inc.php');
         require_once(DIR_FS_INC . 'xtc_display_banner.inc.php');
