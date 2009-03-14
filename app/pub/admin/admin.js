@@ -1,6 +1,7 @@
 var mainpanel;
 
 
+
 Ext.onReady(function()
 {
     mainpanel = new Ext.Panel({
@@ -14,7 +15,7 @@ Ext.onReady(function()
     var actionAbout = new Ext.Panel({
         collapsed: true,
         frame         : true,
-        title         : 'About',
+        title         : 'Start',
         collapsible   : true,
         contentEl     : 'actionAbout',
         titleCollapse : true
@@ -23,7 +24,7 @@ Ext.onReady(function()
     var actionCustomers = new Ext.Panel({
         collapsed: true,
         frame         : true,
-        title         : 'Kunden',
+        title         : 'Kundenstamm',
         collapsible   : true,
         contentEl     : 'actionCustomers',
         titleCollapse : true
@@ -33,7 +34,7 @@ Ext.onReady(function()
     var actionCatalog = new Ext.Panel({
         collapsed: true,
         frame         : true,
-        title         : 'Katalog',
+        title         : 'Artikelstamm',
         collapsible   : true,
         contentEl     : 'actionCatalog',
         titleCollapse : true
@@ -77,6 +78,16 @@ Ext.onReady(function()
         titleCollapse : true
     });
 
+    var actionSeoTools = new Ext.Panel({
+        collapsed     : true,
+        frame         : true,
+        title         : 'SEO Tools',
+        collapsible   : true,
+        contentEl     : 'actionSeoTools',
+        titleCollapse : true
+    });
+
+
     var actionSettings = new Ext.Panel({
         collapsed: true,
         frame         : true,
@@ -85,6 +96,7 @@ Ext.onReady(function()
         contentEl     : 'actionSettings',
         titleCollapse : true
     });
+
 
 
      var actionPanel = new Ext.Panel({
@@ -98,7 +110,7 @@ Ext.onReady(function()
         minWidth: 150,
         border: false,
         baseCls:'x-plain',
-        items: [actionAbout,actionCustomers,actionCatalog,actionModules,actionStats,actionTools,actionLocalisation,actionSettings]
+        items: [actionAbout,actionCustomers,actionCatalog,actionStats,actionSeoTools,actionTools,actionLocalisation,actionModules,actionSettings]
     });
 
 
@@ -109,7 +121,6 @@ Ext.onReady(function()
            items:[actionPanel,mainpanel]});
 
     module_html('Willkommen','/admin/start.php');
-
 
 });
 
@@ -139,6 +150,7 @@ function module_js(uri)
 {
     new Ajax.Request(uri,
     {
+        evalJS: false,
         method: 'get',
         onSuccess: function(transport) 
         {   

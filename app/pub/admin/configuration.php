@@ -1,3 +1,5 @@
+
+
 <?php
 /* --------------------------------------------------------------
    $Id: configuration.php 1125 2005-07-28 09:59:44Z novalis $   
@@ -15,22 +17,24 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
-  require('includes/application_top.php');
+    require('includes/application_top.php');
 
-  if ($_GET['action']) {
-    switch ($_GET['action']) {
-      case 'save':
-
-          $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
-
-          while ($configuration = xtc_db_fetch_array($configuration_query))
-              xtc_db_query("UPDATE ".TABLE_CONFIGURATION." SET configuration_value='".$_POST[$configuration['configuration_key']]."' where configuration_key='".$configuration['configuration_key']."'");
-
-               xtc_redirect(FILENAME_CONFIGURATION. '?gID=' . (int)$_GET['gID']);
-        break;
-
+    if($_GET['action']=='save') 
+    {
+        $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
+        while ($configuration = xtc_db_fetch_array($configuration_query))
+        {
+            if(array_key_exists($configuration['configuration_key'],$_POST))
+            {
+                $q=$db->prepare("UPDATE ".TABLE_CONFIGURATION." SET configuration_value=? where configuration_key=?");
+                $q->execute(array($_POST[$configuration['configuration_key']],$configuration['configuration_key']));
+            }
+        }
+        if($_GET['ajax']!='true')
+        {
+            xtc_redirect(FILENAME_CONFIGURATION. '?gID=' . (int)$_GET['gID']);
+        }
     }
-  }
 
   $cfg_group_query = xtc_db_query("select configuration_group_title from " . TABLE_CONFIGURATION_GROUP . " where configuration_group_id = '" . (int)$_GET['gID'] . "'");
   $cfg_group = xtc_db_fetch_array($cfg_group_query);
@@ -42,34 +46,7 @@
         <td></td>
       </tr>
       <tr>
-        <td style="border-top: 3px solid; border-color: #cccccc;" class="main"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-         <?php
-         	switch ($_GET['gID']) {
-         		case 21:
-         			echo AFTERBUY_URL;
-         		case 19:
-         			echo '<table class="infoBoxHeading" width="100%">
-            				<tr>
-                			<td width="150" align="center">
-                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=21', 'NONSSL').'">Afterbuy</a>
-                			</td>
-                			<td width="1">|
-                			</td>
-                			<td width="150" align="center">
-                			<a href="'.xtc_href_link(FILENAME_CONFIGURATION, 'gID=19', 'NONSSL').'">Google Conversion</a>
-                			</td>
-                			<td width="1">|
-                			</td>
-                			<td>
-                			</td>
-            				</tr>
-        					</table>';
-         		
-         			break;
-         	}
-         	?> 
-         
-          
+        <td style="border-top: 3px solid; border-color: #cccccc;" class="main"><table border="0" width="100%" cellspacing="0" cellpadding="0">          
           <tr>
             <td valign="top" align="right">
             
@@ -79,36 +56,7 @@
   $configuration_query = xtc_db_query("select configuration_key,configuration_id, configuration_value, use_function,set_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . (int)$_GET['gID'] . "' order by sort_order");
 
   while ($configuration = xtc_db_fetch_array($configuration_query)) {
-    if ($_GET['gID'] == 6) {
-      switch ($configuration['configuration_key']) {
-        case 'MODULE_PAYMENT_INSTALLED':
-          if ($configuration['configuration_value'] != '') {
-            $payment_installed = explode(';', $configuration['configuration_value']);
-            for ($i = 0, $n = sizeof($payment_installed); $i < $n; $i++) {
-              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/payment/' . $payment_installed[$i]);
-            }
-          }
-          break;
 
-        case 'MODULE_SHIPPING_INSTALLED':
-          if ($configuration['configuration_value'] != '') {
-            $shipping_installed = explode(';', $configuration['configuration_value']);
-            for ($i = 0, $n = sizeof($shipping_installed); $i < $n; $i++) {
-              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/shipping/' . $shipping_installed[$i]);			
-            }
-          }
-          break;
-
-        case 'MODULE_ORDER_TOTAL_INSTALLED':
-          if ($configuration['configuration_value'] != '') {
-            $ot_installed = explode(';', $configuration['configuration_value']);
-            for ($i = 0, $n = sizeof($ot_installed); $i < $n; $i++) {
-              include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/order_total/' . $ot_installed[$i]);			
-            }
-          }
-          break;
-      }
-    }
     if (xtc_not_null($configuration['use_function'])) {
       $use_function = $configuration['use_function'];
       if (ereg('->', $use_function)) {
@@ -140,6 +88,9 @@
    // add
 
    if (strstr($value_field,'configuration_value')) $value_field=str_replace('configuration_value',$configuration['configuration_key'],$value_field);
+
+
+
 
    echo '
   <tr>

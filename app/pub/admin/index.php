@@ -12,6 +12,11 @@
     <script type="text/javascript" src="/pub/javascript/miframe.js"></script>
     <link rel="stylesheet" type="text/css"	href="/pub/javascript/resources/css/ext-all.css" >
     <script type="text/javascript" src="/pub/admin/admin.js"></script>
+    <script type="text/javascript" src="/pub/admin/conf_myshop.js"></script>
+    <script type="text/javascript" src="/pub/admin/conf_style.js"></script>
+
+
+
     <!--<link rel="stylesheet" type="text/css" href="/pub/javascript/resources/css/xtheme-slate.css" >-->
 </head>
 <body>
@@ -24,20 +29,20 @@
 
     <div id="actions" style="display:none">
         <ul id="actionAbout">
-            <li><a href="#" onclick="module_html('Willkommen','/admin/start.php')" >Start</a></li>
             <li><a href="/">Shop</a></li>
-            <li><a href="#" onclick="module_iframe('Credits','/admin/credits.php')" >Credits</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="#" onclick="module_html('Credits','/admin/credits.php')" >Credits</a></li>
+            <li><a href="/logout">Beenden</a></li>
         </ul>
 
         <ul id="actionCustomers">
             <li><a href="#" onclick="module_iframe('Kunden','/admin/customers.php')" >Kunden</a></li>
             <li><a href="#" onclick="module_iframe('Kundengruppen','/admin/customers_status.php')" >Kundengruppen</a></li>
             <li><a href="#" onclick="module_iframe('Bestellungen','/admin/orders.php')">Bestellungen</a></li>
+            <li><a href="#" onclick="module_iframe('Rundschreiben','/admin/module_newsletter.php')" >Rundschreiben</a></li>
         </ul>
 
         <ul id="actionCatalog">
-            <li><a href="#" onclick="module_iframe('Artikelstamm','/admin/categories.php')">Artikelstamm</a></li>
+            <li><a href="#" onclick="module_iframe('Artikel','/admin/categories.php')">Artikel</a></li>
             <li><a href="#" onclick="module_iframe('Hersteller','/admin/manufacturers.php')" >Hersteller</a></li>
             <li><a href="#" onclick="module_iframe('Sonderangebote','/admin/specials.php')" >Sonderangebote</a></li>
         </ul>
@@ -55,12 +60,8 @@
         </ul>
 
         <ul id="actionTools">
-            <li><a href="#" onclick="module_iframe('Rundschreiben','/admin/module_newsletter.php')" >Rundschreiben</a></li>
+            <li><a href="#" onclick="module_iframe('Gesperrte Kreditkarten','/admin/blacklist.php')" >Kreditkarten sperren</a></li>
             <li><a href="#" onclick="module_iframe('Content Manager','/admin/content_manager.php')" >Content Manager</a></li>
-            <li><a href="#" onclick="module_iframe('CC-Blacklist','/admin/blacklist.php')" >CC-Blacklist</a></li>
-            <li><a href="#" onclick="module_iframe('Banner Manager','/admin/banner_manager.php')" >Banner Manager</a></li>
-            <li><a href="#" onclick="module_iframe('Google Adsense','/admin/adsense.php')" >Google Adsense</a></li>
-            <li><a href="#" onclick="module_iframe('Google Adwords','/admin/adwords.php')" >Google Adwords</a></li>
             <li><a href="#" onclick="module_iframe('Export','/admin/export.php')" >Export</a></li>
             <li><a href="#" onclick="module_iframe('Import','/admin/csv_backend.php')" >Import</a></li>
         </ul>
@@ -74,17 +75,21 @@
             <li><a href="#" onclick="module_iframe('Steuers&auml;tze','/admin/tax_rates.php')" >Steuers&auml;tze</a></li>
         </ul>
 
-        <ul id="actionSettings" >
-            <li><a href="#" onclick="module_iframe('Mein Shop','/admin/configuration.php?gID=1')" >Mein Shop</a></li>
-            <li><a href="#" onclick="module_iframe('Style','/admin/style.php')" >Style</a></li>
-            <li><a href="#" onclick="module_iframe('Minumum Werte','/admin/configuration.php?gID=2')" >Minumum Werte</a></li>
-            <li><a href="#" onclick="module_iframe('Maximum Werte','/admin/configuration.php?gID=3')" >Maximum Werte</a></li>
-            <li><a href="#" onclick="module_iframe('Kunden Details','/admin/configuration.php?gID=5')" >Kunden Details</a></li>
-            <li><a href="#" onclick="module_iframe('Versand Optionen','/admin/configuration.php?gID=7')" >Versand Optionen</a></li>
-            <li><a href="#" onclick="module_iframe('Artikel Listen Optionen','/admin/configuration.php?gID=8')" >Artikel Listen Optionen</a></li>
-            <li><a href="#" onclick="module_iframe('eMail Optionen','/admin/configuration.php?gID=12')" >eMail Optionen</a></li>
+        <ul id="actionSeoTools" >
             <li><a href="#" onclick="module_iframe('Meta-Tags/Suchmaschinen','/admin/metatags.php')" >Meta-Tags/Suchmaschinen</a></li>
             <li><a href="#" onclick="module_iframe('Conversion tracking','/admin/configuration.php?gID=76')" >Conversion tracking</a></li>
+            <li><a href="#" onclick="module_iframe('Google Adsense','/admin/adsense.php')" >Google Adsense</a></li>
+<!--            <li><a href="#" onclick="module_iframe('Google Adwords','/admin/adwords.php')" >Google Adwords</a></li> -->
+        </ul>
+
+        <ul id="actionSettings" >
+            <li><a href="#" onclick="module_conf_myshop()" >Mein Shop</a></li>
+            <li><a href="#" onclick="module_conf_style()" >Mein Style</a></li>
+            <li><a href="#" onclick="module_js('/admin/configuration2.php?gID=2')" >Minumum Werte</a></li>
+            <li><a href="#" onclick="module_js('/admin/configuration2.php?gID=3')" >Maximum Werte</a></li>
+            <li><a href="#" onclick="module_iframe('Kunden Details','/admin/configuration.php?gID=5')" >Kunden Details</a></li>
+            <li><a href="#" onclick="module_iframe('Versand Optionen','/admin/configuration.php?gID=7')" >Versand Optionen</a></li>
+            <li><a href="#" onclick="module_iframe('eMail Optionen','/admin/configuration.php?gID=12')" >eMail Optionen</a></li>
             <li><a href="#" onclick="module_iframe('Zusatzmodule','/admin/configuration.php?gID=17')" >Zusatzmodule</a></li>
             <li><a href="#" onclick="module_iframe('UST ID','/admin/configuration.php?gID=18')" >UST ID</a></li>
             <li><a href="#" onclick="module_iframe('Such-Optionen','/admin/configuration.php?gID=22')" >Such-Optionen</a></li>
