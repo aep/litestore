@@ -87,10 +87,10 @@ class categories {
 	// deletes a single category, without products
 
 	function remove_category($category_id) {
-		$category_image_query = xtc_db_query("SELECT categories_image FROM ".TABLE_CATEGORIES." WHERE categories_id = '".xtc_db_input($category_id)."'");
+		$category_image_query = xtc_db_query("SELECT categories_image FROM ".TABLE_CATEGORIES." WHERE categories_id = '".(int)($category_id)."'");
 		$category_image = xtc_db_fetch_array($category_image_query);
 
-		$duplicate_image_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_CATEGORIES." WHERE categories_image = '".xtc_db_input($category_image['categories_image'])."'");
+		$duplicate_image_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_CATEGORIES." WHERE categories_image = '".(int)($category_image['categories_image'])."'");
 		$duplicate_image = xtc_db_fetch_array($duplicate_image_query);
 
 		if ($duplicate_image['total'] < 2) {
@@ -99,9 +99,9 @@ class categories {
 			}
 		}
 
-		xtc_db_query("DELETE FROM ".TABLE_CATEGORIES." WHERE categories_id = '".xtc_db_input($category_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id = '".xtc_db_input($category_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE categories_id = '".xtc_db_input($category_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_CATEGORIES." WHERE categories_id = '".(int)($category_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_CATEGORIES_DESCRIPTION." WHERE categories_id = '".(int)($category_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE categories_id = '".(int)($category_id)."'");
 
 		if (USE_CACHE == 'true') {
 			xtc_reset_cache_block('categories');
@@ -268,8 +268,8 @@ class categories {
 		$src_category_id = (int)($src_category_id);
 		$dest_category_id = (int)($dest_category_id);
 		xtc_db_query("UPDATE ".TABLE_CATEGORIES."
-				    	                 SET parent_id     = '".xtc_db_input($dest_category_id)."', last_modified = now() 
-				    	               WHERE categories_id = '".xtc_db_input($src_category_id)."'");
+				    	                 SET parent_id     = '".(int)($dest_category_id)."', last_modified = now() 
+				    	               WHERE categories_id = '".(int)($src_category_id)."'");
 	}
 
 	// ----------------------------------------------------------------------------------------------------- //  
@@ -296,7 +296,7 @@ class categories {
 
 			//copy data
 			
-			$sql_data_array = array ('parent_id'=>xtc_db_input($dest_category_id),
+			$sql_data_array = array ('parent_id'=>(int)($dest_category_id),
 									'date_added'=>'NOW()',
 									'last_modified'=>'NOW()',
 									'categories_image'=>$ccopy_values['categories_image'],
@@ -368,11 +368,11 @@ class categories {
 	function remove_product($product_id) {
 
 		// get content of product
-		$product_content_query = xtc_db_query("SELECT content_file FROM ".TABLE_PRODUCTS_CONTENT." WHERE products_id = '".xtc_db_input($product_id)."'");
+		$product_content_query = xtc_db_query("SELECT content_file FROM ".TABLE_PRODUCTS_CONTENT." WHERE products_id = '".(int)($product_id)."'");
 		// check if used elsewhere, delete db-entry + file if not
 		while ($product_content = xtc_db_fetch_array($product_content_query)) {   
 		   		
-   		$duplicate_content_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_PRODUCTS_CONTENT." WHERE content_file = '".xtc_db_input($product_content['content_file'])."' AND products_id != '".xtc_db_input($product_id)."'");
+   		$duplicate_content_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_PRODUCTS_CONTENT." WHERE content_file = '".(int)($product_content['content_file'])."' AND products_id != '".(int)($product_id)."'");
 
    		$duplicate_content = xtc_db_fetch_array($duplicate_content_query);
 
@@ -381,32 +381,32 @@ class categories {
    		}
          
    		//delete DB-Entry   		
-   		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_CONTENT." WHERE products_id = '".xtc_db_input($product_id)."' AND (content_file = '".$product_content['content_file']."' OR content_file = '')");
+   		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_CONTENT." WHERE products_id = '".(int)($product_id)."' AND (content_file = '".$product_content['content_file']."' OR content_file = '')");
    		
 		}
 	   
 		
-		xtc_db_query("DELETE FROM ".TABLE_SPECIALS." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_IMAGES." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET." WHERE products_id = '".xtc_db_input($product_id)."'");
-		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." WHERE products_id = '".xtc_db_input($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_SPECIALS." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_IMAGES." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_TO_CATEGORIES." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_DESCRIPTION." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET." WHERE products_id = '".(int)($product_id)."'");
+		xtc_db_query("DELETE FROM ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." WHERE products_id = '".(int)($product_id)."'");
 
 		$customers_status_array = xtc_get_customers_statuses();
 		for ($i = 0, $n = sizeof($customers_status_array); $i < $n; $i ++) {
 			if (isset($customers_statuses_array[$i]['id']))
-				xtc_db_query("delete from personal_offers_by_customers_status_".$customers_statuses_array[$i]['id']." where products_id = '".xtc_db_input($product_id)."'");
+				xtc_db_query("delete from personal_offers_by_customers_status_".$customers_statuses_array[$i]['id']." where products_id = '".(int)($product_id)."'");
 		}
 
-		$product_reviews_query = xtc_db_query("select reviews_id from ".TABLE_REVIEWS." where products_id = '".xtc_db_input($product_id)."'");
+		$product_reviews_query = xtc_db_query("select reviews_id from ".TABLE_REVIEWS." where products_id = '".(int)($product_id)."'");
 		while ($product_reviews = xtc_db_fetch_array($product_reviews_query)) {
 			xtc_db_query("delete from ".TABLE_REVIEWS_DESCRIPTION." where reviews_id = '".$product_reviews['reviews_id']."'");
 		}
 
-		xtc_db_query("delete from ".TABLE_REVIEWS." where products_id = '".xtc_db_input($product_id)."'");
+		xtc_db_query("delete from ".TABLE_REVIEWS." where products_id = '".(int)($product_id)."'");
 
 		if (USE_CACHE == 'true') {
 			xtc_reset_cache_block('categories');
@@ -741,7 +741,7 @@ class categories {
 
 		$product_query = xtDBquery("SELECT *
 				    	                                 FROM ".TABLE_PRODUCTS."
-				    	                                WHERE products_id = '".xtc_db_input($src_products_id)."'");
+				    	                                WHERE products_id = '".(int)($src_products_id)."'");
 
 		$product = xtc_db_fetch_array($product_query);
 		if ($dest_categories_id == 0) { $startpage = 1; $products_status = 1; } else { $startpage= 0; $products_status = $product['products_status'];}
@@ -801,9 +801,9 @@ class categories {
 
 		$description_query = xtc_db_query("SELECT *
 				    	                                     FROM ".TABLE_PRODUCTS_DESCRIPTION."
-				    	                                    WHERE products_id = '".xtc_db_input($src_products_id)."'");
+				    	                                    WHERE products_id = '".(int)($src_products_id)."'");
 
-		$old_products_id = xtc_db_input($src_products_id);
+		$old_products_id = (int)($src_products_id);
 		while ($description = xtc_db_fetch_array($description_query)) {
 			xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_DESCRIPTION."
 						    		                 SET products_id                = '".$dup_products_id."',                                      
@@ -821,7 +821,7 @@ class categories {
 
 		xtc_db_query("INSERT INTO ".TABLE_PRODUCTS_TO_CATEGORIES."
 				    	                 SET products_id   = '".$dup_products_id."',
-				    	                     categories_id = '".xtc_db_input($dest_categories_id)."'");
+				    	                     categories_id = '".(int)($dest_categories_id)."'");
 
 		//mo_images by Novalis@eXanto.de
 		$mo_images = xtc_get_products_mo_images($src_products_id);
