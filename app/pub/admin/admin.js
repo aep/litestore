@@ -121,7 +121,6 @@ Ext.onReady(function()
            items:[actionPanel,mainpanel]});
 
     module_html('Willkommen','/admin/start.php');
-
 });
 
 

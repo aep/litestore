@@ -19,30 +19,16 @@ class BoxContent extends AbstractVCBox
         $box_smarty->caching = 0;
         $box_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
         
-        if (GROUP_CHECK == 'true') 
-        {
-            $group_check = "and group_ids LIKE '%c_".$_SESSION['customers_status']['customers_status_id']."_group%'";
-        }
-        
-        $content_query = "SELECT
-            content_id,
-            categories_id,
-            parent_id,
-            content_title,
-            content_group
-            FROM ".TABLE_CONTENT_MANAGER."
-            WHERE languages_id='".(int) $_SESSION['languages_id']."'
-            and file_flag=1 ".$group_check." and content_status=1 order by sort_order";
-        
-        $content_query = xtDBquery($content_query);
-        
-        
+
+        global $azrael;
+
+
         $links=array();
         
-        while ($content_data = xtc_db_fetch_array($content_query, true)) 
+        foreach( $azrael->listGenerators($azrael->presets['Contentbox']) as $node)
         {
-            $links[]=array('name'=>$content_data['content_title'],
-                'url'=>"/content/".$content_data['content_group']."/".rawurlencode(str_replace(' ','-',$content_data['content_title'])));
+            $links[]=array('name'=>$node->name(),
+                'url'=>"/content/".$node->Id."/".rawurlencode(str_replace(' ','-',$node->name())));
         }
         
         if(count($links))
