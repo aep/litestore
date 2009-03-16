@@ -14,6 +14,8 @@
 function module()
 {
 
+
+
     $default_smarty = new smarty;
     $default_smarty->assign('tpl_path',xtc_template_path(CURRENT_TEMPLATE));
     $default_smarty->assign('session', session_id());

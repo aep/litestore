@@ -72,7 +72,7 @@ function module()
 
 
     ///-------- display products   ---------- ///
-    if ($cateqories_products['total'] > 0)
+    if ($cateqories_products['total'] > 0  )
     {
         //fsk18 lock
         $fsk_lock = '';
@@ -145,7 +145,7 @@ function module()
 
     } 
     ///-------- display sub categories   ---------- ///
-    else if ($category_parent['total'] > 0)
+    else if ($category_parent['total'] > 0 ||  true)
     {
         if (GROUP_CHECK == 'true')
         {
