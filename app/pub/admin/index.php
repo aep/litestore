@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/pub/admin/admin.js"></script>
     <script type="text/javascript" src="/pub/admin/conf_myshop.js"></script>
     <script type="text/javascript" src="/pub/admin/conf_style.js"></script>
+    <script type="text/javascript" src="/pub/admin/azrael.js"></script>
 
 
 
@@ -60,8 +61,8 @@
         </ul>
 
         <ul id="actionTools">
+            <li><a href="#" onclick="module_azrael()" >Content Manager</a></li>
             <li><a href="#" onclick="module_iframe('Gesperrte Kreditkarten','/admin/blacklist.php')" >Kreditkarten sperren</a></li>
-            <li><a href="#" onclick="module_iframe('Content Manager','/admin/content_manager.php')" >Content Manager</a></li>
             <li><a href="#" onclick="module_iframe('Export','/admin/export.php')" >Export</a></li>
             <li><a href="#" onclick="module_iframe('Import','/admin/csv_backend.php')" >Import</a></li>
         </ul>
