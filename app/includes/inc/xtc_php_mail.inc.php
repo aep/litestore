@@ -67,8 +67,8 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 		$mail->Body = $message_body_plain;
 	}
 
-	$mail->From = $from_email_address;
-	$mail->Sender = $from_email_address;
+    $mail->From = $from_email_address;
+    $mail->Sender = $from_email_address;
 	$mail->FromName = $from_email_name;
 	$mail->AddAddress($to_email_address, $to_name);
 	if ($forwarding_to != '')
@@ -81,10 +81,12 @@ function xtc_php_mail($from_email_address, $from_email_name, $to_email_address, 
 
 	$mail->Subject = $email_subject;
 
-	if (!$mail->Send()) {
-		echo "Message was not sent <p>";
-		echo "Mailer Error: ".$mail->ErrorInfo;
-		exit;
+
+    class MailerException extends Exception{};
+  
+	if (!$mail->Send())
+    {
+        throw new MailerException($mail->ErrorInfo);
 	}
 }
 ?>
