@@ -106,16 +106,16 @@
         } elseif ($_GET['action'] == 'save') {
 
 
-          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . xtc_db_input($customers_status_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_CUSTOMERS_STATUS, $sql_data_array, 'update', "customers_status_id = '" . (int)($customers_status_id) . "' and languages_id = '" . $language_id . "'");
         }
       }
        
       if ($customers_status_image = &xtc_try_upload('customers_status_image', DIR_WS_ICONS)) {
-        xtc_db_query("update " . TABLE_CUSTOMERS_STATUS . " set customers_status_image = '" . $customers_status_image->filename . "' where customers_status_id = '" . xtc_db_input($customers_status_id) . "'");
+        xtc_db_query("update " . TABLE_CUSTOMERS_STATUS . " set customers_status_image = '" . $customers_status_image->filename . "' where customers_status_id = '" . (int)($customers_status_id) . "'");
       }
 
       if ($_POST['default'] == 'on') {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($customers_status_id) . "' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
+        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . (int)($customers_status_id) . "' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
       }
 
       xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page'] . '&cID=' . $customers_status_id));
@@ -130,17 +130,17 @@
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
       }
 
-      xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where customers_status_id = '" . xtc_db_input($cID) . "'");
+      xtc_db_query("delete from " . TABLE_CUSTOMERS_STATUS . " where customers_status_id = '" . (int)($cID) . "'");
 
       // We want to drop the existing corresponding personal_offers table
-      xtc_db_query("drop table IF EXISTS personal_offers_by_customers_status_" . xtc_db_input($cID) . "");
+      xtc_db_query("drop table IF EXISTS personal_offers_by_customers_status_" . (int)($cID) . "");
       xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS_STATUS, 'page=' . $_GET['page']));
       break;
 
     case 'delete':
       $cID = xtc_db_prepare_input($_GET['cID']);
 
-      $status_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS . " where customers_status = '" . xtc_db_input($cID) . "'");
+      $status_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS . " where customers_status = '" . (int)($cID) . "'");
       $status = xtc_db_fetch_array($status_query);
 
       $remove_status = true;
@@ -151,12 +151,12 @@
         $remove_status = false;
         $messageStack->add(ERROR_STATUS_USED_IN_CUSTOMERS, 'error');
       } else {
-        $history_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS_STATUS_HISTORY . " where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
+        $history_query = xtc_db_query("select count(*) as count from " . TABLE_CUSTOMERS_STATUS_HISTORY . " where '" . (int)($cID) . "' in (new_value, old_value)");
         $history = xtc_db_fetch_array($history_query);
         if ($history['count'] > 0) {
           // delete from history
           xtc_db_query("DELETE FROM " . TABLE_CUSTOMERS_STATUS_HISTORY . "
-                        where '" . xtc_db_input($cID) . "' in (new_value, old_value)");
+                        where '" . (int)($cID) . "' in (new_value, old_value)");
           $remove_status = true;
           // $messageStack->add(ERROR_STATUS_USED_IN_HISTORY, 'error');
         }
