@@ -41,7 +41,6 @@ function module()
     global $product;
 
     $info_smarty = new Smarty;
-    $info_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
     $group_check = '';
 
 
