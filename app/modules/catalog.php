@@ -174,6 +174,19 @@ function module()
                 {
                     $group_check = "and c.group_permission_".$_SESSION['customers_status']['customers_status_id']."=1 ";
                 }
+
+                global $db;
+                $blablacount=$db->query("select COUNT(*)
+                                             from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
+                                            where c.categories_status = '1'
+                                            and c.parent_id = '".$category_links[$i]."'
+                                            and c.categories_id = cd.categories_id
+                                            ".$group_check."
+                                            and cd.languages_id = '".(int) $_SESSION['languages_id']."'
+                                            order by sort_order, cd.categories_name")->fetch();
+
+
+
                 $categories_query = "select cd.categories_description,
                                             c.categories_id,
                                             cd.categories_name,
@@ -188,7 +201,7 @@ function module()
                                             order by sort_order, cd.categories_name";
                 $categories_query = xtDBquery($categories_query);
 
-                if (xtc_db_num_rows($categories_query, true) < 1) 
+                if ($blablacount['COUNT(*)'] < 1) 
                 {
                     // do nothing, go through the loop
                 } 
