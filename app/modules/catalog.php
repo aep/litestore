@@ -90,7 +90,7 @@ function module()
         {
             $sorting_data['products_sorting'] = 'pd.products_name';
         }
-        $sorting = ' ORDER BY '.$sorting_data['products_sorting'].' '.$sorting_data['products_sorting2'].' ';
+        $sorting = ' ORDER BY '.$sorting_data['products_sorting'];
 
 
 

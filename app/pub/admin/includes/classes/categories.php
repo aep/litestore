@@ -530,25 +530,25 @@ class categories {
         (
             'products_trading_unit' => (int)($products_data['products_trading_unit']),
             'products_quantity' => (int)($products_data['products_quantity']), 
-            'products_model' => (int)($products_data['products_model']), 
-            'products_ean' => (int)($products_data['products_ean']), 
-            'products_price' => (int)($products_data['products_price']),     
-            'products_sort' => (int)($products_data['products_sort']), 
-            'products_shippingtime' => (int)($products_data['shipping_status']), 
-            'products_discount_allowed' => (int)($products_data['products_discount_allowed']),
+            'products_model' => ($products_data['products_model']), 
+            'products_ean' => ($products_data['products_ean']), 
+            'products_price' => ($products_data['products_price']),     
+            'products_sort' => ($products_data['products_sort']), 
+            'products_shippingtime' => ($products_data['shipping_status']), 
+            'products_discount_allowed' => ($products_data['products_discount_allowed']),
             'products_date_available' => $products_date_available, 
-            'products_weight' => (int)($products_data['products_weight']), 
+            'products_weight' => ($products_data['products_weight']), 
             'products_status' => $products_status, 
-            'products_startpage' => (int)($products_data['products_startpage']), 
-            'products_startpage_sort' => (int)($products_data['products_startpage_sort']), 
-            'products_tax_class_id' => (int)($products_data['products_tax_class_id']), 
-            'product_template' => (int)($products_data['info_template']), 
-            'options_template' => (int)($products_data['options_template']), 
-            'manufacturers_id' => (int)($products_data['manufacturers_id']), 
-            'products_fsk18' => (int)($products_data['fsk18']), 
-            'products_vpe_value' => (int)($products_data['products_vpe_value']), 
-            'products_vpe_status' => (int)($products_data['products_vpe_status']), 
-            'products_vpe_id' => (int)($products_data['products_vpe_id'])
+            'products_startpage' => ($products_data['products_startpage']), 
+            'products_startpage_sort' => ($products_data['products_startpage_sort']), 
+            'products_tax_class_id' => ($products_data['products_tax_class_id']), 
+            'product_template' => ($products_data['info_template']), 
+            'options_template' => ($products_data['options_template']), 
+            'manufacturers_id' => ($products_data['manufacturers_id']), 
+            'products_fsk18' => ($products_data['fsk18']), 
+            'products_vpe_value' => ($products_data['products_vpe_value']), 
+            'products_vpe_status' => ($products_data['products_vpe_status']), 
+            'products_vpe_id' => ($products_data['products_vpe_id'])
         );
 		$sql_data_array = array_merge($sql_data_array, $permission_array);
 		//get the next ai-value from table products if no products_id is set
@@ -584,7 +584,7 @@ class categories {
 			} else {
 				copy(DIR_FS_CATALOG_ORIGINAL_IMAGES.$products_image->filename, DIR_FS_CATALOG_ORIGINAL_IMAGES.$products_image_name);
 			}
-			$sql_data_array['products_image'] = (int)($products_image_name);
+			$sql_data_array['products_image'] = ($products_image_name);
 
 			require (DIR_WS_INCLUDES.'product_thumbnail_images.php');
 			require (DIR_WS_INCLUDES.'product_info_images.php');
@@ -625,7 +625,7 @@ class categories {
 		}
 		for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 			if ($group_data[$col]['STATUS_ID'] != '') {
-				$personal_price = (int)($products_data['products_price_'.$group_data[$col]['STATUS_ID']]);
+				$personal_price = ($products_data['products_price_'.$group_data[$col]['STATUS_ID']]);
 				if ($personal_price == '' || $personal_price == '0.0000') {
 					$personal_price = '0.00';
 				} else {
@@ -669,8 +669,8 @@ class categories {
 		}
 		for ($col = 0, $n = sizeof($group_data); $col < $n +1; $col ++) {
 			if ($group_data[$col]['STATUS_ID'] != '') {
-				$quantity = (int)($products_data['products_quantity_staffel_'.$group_data[$col]['STATUS_ID']]);
-				$staffelpreis = (int)($products_data['products_price_staffel_'.$group_data[$col]['STATUS_ID']]);
+				$quantity = ($products_data['products_quantity_staffel_'.$group_data[$col]['STATUS_ID']]);
+				$staffelpreis = ($products_data['products_price_staffel_'.$group_data[$col]['STATUS_ID']]);
 				if (PRICE_IS_BRUTTO == 'true') {
 					$staffelpreis = ($staffelpreis / (xtc_get_tax_rate($products_data['products_tax_class_id']) + 100) * 100);
 				}
@@ -707,14 +707,14 @@ class categories {
 
 
             $sql_data_array = array (
-                    'products_name' => (int)($products_data['products_name'][$languages_id]), 
-                    'products_description' => (int)($products_data['products_description_'.$languages_id]),
-                    'products_short_description' => (int)($products_data['products_short_description_'.$languages_id]), 
-                    'products_keywords' => (int)($products_data['products_keywords'][$languages_id]), 
-                    'products_url' => (int)($products_data['products_url'][$languages_id]), 
-                    'products_meta_title' => (int)($products_data['products_meta_title'][$languagse_id]), 
-                    'products_meta_description' => (int)($products_data['products_meta_description'][$languages_id]), 
-                    'products_meta_keywords' => (int)($products_data['products_meta_keywords'][$languages_id])
+                    'products_name' => ($products_data['products_name'][$languages_id]), 
+                    'products_description' => ($products_data['products_description_'.$languages_id]),
+                    'products_short_description' => ($products_data['products_short_description_'.$languages_id]), 
+                    'products_keywords' => ($products_data['products_keywords'][$languages_id]), 
+                    'products_url' => ($products_data['products_url'][$languages_id]), 
+                    'products_meta_title' => ($products_data['products_meta_title'][$languagse_id]), 
+                    'products_meta_description' => ($products_data['products_meta_description'][$languages_id]), 
+                    'products_meta_keywords' => ($products_data['products_meta_keywords'][$languages_id])
                     );
 
 
@@ -985,11 +985,11 @@ class categories {
 		$products_count += $products['total'];
 
 		$childs_query = xtc_db_query("select categories_id from ".TABLE_CATEGORIES." where parent_id = '".$category_id."'");
-		if (xtc_db_num_rows($childs_query)) {
+
 			while ($childs = xtc_db_fetch_array($childs_query)) {
 				$products_count += $this->count_category_products($childs['categories_id'], $include_deactivated);
 			}
-		}
+
 		return $products_count;
 	}
 

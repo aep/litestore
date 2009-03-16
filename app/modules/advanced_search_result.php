@@ -93,8 +93,7 @@ function module()
 	    *    search process starts here
 	    */
     
-	    $breadcrumb->add(NAVBAR_TITLE1_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH));
-	    $breadcrumb->add(NAVBAR_TITLE2_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords='.xtc_db_input($_GET['keywords']).'&search_in_description='.xtc_db_input($_GET['search_in_description']).'&categories_id='.(int)$_GET['categories_id'].'&inc_subcat='.xtc_db_input($_GET['inc_subcat']).'&manufacturers_id='.(int)$_GET['manufacturers_id'].'&pfrom='.xtc_db_input($_GET['pfrom']).'&pto='.xtc_db_input($_GET['pto']).'&dfrom='.xtc_db_input($_GET['dfrom']).'&dto='.xtc_db_input($_GET['dto'])));
+	    $breadcrumb->add(NAVBAR_TITLE1_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH));
     
 	    require (DIR_WS_INCLUDES.'header.php');
     
