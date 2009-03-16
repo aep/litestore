@@ -43,7 +43,7 @@
 
         <ul id="actionCatalog">
             <li><a href="#" onclick="module_iframe('Artikel','/admin/categories.php')">Artikel</a></li>
-            <li><a href="#" onclick="module_iframe('Hersteller','/admin/manufacturers.php')" >Hersteller</a></li>
+<!--            <li><a href="#" onclick="module_iframe('Hersteller','/admin/manufacturers.php')" >Hersteller</a></li> -->
             <li><a href="#" onclick="module_iframe('Sonderangebote','/admin/specials.php')" >Sonderangebote</a></li>
         </ul>
         <ul id="actionModules">

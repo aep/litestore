@@ -115,12 +115,7 @@ if ($_GET['action'] == 'edit') {
 	}
 
 	if (ACCOUNT_DOB == 'true') {
-		if (checkdate(substr(xtc_date_raw($customers_dob), 4, 2), substr(xtc_date_raw($customers_dob), 6, 2), substr(xtc_date_raw($customers_dob), 0, 4))) {
 			$entry_date_of_birth_error = false;
-		} else {
-			$error = true;
-			$entry_date_of_birth_error = true;
-		}
 	}
 
 	// Vat Check
@@ -230,16 +225,16 @@ if ($_GET['action'] == 'edit') {
 		} else {
 			$zone_id = 0;
 			$entry_state_error = false;
-			$check_query = xtc_db_query("select count(*) as total from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country_id)."'");
+			$check_query = xtc_db_query("select count(*) as total from ".TABLE_ZONES." where zone_country_id = '".(int)($entry_country_id)."'");
 			$check_value = xtc_db_fetch_array($check_query);
 			$entry_state_has_zones = ($check_value['total'] > 0);
-			if ($entry_state_has_zones == true) {
-				$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country_id)."' and zone_name = '".xtc_db_input($entry_state)."'");
+			if ($entry_state_has_zones == true && false) {
+				$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".($entry_country_id)."' and zone_name = '".($entry_state)."'");
 				if (xtc_db_num_rows($zone_query) == 1) {
 					$zone_values = xtc_db_fetch_array($zone_query);
 					$entry_zone_id = $zone_values['zone_id'];
 				} else {
-					$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country)."' and zone_code = '".xtc_db_input($entry_state)."'");
+					$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".($entry_country)."' and zone_code = '".($entry_state)."'");
 					if (xtc_db_num_rows($zone_query) >= 1) {
 						$zone_values = xtc_db_fetch_array($zone_query);
 						$zone_id = $zone_values['zone_id'];
@@ -264,8 +259,8 @@ if ($_GET['action'] == 'edit') {
 		$entry_telephone_error = false;
 	}
 
-	$check_email = xtc_db_query("select customers_email_address from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($customers_email_address)."' and customers_id <> '".xtc_db_input($customers_id)."'");
-	if (xtc_db_num_rows($check_email)) {
+	$check_email = xtc_db_query("select customers_email_address from ".TABLE_CUSTOMERS." where customers_email_address = '".($customers_email_address)."' and customers_id <> '".($customers_id)."'");
+	if ($check_email->fetch()) {
 		$error = true;
 		$entry_email_address_exists = true;
 	} else {
@@ -623,7 +618,7 @@ if (ACCOUNT_STATE == 'true') {
 		if ($entry_state_error == true) {
 			if ($entry_state_has_zones == true) {
 				$zones_array = array ();
-				$zones_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country_id)."' order by zone_name");
+				$zones_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_country_id = '".(int)($entry_country_id)."' order by zone_name");
 				while ($zones_values = xtc_db_fetch_array($zones_query)) {
 					$zones_array[] = array ('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
 				}

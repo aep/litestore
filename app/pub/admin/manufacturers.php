@@ -15,9 +15,9 @@
    Released under the GNU General Public License 
    --------------------------------------------------------------*/
 
-  require('includes/application_top.php');
+    require('includes/application_top.php');
 
-  switch ($_GET['action']) {
+    switch ($_GET['action']) {
     case 'insert':
     case 'save':
       $manufacturers_id = xtc_db_prepare_input($_GET['mID']);
@@ -40,7 +40,7 @@
     if ($manufacturers_image = &xtc_try_upload('manufacturers_image', $dir_manufacturers)) {
         xtc_db_query("update " . TABLE_MANUFACTURERS . " set
                                  manufacturers_image ='manufacturers/".$manufacturers_image->filename . "'
-                                 where manufacturers_id = '" . xtc_db_input($manufacturers_id) . "'");
+                                 where manufacturers_id = '" . (int)$manufacturers_id) . "'");
     }
 
       $languages = xtc_get_languages();
