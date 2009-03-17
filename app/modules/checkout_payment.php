@@ -29,7 +29,7 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-
+require_once (DIR_WS_CLASSES.'azrael.php');
 function module()
 {
     $smarty=new Smarty;
@@ -252,33 +252,22 @@ function module()
     $smarty->assign('COMMENTS', xtc_draw_textarea_field('comments', 'soft', '60', '5', $_SESSION['comments']) . xtc_draw_hidden_field('comments_added', 'YES'));
     
     //check if display conditions on checkout page is true
-    if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
+    if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') 
+    {
+        global $azrael;
+
+        $ni=$azrael->presets['Agb'];
+
+
+
     
-	    if (GROUP_CHECK == 'true') {
-		    $group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
-	    }
-    
-	    $shop_content_query = xtc_db_query("SELECT
-	                                                    content_title,
-	                                                    content_heading,
-	                                                    content_text,
-	                                                    content_file
-	                                                    FROM " . TABLE_CONTENT_MANAGER . "
-	                                                    WHERE content_group='3' " . $group_check . "
-	                                                    AND languages_id='" . $_SESSION['languages_id'] . "'");
-	    $shop_content_data = xtc_db_fetch_array($shop_content_query);
-    
-	    if ($shop_content_data['content_file'] != '') {
-    
-		    $conditions = '<iframe SRC="' . DIR_WS_CATALOG . 'media/content/' . $shop_content_data['content_file'] . '" width="100%" height="300">';
-		    $conditions .= '</iframe>';
-	    } else {
-    
-		    $conditions = '<textarea name="blabla" cols="60" rows="10" readonly="readonly">' . strip_tags(str_replace('<br />', "\n", $shop_content_data['content_text'])) . '</textarea>';
-	    }
-    
-	    $smarty->assign('AGB', $conditions);
-	    $smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
+	    $smarty->assign('AGB', $azrael->renderID($ni));
+	    $smarty->assign('AGB_LINK', '/content/'.$ni);
+
+
+
+
+
 	    // LUUPAY ZAHLUNGSMODUL
 	    if ($_SESSION['conditions_accepted']) {
 		    $smarty->assign('AGB_checkbox', '<input type="checkbox" value="conditions" name="conditions" checked />');
