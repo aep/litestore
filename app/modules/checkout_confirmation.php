@@ -247,56 +247,8 @@ function module()
     $smarty->assign('MODULE_BUTTONS', $payment_button);
     
     //check if display conditions on checkout page is true
-    if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') {
-    
-	    if (GROUP_CHECK == 'true') {
-		    $group_check = "and group_ids LIKE '%c_" . $_SESSION['customers_status']['customers_status_id'] . "_group%'";
-	    }
-    
-	    $shop_content_query = "SELECT
-		                                                    content_title,
-		                                                    content_heading,
-		                                                    content_text,
-		                                                    content_file
-		                                                    FROM " . TABLE_CONTENT_MANAGER . "
-		                                                    WHERE content_group='" . REVOCATION_ID . "' " . $group_check . "
-		                                                    AND languages_id='" . $_SESSION['languages_id'] . "'";
-    
-	    $shop_content_query = xtc_db_query($shop_content_query);
-	    $shop_content_data = xtc_db_fetch_array($shop_content_query);
-    
-	    if ($shop_content_data['content_file'] != '') {
-		    ob_start();
-		    if (strpos($shop_content_data['content_file'], '.txt'))
-			    echo '<pre>';
-		    include (DIR_FS_CATALOG . 'media/content/' . $shop_content_data['content_file']);
-		    if (strpos($shop_content_data['content_file'], '.txt'))
-			    echo '</pre>';
-		    $revocation = ob_get_contents();
-		    ob_end_clean();
-	    } else {
-		    $revocation = $shop_content_data['content_text'];
-	    }
-    
-	    $smarty->assign('REVOCATION', $revocation);
-	    $smarty->assign('REVOCATION_TITLE', $shop_content_data['content_heading']);
-	    $smarty->assign('REVOCATION_LINK', $main->getContentLink(REVOCATION_ID, MORE_INFO));
-	    
-	    $shop_content_query = "SELECT
-		                                                    content_title,
-		                                                    content_heading,
-		                                                    content_text,
-		                                                    content_file
-		                                                    FROM " . TABLE_CONTENT_MANAGER . "
-		                                                    WHERE content_group='3' " . $group_check . "
-		                                                    AND languages_id='" . $_SESSION['languages_id'] . "'";
-    
-	    $shop_content_query = xtc_db_query($shop_content_query);
-	    $shop_content_data = xtc_db_fetch_array($shop_content_query);
-	    
-	    $smarty->assign('AGB_TITLE', $shop_content_data['content_heading']);
-	    $smarty->assign('AGB_LINK', $main->getContentLink(3, MORE_INFO));
-    
+    if (DISPLAY_REVOCATION_ON_CHECKOUT == 'true') 
+    {
     }
     
     $smarty->assign('language', $_SESSION['language']);
