@@ -394,6 +394,26 @@ class Preset extends AbstractVCNode
 
 }
 
+class AbstractVCBox extends AbstractVCNode
+{
+    var $classid= "{674c79a1-0000-4000-ab51-035d1274e212}";
+    function __construct()
+    {
+    }
+    function walkthrough()
+    {
+        return false;
+    }
+    function evaluate()
+    {
+        return false;
+    }
+    function metatype()
+    {
+        return "special/xtcbox";
+    }
+}
+
 
 class AzraelException extends Exception
 {
