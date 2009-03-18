@@ -206,7 +206,6 @@ function logout()
     {
         onSuccess: function(transport)         
         {
-            window.close();
             location.reload();
         },
         onFailure: function(transport)
