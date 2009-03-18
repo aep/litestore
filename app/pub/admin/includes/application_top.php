@@ -521,6 +521,8 @@ function pr($d)
 
             xtc_db_query("update ".TABLE_CUSTOMERS_INFO." SET customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 WHERE customers_info_id = '".(int) $_SESSION['customer_id']."'");
             xtc_write_user_info((int) $_SESSION['customer_id']);
+
+            xtc_redirect("/admin/");
         }
     }
 

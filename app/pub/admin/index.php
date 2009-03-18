@@ -33,7 +33,7 @@
         <ul id="actionAbout">
             <li><a href="/">Shop</a></li>
             <li><a href="#" onclick="module_html('Credits','/admin/credits.php')" >Credits</a></li>
-            <li><a href="/logout">Beenden</a></li>
+            <li><a href="#" onclick="logout()">Beenden</a></li>
         </ul>
 
         <ul id="actionCustomers">

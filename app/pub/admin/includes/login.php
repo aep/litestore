@@ -13,6 +13,8 @@
     <style type="text/css" media="screen"><!--
         body 
         {
+            color:black;
+            background:white;
 	        margin: 0px
         }
 

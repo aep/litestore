@@ -200,4 +200,21 @@ function module_html(tit,uri)
 
 
 
+function logout()
+{
+    new Ajax.Request('/logout',
+    {
+        onSuccess: function(transport)         
+        {
+            window.close();
+            location.reload();
+        },
+        onFailure: function(transport)
+        {
+            alert("failure");
+        }
+    });
+
+}
+
 
