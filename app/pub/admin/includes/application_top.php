@@ -218,18 +218,19 @@
   
  
   // include needed functions
-require_once (DIR_FS_INC.'../classes/db.php');
+    require_once (DIR_FS_INC.'../classes/db.php');
 
-require_once (DIR_FS_INC.'xtc_db_perform.inc.php');
-require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
-  require_once(DIR_FS_INC . 'xtc_get_ip_address.inc.php');
-  require_once(DIR_FS_INC . 'xtc_setcookie.inc.php');
-  require_once(DIR_FS_INC . 'xtc_validate_email.inc.php');
-  require_once(DIR_FS_INC . 'xtc_not_null.inc.php');
-  require_once(DIR_FS_INC . 'xtc_add_tax.inc.php');
-  require_once(DIR_FS_INC . 'xtc_get_tax_rate.inc.php');
-  require_once(DIR_FS_INC . 'xtc_get_qty.inc.php');
-  require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
+    require_once (DIR_FS_INC.'xtc_db_perform.inc.php');
+    require_once (DIR_FS_INC.'xtc_db_prepare_input.inc.php');
+    require_once(DIR_FS_INC . 'xtc_get_ip_address.inc.php');
+    require_once(DIR_FS_INC . 'xtc_setcookie.inc.php');
+    require_once(DIR_FS_INC . 'xtc_validate_email.inc.php');
+    require_once(DIR_FS_INC . 'xtc_not_null.inc.php');
+    require_once(DIR_FS_INC . 'xtc_add_tax.inc.php');
+    require_once(DIR_FS_INC . 'xtc_get_tax_rate.inc.php');
+    require_once(DIR_FS_INC . 'xtc_get_qty.inc.php');
+    require_once(DIR_FS_INC . 'xtc_cleanName.inc.php');
+    require_once (DIR_FS_INC.'xtc_write_user_info.inc.php');
 
   // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -470,15 +471,9 @@ if (SESSION_CHECK_USER_AGENT == 'True') {
 
 
 
-  $pagename = strtok($current_page, '.');
-  if (!isset($_SESSION['customer_id'])) {
-    xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-  }
+    $pagename = strtok($current_page, '.');
 
-    if ($_SESSION['customers_status_id']!=0) 
-    {
-        xtc_redirect(xtc_href_link(FILENAME_LOGIN));
-    }
+
 
 
     // Include Template Engine
@@ -493,6 +488,50 @@ function pr($d)
     echo "</pre>";
 }
 
+
+
+    if (isset ($_POST['loginname']))
+    {
+        global $db;
+        $sth = $db->prepare("select customers_id, customers_vat_id, customers_firstname,customers_lastname, customers_gender, customers_password, customers_email_address, customers_default_address_id from ".TABLE_CUSTOMERS." where ( customers_email_address = :mail or  customers_cid = :mail )  and account_type = '0'");
+        $sth->execute(array(':mail' => $_POST['loginname']));
+        $check_customer = $sth->fetch();
+
+
+        if ($check_customer && (md5($_POST['password']) == $check_customer['customers_password']))
+        {
+
+            if (SESSION_RECREATE == 'True') 
+            {
+                xtc_session_recreate();
+            }
+            $check_country_query = xtc_db_query("select entry_country_id, entry_zone_id from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int) $check_customer['customers_id']."' and address_book_id = '".$check_customer['customers_default_address_id']."'");
+            $check_country = xtc_db_fetch_array($check_country_query);
+
+            $_SESSION['customer_gender'] = $check_customer['customers_gender'];
+            $_SESSION['customer_first_name'] = $check_customer['customers_firstname'];
+            $_SESSION['customer_last_name'] = $check_customer['customers_lastname'];
+            $_SESSION['customer_id'] = $check_customer['customers_id'];
+            $_SESSION['customer_vat_id'] = $check_customer['customers_vat_id'];
+            $_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
+            $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
+            $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
+
+            $date_now = date('Ymd');
+
+            xtc_db_query("update ".TABLE_CUSTOMERS_INFO." SET customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 WHERE customers_info_id = '".(int) $_SESSION['customer_id']."'");
+            xtc_write_user_info((int) $_SESSION['customer_id']);
+        }
+    }
+
+
+    if((!array_key_exists('customers_status',$_SESSION)) 
+        || (!array_key_exists('customers_status_id',$_SESSION['customers_status'])) 
+            || ($_SESSION['customers_status']['customers_status_id']!='0'))
+    {
+        include ("login.php");
+        die();
+    }
 
   
 ?>
