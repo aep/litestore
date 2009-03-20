@@ -90,7 +90,7 @@ class categories {
 		$category_image_query = xtc_db_query("SELECT categories_image FROM ".TABLE_CATEGORIES." WHERE categories_id = '".(int)($category_id)."'");
 		$category_image = xtc_db_fetch_array($category_image_query);
 
-		$duplicate_image_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_CATEGORIES." WHERE categories_image = '".(int)($category_image['categories_image'])."'");
+		$duplicate_image_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_CATEGORIES." WHERE categories_image = '".($category_image['categories_image'])."'");
 		$duplicate_image = xtc_db_fetch_array($duplicate_image_query);
 
 		if ($duplicate_image['total'] < 2) {
@@ -174,7 +174,7 @@ class categories {
 		$languages = xtc_get_languages();
 		foreach ($languages AS $lang) {
 			$categories_name_array = $categories_data['name'];
-			$sql_data_array = array ('categories_name' => (int)($categories_data['categories_name'][$lang['id']]), 'categories_heading_title' => (int)($categories_data['categories_heading_title'][$lang['id']]), 'categories_description' => (int)($categories_data['categories_description'][$lang['id']]), 'categories_meta_title' => (int)($categories_data['categories_meta_title'][$lang['id']]), 'categories_meta_description' => (int)($categories_data['categories_meta_description'][$lang['id']]), 'categories_meta_keywords' => (int)($categories_data['categories_meta_keywords'][$lang['id']]));
+			$sql_data_array = array ('categories_name' => ($categories_data['categories_name'][$lang['id']]), 'categories_heading_title' => ($categories_data['categories_heading_title'][$lang['id']]), 'categories_description' =>($categories_data['categories_description'][$lang['id']]), 'categories_meta_title' => ($categories_data['categories_meta_title'][$lang['id']]), 'categories_meta_description' => ($categories_data['categories_meta_description'][$lang['id']]), 'categories_meta_keywords' => ($categories_data['categories_meta_keywords'][$lang['id']]));
 
 
 			if ($action == 'insert') {
@@ -372,7 +372,7 @@ class categories {
 		// check if used elsewhere, delete db-entry + file if not
 		while ($product_content = xtc_db_fetch_array($product_content_query)) {   
 		   		
-   		$duplicate_content_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_PRODUCTS_CONTENT." WHERE content_file = '".(int)($product_content['content_file'])."' AND products_id != '".(int)($product_id)."'");
+   		$duplicate_content_query = xtc_db_query("SELECT count(*) AS total FROM ".TABLE_PRODUCTS_CONTENT." WHERE content_file = '".($product_content['content_file'])."' AND products_id != '".(int)($product_id)."'");
 
    		$duplicate_content = xtc_db_fetch_array($duplicate_content_query);
 
@@ -450,7 +450,7 @@ class categories {
 	function insert_product($products_data, $dest_category_id, $action = 'insert') {
 
 		$products_id = (int)($products_data['products_id']);
-		$products_date_available = (int)($products_data['products_date_available']);
+		$products_date_available = ($products_data['products_date_available']);
 		$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
  
          if ($products_data['products_startpage'] == 1 ) {
@@ -528,8 +528,8 @@ class categories {
 
 		$sql_data_array = array 
         (
-            'products_trading_unit' => (int)($products_data['products_trading_unit']),
-            'products_quantity' => (int)($products_data['products_quantity']), 
+            'products_trading_unit' => ($products_data['products_trading_unit']),
+            'products_quantity' => ($products_data['products_quantity']), 
             'products_model' => ($products_data['products_model']), 
             'products_ean' => ($products_data['products_ean']), 
             'products_price' => ($products_data['products_price']),     
