@@ -716,21 +716,6 @@ else
                 .'<input type="submit" class="button" onClick="this.blur();" value="Bilder Bearbeiten">'
                 .'</form>'
 
-                .'<form action="' . FILENAME_NEW_ATTRIBUTES . '" name="edit_attributes" method="post">'
-                .'<input type="hidden" name="action" value="edit">'
-                .'<input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '">'
-                .'<input type="hidden" name="cpath" value="' . $cPath . '">'
-                .'<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_EDIT_ATTRIBUTES . '">'
-                .'</form>'
-
-
-                .'<form action="' . FILENAME_CATEGORIES . '" name="edit_crossselling" method="GET">'
-                .'<input type="hidden" name="action" value="edit_crossselling">'
-                .'<input type="hidden" name="current_product_id" value="' . $pInfo->products_id . '">'
-                .'<input type="hidden" name="cpath" value="' . $cPath  . '">'
-                .'<input type="submit" class="button" onClick="this.blur();" value="' . BUTTON_EDIT_CROSS_SELLING . '">'
-                .'</form>'
-
 
 
 
