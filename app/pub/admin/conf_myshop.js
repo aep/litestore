@@ -231,7 +231,7 @@ function module_conf_myshop()
             root: 'result',
             fields: [{name: 'customers_status_id'},{name: 'customers_status_name'}]
         }),
-        autoLoad: false
+        autoLoad: true
     });
 
 
@@ -243,6 +243,7 @@ function module_conf_myshop()
         fieldLabel: 'Kundengruppe für Gäste',
         store:  customergroupstore,
         triggerAction : 'all',
+        forceSelection: true,
         displayField: 'customers_status_name',
         valueField: 'customers_status_id'
 
@@ -256,6 +257,7 @@ function module_conf_myshop()
         fieldLabel: 'Kundengruppe für Neukunden',
         store:  customergroupstore,
         triggerAction : 'all',
+        forceSelection: true,
         displayField: 'customers_status_name',
         valueField: 'customers_status_id'
     });
