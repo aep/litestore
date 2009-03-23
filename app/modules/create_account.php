@@ -344,9 +344,9 @@ function module()
 			    // GV Code End       // create templates
 		    }
 		    $smarty->caching = 0;
-		    $html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/create_account_mail.html');
+		    $html_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/create_account_mail.html');
 		    $smarty->caching = 0;
-		    $txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/create_account_mail.txt');
+		    $txt_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/create_account_mail.txt');
     
 		    xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $email_address, $name, EMAIL_SUPPORT_FORWARDING_STRING, EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', EMAIL_SUPPORT_SUBJECT, $html_mail, $txt_mail);
     
