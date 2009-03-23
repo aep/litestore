@@ -1583,7 +1583,7 @@ class Smarty
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
                 if (!is_callable($this->default_template_handler_func)) {
-                    trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+                    throw new SmartyException("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                 } else {
                     $_return = call_user_func_array(
                         $this->default_template_handler_func,
@@ -1594,13 +1594,13 @@ class Smarty
 
         if (!$_return) {
             if (!$params['quiet']) {
-                trigger_error('unable to read resource: "' . $params['resource_name'] . '"');
+                throw new SmartyException('unable to read resource: "' . $params['resource_name'] . '"');
             }
         } else if ($_return && $this->security) {
             require_once(SMARTY_CORE_DIR . 'core.is_secure.php');
             if (!smarty_core_is_secure($_params, $this)) {
                 if (!$params['quiet'])
-                    trigger_error('(secure mode) accessing "' . $params['resource_name'] . '" is not allowed');
+                    throw new SmartyException('(secure mode) accessing "' . $params['resource_name'] . '" is not allowed');
                 $params['source_content'] = null;
                 $params['resource_timestamp'] = null;
                 return false;
