@@ -16,7 +16,7 @@
     <script type="text/javascript" src="/pub/admin/conf_style.js"></script>
     <script type="text/javascript" src="/pub/admin/seo_conversion.js"></script>
     <script type="text/javascript" src="/pub/admin/azrael.js"></script>
-
+    <script type="text/javascript" src="/pub/admin/stats.js"></script>
 
 
     <!--<link rel="stylesheet" type="text/css" href="/pub/javascript/resources/css/xtheme-slate.css" >-->
@@ -54,9 +54,9 @@
         </ul>        
 
         <ul id="actionStats">
-            <li><a href="#" onclick="module_js('/admin/stats_products_viewed.php')" >Besuchte Artikel</a></li>
-            <li><a href="#" onclick="module_js('/admin/stats_products_purchased.php')" >Verkaufte Artikel</a></li>
-            <li><a href="#" onclick="module_js('/admin/stats_customers.php')" >Kunden-Bestellstatistik</a></li>
+            <li><a href="#" onclick="module_stats('products_viewed')" >Besuchte Artikel</a></li>
+            <li><a href="#" onclick="module_stats('products_ordered')" >Verkaufte Artikel</a></li>
+            <li><a href="#" onclick="module_stats('customer_orderstats')" >Kunden-Bestellstatistik</a></li>
             <li><a href="#" onclick="module_iframe('Umsatzstatistik','/admin/stats_sales_report.php')" >Umsatzstatistik</a></li>
         </ul>
 
