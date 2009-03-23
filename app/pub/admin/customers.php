@@ -88,21 +88,21 @@ if ($_GET['action']) {
 		case 'statusconfirm' :
 			$customers_id = xtc_db_prepare_input($_GET['cID']);
 			$customer_updated = false;
-			$check_status_query = xtc_db_query("select customers_firstname, customers_lastname, customers_email_address , customers_status, member_flag from ".TABLE_CUSTOMERS." where customers_id = '".xtc_db_input($_GET['cID'])."'");
+			$check_status_query = xtc_db_query("select customers_firstname, customers_lastname, customers_email_address , customers_status, member_flag from ".TABLE_CUSTOMERS." where customers_id = '".(int)($_GET['cID'])."'");
 			$check_status = xtc_db_fetch_array($check_status_query);
 			if ($check_status['customers_status'] != $status) {
-				xtc_db_query("update ".TABLE_CUSTOMERS." set customers_status = '".xtc_db_input($_POST['status'])."' where customers_id = '".xtc_db_input($_GET['cID'])."'");
+				xtc_db_query("update ".TABLE_CUSTOMERS." set customers_status = '".(int)($_POST['status'])."' where customers_id = '".(int)($_GET['cID'])."'");
 
 				// create insert for admin access table if customers status is set to 0
 				if ($_POST['status'] == 0) {
-					xtc_db_query("INSERT into ".TABLE_ADMIN_ACCESS." (customers_id,start) VALUES ('".xtc_db_input($_GET['cID'])."','1')");
+					xtc_db_query("INSERT into ".TABLE_ADMIN_ACCESS." (customers_id,start) VALUES ('".(int)($_GET['cID'])."','1')");
 				} else {
-					xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".xtc_db_input($_GET['cID'])."'");
+					xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".(int)($_GET['cID'])."'");
 
 				}
 				//Temporarily set due to above commented lines
 				$customer_notified = '0';
-				xtc_db_query("insert into ".TABLE_CUSTOMERS_STATUS_HISTORY." (customers_id, new_value, old_value, date_added, customer_notified) values ('".xtc_db_input($_GET['cID'])."', '".xtc_db_input($_POST['status'])."', '".$check_status['customers_status']."', now(), '".$customer_notified."')");
+				xtc_db_query("insert into ".TABLE_CUSTOMERS_STATUS_HISTORY." (customers_id, new_value, old_value, date_added, customer_notified) values ('".(int)($_GET['cID'])."', '".(int)($_POST['status'])."', '".$check_status['customers_status']."', now(), '".$customer_notified."')");
 				$customer_updated = true;
 			}
 			xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS, 'page='.$_GET['page'].'&cID='.$_GET['cID']));
@@ -229,22 +229,22 @@ if ($_GET['action']) {
 				$entry_country_error = false;
 			}
 
-			if (ACCOUNT_STATE == 'true') {
+			if (ACCOUNT_STATE == 'true' && false) {
 				if ($entry_country_error == true) {
 					$entry_state_error = true;
 				} else {
 					$zone_id = 0;
 					$entry_state_error = false;
-					$check_query = xtc_db_query("select count(*) as total from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country_id)."'");
+					$check_query = xtc_db_query("select count(*) as total from ".TABLE_ZONES." where zone_country_id = '".(int)($entry_country_id)."'");
 					$check_value = xtc_db_fetch_array($check_query);
 					$entry_state_has_zones = ($check_value['total'] > 0);
 					if ($entry_state_has_zones == true) {
-						$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country_id)."' and zone_name = '".xtc_db_input($entry_state)."'");
+						$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".(int)($entry_country_id)."' and zone_name = '".(int)($entry_state)."'");
 						if (xtc_db_num_rows($zone_query) == 1) {
 							$zone_values = xtc_db_fetch_array($zone_query);
 							$entry_zone_id = $zone_values['zone_id'];
 						} else {
-							$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($entry_country)."' and zone_code = '".xtc_db_input($entry_state)."'");
+							$zone_query = xtc_db_query("select zone_id from ".TABLE_ZONES." where zone_country_id = '".($entry_country)."' and zone_code = '".($entry_state)."'");
 							if (xtc_db_num_rows($zone_query) >= 1) {
 								$zone_values = xtc_db_fetch_array($zone_query);
 								$zone_id = $zone_values['zone_id'];
@@ -276,8 +276,8 @@ if ($_GET['action']) {
 				$entry_password_error = false;
 			}
 			*/
-			$check_email = xtc_db_query("select customers_email_address from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($customers_email_address)."' and customers_id <> '".xtc_db_input($customers_id)."'");
-			if (xtc_db_num_rows($check_email)) {
+			$check_email = xtc_db_query("select COUNT(*) from ".TABLE_CUSTOMERS." where customers_email_address = '".($customers_email_address)."' and customers_id <> '".(int)($customers_id)."'")->fetch();
+			if ($check_email['COUNT(*)']>0) {
 				$error = true;
 				$entry_email_address_exists = true;
 			} else {
@@ -297,9 +297,9 @@ if ($_GET['action']) {
 				if (ACCOUNT_DOB == 'true')
 					$sql_data_array['customers_dob'] = xtc_date_raw($customers_dob);
 
-				xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '".xtc_db_input($customers_id)."'");
+				xtc_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '".(int)($customers_id)."'");
 
-				xtc_db_query("update ".TABLE_CUSTOMERS_INFO." set customers_info_date_account_last_modified = now() where customers_info_id = '".xtc_db_input($customers_id)."'");
+				xtc_db_query("update ".TABLE_CUSTOMERS_INFO." set customers_info_date_account_last_modified = now() where customers_info_id = '".(int)($customers_id)."'");
 
 				if ($entry_zone_id > 0)
 					$entry_state = '';
@@ -322,7 +322,7 @@ if ($_GET['action']) {
 					}
 				}
 
-				xtc_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '".xtc_db_input($customers_id)."' and address_book_id = '".xtc_db_input($default_address_id)."'");
+				xtc_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '".(int)($customers_id)."' and address_book_id = '".($default_address_id)."'");
 				xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$customers_id));
 			}
 			elseif ($error == true) {
@@ -335,25 +335,25 @@ if ($_GET['action']) {
 			$customers_id = xtc_db_prepare_input($_GET['cID']);
 
 			if ($_POST['delete_reviews'] == 'on') {
-				$reviews_query = xtc_db_query("select reviews_id from ".TABLE_REVIEWS." where customers_id = '".xtc_db_input($customers_id)."'");
+				$reviews_query = xtc_db_query("select reviews_id from ".TABLE_REVIEWS." where customers_id = '".(int)($customers_id)."'");
 				while ($reviews = xtc_db_fetch_array($reviews_query)) {
 					xtc_db_query("delete from ".TABLE_REVIEWS_DESCRIPTION." where reviews_id = '".$reviews['reviews_id']."'");
 				}
-				xtc_db_query("delete from ".TABLE_REVIEWS." where customers_id = '".xtc_db_input($customers_id)."'");
+				xtc_db_query("delete from ".TABLE_REVIEWS." where customers_id = '".(int)($customers_id)."'");
 			} else {
-				xtc_db_query("update ".TABLE_REVIEWS." set customers_id = null where customers_id = '".xtc_db_input($customers_id)."'");
+				xtc_db_query("update ".TABLE_REVIEWS." set customers_id = null where customers_id = '".(int)($customers_id)."'");
 			}
 
-			xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_PRODUCTS_NOTIFICATIONS." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_WHOS_ONLINE." where customer_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS_STATUS_HISTORY." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("delete from ".TABLE_CUSTOMERS_IP." where customers_id = '".xtc_db_input($customers_id)."'");
-			xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".xtc_db_input($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS_INFO." where customers_info_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS_BASKET_ATTRIBUTES." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_PRODUCTS_NOTIFICATIONS." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_WHOS_ONLINE." where customer_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS_STATUS_HISTORY." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("delete from ".TABLE_CUSTOMERS_IP." where customers_id = '".(int)($customers_id)."'");
+			xtc_db_query("DELETE FROM ".TABLE_ADMIN_ACCESS." WHERE customers_id = '".(int)($customers_id)."'");
 
 			xtc_redirect(xtc_href_link(FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action'))));
 			break;
@@ -747,7 +747,7 @@ if ($_GET['action'] == 'edit' || $_GET['action'] == 'update') {
 			if ($entry_state_error == true) {
 				if ($entry_state_has_zones == true) {
 					$zones_array = array ();
-					$zones_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_country_id = '".xtc_db_input($cInfo->entry_country_id)."' order by zone_name");
+					$zones_query = xtc_db_query("select zone_name from ".TABLE_ZONES." where zone_country_id = '".($cInfo->entry_country_id)."' order by zone_name");
 					while ($zones_values = xtc_db_fetch_array($zones_query)) {
 						$zones_array[] = array ('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
 					}
@@ -938,7 +938,7 @@ if ($error == true) {
 
 	$search = '';
 	if (($_GET['search']) && (xtc_not_null($_GET['search']))) {
-		$keywords = xtc_db_input(xtc_db_prepare_input($_GET['search']));
+		$keywords = (xtc_db_prepare_input($_GET['search']));
 		$search = "and (c.customers_lastname like '%".$keywords."%' or c.customers_firstname like '%".$keywords."%' or c.customers_email_address like '%".$keywords."%')";
 	}
 
@@ -1094,20 +1094,25 @@ if ($error == true) {
 
 		case 'editstatus' :
 			if ($_GET['cID'] != 1) {
-				$customers_history_query = xtc_db_query("select new_value, old_value, date_added, customer_notified from ".TABLE_CUSTOMERS_STATUS_HISTORY." where customers_id = '".xtc_db_input($_GET['cID'])."' order by customers_status_history_id desc");
+				$customers_history_query = xtc_db_query("select new_value, old_value, date_added, customer_notified from ".TABLE_CUSTOMERS_STATUS_HISTORY." where customers_id = '".(int)($_GET['cID'])."' order by customers_status_history_id desc");
 				$heading[] = array ('text' => '<b>'.TEXT_INFO_HEADING_STATUS_CUSTOMER.'</b>');
 				$contents = array ('form' => xtc_draw_form('customers', FILENAME_CUSTOMERS, xtc_get_all_get_params(array ('cID', 'action')).'cID='.$cInfo->customers_id.'&action=statusconfirm'));
 				$contents[] = array ('text' => '<br />'.xtc_draw_pull_down_menu('status', $customers_statuses_array, $cInfo->customers_status));
 				$contents[] = array ('text' => '<table nowrap border="0" cellspacing="0" cellpadding="0"><tr><td style="border-bottom: 1px solid; border-color: #000000;" nowrap class="smallText" align="center"><b>'.TABLE_HEADING_NEW_VALUE.' </b></td><td style="border-bottom: 1px solid; border-color: #000000;" nowrap class="smallText" align="center"><b>'.TABLE_HEADING_DATE_ADDED.'</b></td></tr>');
 
-				if (xtc_db_num_rows($customers_history_query)) {
+
+
+                $jkansejkasndhas=false;
 					while ($customers_history = xtc_db_fetch_array($customers_history_query)) {
+                    $jkansejkasndhas=true;
 
 						$contents[] = array ('text' => '<tr>'."\n".'<td class="smallText">'.$customers_statuses_array[$customers_history['new_value']]['text'].'</td>'."\n".'<td class="smallText" align="center">'.xtc_datetime_short($customers_history['date_added']).'</td>'."\n".'<td class="smallText" align="center">');
 
 						$contents[] = array ('text' => '</tr>'."\n");
 					}
-				} else {
+
+                if(!jkansejkasndhas)
+                {
 					$contents[] = array ('text' => '<tr>'."\n".' <td class="smallText" colspan="2">'.TEXT_NO_CUSTOMER_HISTORY.'</td>'."\n".' </tr>'."\n");
 				}
 				$contents[] = array ('text' => '</table>');

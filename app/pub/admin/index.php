@@ -40,7 +40,6 @@
             <li><a href="#" onclick="module_iframe('Kunden','/admin/customers.php')" >Kunden</a></li>
             <li><a href="#" onclick="module_iframe('Kundengruppen','/admin/customers_status.php')" >Kundengruppen</a></li>
             <li><a href="#" onclick="module_iframe('Bestellungen','/admin/orders.php')">Bestellungen</a></li>
-            <li><a href="#" onclick="module_iframe('Rundschreiben','/admin/module_newsletter.php')" >Rundschreiben</a></li>
         </ul>
 
         <ul id="actionCatalog">

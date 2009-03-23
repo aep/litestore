@@ -204,9 +204,22 @@ function module()
 		    $messageStack->add('create_account', ENTRY_PASSWORD_ERROR_NOT_MATCHING);
 	    }
     
+
+
 	    //don't know why, but this happens sometimes and new user becomes admin
 	    if ($customers_status == 0 || !$customers_status)
 		    $customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
+
+        //i do.  fucking php retards.  dont even understand their own system.
+        class NewUserSecurityEscalation  extends Exception
+        {
+        };
+        if($customers_status == 0)
+        {
+            throw new NewUserSecurityEscalation('php weak typing would allow new user to gain admin level. $customers_status was \''.$customers_status.'\'');
+        }
+
+
 	    if (!$newsletter)
 		    $newsletter = 0;
 	    if ($error == false) {
