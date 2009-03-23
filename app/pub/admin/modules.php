@@ -263,6 +263,8 @@ switch ($_GET['action'])
     {
         $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
+        pr($minfo);
+
         if ($mInfo->status > 0) 
         {
             $keys = '';
