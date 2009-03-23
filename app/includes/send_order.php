@@ -71,8 +71,8 @@ if ($_SESSION['customer_id'] == $order_check['customers_id']) {
 	// dont allow cache
 	$smarty->caching = false;
 
-	$html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.html');
-	$txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/order_mail.txt');
+	$html_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/order_mail.html');
+	$txt_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/order_mail.txt');
 
 	// create subject
 	$order_subject = str_replace('{$nr}', $insert_id, EMAIL_BILLING_SUBJECT_ORDER);

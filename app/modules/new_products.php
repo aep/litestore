@@ -97,7 +97,7 @@ if (sizeof($module_content) >= 1) {
 	// set cache ID
 	 if (!CacheCheck()) {
 		$module_smarty->caching = 0;
-        $module = $module_smarty->fetch(CURRENT_TEMPLATE.'/module/product_listing.html');
+        $module = $module_smarty->fetch('module/product_listing.html');
 	} else {
 		$module_smarty->caching = 1;
 		$module_smarty->cache_lifetime = CACHE_LIFETIME;
