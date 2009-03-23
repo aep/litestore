@@ -198,6 +198,54 @@
             }
         }
     }
+    else if($post['model']=="products_viewed")
+    {
+        if($post['action']=="fetch")
+        {
+            $r_array=array();
+            $i=1;
+            $q=$db->query("select p.products_id, pd.products_name, pd.products_viewed, l.name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_LANGUAGES . " l where p.products_id = pd.products_id and l.languages_id = pd.languages_id order by pd.products_viewed DESC");
+            while ($products = $q->fetch()) 
+            {
+                $r_array[] = array ('nr' => $i, 'name' => $products['products_name'], 'viewed'=>$products['products_viewd']);
+                ++$i;
+            }
+
+            echo json_encode(array('result'=>($r_array)));
+        }
+    }
+    else if($post['model']=="products_ordered")
+    {
+        if($post['action']=="fetch")
+        {
+            $r_array=array();
+            $i=1;
+            $q=$db->query("select p.products_id, p.products_ordered, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.languages_id = '" . $_SESSION['languages_id'] . "' and p.products_ordered > 0 group by pd.products_id order by p.products_ordered DESC, pd.products_name");
+            while ($products = $q->fetch()) 
+            {
+                $r_array[] = array ('nr' => $i, 'name' => $products['products_name'], 'ordered'=>$products['products_ordered']);
+                ++$i;
+            }
+
+            echo json_encode(array('result'=>($r_array)));
+        }
+    }
+    else if($post['model']=="customer_orderstats")
+    {
+        if($post['action']=="fetch")
+        {
+            $r_array=array();
+            $i=1;
+            $q=$db->query("select c.customers_firstname, c.customers_lastname, sum(op.final_price) as ordersum from " . TABLE_CUSTOMERS . " c, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS . " o where c.customers_id = o.customers_id and o.orders_id = op.orders_id group by c.customers_firstname, c.customers_lastname order by ordersum DESC");
+            while ($products = $q->fetch()) 
+            {
+                $r_array[] = array ('nr' => $i, 'name' => $products['customers_firstname'].' '.$products['customers_lastname'], 'sum'=>$products['ordersum'].'€');
+                ++$i;
+            }
+
+            echo json_encode(array('result'=>($r_array)));
+        }
+    }
 
 
 ?>
