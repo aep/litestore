@@ -238,22 +238,26 @@ function module_conf_myshop()
 
     var kk_DEFAULT_CUSTOMERS_STATUS_ID_GUEST = new Ext.form.ComboBox
     ({ 
-        id: 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST',
+        id: 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST_cc',
+        hiddenName: 'DEFAULT_CUSTOMERS_STATUS_ID_GUEST',
         fieldLabel: 'Kundengruppe für Gäste',
         store:  customergroupstore,
         triggerAction : 'all',
         displayField: 'customers_status_name',
-        valueField: 'customers_status_id',
+        valueField: 'customers_status_id'
+
+
     });
 
     var kk_DEFAULT_CUSTOMERS_STATUS_ID = new Ext.form.ComboBox
     ({ 
-        id: 'DEFAULT_CUSTOMERS_STATUS_ID',
+        id: 'DEFAULT_CUSTOMERS_STATUS_ID_cc',
+        hiddenName: 'DEFAULT_CUSTOMERS_STATUS_ID',
         fieldLabel: 'Kundengruppe für Neukunden',
         store:  customergroupstore,
         triggerAction : 'all',
         displayField: 'customers_status_name',
-        valueField: 'customers_status_id',
+        valueField: 'customers_status_id'
     });
 
                     
