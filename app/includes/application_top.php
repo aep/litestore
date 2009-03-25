@@ -404,7 +404,7 @@ if (isset ($_GET['manu'])) {
 // calculate category path
 if ($APP_PATH[1]=="catalog") 
 {
-    $cPath=$APP_PATH[2];
+    $cPath=$APP_PATH[2].'1';
     for($iii=3;$iii<sizeof($APP_PATH);$iii++)
       $cPath.="_".$APP_PATH[$iii];
     $cPath = xtc_input_validation($cPath, 'cPath', '');
@@ -423,11 +423,14 @@ elseif (is_object($product) && !isset ($_GET['manufacturers_id'])) {
 
 
 
-if (xtc_not_null($cPath)) {
-	$cPath_array = xtc_parse_category_path($cPath);
-	$cPath = implode('_', $cPath_array);
-	$current_category_id = $cPath_array[(sizeof($cPath_array) - 1)];
-} else {
+if (xtc_not_null($cPath)) 
+{
+    $cPath_array = xtc_parse_category_path($cPath);
+    $cPath = implode('_', $cPath_array);
+    $current_category_id = $cPath_array[(sizeof($cPath_array) - 1)];
+}
+else 
+{
 	$current_category_id = 0;
 }
 

@@ -67,7 +67,7 @@ class BoxCategories extends AbstractVCBox
             }
         }
 
-        $box_smarty->assign('BOX_CONTENT', $m_tt[0]);
+        $box_smarty->assign('BOX_CONTENT', $m_tt[1]);
         return $box_smarty->fetch('boxes/box_categories.html');
     }
     function metatype()
