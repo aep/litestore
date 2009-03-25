@@ -5,13 +5,13 @@
         <ul>
             {foreach from=$BOX_CONTENT.children item=categorie}
                 <li>
-                    <a {if $categorie.active} class="aktiv" {/if} href="/catalog/{$categorie.id}" >{$categorie.name}</a>
+                    <a {if $categorie.active} class="aktiv" {/if} href="/catalog/1/{$categorie.id}" >{$categorie.name}</a>
                     {if $categorie.children}
                         {if $categorie.active}
                             <ul>
                                 {foreach from=$categorie.children item=subcategorie}
                                     <li>
-                                            <a href="/catalog/{$categorie.id}/{$subcategorie.id}"  >
+                                            <a href="/catalog/1/{$categorie.id}/{$subcategorie.id}"  >
                                                 {$subcategorie.name}
                                             </a>
                                     </li>
