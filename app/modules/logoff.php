@@ -3,6 +3,7 @@
 
 function module()
 {
+    require_once (DIR_WS_CLASSES.'azrael.php');
     
     global $breadcrumb;    
     $breadcrumb->add(NAVBAR_TITLE_LOGOFF);
