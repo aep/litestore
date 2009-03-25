@@ -42,7 +42,7 @@ function module()
     require (DIR_WS_INCLUDES.'write_customers_status.php');
     
     global $azrael;
-    return $azrael->renderPreset('Wellcome');
+    return $azrael->renderPreset('Logout');
 
 }
 ?>
