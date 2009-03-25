@@ -3,7 +3,6 @@ function module()
 {
 
     global $breadcrumb,$cPath_array;
-    $breadcrumb->add(HEADER_TITLE_CATALOG, "/catalog");
     $breadcrumb->addCategory($cPath_array);
 
 

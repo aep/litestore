@@ -404,10 +404,14 @@ if (isset ($_GET['manu'])) {
 // calculate category path
 if ($APP_PATH[1]=="catalog") 
 {
-    $cPath=$APP_PATH[2].'1';
+    $cPath=$APP_PATH[2];
     for($iii=3;$iii<sizeof($APP_PATH);$iii++)
       $cPath.="_".$APP_PATH[$iii];
     $cPath = xtc_input_validation($cPath, 'cPath', '');
+    if(!$cPath)
+    {
+        $cPath='1';
+    }
 }
 
 
