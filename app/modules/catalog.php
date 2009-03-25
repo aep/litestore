@@ -20,6 +20,7 @@ function module()
         categories as c
         join categories_description as cd on c.categories_id =  cd.categories_id
         where c.categories_id = ?
+        and c.categories_status = 1
     ');
 
     $mq->execute(array($current_category_id));
@@ -45,7 +46,9 @@ function module()
         categories as c
         join categories_description as cd on c.categories_id =  cd.categories_id
         where c.parent_id = ?
+        and c.categories_status = 1
         order by c.sort_order
+
     ');
 
     $sq->execute(array($current_category_id));
@@ -80,6 +83,7 @@ function module()
         join products_description as pd on p.products_id =  pd.products_id
         join products_to_categories as x  on p.products_id  = x.products_id 
         where x.categories_id=?
+        and p.products_status = 1
         order by ? '.$products_sorting.'
     ');
 
