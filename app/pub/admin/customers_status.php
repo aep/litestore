@@ -83,19 +83,7 @@
             $customers_status_id = $next_id['customers_status_id'] + 1;
             // We want to create a personal offer table corresponding to each customers_status
 
-            ///FIXME: WTF!!!
-            xtc_db_query("create table personal_offers_by_customers_status_" . $customers_status_id . " (price_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, products_id int NOT NULL, quantity int, personal_offer decimal(15,4))");
 
-        $products_query = xtc_db_query("select price_id, products_id, quantity, personal_offer from personal_offers_by_customers_status_" . $customers_base_status ."");
-        while($products = xtc_db_fetch_array($products_query)){  
-        $product_data_array = array(
-          'price_id' => xtc_db_prepare_input($products['price_id']),
-          'products_id' => xtc_db_prepare_input($products['products_id']),
-          'quantity' => xtc_db_prepare_input($products['quantity']),
-          'personal_offer' => xtc_db_prepare_input($products['personal_offer'])
-         );          
-         xtc_db_perform('personal_offers_by_customers_status_' . $customers_status_id, $product_data_array);
-         } 
 
           }
 
