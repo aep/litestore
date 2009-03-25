@@ -158,7 +158,13 @@ class categories {
 
 
 
-		$sql_data_array = array ('sort_order' => $sort_order, 'categories_status' => $categories_status, 'products_sorting' => (int)($categories_data['products_sorting']), 'products_sorting2' => (int)($categories_data['products_sorting2']), 'categories_template' => (int)($categories_data['categories_template']), 'listing_template' => (int)($categories_data['listing_template']));
+        
+        if  ($categories_data['products_sorting2']=="DESC")
+            $categories_data['products_sorting2']=1;
+        else
+            $categories_data['products_sorting2']=0;
+
+		$sql_data_array = array ('sort_order' => $sort_order, 'categories_status' => $categories_status, 'products_sorting' => (int)($categories_data['products_sorting2']), 'products_sorting_key' => ($categories_data['products_sorting']));
 		$sql_data_array = array_merge($sql_data_array,$permission_array);
 		if ($action == 'insert') {
 			$insert_sql_data = array ('parent_id' => $dest_category_id, 'date_added' => 'now()');
