@@ -829,7 +829,7 @@ a.quickbuy_loading
 }
 .twoColumnFormular p em input , .twoColumnFormular  p em select
 {
-    width:180px;
+    width:180px !important;
 }
 
 
