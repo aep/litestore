@@ -200,7 +200,7 @@
 
                     var htmleditor =new Ext.form.HtmlEditor
                     ({
-                        value:'<?php echo str_replace('\'','\\\'',$node['data']); ?>',
+                        value: <?php echo json_encode($node['data']); ?>,
                         border: false,
                         anchor: '100% -30'
                     });
@@ -211,6 +211,7 @@
                         text: 'Speichern',
                         handler:function()
                         {
+                            
                             Ext.Ajax.request
                             ({
                                 method:     'POST',
