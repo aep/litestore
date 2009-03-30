@@ -1537,7 +1537,6 @@ class Smarty
 
     function _fetch_resource_info(&$params)
     {
-        print_r($params);
 
         if(!isset($params['get_source'])) { $params['get_source'] = true; }
         if(!isset($params['quiet'])) { $params['quiet'] = false; }
