@@ -31,9 +31,11 @@ function module()
     $case = double_opt;
     $info_message = TEXT_PASSWORD_FORGOTTEN;
     if (isset ($_GET['action']) && ($_GET['action'] == 'first_opt_in')) {
-    
-	    $check_customer_query = xtc_db_query("select customers_email_address, customers_id from ".TABLE_CUSTOMERS." where customers_email_address = '".xtc_db_input($_POST['email'])."'");
-	    $check_customer = xtc_db_fetch_array($check_customer_query);
+
+        global $db;
+        $q=$db->prepare('select customers_email_address, customers_id from customers where customers_email_address = ?');
+        $q->execute(array($_POST['email']));
+	    $check_customer = $q->fetch();
     
 	    $vlcode = xtc_random_charcode(32);
 	    $link = xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=verified&customers_id='.$check_customer['customers_id'].'&key='.$vlcode, 'NONSSL');
@@ -50,14 +52,18 @@ function module()
 	    $smarty->caching = false;
     
 	    // create mails
-	    $html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/password_verification_mail.html');
-	    $txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/password_verification_mail.txt');
+	    $html_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/password_verification_mail.html');
+	    $txt_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/password_verification_mail.txt');
     
-	    if ($_POST['vvcode'] == $_SESSION['vvcode']) {
-		    if (!xtc_db_num_rows($check_customer_query)) {
+	    if ($_POST['vvcode'] == $_SESSION['vvcode']) 
+        {
+		    if (!$check_customer) 
+            {
 			    $case = wrong_mail;
 			    $info_message = TEXT_EMAIL_ERROR;
-		    } else {
+		    } 
+            else 
+            {
 			    $case = first_opt_in;
 			    xtc_db_query("update ".TABLE_CUSTOMERS." set password_request_key = '".$vlcode."' where customers_id = '".$check_customer['customers_id']."'");
 			    xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $check_customer['customers_email_address'], '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_PASSWORD_FORGOTTEN, $html_mail, $txt_mail);
@@ -115,7 +121,7 @@ function module()
 		    $smarty->assign('info_message', TEXT_LINK_MAIL_SENDED);
 		    $smarty->assign('language', $_SESSION['language']);
 		    $smarty->caching = 0;
-		    $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
+		    $main_content = $smarty->fetch('module/password_messages.html');
     
 		    break;
 	    case second_opt_in :
@@ -124,7 +130,7 @@ function module()
 		    //    $smarty->assign('info_message', TEXT_PASSWORD_MAIL_SENDED);
 		    $smarty->assign('language', $_SESSION['language']);
 		    $smarty->caching = 0;
-		    $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
+		    $main_content = $smarty->fetch('module/password_messages.html');
 		    break;
 	    case code_error :
     
@@ -133,13 +139,13 @@ function module()
 		    $smarty->assign('info_message', $info_message);
 		    $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
 		    $smarty->assign('SHOP_NAME', STORE_NAME);
-		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'NONSSL')));
-		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
+		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', 'http://localhost/login/lost?action=first_opt_in'));
+		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', $_POST['email']));
 		    $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-		    $smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
+		    $smarty->assign('BUTTON_SEND','<input type="submit" />');
 		    $smarty->assign('language', $_SESSION['language']);
 		    $smarty->caching = 0;
-		    $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
+		    $main_content = $smarty->fetch('module/password_double_opt_in.html');
     
 		    break;
 	    case wrong_mail :
@@ -149,13 +155,13 @@ function module()
 		    $smarty->assign('info_message', $info_message);
 		    $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
 		    $smarty->assign('SHOP_NAME', STORE_NAME);
-		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'NONSSL')));
-		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', xtc_db_input($_POST['email'])));
+		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', 'http://localhost/login/lost?action=first_opt_in'));
+		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', $_POST['email']));
 		    $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
-		    $smarty->assign('BUTTON_SEND', xtc_image_submit('button_send.gif', IMAGE_BUTTON_LOGIN));
+		    $smarty->assign('BUTTON_SEND', '<input type="submit" />');
 		    $smarty->assign('language', $_SESSION['language']);
 		    $smarty->caching = 0;
-		    $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_double_opt_in.html');
+		    $main_content = $smarty->fetch('module/password_double_opt_in.html');
     
 		    break;
 	    case no_account :
@@ -163,7 +169,7 @@ function module()
 		    $smarty->assign('info_message', $info_message);
 		    $smarty->assign('language', $_SESSION['language']);
 		    $smarty->caching = 0;
-		    $main_content = $smarty->fetch(CURRENT_TEMPLATE.'/module/password_messages.html');
+		    $main_content = $smarty->fetch('module/password_messages.html');
     
 		    break;
 	    case double_opt :
@@ -173,7 +179,7 @@ function module()
 		    //    $smarty->assign('info_message', $info_message);
 		    $smarty->assign('message', TEXT_PASSWORD_FORGOTTEN);
 		    $smarty->assign('SHOP_NAME', STORE_NAME);
-		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=first_opt_in', 'NONSSL')));
+		    $smarty->assign('FORM_ACTION', xtc_draw_form('sign', 'http://localhost/login/lost?action=first_opt_in'));
 		    $smarty->assign('INPUT_EMAIL', xtc_draw_input_field('email', $_POST['email']));
 		    $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
 		    $smarty->assign('FORM_END', '</form>');
