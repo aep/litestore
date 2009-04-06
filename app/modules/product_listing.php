@@ -40,7 +40,6 @@ if ($listing_split->number_of_rows > 0)
 			cd.categories_description,
 			cd.categories_name,
 			cd.categories_heading_title,
-			c.listing_template,
 			c.categories_teaser 
             from ".TABLE_CATEGORIES." c, ".TABLE_CATEGORIES_DESCRIPTION." cd
 			where c.categories_id = '".$current_category_id."'
