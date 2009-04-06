@@ -1,6 +1,5 @@
 function module_azrael()
 {
- 
     var azrael_loader = new Ext.tree.TreeLoader
     ({
         dataUrl   :"/admin/azrael_ajax.php",
@@ -83,16 +82,16 @@ function module_azrael()
     var azrael_nodedetail = new Ext.grid.GridPanel
     ({
             store:  detailstore,
-		    columns: 
+	        columns: 
             [
-			    {header: 'Detail', width: '50%', sortable: true, dataIndex: 'key'},
-			    {header: 'Value', width: '50%', sortable: true, dataIndex: 'value'},
-		    ],
-		    viewConfig: 
+		        {header: 'Detail', width: '50%', sortable: true, dataIndex: 'key'},
+		        {header: 'Value', width: '50%', sortable: true, dataIndex: 'value'},
+	        ],
+	        viewConfig: 
             {
 
-		    },
-		    autoHeight  : true,
+	        },
+	        autoHeight  : true,
             border      : false
     });
 
@@ -267,10 +266,6 @@ function module_azrael()
     mainpanel.getLayout().setActiveItem(0);
     mainpanel.doLayout();
 
-
-
-
- 
 }
 
 

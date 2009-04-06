@@ -1,6 +1,6 @@
 function module_conf_style()
 {
-   var confstore = new Ext.data.Store
+    var confstore = new Ext.data.Store
     ({
         proxy: new Ext.data.HttpProxy
         ({
@@ -17,6 +17,11 @@ function module_conf_style()
         remoteSort: false,
         autoLoad: false
     });
+    confstore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('confstore', error);
+    });
+
 
 
     var templatestore = new Ext.data.Store
@@ -38,6 +43,10 @@ function module_conf_style()
         }),
         autoLoad: false
 
+    });
+    templatestore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('templatestore', error);
     });
 
     var templatecombo= new Ext.form.ComboBox
@@ -74,6 +83,11 @@ function module_conf_style()
         autoLoad: false
 
     });
+    cssstore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('cssstore', error);
+    });
+
 
     var csscombo= new Ext.form.ComboBox
     ({
@@ -140,6 +154,10 @@ function module_conf_style()
         autoLoad: false
 
     });
+    bgstore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('bgstore', error);
+    });
 
     var bgcombo= new Ext.form.ComboBox
     ({
@@ -204,6 +222,10 @@ function module_conf_style()
         }),
         autoLoad: false
 
+    });
+    logostore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('logostore', error);
     });
 
     var logocombo= new Ext.form.ComboBox
@@ -304,10 +326,8 @@ function module_conf_style()
 
     confstyle_init();
 
-
-
- 
 }
+
 
 
 

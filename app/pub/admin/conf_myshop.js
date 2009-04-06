@@ -1,6 +1,5 @@
 function module_conf_myshop()
 {
-
     var keys= 
     [
         'STORE_NAME',
@@ -39,6 +38,10 @@ function module_conf_myshop()
         reader: new Ext.data.JsonReader({},keys),
         remoteSort: false,
         autoLoad: false
+    });
+    confstore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('confstore', error);
     });
 
 
@@ -87,6 +90,10 @@ function module_conf_myshop()
         autoLoad: false
 
     });
+    countrystore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('countrystore', error);
+    });
 
       
     var kk_STORE_COUNTRY = new Ext.form.ComboBox
@@ -121,6 +128,10 @@ function module_conf_myshop()
         }),
         autoLoad: false
 
+    });
+    zonestore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('zonestore', error);
     });
 
     var kk_STORE_ZONE = new Ext.form.ComboBox
@@ -233,6 +244,11 @@ function module_conf_myshop()
         }),
         autoLoad: true
     });
+    customergroupstore.on('loadexception',function(thisr,options,response,error)
+    {
+        Ext.Msg.alert('customergroupstore', error);
+    });
+
 
 
 
@@ -384,7 +400,6 @@ function module_conf_myshop()
 
     });
 
- 
 }
 
 
