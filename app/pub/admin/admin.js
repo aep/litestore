@@ -4,8 +4,9 @@ var mainpanel;
 
 Ext.onReady(function()
 {
-
     Ext.BLANK_IMAGE_URL = 'images/s.gif';
+
+    Ext.QuickTips.init();
 
     mainpanel = new Ext.Panel({
         autoScroll  :  'true',

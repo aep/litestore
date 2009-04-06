@@ -40,11 +40,13 @@ function module_azrael()
             method: 'post',
             url: '/admin/azrael_ajax.php',
             jsonData : Ext.util.JSON.encode
+
             ({
                 model  : 'details',
                 node    : 1
             })
         }),
+
         
         reader: new Ext.data.JsonReader
         ({
@@ -52,11 +54,29 @@ function module_azrael()
             fields: 
             [
                 {name: 'key'},
+
                 {name: 'value'}
             ]
         }),
         remoteSort: false,
         autoLoad: false
+    });
+
+
+
+    var azrael_ctxmenu_add = new Ext.menu.Menu
+    ({
+        items: 
+        [
+                {text: 'Preset'},
+                {text: 'Ordner'},
+                {text: 'StaticContent'}
+        ]
+    });
+
+
+    var azrael_ctxmenu = new Ext.Toolbar
+    ({
     });
 
 
@@ -77,6 +97,12 @@ function module_azrael()
     });
 
 
+
+
+
+
+
+
     detailstore.load();
 
 
@@ -85,10 +111,11 @@ function module_azrael()
         id              : "sidebar_azrael",
         region          : 'east',
         split           : true,
-        width           : 150,
+        width           : 200,
         minWidth        : 150,
-        items           : [ azrael_tree,azrael_nodedetail  ],
-        border          : true
+        items           : [ azrael_tree,azrael_ctxmenu ,azrael_nodedetail  ],
+        border          : true,
+        autoScroll      : true
     }); 
 
 
@@ -99,6 +126,34 @@ function module_azrael()
         border: false
     });
 
+
+    azrael_tree.on('beforemovenode',function(  tree,  node,  oldParent,  newParent,  index )
+    {
+        new Ajax.Request('/admin/azrael_ajax.php',
+        {
+            evalJS: false,
+            method: 'post',
+            parameters :
+            {
+                model: 'itemcontext',
+                action: 'move',
+                node: node.id,
+                parent: newParent.id,
+                order: index
+            },
+            onSuccess: function(transport)
+            {
+                if(transport.responseText!='ok')
+                {
+                    throw 'unexpected response';
+                }
+            },
+            onFailure: function(transport)
+            {
+                throw 'ajax request failed';
+            }
+        });
+    });
 
     azrael_tree.on('click',function(node, e)
     {
@@ -129,6 +184,60 @@ function module_azrael()
             {   
                 eval(transport.responseText);
                 azrael_center.enable();
+
+                if(!azrael_ctxmenu.hasitems)
+                {
+                    azrael_ctxmenu.hasitems=true;
+                    azrael_ctxmenu.add
+                    (
+                        {
+                            text:'Hinzufügen',
+                            menu:azrael_ctxmenu_add
+                        },
+                        {
+                            text:'Entfernen',
+                            handler: function()
+                            {
+                                Ext.Msg.confirm('Entfernen', 'Wirklich Knoten {} mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text)
+                                {
+                                    if (btn == 'yes')
+                                    {
+                                        new Ajax.Request('/admin/azrael_ajax.php',
+                                        {
+                                            evalJS: false,
+                                            method: 'post',
+                                            parameters :
+                                            {
+                                                model: 'itemcontext',
+                                                action: 'delete',
+                                                node: azrael_tree.getSelectionModel().getSelectedNode().id
+                                            },
+                                            onSuccess: function(transport)
+                                            {
+                                                if(transport.responseText!='ok')
+                                                {
+                                                    throw 'unexpected response';
+                                                }
+                                                var p=azrael_tree.getSelectionModel().getSelectedNode().parentNode;
+                                                azrael_tree.getSelectionModel().getSelectedNode().remove();
+                                                azrael_tree.getSelectionModel().select(p);
+                                            },
+                                            onFailure: function(transport)
+                                            {
+                                                throw 'ajax request failed';
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+                        }
+                    );
+                };
+
+
+
+
             },
             onFailure: function(transport)
             {
@@ -157,6 +266,10 @@ function module_azrael()
     mainpanel.add(azrael);
     mainpanel.getLayout().setActiveItem(0);
     mainpanel.doLayout();
+
+
+
+
  
 }
 
