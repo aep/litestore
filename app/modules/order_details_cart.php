@@ -137,7 +137,7 @@ if ($customer_status_value['customers_status_ot_discount'] != 0) {
 	$total_content .= TEXT_CART_OT_DISCOUNT.$customer_status_value['customers_status_ot_discount'].'%';
 }
 if (SHOW_SHIPPING == 'true') {
-	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a href="javascript:newWin=void(window.open(\''.FILENAME_POPUP_CONTENT. '/'.SHIPPING_INFOS.'\', \'popup\', \'toolbar=0, width=640, height=600\'))"> '.SHIPPING_COSTS.'</a>');
+	$module_smarty->assign('SHIPPING_INFO', ' '.SHIPPING_EXCL.'<a href="/content//Shipping"> '.SHIPPING_COSTS.'</a>');
 }
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 $module_smarty->assign('UST_CONTENT', $_SESSION['cart']->show_tax());

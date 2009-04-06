@@ -25,6 +25,14 @@ function module()
     global $_GET;
     global $azrael;
     $breadcrumb->add($APP_PATH[3], $_GET["path"]);
-    return $azrael->renderID((int)$APP_PATH[2]);
+
+    if($APP_PATH[2]==='')
+    {
+        return $azrael->renderPreset($APP_PATH[3]);
+    }
+    else
+    {
+        return $azrael->renderID((int)$APP_PATH[2]);
+    }
 }
 ?>
