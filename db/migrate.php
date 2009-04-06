@@ -5,7 +5,7 @@ class DB  extends PDO
 {
     public function __construct()
     {
-        $file = DIR_FS_USER.'/db/db.ini';
+        $file = $_SERVER['argv'][1];
         if (!$settings = parse_ini_file($file, TRUE))
         { 
             throw new exception('Unable to open ' . $file . '.');
@@ -16,7 +16,7 @@ class DB  extends PDO
         {
             if($settings['database']['file'][0]!='/')
             {
-                $settings['database']['file']=DIR_FS_USER.'/db/'.$settings['database']['file'];
+                $settings['database']['file']=dirname($_SERVER['argv'][1]).$settings['database']['file'];
             }
             $dns = $settings['database']['driver'] . ':' . $settings['database']['file'];
         }
