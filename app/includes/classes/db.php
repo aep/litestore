@@ -15,7 +15,7 @@ class DB  extends PDO
         {
             if($settings['database']['file'][0]!='/')
             {
-                $settings['database']['file']=DIR_FS_USER.'/'.$settings['database']['file'];
+                $settings['database']['file']=DIR_FS_USER.'/db/'.$settings['database']['file'];
             }
             $dns = $settings['database']['driver'] . ':' . $settings['database']['file'];
         }
