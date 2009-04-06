@@ -48,7 +48,7 @@
  	}
  	
  		function getShippingLink() {
-		return ' '.SHIPPING_EXCL.' <a href="'.FILENAME_CONTENT. '/'.SHIPPING_INFOS.'">'.SHIPPING_COSTS.'</a>';
+		return ' '.SHIPPING_EXCL.' <a href="/content//Shipping">'.SHIPPING_COSTS.'</a>';
 	}
 
 	function getTaxNotice() {
