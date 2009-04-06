@@ -1,5 +1,7 @@
 <?php
 
+$driver='';
+global $driver;
 
 class DB  extends PDO
 {
@@ -11,24 +13,29 @@ class DB  extends PDO
             throw new exception('Unable to open ' . $file . '.');
         }
 
-        $dns='';       
+	global $driver;
+	$driver=$settings['database']['driver'];
+
         if($settings['database']['driver']=='sqlite')
         {
             if($settings['database']['file'][0]!='/')
             {
-                $settings['database']['file']=dirname($_SERVER['argv'][1]).$settings['database']['file'];
+                $settings['database']['file']=dirname($_SERVER['argv'][1]).'/'.$settings['database']['file'];
             }
             $dns = $settings['database']['driver'] . ':' . $settings['database']['file'];
+	    parent::__construct($dns);
+
         }
         else
         {
             $dns = $settings['database']['driver'] . ':host=' . $settings['database']['host'] . 
             ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
             ';dbname=' . $settings['database']['schema'];
+            parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
+
         }
         
        
-        parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
 
         $this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
@@ -78,7 +85,25 @@ foreach ($files as $file)
         continue;
 
     echo "migrate ".$file."\n";
-    $db->query(file_get_contents($file));
+
+    $co=file_get_contents($file);
+
+    if($driver=='sqlite')
+    {
+        $co=str_replace ( 'auto_increment','autoincrement', $co );
+        $cx=split(";\n",$co);
+
+        foreach($cx as $cq)
+        {
+            echo '.';
+            $db->query($cq.';');
+        }
+        echo "\n";
+    }
+    else
+    {
+        $db->query($co);
+    }
 
     $db->prepare("update `system_meta` set `db_version`=?")->execute(array($p[0]));
 }
