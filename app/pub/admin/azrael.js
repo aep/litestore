@@ -5,6 +5,10 @@ function module_azrael()
         dataUrl   :"/admin/azrael_ajax.php",
         baseParams:{model:'tree'}
     });
+    azrael_loader.on('loadexception',function(  This,  node,  response )
+    {
+        Ext.Msg.alert('Asgaard Azrael', 'node '+node.id+' ("'+node.name+'") failed to load.');
+    });
 
     var azrael_tree = new Ext.tree.TreePanel
     ({
@@ -144,12 +148,12 @@ function module_azrael()
             {
                 if(transport.responseText!='ok')
                 {
-                    throw 'unexpected response';
+                    Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node move');
                 }
             },
             onFailure: function(transport)
             {
-                throw 'ajax request failed';
+                    Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node move');
             }
         });
     });
@@ -215,7 +219,8 @@ function module_azrael()
                                             {
                                                 if(transport.responseText!='ok')
                                                 {
-                                                    throw 'unexpected response';
+                                                    Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node delete');
+                                                    return;
                                                 }
                                                 var p=azrael_tree.getSelectionModel().getSelectedNode().parentNode;
                                                 azrael_tree.getSelectionModel().getSelectedNode().remove();
@@ -223,7 +228,7 @@ function module_azrael()
                                             },
                                             onFailure: function(transport)
                                             {
-                                                throw 'ajax request failed';
+                                                Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node delete');
                                             }
                                         });
 
@@ -240,7 +245,7 @@ function module_azrael()
             },
             onFailure: function(transport)
             {
-                alert("failure");
+                Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during editor load');
             }
         });
    
