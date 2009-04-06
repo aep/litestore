@@ -1,4 +1,4 @@
-poop<?php
+<?php
     require ('includes/application_top.php');
     header ('content-type : text/x-json');
 
