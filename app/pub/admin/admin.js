@@ -118,7 +118,6 @@ Ext.onReady(function()
     });
 
 
-
     // Configure viewport
     viewport = new Ext.Viewport({
            layout:'border',
