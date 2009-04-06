@@ -8,7 +8,7 @@
     if($_POST['model']=='tree')
     {
         header ('content-type : text/x-json');
-        $q=$db->prepare('SELECT id, parent, uuid, name, `order` FROM `content` where `parent`=? order by `order`');
+        $q=$db->prepare('SELECT id, parent, uuid, name, `order` FROM `content` where `parent`=? order by `order` ASC');
         $q->execute(array($_POST['node']));
 
         $nodes=array();
@@ -268,6 +268,42 @@
             <?php
         }
     }
+    else if($_POST['model']=='itemcontext')
+    {
+        if($_POST['action']=='move')
+        {
+            $q=$db->prepare('update `content` set `order`=? , `parent`=? where `id`=?;');
+            $q->execute(array($_POST['order'],$_POST['parent'],$_POST['node']));
+            echo "ok";
+        }
+        else if($_POST['action']=='delete')
+        {
+            $delnodes=array();
+
+            function r($id,&$delnodes )
+            {
+                global $db;
+                $q=$db->prepare('select `id` from `content`  where `parent`=?;');
+                $q->execute(array($id));
+                while($x=$q->fetch())
+                {
+                    $delnodes[]=$x['id'];
+                    r($x['id'],$delnodes);
+                }
+                $delnodes[]=$id;
+            }
+                    
+            r($_POST['node'],$delnodes);
+
+            $q=$db->prepare('delete from `content`  where `id`=?;');
+            foreach ($delnodes as $delnode)
+            {
+                $q->execute(array($delnode));
+            }
+            echo "ok";
+        }
+    }
+
 
 
 ?>
