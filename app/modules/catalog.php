@@ -118,7 +118,7 @@ function module()
         $smarty->assign('products',$products);
     }
 
-    $smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');    $smarty->assign('session', session_id());    $smarty->assign('language', $_SESSION['language']);    $smarty->assign('module_content', $categories_content);
+    $smarty->assign('session', session_id());    $smarty->assign('language', $_SESSION['language']);    $smarty->assign('module_content', $categories_content);
     $smarty->caching = 0;
 
     return $smarty->fetch('module/catalog.html');
