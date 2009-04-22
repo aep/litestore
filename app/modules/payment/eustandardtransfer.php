@@ -78,7 +78,7 @@ class eustandardtransfer {
         if (!isset($this->_check)) 
         {
             global $db;
-            $x=$db->query("select configuration_value from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_EUTRANSFER_STATUS'")->fetch();
+            $x=$db->query("select COUNT(*) from ".TABLE_CONFIGURATION." where configuration_key = 'MODULE_PAYMENT_EUTRANSFER_STATUS'")->fetch();
             $this->_check= $x['COUNT(*)'];
         }
         return $this->_check;
