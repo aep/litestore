@@ -659,7 +659,7 @@ else
             $heading[]  = array('align' => 'center', 'text' => '<b>' . $cInfo->categories_name . '</b>');
             //Multi Element Actions
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%;">' . TEXT_MARKED_ELEMENTS . '</div>');
-            $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_delete" onClick="this.blur();" value="'. BUTTON_DELETE . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_move" value="' . BUTTON_MOVE . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_copy" value="' . BUTTON_COPY . '">');
+            $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_delete" onClick="this.blur();" value="'. BUTTON_DELETE . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_move" value="' . BUTTON_MOVE . '">&nbsp;');
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onClick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
             $contents[] = array('text'  => '</form>');
 
@@ -693,7 +693,7 @@ else
             $heading[]  = array('align' => 'center', 'text' => '<b>' . xtc_get_products_name($pInfo->products_id, $_SESSION['languages_id']) . '</b>');
             //Multi Element Actions
             $contents[] = array('align' => 'center', 'text' => '<div style="padding-top: 5px; font-weight: bold; width: 90%;">' . TEXT_MARKED_ELEMENTS . '</div>');
-            $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_DELETE, 'submit', 'name="multi_delete"').'&nbsp;'.xtc_button(BUTTON_MOVE, 'submit', 'name="multi_move"').'&nbsp;');
+            $contents[] = array('align' => 'center', 'text' => xtc_button(BUTTON_DELETE, 'submit', 'name="multi_delete"').'&nbsp;'.xtc_button(BUTTON_MOVE, 'submit', 'name="multi_move"').'&nbsp;'.xtc_button(BUTTON_COPY, 'submit', 'name="multi_copy"'));
             $contents[] = array('align' => 'center', 'text' => '<input type="submit" class="button" name="multi_status_on" onClick="this.blur();" value="'. BUTTON_STATUS_ON . '">&nbsp;<input type="submit" class="button" onClick="this.blur();" name="multi_status_off" value="' . BUTTON_STATUS_OFF . '">');
             $contents[] = array('text'  => '</form>');            
             //Single Product Actions
