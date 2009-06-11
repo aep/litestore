@@ -37,15 +37,13 @@ require_once (DIR_FS_INC.'xtc_draw_input_field.inc.php');
 require_once (DIR_FS_INC.'xtc_get_tax_description.inc.php');
 
 class shoppingCart {
-	var $contents, $total, $weight, $cartID, $content_type;
+    var $contents, $total, $weight, $cartID, $content_type;
 
 	function shoppingCart() {
 		$this->reset();
-
 	}
 
 	function restore_contents() {
-
 		if (!isset ($_SESSION['customer_id']))
 			return false;
 
@@ -54,8 +52,11 @@ class shoppingCart {
 			reset($this->contents);
 			while (list ($products_id,) = each($this->contents)) {
 				$qty = $this->contents[$products_id]['qty'];
-				$product_query = xtc_db_query("select products_id from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'");
-				if (!xtc_db_num_rows($product_query)) {
+
+				$product_query = xtc_db_query("select COUNT(products_id) from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'")->fetch();
+
+				if (($product_query['COUNT(products_id)']<0)) {
+
 					xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$qty."', '".date('Ymd')."')");
 					if (isset ($this->contents[$products_id]['attributes'])) {
 						reset($this->contents[$products_id]['attributes']);
