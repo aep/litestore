@@ -55,7 +55,7 @@ class shoppingCart {
 
 				$product_query = xtc_db_query("select COUNT(products_id) from ".TABLE_CUSTOMERS_BASKET." where customers_id = '".$_SESSION['customer_id']."' and products_id = '".$products_id."'")->fetch();
 
-				if (($product_query['COUNT(products_id)']<0)) {
+				if (($product_query['COUNT(products_id)']<1)) {
 
 					xtc_db_query("insert into ".TABLE_CUSTOMERS_BASKET." (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('".$_SESSION['customer_id']."', '".$products_id."', '".$qty."', '".date('Ymd')."')");
 					if (isset ($this->contents[$products_id]['attributes'])) {
