@@ -303,6 +303,13 @@
             }
             echo "ok";
         }
+        else if($_POST['action']=='create')
+        {
+            $q=$db->prepare('insert into `content` (parent,uuid,name)  values (?,?,?)');;
+            $q->execute(array($_POST['node'],$_POST['type'],$_POST['nodename']));
+            echo "ok";
+        }
+  
     }
 
 

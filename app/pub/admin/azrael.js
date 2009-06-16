@@ -66,17 +66,54 @@ function module_azrael()
     });
 
 
+    var azrael_ctxmenu_add_static = new Ext.menu.Item({text:'StaticContent'});
 
     var azrael_ctxmenu_add = new Ext.menu.Menu
     ({
-        items: 
-        [
-                {text: 'Preset'},
-                {text: 'Ordner'},
-                {text: 'StaticContent'}
-        ]
+        items:  [azrael_ctxmenu_add_static]
     });
 
+    
+	azrael_ctxmenu_add_static.on('click',function(){
+    {
+        Ext.Msg.prompt('Name', 'Name des neuen Kontens:', function(btn, text){
+            if (btn == 'ok'){
+                // process text value and close...
+
+                new Ajax.Request('/admin/azrael_ajax.php',
+                {
+                    evalJS: false,
+                    method: 'post',
+                    parameters :
+                    {
+                        model: 'itemcontext',
+                        action: 'create',
+                        type: '{c21ced16-0000-4000-92c1-69d94afb4933}',
+                        nodename: text,
+                        node: azrael_tree.getSelectionModel().getSelectedNode().id
+                    },
+                    onSuccess: function(transport)
+                    {
+                        if(transport.responseText!='ok')
+                        {
+                            Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node create');
+                            return;
+                        }
+                            var p=azrael_tree.getSelectionModel().getSelectedNode();
+                            p.collapse();
+                            azrael_loader.load(p,function(){azrael_tree.getSelectionModel().getSelectedNode().expand()});
+                    },
+                    onFailure: function(transport)
+                    {
+                        Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node delete');
+                    }
+                });
+            }
+        });
+
+    }
+
+    })
 
     var azrael_ctxmenu = new Ext.Toolbar
     ({
