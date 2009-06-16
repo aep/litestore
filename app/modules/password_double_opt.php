@@ -184,7 +184,7 @@ function module()
 		    $smarty->assign('INPUT_CODE', xtc_draw_input_field('vvcode', '', 'size="6" maxlenght="6"', false, '', false));
 		    $smarty->assign('FORM_END', '</form>');
 		    $smarty->assign('language', $_SESSION['language']);
-            $smarty->assign('tpl_path','/templates/'.CURRENT_TEMPLATE.'/');
+
 
 		    $smarty->caching = 0;
 		    $main_content = $smarty->fetch('module/password_double_opt_in.html');

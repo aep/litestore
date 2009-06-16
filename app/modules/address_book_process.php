@@ -197,10 +197,14 @@ function module()
 	    }
     }
     
+
+
     if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
 	    $entry_query = xtc_db_query("select entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id from ".TABLE_ADDRESS_BOOK." where customers_id = '".(int) $_SESSION['customer_id']."' and address_book_id = '".(int) $_GET['edit']."'")->fetch();
-    
-	    if ($entry_query) {
+
+
+	    if (!$entry_query) {
+            throw new Exception("address_book_process: Stuff broke");
 		    $messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
     
 		    xtc_redirect(xtc_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
