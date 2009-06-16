@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/pub/admin/seo_conversion.js"></script>
     <script type="text/javascript" src="/pub/admin/azrael.js"></script>
     <script type="text/javascript" src="/pub/admin/stats.js"></script>
+    <script type="text/javascript" src="/pub/admin/seo_notfound.js"></script>
 
 
     <!--<link rel="stylesheet" type="text/css" href="/pub/javascript/resources/css/xtheme-slate.css" >-->
@@ -80,6 +81,7 @@
             <li><a href="#" onclick="module_iframe('Meta-Tags/Suchmaschinen','/admin/metatags.php')" >Meta-Tags/Suchmaschinen</a></li>
             <li><a href="#" onclick="module_seo_conversion()" >Conversion tracking</a></li>
             <li><a href="#" onclick="module_iframe('Google Adsense','/admin/adsense.php')" >Google Adsense</a></li>
+            <li><a href="#" onclick="module_seo_notfound()" >Redirect</a></li>
 <!--            <li><a href="#" onclick="module_iframe('Google Adwords','/admin/adwords.php')" >Google Adwords</a></li> -->
         </ul>
 

@@ -368,6 +368,7 @@ function getCrossSells() {
 
 	}
 	
+
 	function buildDataArray(&$array,$image='thumbnail') 
     {
         global $xtPrice,$main,$PHP_SELF;
@@ -394,6 +395,8 @@ function getCrossSells() {
 		
 		
 
+    
+        $prod_name_stripped = ereg_replace("[^A-Za-z0-9]", "_", $array["products_name"] );
 
 
 		return array ('PRODUCTS_NAME' => $array['products_name'], 
@@ -402,7 +405,7 @@ function getCrossSells() {
 				'PRODUCTS_MODEL'=>$array['products_model'],
 				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
 				'PRODUCTS_IMAGE' => $array['image_url'], 
-				'PRODUCTS_LINK' => "/products/".$array['products_id']."/".rawurlencode(str_replace(' ','-',$array["products_name"])),
+				'PRODUCTS_LINK' => "/products/".$array['products_id']."/".$prod_name_stripped,
 				'PRODUCTS_PRICE' => $products_price['formated'], 
 				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate), 
 				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(), 
