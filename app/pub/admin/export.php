@@ -35,6 +35,7 @@
 
     if($_GET['scheme'] && in_array ( $_GET['scheme'] , $schemes ) )
     {
+        header("Content-Disposition: attachment");
         $handler = new reImportExport();
 
         require(DIR_WS_INCLUDES."/scheme/".$_GET['scheme'].".php");
@@ -72,14 +73,14 @@ require(DIR_WS_INCLUDES . 'header.php');
         <?php }; ?>
     </ul>
 </p>
-<!--<p>
+<p>
     <h6>xml</h6>
     <ul>
         <?php foreach($schemes as $scheme) {?>
         <li><a href="/admin/export/<?php echo $scheme;?>.xml" ><?php echo $scheme;?>.xml</a></li>
         <?php }; ?>
     </ul>
-<p>-->
+<p>
 <?php 
 require(DIR_WS_INCLUDES . 'footer.php'); 
 require(DIR_WS_INCLUDES . 'application_bottom.php'); 

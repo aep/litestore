@@ -174,123 +174,56 @@ class reImportExport
     function export()
     {
         $r='';
-        foreach($this->scheme as $expf)
+        if($this->format=='xml')
         {
-            reset($expf['fields']);
-            while ($field = current($expf['fields']))
-            {
-                $ff=$field;
-                if( is_array($ff))
-                    $ff=key($expf['fields']);
-                $r .= $this->TextSign.$ff.$this->TextSign.$this->seperator;
-                next($expf['fields']);
-            }
-        }
-        $r .= "\n";
+            $r.="<export>\n";
 
-
-        reset($this->scheme);
-        $main_table=key($this->scheme);
-        $main_q = xtc_db_query( "select * from ".$main_table);
-
-
-        while ($main_a = xtc_db_fetch_array($main_q))
-        {
-            foreach( $this->scheme[$main_table]['fields'] as $field)
-            {
-                $r .= $this->TextSign.$main_a[$field].$this->TextSign.$this->seperator;
-            }
             reset($this->scheme);
-            next($this->scheme);
-            while ($table_a = current($this->scheme))
+            $main_table=key($this->scheme);
+            $main_q = xtc_db_query( "select * from ".$main_table);
+
+            while ($main_a = xtc_db_fetch_array($main_q))
             {
-                $table_n=key($this->scheme);
-                $conditions="";
-
-                if($table_a["index"])
+                $r.="\t<object>\n";
+                foreach( $this->scheme[$main_table]['fields'] as $field)
                 {
-                    $conditions=" where ". implode(' and ',$this->expand_export_index($table_a["index"],$main_a));
+                    $r .= "\t\t<".$field.">".$main_a[$field]."</".$field.">\n";
                 }
-
-                reset($table_a["fields"]);
-                while ($fielda = current($table_a["fields"]))
+                reset($this->scheme);
+                next($this->scheme);
+                while ($table_a = current($this->scheme))
                 {
-                    if(is_array($fielda))
+                    $table_n=key($this->scheme);
+                    $conditions="";
+
+                    if($table_a["index"])
                     {
-                        if($fielda["type"]=="inlinetable")
+                        $conditions=" where ". implode(' and ',$this->expand_export_index($table_a["index"],$main_a));
+                    }
+
+                    reset($table_a["fields"]);
+                    while ($fielda = current($table_a["fields"]))
+                    {
+                        if(is_array($fielda))
                         {
-                            $sub_q = xtc_db_query( "select ".implode(",",$fielda["fields"])." from ".$table_n.$conditions);
-                            $k='';
-                            while($sub_r=xtc_db_fetch_array($sub_q))
+                            if($fielda["xmltype"]=="children")
                             {
-                                foreach($sub_r as $ff=>$ffva)
+                                $sub_q = xtc_db_query( "select ".implode(",",$fielda["fields"])." from ".$table_n.$conditions);
+                                $r .= "\t\t<".key($table_a["fields"]).">\n";
+                                while($sub_r=xtc_db_fetch_array($sub_q))
                                 {
-                                    $k.=$ffva.$fielda["seperator"];
-                                }
-                                $k.=$fielda["seperator"];
-                            }
-                            $r .= $this->TextSign.$k.$this->TextSign.$this->seperator;
-                        }
-                        else if($fielda["type"]=="tree")
-                        {
-                            $tree=array();
-                            $treeq = xtc_db_query( "select ".$fielda["id"].",".$fielda["parent"]." from ".$fielda["table"]);
-                            while($treeq_r=xtc_db_fetch_array($treeq))
-                            {
-                                $tree[$treeq_r[$fielda["id"]]]=$treeq_r[$fielda["parent"]];
-                            }
-
-
-                            $sub_q_union=array();
-
-                            $ids_q = xtc_db_query( "select ".$fielda["id"]." from ".$table_n.$conditions);
-                            while($ids_r=xtc_db_fetch_array($ids_q))
-                            {
-                                $xccid=$ids_r[$fielda["id"]];
-
-                                $xccids=array($xccid);
-
-
-                                $sub_q_fields       =array();
-                                $sub_q_tables       =array();
-                                $sub_q_conditions   =array();
-
-
-                                while(true)
-                                {
-                                    $i=$xccid;
-                                    $fieldb=array();
-                                    foreach($fielda["fields"] as $fieldax)
+                                    foreach($fielda["fields"] as $ff)
                                     {
-                                        $fieldb[]=" ct$i.".$fieldax." as c$i ";
+                                        $r .= "\t\t\t<".$ff.">".$sub_r[$ff]."</".$ff.">\n";
                                     }
-                                    $sub_q_fields[]=implode(",",$fieldb);
-
-                                    $sub_q_tables[]=$table_n." as ct$i ";
-                                    $sub_q_conditions[]=" ct$i.".$fielda["id"]." = '".$xccid."'";
-
-
-                                    if(!$tree[$xccid])
-                                        break;
-                                    $xccid=$tree[$xccid];
+                                    $k.=$fielda["seperator"];
                                 }
-                                $sub_q_fields=array_reverse($sub_q_fields);
-                                $sub_q_tables=array_reverse($sub_q_tables);
-                                $sub_q_conditions=array_reverse($sub_q_conditions);
-
-
-                                $fin=" select "
-                                .implode(" , ",$sub_q_fields)
-                                ." from "
-                                .implode(" join ",$sub_q_tables)
-                                ." where "
-                                .implode(" and ",$sub_q_conditions);
-                                $sub_q_union[]=$fin;
+                                $r .= "\t\t</".key($table_a["fields"]).">\n";
                             }
-                            $k='';
-                            foreach($sub_q_union as $sub_q_s)
+                            else if($fielda["type"]=="inlinetable")
                             {
-                                $sub_q = xtc_db_query($sub_q_s);
+                                $sub_q = xtc_db_query( "select ".implode(",",$fielda["fields"])." from ".$table_n.$conditions);
+                                $k='';
                                 while($sub_r=xtc_db_fetch_array($sub_q))
                                 {
                                     foreach($sub_r as $ff=>$ffva)
@@ -299,22 +232,244 @@ class reImportExport
                                     }
                                     $k.=$fielda["seperator"];
                                 }
+                                $r .= "\t\t<".key($table_a["fields"]).">".$k."</".key($table_a["fields"]).">\n";
                             }
-                            $r .= $this->TextSign.$k.$this->TextSign.$this->seperator;
-                        }
 
+                            else if($fielda["type"]=="tree")
+                            {
+                                $tree=array();
+                                $treeq = xtc_db_query( "select ".$fielda["id"].",".$fielda["parent"]." from ".$fielda["table"]);
+                                while($treeq_r=xtc_db_fetch_array($treeq))
+                                {
+                                    $tree[$treeq_r[$fielda["id"]]]=$treeq_r[$fielda["parent"]];
+                                }
+
+
+                                $sub_q_union=array();
+
+                                $ids_q = xtc_db_query( "select ".$fielda["id"]." from ".$table_n.$conditions);
+                                while($ids_r=xtc_db_fetch_array($ids_q))
+                                {
+                                    $xccid=$ids_r[$fielda["id"]];
+
+                                    $xccids=array($xccid);
+
+
+                                    $sub_q_fields       =array();
+                                    $sub_q_tables       =array();
+                                    $sub_q_conditions   =array();
+
+
+                                    while(true)
+                                    {
+                                        $i=$xccid;
+                                        $fieldb=array();
+                                        foreach($fielda["fields"] as $fieldax)
+                                        {
+                                            $fieldb[]=" ct$i.".$fieldax." as c$i ";
+                                        }
+                                        $sub_q_fields[]=implode(",",$fieldb);
+
+                                        $sub_q_tables[]=$table_n." as ct$i ";
+                                        $sub_q_conditions[]=" ct$i.".$fielda["id"]." = '".$xccid."'";
+
+
+                                        if(!$tree[$xccid])
+                                            break;
+                                        $xccid=$tree[$xccid];
+                                    }
+                                    $sub_q_fields=array_reverse($sub_q_fields);
+                                    $sub_q_tables=array_reverse($sub_q_tables);
+                                    $sub_q_conditions=array_reverse($sub_q_conditions);
+
+
+                                    $fin=" select "
+                                    .implode(" , ",$sub_q_fields)
+                                    ." from "
+                                    .implode(" join ",$sub_q_tables)
+                                    ." where "
+                                    .implode(" and ",$sub_q_conditions);
+                                    $sub_q_union[]=$fin;
+                                }
+
+                                $k='';
+
+                                foreach($sub_q_union as $sub_q_s)
+                                {
+                                    $sub_q = xtc_db_query($sub_q_s);
+                                    while($sub_r=xtc_db_fetch_array($sub_q))
+                                    {
+                                        foreach($sub_r as $ff=>$ffva)
+                                        {
+                                            $k.=$ffva.$fielda["seperator"];
+                                        }
+                                        $k.=$fielda["seperator"];
+                                    }
+                                }
+                                $r .= "\t\t<".key($table_a["fields"]).">".$k."</".key($table_a["fields"]).">\n";
+                            }
+
+                        }
+                        else
+                        {
+                            $sub_q = xtc_db_fetch_array(xtc_db_query( "select ".$fielda." from ".$table_n.$conditions));
+                            $r .= "\t\t<".$fielda.">".$sub_q[$fielda]."</".$fielda.">\n";
+                        }
+                        next($table_a["fields"]);
                     }
-                    else
-                    {
-                        $sub_q = xtc_db_fetch_array(xtc_db_query( "select ".$fielda." from ".$table_n.$conditions));
-                        $r .= $this->TextSign.str_replace("\n"," ",$sub_q[$fielda]).$this->TextSign.$this->seperator;
-                    }
-                    next($table_a["fields"]);
+                    next($this->scheme);
                 }
-                next($this->scheme);
+                $r .= "\t</object>\n";
+            }
+
+
+
+            $r.="</export>\n";
+            return $r;
+        }
+        else
+        {
+            foreach($this->scheme as $expf)
+            {
+                reset($expf['fields']);
+                while ($field = current($expf['fields']))
+                {
+                    $ff=$field;
+                    if( is_array($ff))
+                        $ff=key($expf['fields']);
+                    $r .= $this->TextSign.$ff.$this->TextSign.$this->seperator;
+                    next($expf['fields']);
+                }
             }
             $r .= "\n";
-        }
+
+
+            reset($this->scheme);
+            $main_table=key($this->scheme);
+            $main_q = xtc_db_query( "select * from ".$main_table);
+
+
+            while ($main_a = xtc_db_fetch_array($main_q))
+            {
+                foreach( $this->scheme[$main_table]['fields'] as $field)
+                {
+                    $r .= $this->TextSign.$main_a[$field].$this->TextSign.$this->seperator;
+                }
+                reset($this->scheme);
+                next($this->scheme);
+                while ($table_a = current($this->scheme))
+                {
+                    $table_n=key($this->scheme);
+                    $conditions="";
+
+                    if($table_a["index"])
+                    {
+                        $conditions=" where ". implode(' and ',$this->expand_export_index($table_a["index"],$main_a));
+                    }
+
+                    reset($table_a["fields"]);
+                    while ($fielda = current($table_a["fields"]))
+                    {
+                        if(is_array($fielda))
+                        {
+                            if($fielda["type"]=="inlinetable")
+                            {
+                                $sub_q = xtc_db_query( "select ".implode(",",$fielda["fields"])." from ".$table_n.$conditions);
+                                $k='';
+                                while($sub_r=xtc_db_fetch_array($sub_q))
+                                {
+                                    foreach($sub_r as $ff=>$ffva)
+                                    {
+                                        $k.=$ffva.$fielda["seperator"];
+                                    }
+                                    $k.=$fielda["seperator"];
+                                }
+                                $r .= $this->TextSign.$k.$this->TextSign.$this->seperator;
+                            }
+                            else if($fielda["type"]=="tree")
+                            {
+                                $tree=array();
+                                $treeq = xtc_db_query( "select ".$fielda["id"].",".$fielda["parent"]." from ".$fielda["table"]);
+                                while($treeq_r=xtc_db_fetch_array($treeq))
+                                {
+                                    $tree[$treeq_r[$fielda["id"]]]=$treeq_r[$fielda["parent"]];
+                                }
+
+
+                                $sub_q_union=array();
+
+                                $ids_q = xtc_db_query( "select ".$fielda["id"]." from ".$table_n.$conditions);
+                                while($ids_r=xtc_db_fetch_array($ids_q))
+                                {
+                                    $xccid=$ids_r[$fielda["id"]];
+
+                                    $xccids=array($xccid);
+
+
+                                    $sub_q_fields       =array();
+                                    $sub_q_tables       =array();
+                                    $sub_q_conditions   =array();
+
+
+                                    while(true)
+                                    {
+                                        $i=$xccid;
+                                        $fieldb=array();
+                                        foreach($fielda["fields"] as $fieldax)
+                                        {
+                                            $fieldb[]=" ct$i.".$fieldax." as c$i ";
+                                        }
+                                        $sub_q_fields[]=implode(",",$fieldb);
+
+                                        $sub_q_tables[]=$table_n." as ct$i ";
+                                        $sub_q_conditions[]=" ct$i.".$fielda["id"]." = '".$xccid."'";
+
+
+                                        if(!$tree[$xccid])
+                                            break;
+                                        $xccid=$tree[$xccid];
+                                    }
+                                    $sub_q_fields=array_reverse($sub_q_fields);
+                                    $sub_q_tables=array_reverse($sub_q_tables);
+                                    $sub_q_conditions=array_reverse($sub_q_conditions);
+
+
+                                    $fin=" select "
+                                    .implode(" , ",$sub_q_fields)
+                                    ." from "
+                                    .implode(" join ",$sub_q_tables)
+                                    ." where "
+                                    .implode(" and ",$sub_q_conditions);
+                                    $sub_q_union[]=$fin;
+                                }
+                                $k='';
+                                foreach($sub_q_union as $sub_q_s)
+                                {
+                                    $sub_q = xtc_db_query($sub_q_s);
+                                    while($sub_r=xtc_db_fetch_array($sub_q))
+                                    {
+                                        foreach($sub_r as $ff=>$ffva)
+                                        {
+                                            $k.=$ffva.$fielda["seperator"];
+                                        }
+                                        $k.=$fielda["seperator"];
+                                    }
+                                }
+                                $r .= $this->TextSign.$k.$this->TextSign.$this->seperator;
+                            }
+
+                        }
+                        else
+                        {
+                            $sub_q = xtc_db_fetch_array(xtc_db_query( "select ".$fielda." from ".$table_n.$conditions));
+                            $r .= $this->TextSign.str_replace("\n"," ",$sub_q[$fielda]).$this->TextSign.$this->seperator;
+                        }
+                        next($table_a["fields"]);
+                    }
+                    next($this->scheme);
+                }
+                $r .= "\n";
+            }        }
         return $r;
     }
 
