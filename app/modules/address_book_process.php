@@ -204,7 +204,7 @@ function module()
 
 
 	    if (!$entry_query) {
-            throw new Exception("address_book_process: Stuff broke");
+            throw new Exception("address_book_process: Stuff broke.");
 		    $messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
     
 		    xtc_redirect(xtc_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));

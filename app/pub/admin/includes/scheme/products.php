@@ -104,8 +104,9 @@ $scheme=array
         (
             'images'=> array
             (
-                'type'        =>'inlinetable',
-                'seperator'   =>'|',
+                'type'        => 'inlinetable',
+                'xmltype'     => 'children',
+                'seperator'   => '|',
                 'fields'=>array
                 (
                     'url_small',
