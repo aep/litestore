@@ -14,12 +14,10 @@
     RewriteCond  %{REQUEST_URI} !^/(admin|user|pub)/.*$
     RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
 
-
     SetEnv RESTORE_USER_PATH  "/www/USER"
-    SetEnv RESTORE_DB_HOST    "localhost"
-    SetEnv RESTORE_DB_NAME    "USER"
-    SetEnv RESTORE_DB_USER    "USER"
-    SetEnv RESTORE_DB_PASS    "PASS"
+    CustomLog  /www/USER/log/access_log combined
+    ErrorLog   /www/USER/log/error_log
+    php_value error_log /www/USER/log/php_error_log
 
     <Directory /srv/http/restore/app/pub >
             DirectoryIndex index.php index.html
