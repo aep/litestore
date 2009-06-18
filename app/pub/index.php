@@ -15,9 +15,7 @@ set_error_handler("exception_error_handler");
 
 
 try
-{
-    throw new exception("fuck");
-
+{
 
     $APPDIR= $_SERVER["DOCUMENT_ROOT"].'/../';
     chdir  ($APPDIR);
