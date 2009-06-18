@@ -1,5 +1,4 @@
 <?php
-
 function exception_error_handler($errno, $errstr, $errfile, $errline ) 
 {
 
@@ -17,6 +16,9 @@ set_error_handler("exception_error_handler");
 
 try
 {
+    throw new exception("fuck");
+
+
     $APPDIR= $_SERVER["DOCUMENT_ROOT"].'/../';
     chdir  ($APPDIR);
 
@@ -101,10 +103,23 @@ try
     $smarty->assign('realm', $APP_PATH[1]);
     $smarty->caching = 0;
     $smarty->display('index.html');
+
 }
 catch (Exception $e)
 {
 
+    header("HTTP/1.0 500 Internal Server Error");
+
+
+    $mailworked=false;
+    try
+    {
+//        $mailworked=mail ("aep@exys.org"  , $_SERVER['SERVER_NAME'].' : '.get_class($e),  $e->getMessage()."\n\n\n\ntrace:".$e->getTrace());
+    }
+    catch (Exception $e)
+    {
+        $mailworked=false;
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>	
@@ -235,6 +250,10 @@ td
 					<span class="headline"><?php echo get_class($e); ?></span><br><br>
 
                     <?php echo $e->getMessage() ?>
+
+                    <?php if(!$mailworked) {?>
+                    <p> An additional error occured while trying to send an error report. Please try to contact a sysadmin. </p>
+                    <?php }?>
 
 					<div id="bt" class="captions">
                     <h3>backtrace</h3><br>
