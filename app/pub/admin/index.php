@@ -79,7 +79,7 @@
 
         <ul id="actionSeoTools" >
             <li><a href="#" onclick="module_iframe('Meta-Tags/Suchmaschinen','/admin/metatags.php')" >Meta-Tags/Suchmaschinen</a></li>
-            <li><a href="#" onclick="module_seo_conversion()" >Conversion tracking</a></li>
+        <!--    <li><a href="#" onclick="module_seo_conversion()" >Conversion tracking</a></li> -->
             <li><a href="#" onclick="module_iframe('Google Adsense','/admin/adsense.php')" >Google Adsense</a></li>
             <li><a href="#" onclick="module_seo_notfound()" >Redirect</a></li>
 <!--            <li><a href="#" onclick="module_iframe('Google Adwords','/admin/adwords.php')" >Google Adwords</a></li> -->
