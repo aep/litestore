@@ -1,0 +1,46 @@
+<VirtualHost *:80>
+
+    DocumentRoot "/home/aep/proj/restore/app/pub"
+
+    RewriteEngine on
+
+    RewriteRule  ^/export/(.*)\.csv$            /admin/export.php?format=csv&scheme=$1 [PT]
+    RewriteRule  ^/export/(.*)\.xml$            /admin/export.php?format=xml&scheme=$1 [PT]    
+
+    Alias /user        /home/aep/proj/restore/user
+    Alias /pub         /home/aep/proj/restore/app/pub
+    Alias /admin       //home/aep/proj/restore/app/pub/admin
+
+    RewriteCond  %{REQUEST_URI} !^/(user|pub)/.*$
+    RewriteRule  ^(.*)$    /index.php?path=$1&%{QUERY_STRING}
+
+    SetEnv RESTORE_USER_PATH  "/home/aep/proj/restore/user"
+
+    CustomLog  /home/aep/proj/restore/user/log/access_log combined
+    ErrorLog   /home/aep/proj/restore/user/log/error_log
+    php_value error_log /home/aep/proj/restore/user/log/php_error_log
+
+    <Directory /home/aep/proj/restore/pub >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+	    AddHandler application/x-httpd-php .php
+    </Directory>
+    <Directory  /home/aep/proj/restore/user/ >
+            Order Deny,Allow
+            Deny from all
+    </Directory>
+    <Directory  /home/aep/proj/restore/user/templates >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+            DirectoryIndex index.html
+            RemoveHandler .php
+    </Directory>
+
+</VirtualHost>
+
+
+
