@@ -27,14 +27,34 @@
             Order Allow,Deny
             Allow from all
     </Directory>
-
-    <Directory {{USER_ROOT}} >
+    <Directory {{USER_ROOT}}/ >
+            Order Deny,Allow
+            Deny from all
+            RemoveHandler .php
+    </Directory>   
+    <Directory {{USER_ROOT}}/templates/ >
             AllowOverride None
             Options Indexes
             Order Allow,Deny
             Allow from all
             DirectoryIndex index.html
             RemoveHandler .php
+    </Directory>
+    <Directory {{USER_ROOT}}/images/ >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+            DirectoryIndex index.html
+            RemoveHandler .php
+    </Directory>
+    <Directory {{USER_ROOT}}/public >
+            AllowOverride None
+            Options Indexes
+            Order Allow,Deny
+            Allow from all
+            DirectoryIndex index.html
+            AddHandler application/x-httpd-php .php
     </Directory>
 
 </VirtualHost>
