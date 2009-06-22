@@ -1,6 +1,6 @@
 if test "" = "$1"
 then
-  echo "usage: $0 username > /etc/httpd/conf/vhosts/username"
+  echo "usage: $0 username "
   exit 5
 fi
 
