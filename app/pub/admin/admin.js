@@ -1,3 +1,16 @@
+window.onerror = function(message, uri, line)
+{
+  var fullMessage = message + "\n at " + uri + ": " + line + "\n\n<br/> The Application will now attemp to reload. If the problem persists, please contact the system administrator."
+//remoteLogger.log(fullMessage)
+ 
+  Ext.MessageBox.alert('Litestore Admin has crashed',fullMessage, function(btn, text){
+		  location.reload();});
+  // Let the browser take it from here
+  return false                      
+}
+
+
+
 var mainpanel;
 
 
