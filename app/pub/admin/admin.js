@@ -22,8 +22,6 @@ appInitState.addEvents({
 Ext.onReady(function()
 {
 
-   console.log("hi");
-
     Ext.BLANK_IMAGE_URL = 'images/s.gif';
 
     Ext.QuickTips.init();
