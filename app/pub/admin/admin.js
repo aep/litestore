@@ -1,22 +1,29 @@
 window.onerror = function(message, uri, line)
 {
-  var fullMessage = message + "\n at " + uri + ": " + line + "\n\n<br/> The Application will now attemp to reload. If the problem persists, please contact the system administrator."
-//remoteLogger.log(fullMessage)
+    var fullMessage = message + "\n at " + uri + ": " + line + "\n\n<br/> The Application will now attemp to reload. If the problem persists, please contact the system administrator."
+
+    //remoteLogger.log(fullMessage)
  
-  Ext.MessageBox.alert('Litestore Admin has crashed',fullMessage, function(btn, text){
-		  location.reload();});
-  // Let the browser take it from here
-  return false                      
+    Ext.MessageBox.alert('Litestore Admin has crashed',fullMessage, function(btn, text){ location.reload();});
+    return false                      
 }
 
-
-
 var mainpanel;
+var mainmenu;
+var menus = new Object();
+var statusbar;
 
+var appInitState= new Ext.util.Observable();
+appInitState.addEvents({
+    "loadMenus" : true,
+});
 
 
 Ext.onReady(function()
 {
+
+   console.log("hi");
+
     Ext.BLANK_IMAGE_URL = 'images/s.gif';
 
     Ext.QuickTips.init();
@@ -27,127 +34,56 @@ Ext.onReady(function()
 	    deferredRender:false,
         activeTab:0,
         layout: 'card',
+        border:false
     });
-
-    var actionAbout = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Start',
-        collapsible   : true,
-        contentEl     : 'actionAbout',
-        titleCollapse : true
-    });
-
-    var actionCustomers = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Kundenstamm',
-        collapsible   : true,
-        contentEl     : 'actionCustomers',
-        titleCollapse : true
-    });
-
-
-    var actionCatalog = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Artikelstamm',
-        collapsible   : true,
-        contentEl     : 'actionCatalog',
-        titleCollapse : true
-    });
-
-
-    var actionModules = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Module',
-        collapsible   : true,
-        contentEl     : 'actionModules',
-        titleCollapse : true
-    });
-
-
-    var actionStats = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Statistiken',
-        collapsible   : true,
-        contentEl     : 'actionStats',
-        titleCollapse : true
-    });
-
-    var actionTools = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Tools',
-        collapsible   : true,
-        contentEl     : 'actionTools',
-        titleCollapse : true
-    });
-
-    var actionLocalisation = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'L&auml;ndereinstellungen',
-        collapsible   : true,
-        contentEl     : 'actionLocalisation',
-        titleCollapse : true
-    });
-
-    var actionSeoTools = new Ext.Panel({
-        collapsed     : true,
-        frame         : true,
-        title         : 'SEO Tools',
-        collapsible   : true,
-        contentEl     : 'actionSeoTools',
-        titleCollapse : true
-    });
-
-
-    var actionSettings = new Ext.Panel({
-        collapsed: true,
-        frame         : true,
-        title         : 'Einstellungen',
-        collapsible   : true,
-        contentEl     : 'actionSettings',
-        titleCollapse : true
-    });
-
-
-
-     var actionPanel = new Ext.Panel({
-        autoScroll  :  'true',
+    mainmenu = new Ext.Toolbar({
         id:'action-panel',
-        region:'west',
-        split:true,
-        collapsible: true,
-        collapseMode: 'mini',
-        width: 200,
-        minWidth: 150,
+        region:'north',
         border: false,
-        baseCls:'x-plain',
-        items: [actionAbout,actionCustomers,actionCatalog,actionStats,actionSeoTools,actionTools,actionLocalisation,actionModules,actionSettings]
+        height: '20',
+    });
+    statusbar = new Ext.StatusBar({
+        region:'south'
     });
 
 
     // Configure viewport
     viewport = new Ext.Viewport({
            layout:'border',
-           items:[actionPanel,mainpanel]});
+           items:[mainmenu,mainpanel,statusbar]});
 
     module_html('Willkommen','/admin/start.php');
+
+    appInitState.fireEvent("loadMenus");
+
+    mainmenu.add({text:'Beenden',iconCls:'icon_exit',handler:function(){logout()}});
+    mainmenu.addFill();
+
 });
 
 
+var busycount=0;
+function busyRef(){
+    busycount++;
+    statusbar.showBusy();
+};
+
+function busyDeref(){
+    if(--busycount<1){
+        statusbar.clearStatus();
+    }
+};
+Ext.Ajax.on('beforerequest', function(){busyRef();});
+Ext.Ajax.on('requestcomplete', function(){busyDeref();});
 
 
-
-function module_iframe(tit,uri)
+function module_iframe(title,uri)
 {
+    busyRef();
+    document.title = 'Litemin - '+title;
     
     var panel = new Ext.Panel({
-        title:tit, 
+        border: false,
         html : '<iframe src="'+uri+'" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"/>'
     });
 
@@ -155,6 +91,8 @@ function module_iframe(tit,uri)
     mainpanel.add(panel);
     mainpanel.getLayout().setActiveItem(0);
     mainpanel.doLayout();    
+
+    busyDeref();
 }
 
 
@@ -180,8 +118,11 @@ function module_js(uri)
 
 
 
-function module_html(tit,uri)
+function module_html(title,uri)
 {
+    busyRef();
+    document.title = 'Litemin - '+title;
+
     new Ajax.Request(uri,
     {
         method: 'get',
@@ -189,7 +130,7 @@ function module_html(tit,uri)
         {   
 
             var panel = new Ext.Panel({
-                title   :tit, 
+	            border: false,
                 html    :transport.responseText
             });
 
@@ -203,13 +144,11 @@ function module_html(tit,uri)
             {
                 eval(sl[i]);
             }
-
-
-
+            busyDeref();
         },
         onFailure: function(transport)
         {
-            alert("failure");
+            throw "module_html failure";
         }
     });
 }
@@ -231,5 +170,31 @@ function logout()
     });
 
 }
+
+
+
+function rpcCommand(command,callback){
+    Ext.Ajax.request({
+        url: '/admin/rpc.php',  
+        jsonData : [command],
+        success: function(transport)
+        {
+            var o=Ext.util.JSON.decode(transport.responseText)[0];
+            if(!o.success){
+                throw 'RPC command not succesfull: '+o.error;
+            }
+            callback(o.value);
+        },
+        failure: function(transport)
+        {
+                throw 'RPC command not succesfull: Transport error ';
+        }
+    });
+}
+
+
+
+
+
 
 
