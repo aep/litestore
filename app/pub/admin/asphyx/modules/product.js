@@ -73,7 +73,8 @@ function(plugin){
             products_id: plugin.node.data.products_id
         },
         function (value){
-            for each (var field in plugin.editor.items.map){
+            for(prop in plugin.editor.items.map){
+                var field=plugin.editor.items.map[prop];
                 field.setValue(value[field.id]);
             }
         }
