@@ -1,11 +1,6 @@
-
-appInitState.on("loadMenus",function () {
-    menus.conf.add(
-        {
-            text: 'Mein Style',
-            handler: function() {module_conf_style();}
-        }
-    );
+menus.conf.menu.add({
+    text: 'Mein Style',
+    handler: function() {module_conf_style();}
 });
 
 

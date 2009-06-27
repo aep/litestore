@@ -1,9 +1,6 @@
+menus.conf={text:'Einstellungen',iconCls:'icon_settings',menu:new Ext.menu.Menu()};
 
-appInitState.on("loadMenus",function () {
-
-    menus.conf = new Ext.menu.Menu();
-    mainmenu.add({text:'Einstellungen',iconCls:'icon_settings',menu:menus.conf});
-    menus.conf.add(
+menus.conf.menu.add(
         {
             text: 'Minumum Werte',
             handler: function() {module_js('/admin/configuration2.php?gID=2');}
@@ -49,6 +46,5 @@ appInitState.on("loadMenus",function () {
             handler: function() {module_iframe('Verpackungseinheit','/admin/products_vpe.php');}
         }
     );
-});
 
 

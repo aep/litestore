@@ -77,6 +77,27 @@
                     ));
                     $retok=$db->commit();
                 }
+                else if ($cmd['action']=='create'){
+
+                    $q=$db->prepare('insert into categories (parent_id) values (?)');
+                    $q->execute(array($cmd['parent']));
+                    $liid=$db->lastInsertId();
+
+                    $q=$db->prepare('insert into categories_description (categories_id,categories_name,languages_id) values (?,?,2)');
+                    $q->execute(array($liid,$cmd['name']));
+
+                    $retval['text']		= $cmd['name'];
+                    $retval['id']	    = 'category_'.$liid;
+                    $retval['data']     = array('categories_id'=>$liid);
+                    $retval['leaf']	    = true;
+                    $retval['cls']	    = 'item_category';
+                    $retval['aclass']	= 'com.handelsweise.litestore.category';
+
+                    if($liid)
+                        $retok=true;
+                    else
+                        $reterr='cannot get inserted id';
+                }
             }
             else if($cmd['aclass']=='com.handelsweise.litestore.product'){
                 if ($cmd['action']=='get'){
@@ -104,7 +125,6 @@
                 }
                 else if ($cmd['action']=='set'){
                     $db->beginTransaction();
-                    print_r($data);
                     $q=$db->prepare('update products_description
                                             set products_name = ?,
                                             products_description =?,
@@ -142,6 +162,22 @@
                         $cmd['data']['id']
                     ));
                     $retok=$db->commit();
+                }
+                else if ($cmd['action']=='create'){
+                    $db->beginTransaction();
+
+                    $q=$db->prepare('insert into products () values ()');
+                    $q->execute();
+                    $retval=$db->lastInsertId();
+
+                    $q=$db->prepare('insert into products_to_categories (products_id,categories_id) values (?,?)');
+                    $q->execute(array($retval,$cmd['categories_id']));
+
+                    $retok=$db->commit();
+                    if($retval)
+                        $retok=true;
+                    else
+                        $reterr='empty result';
                 }
             }
 

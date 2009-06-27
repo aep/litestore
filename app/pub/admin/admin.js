@@ -9,14 +9,9 @@ window.onerror = function(message, uri, line)
 }
 
 var mainpanel;
+var module =null;
 var mainmenu;
 var menus = new Object();
-var statusbar;
-
-var appInitState= new Ext.util.Observable();
-appInitState.addEvents({
-    "loadMenus" : true,
-});
 
 
 Ext.onReady(function()
@@ -34,27 +29,30 @@ Ext.onReady(function()
         layout: 'card',
         border:false
     });
-    mainmenu = new Ext.Toolbar({
+
+    menus.quit={text:'Beenden',iconCls:'icon_exit',handler:function(){logout()}};
+    var menuarray=[];
+    for( var m in menus){
+        menuarray.push(menus[m]);
+    }
+    mainmenu = new Ext.StatusBar({
         id:'action-panel',
+        statusAlign: 'right',
         region:'north',
         border: false,
         height: '20',
-    });
-    statusbar = new Ext.StatusBar({
-        region:'south'
+        items: menuarray
     });
 
 
     // Configure viewport
     viewport = new Ext.Viewport({
            layout:'border',
-           items:[mainmenu,mainpanel,statusbar]});
+           items:[mainmenu,mainpanel]});
 
     module_html('Willkommen','/admin/start.php');
 
-    appInitState.fireEvent("loadMenus");
 
-    mainmenu.add({text:'Beenden',iconCls:'icon_exit',handler:function(){logout()}});
     mainmenu.addFill();
 
 });
@@ -63,12 +61,12 @@ Ext.onReady(function()
 var busycount=0;
 function busyRef(){
     busycount++;
-    statusbar.showBusy();
+    mainmenu.showBusy();
 };
 
 function busyDeref(){
     if(--busycount<1){
-        statusbar.clearStatus();
+        mainmenu.clearStatus();
     }
 };
 Ext.Ajax.on('beforerequest', function(){busyRef();});
