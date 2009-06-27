@@ -62,6 +62,70 @@ li
 }
 
 
+button.icon_customers
+{
+    background-image: url('icons/customers.png');
+}
+
+button.icon_products
+{
+    background-image: url('icons/products.png');
+}
+
+button.icon_content
+{
+    background-image: url('icons/content.png');
+}
+
+button.icon_modules
+{
+    background-image: url('icons/modules.png');
+}
+
+button.icon_stats
+{
+    background-image: url('icons/stats.png');
+}
+
+button.icon_importexport
+{
+    background-image: url('icons/importexport.png');
+}
+
+button.icon_i18n
+{
+    background-image: url('icons/i18n.png');
+}
+
+button.icon_seo
+{
+    background-image: url('icons/seo.png');
+}
+
+button.icon_settings
+{
+    background-image: url('icons/settings.png');
+}
+
+button.icon_exit
+{
+    background-image: url('icons/exit.png');
+}
+
+
+div.item_product  .x-tree-node-icon {
+    background-image: url('icons/item_product.png');
+}
+div.item_category  .x-tree-node-icon {
+    background-image: url('icons/item_category.png');
+}
+
+div.item_image  .x-tree-node-icon {
+    background-image: url('icons/item_image.png');
+}
+
+
+
 
 
 .maincontent_text
