@@ -1,4 +1,2 @@
-var asphyxEditorFactory=[];
+var asphyxRegistry=new Object();
 
-
-var asphyxBackend

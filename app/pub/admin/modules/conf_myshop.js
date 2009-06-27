@@ -1,11 +1,6 @@
-
-appInitState.on("loadMenus",function () {
-    menus.conf.add(
-        {
-            text: 'Mein Shop',
-            handler: function() {busyRef();module_conf_myshop.defer(500);}
-        }
-    );
+menus.conf.menu.add({
+    text: 'Mein Shop',
+    handler: function() {busyRef();module_conf_myshop.defer(500);}
 });
 
 

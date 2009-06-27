@@ -1,9 +1,4 @@
-
-appInitState.on("loadMenus",function () {
-
-
-    mainmenu.add({text:'Content',iconCls:'icon_content',handler:function(){module_asphyx();}});
-});
+menus.content={text:'Content',iconCls:'icon_content',handler:function(){module_asphyx();}};
 
 function module_asphyx()
 {

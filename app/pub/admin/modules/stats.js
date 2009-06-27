@@ -1,27 +1,22 @@
-
-appInitState.on("loadMenus",function () {
-
-    menus.stats = new Ext.menu.Menu();
-    mainmenu.add({text:'Statistik',iconCls:'icon_stats',menu:menus.stats});
-    menus.stats.add(
-        {
-            text: 'Besuchte Artikel',
-            handler: function() {module_stats('products_viewed');}
-        },
-        {
-            text: 'Verkaufte Artikel',
-            handler: function() {module_stats('products_ordered');}
-        },
-        {
-            text: 'Kunden-Bestellstatistik',
-            handler: function() {module_stats('customer_orderstats');}
-        },
-        {
-            text: 'Umsatzstatistik',
-            handler: function() {module_iframe('Umsatzstatistik','/admin/stats_sales_report.php');}
-        }
-    );
-});
+menus.stats ={text:'Statistik',iconCls:'icon_stats',menu: new Ext.menu.Menu()};
+menus.stats.menu.add(
+    {
+        text: 'Besuchte Artikel',
+        handler: function() {module_stats('products_viewed');}
+    },
+    {
+        text: 'Verkaufte Artikel',
+        handler: function() {module_stats('products_ordered');}
+    },
+    {
+        text: 'Kunden-Bestellstatistik',
+        handler: function() {module_stats('customer_orderstats');}
+    },
+    {
+        text: 'Umsatzstatistik',
+        handler: function() {module_iframe('Umsatzstatistik','/admin/stats_sales_report.php');}
+    }
+);
 
 
 function module_stats(model)

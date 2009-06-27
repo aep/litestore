@@ -112,6 +112,17 @@ button.icon_exit
     background-image: url('icons/exit.png');
 }
 
+button.icon_save{
+    background-image: url('icons/save.png');
+}
+button.icon_new{
+    background-image: url('icons/new.png');
+}
+button.icon_remove{
+    background-image: url('icons/remove.png');
+}
+
+
 
 div.item_product  .x-tree-node-icon {
     background-image: url('icons/item_product.png');

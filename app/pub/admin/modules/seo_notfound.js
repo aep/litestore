@@ -1,11 +1,6 @@
-
-appInitState.on("loadMenus",function () {
-    menus.seo.add(
-        {
-            text: 'Redirect',
-            handler: function() {module_seo_notfound();}
-        }
-    );
+menus.seo.menu.add({
+    text: 'Redirect',
+    handler: function() {module_seo_notfound();}
 });
 
 

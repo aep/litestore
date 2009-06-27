@@ -23,7 +23,7 @@
             $q->execute(array($nid[2]));
             while($row=$q->fetch()){
                 $node['text']		 = 'Image '.$nid[2].'_'.$row['image_nr'];
-                $node['id']			 = 'image/'.$nid[1].'/'.$nid[2].'/'.$row['image_nr'];
+                $node['id']			 = 'image_'.$nid[1].'_'.$nid[2].'_'.$row['image_nr'];
                 $node['data']        = $row;
                 $node['position']	 = $row['image_nr'];    
                 $node['leaf']	     = true;
@@ -34,7 +34,7 @@
         }
         else if($post['aclass']=='com.handelsweise.litestore.category'){
             $nid=$post['node'];
-            $nid=split('/',$nid);
+            $nid=split('_',$nid);
             $q=$db->prepare('select c.categories_id, cd.categories_name from 
                     categories as c, 
                     categories_description as cd 
@@ -46,7 +46,7 @@
             while($row=$q->fetch())
             {
                 $node['text']		= $row['categories_name'];
-                $node['id']			= 'category/'.$row['categories_id'];
+                $node['id']			= 'category_'.$row['categories_id'];
                 $node['data']       = $row;
     //            $node['position']	= $row[''];    
                 $node['leaf']	    = false;
@@ -70,7 +70,7 @@
             while($row=$q->fetch())
             {
                 $node['text']		= $row['products_name'];
-                $node['id']			= 'product/'.$nid[1].'/'.$row['products_id'];
+                $node['id']			= 'product_'.$nid[1].'_'.$row['products_id'];
                 $node['data']       = $row;
     //            $node['position']	= $row[''];    
                 $node['leaf']	    = false;
@@ -92,7 +92,7 @@
                 while($row=$q->fetch())
                 {
                     $node['text']		= $row['products_name'];
-                    $node['id']			= 'product/'.$nid[1].'/'.$row['products_id'];
+                    $node['id']			= 'product_'.$nid[1].'_'.$row['products_id'];
                     $node['data']       = $row;
         //            $node['position']	= $row[''];    
                     $node['leaf']	    = false;

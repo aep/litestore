@@ -1,14 +1,10 @@
-appInitState.on("loadMenus",function () {
-    mainmenu.add({text:'Artikel',iconCls:'icon_products',handler: function() {module_besatt();} } );
-});
-
-
-
-var plugin=null;
+menus.catalog={text:'Artikel',iconCls:'icon_products',handler: function() {module_besatt();} };
 
 function module_besatt()
 {
-    var besatt_loader = new Ext.tree.TreeLoader
+    module=new Object();
+
+    module.loader = new Ext.tree.TreeLoader
     ({
         dataUrl   :"/admin/besatt_ajax.php",
         baseParams:{command:'getChildren'},
@@ -37,16 +33,16 @@ function module_besatt()
         }
 
     });
-    besatt_loader.on('loadexception',function(  This,  node,  response )
+    module.loader.on('loadexception',function(  This,  node,  response )
     {
         throw  'node '+node.id+' ("'+node.name+'") failed to load.';
     });
-    besatt_loader.on("beforeload", function(treeLoader, node) {
+    module.loader.on("beforeload", function(treeLoader, node) {
         treeLoader.baseParams.aclass = node.aclass;
     });
 
 
-    var besatt_tree = new Ext.tree.TreePanel
+    module.tree = new Ext.tree.TreePanel
     ({
         collapsible     : false,
         animCollapse    : false,
@@ -56,148 +52,30 @@ function module_besatt()
         animate         : false,
         enableDD        : true,
         containerScroll : true,
-        loader          : besatt_loader,
-        split           : true,
+        loader          : module.loader,
         root            : 
         {
             nodeType  : 'async',
             text      : 'Products',
             visible   : false,
             dragable  : false,
-            id        : 'category/0',
-            aclass    : 'com.handelsweise.litestore.category'
+            id        : 'category_0',
+            aclass    : 'com.handelsweise.litestore.category',
+            data      : { categories_id: '0' }
         },
-        rootVisible : false
-
-    });
-
-    besatt_tree.getRootNode().expand();
-
-
-    var detailstore= new Ext.data.Store
-    ({
-        proxy: new Ext.data.HttpProxy
-        ({
-            method: 'post',
-            url: '/admin/besatt_ajax.php',
-            jsonData : Ext.util.JSON.encode
-
-            ({
-                model  : 'details',
-                node    : 1
-            })
-        }),
-
-        
-        reader: new Ext.data.JsonReader
-        ({
-            root: 'result',
-            fields: 
-            [
-                {name: 'key'},
-
-                {name: 'value'}
-            ]
-        }),
-        remoteSort: false,
-        autoLoad: false
-    });
-
-
-    var besatt_ctxmenu_add_static = new Ext.menu.Item({text:'StaticContent'});
-
-    var besatt_ctxmenu_add = new Ext.menu.Menu
-    ({
-        items:  [besatt_ctxmenu_add_static]
-    });
-
-    
-	besatt_ctxmenu_add_static.on('click',function(){
-    {
-        Ext.Msg.prompt('Name', 'Name des neuen Kontens:', function(btn, text){
-            if (btn == 'ok'){
-                // process text value and close...
-
-                new Ajax.Request('/admin/besatt_ajax.php',
-                {
-                    evalJS: false,
-                    method: 'post',
-                    parameters :
-                    {
-                        model: 'itemcontext',
-                        action: 'create',
-                        type: '{c21ced16-0000-4000-92c1-69d94afb4933}',
-                        nodename: text,
-                        node: besatt_tree.getSelectionModel().getSelectedNode().id
-                    },
-                    onSuccess: function(transport)
-                    {
-                        if(transport.responseText!='ok')
-                        {
-                            Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node create');
-                            return;
-                        }
-                            var p=besatt_tree.getSelectionModel().getSelectedNode();
-                            p.collapse();
-                            besatt_loader.load(p,function(){besatt_tree.getSelectionModel().getSelectedNode().expand()});
-                    },
-                    onFailure: function(transport)
-                    {
-                        Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node delete');
-                    }
-                });
-            }
-        });
-
-    }
-
-    })
-
-    var besatt_ctxmenu = new Ext.Toolbar
-    ({
-    });
-
-
-    var besatt_nodedetail = new Ext.grid.GridPanel
-    ({
-            store:  detailstore,
-	        columns: 
-            [
-		        {header: 'Detail', width: '50%', sortable: true, dataIndex: 'key'},
-		        {header: 'Value', width: '50%', sortable: true, dataIndex: 'value'},
-	        ],
-	        viewConfig: 
-            {
-
-	        },
-	        autoHeight  : true,
-            border      : false
-    });
-
-
-
-
-
-
-
-
-    detailstore.load();
-
-
-    var besatt_sidebar = new Ext.Panel
-    ({
-        id              : "sidebar_besatt",
+        rootVisible     : false,
         region          : 'west',
-        split           : true,
         width           : 300,
         minWidth        : 150,
-        items           : [ besatt_tree,besatt_ctxmenu /*,besatt_nodedetail*/  ],
-        border          : true,
-        autoScroll      : true
-    }); 
+        split:  true
+
+    });
+
+    module.tree.getRootNode().expand();
 
 
-    var besatt_center = new Ext.Panel
+
+    module.center = new Ext.Panel
     ({
         region: 'center',
         layout: 'card',
@@ -205,7 +83,7 @@ function module_besatt()
     });
 
 
-    besatt_tree.on('beforemovenode',function(  tree,  node,  oldParent,  newParent,  index )
+    module.tree.on('beforemovenode',function(  tree,  node,  oldParent,  newParent,  index )
     {
         new Ajax.Request('/admin/besatt_ajax.php',
         {
@@ -233,77 +111,95 @@ function module_besatt()
         });
     });
 
-    besatt_tree.on('click',function(node, e)
+    module.tree.getSelectionModel().on('selectionchange',function(that,node)
     {
-        /*
-        detailstore.proxy= new Ext.data.HttpProxy
-        ({
-            method: 'post',
-            url: '/admin/besatt_ajax.php',
-            jsonData : Ext.util.JSON.encode
-            ({
-                model  : 'details',
-                node    : node.id
-            })
-        });
-
-        detailstore.load();
-        */
-
-        if(!asphyxEditorFactory[node.aclass]){
+        module.toolbar.enable();
+        if(!asphyxRegistry[node.aclass]){
             throw ("unknown entity "+node.aclass);
         }
 
-
-
-
 //        if(plugin) plugin.save(plugin);
 
-        plugin=new Object();
+   
 
-        plugin.toolbar=new Ext.Toolbar({
-                items: [{text: 'Speichern', handler: function(){
-                    plugin.save(plugin);
-                }}],
-                region : 'south',
-                height: '20px'
-                })
-
-        plugin.node=node;
-
-        asphyxEditorFactory[node.aclass](plugin);
-
-        plugin.editor.region='center';
+        module.plugin=new Object();
+        module.plugin.node=node;
+        asphyxRegistry[node.aclass].construct(module.plugin);
 
 
-        besatt_center.remove(0);
-        besatt_center.add(new Ext.Panel({
-            border: false,
-            layout: 'border',
-            items: [plugin.editor,plugin.toolbar]
-        }));
-        besatt_center.getLayout().setActiveItem(0);
-        besatt_center.doLayout(); 
+        module.plugin.editor.region='center';
+
+
+        module.center.remove(0);
+        module.center.add(module.plugin.editor);
+        module.center.getLayout().setActiveItem(0);
+        module.center.doLayout(); 
     });
 
 
+    module.addmenu=new Ext.menu.Menu();
+	for( var e in asphyxRegistry){
+        var x=asphyxRegistry[e].name.en;
+        if(asphyxRegistry[e].name.de){
+            x=asphyxRegistry[e].name.de;
+        }
+        var b=new Ext.menu.Item({text:x,handler:function(button){
+            var sel=module.tree.getSelectionModel().getSelectedNode();
+            if(!sel)
+                sel=module.tree.root;
+            asphyxRegistry[button.aclass].createNode(sel);
+        }});
+        b.aclass=e;
+        module.addmenu.add(b);
+    }
 
 
+    module.toolbar =new Ext.Toolbar({
+        region:'south',
+        border: false,
+        height: '20',
+        disabled : true,
+        items: [
+        {
+            text: 'Neu', 
+            iconCls:'icon_new',
+            menuAlign:'bl-tl',
+            menu:module.addmenu
+        },
+        {
+            text: 'Löschen', 
+            iconCls:'icon_remove', 
+            handler: function(){
+                module.plugin.save(module.plugin);
+            }
+        },
+        {
+            text: 'Speichern', 
+            iconCls:'icon_save', 
+            handler: function(){
+                module.plugin.save(module.plugin);
+            }
+        },
+        '->'
+        ]
+    });
 
-
-    var besatt = new Ext.Panel
+    module.panel  = new Ext.Panel
     ({
         layout: 'border',
-        items: [besatt_center,besatt_sidebar],
+        items: [module.toolbar,module.center,module.tree],
         border: false
     });
+
+
+
 
 
     document.title = 'Litemin - Catalog';
 
 
     mainpanel.remove(0);
-    mainpanel.add(besatt);
+    mainpanel.add(module.panel);
     mainpanel.getLayout().setActiveItem(0);
     mainpanel.doLayout();
 
