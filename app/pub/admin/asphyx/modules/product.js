@@ -92,6 +92,40 @@ asphyxRegistry['com.handelsweise.litestore.product']={
             rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.product', action : 'set', data: plugin.data });
         };
 
+    },
+    createNode:  function(node){
+        if(node.aclass!="com.handelsweise.litestore.category"){
+            return;
+        }
+        rpcCommand(
+            {
+                command: 'asphyx',
+                aclass: 'com.handelsweise.litestore.product',
+                action : 'create',
+                parent: node.data.categories_id,
+                name  : 'Neues Produkt'
+            },
+            function (value){
+                var n=node.appendChild(node.attributes.loader.createNode(value));
+                var p=n.getPath();
+                var tree=n.getOwnerTree();
+                n.ensureVisible(function(){tree.selectPath(p);});
+            }
+        );
+    },
+    removeNode:  function(node){
+        rpcCommand(
+            {
+                command: 'asphyx',
+                aclass: 'com.handelsweise.litestore.product',
+                action : 'remove',
+                product: node.data.products_id,
+            },
+            function (value){
+                node.parentNode.select();
+                node.remove();
+            }
+        );
     }
 }
 

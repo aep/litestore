@@ -16,7 +16,7 @@
 
         if($post['aclass']=='com.handelsweise.litestore.product'){
             $nid=$post['node'];
-            $nid=split('/',$nid);
+            $nid=split('_',$nid);
 
             $q=$db->prepare('select products_id,image_nr,url_small,url_middle,url_big from products_images
                                 where products_id=?');
