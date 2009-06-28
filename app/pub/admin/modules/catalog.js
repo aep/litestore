@@ -29,6 +29,15 @@ function module_besatt()
 	        }
             node.aclass=attr.aclass;
             node.data=attr.data;
+            node.removeRecursive=function(){
+                console.log(this);
+                var n=this.firstChild;
+                while(n){
+                    n.removeRecursive();
+                    n=n.nextSibling;
+                } 
+                asphyxRegistry[node.aclass].removeNode(node);
+            }
             return node;
         }
 
@@ -170,7 +179,14 @@ function module_besatt()
             text: 'Löschen', 
             iconCls:'icon_remove', 
             handler: function(){
-                module.plugin.save(module.plugin);
+                var n =module.tree.getSelectionModel().getSelectedNode();
+                if((!n) || n.id=='category_0')
+                    return;
+                Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
+                    if (btn == 'yes'){
+                        n.removeRecursive();
+                    }
+                });
             }
         },
         {

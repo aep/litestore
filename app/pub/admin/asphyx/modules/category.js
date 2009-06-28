@@ -93,8 +93,6 @@ asphyxRegistry['com.handelsweise.litestore.category']={
                 var p=n.getPath();
                 var tree=n.getOwnerTree();
                 n.ensureVisible(function(){tree.selectPath(p);});
-
-               
             }
         );
     }
