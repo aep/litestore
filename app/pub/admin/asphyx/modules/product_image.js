@@ -20,22 +20,65 @@ asphyxRegistry['com.handelsweise.litestore.product_image']={
             ]
         });
         plugin.imgpanel.reload=function(){
-            plugin.node.data.url_small  = plugin.form.form.items.map.url_small.value;
-            plugin.node.data.url_middle = plugin.form.form.items.map.url_middle.value;
-            plugin.node.data.url_big    = plugin.form.form.items.map.url_big.value;
+            plugin.node.data.url_small  = plugin.form.form.items.map.url_small.getValue();
+            plugin.node.data.url_middle = plugin.form.form.items.map.url_middle.getValue();
+            plugin.node.data.url_big    = plugin.form.form.items.map.url_big.getValue();
             plugin.img1.src= 'images/kein_bild-thumb.png';
             plugin.img2.src= 'images/kein_bild-klein.png';
             plugin.img3.src= 'images/kein_bild-gross.png';
-            var f=function(){
-                if(plugin.node.data.url_small!='')
-                    plugin.img1.src= plugin.node.data.url_small+'?'+(new Date());
-                if(plugin.node.data.url_middle!='')
-                    plugin.img2.src= plugin.node.data.url_middle+'?'+(new Date());
-                if(plugin.node.data.url_big!='')
-                    plugin.img3.src= plugin.node.data.url_big+'?'+(new Date());
-            };
-            f.delay(1);
+
+            if(plugin.node.data.url_small!=''){
+                var t1=plugin.node.data.url_small+'?nocache='+(new Date());
+
+                rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(t1)},function (v){
+                    if(v){
+                        plugin.img1.src= t1;
+                    }
+                    else {
+                        rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(plugin.node.data.url_small)},function (v){
+                            if(v){
+                                plugin.img1.src=  plugin.node.data.url_small;
+                            }                        
+                        });
+                    }
+                });
+            }
+            if(plugin.node.data.url_middle!=''){
+                var t2=plugin.node.data.url_middle+'?nocache='+(new Date());
+
+                rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(t2)},function (v){
+                    if(v){
+                        plugin.img2.src= t2;
+                    }
+                    else {
+                        rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(plugin.node.data.url_middle)},function (v){
+                            if(v){
+                                plugin.img2.src=  plugin.node.data.url_middle;
+                            }                        
+                        });
+                    }
+                });
+            }
+            if(plugin.node.data.url_big!=''){
+                var t3=plugin.node.data.url_big+'?nocache='+(new Date());
+
+                rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(t3)},function (v){
+                    if(v){
+                        plugin.img3.src= t3;
+                    }
+                    else {
+                        rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(plugin.node.data.url_big)},function (v){
+                            if(v){
+                                plugin.img3.src=  plugin.node.data.url_big;
+                            }                        
+                        });
+                    }
+                });
+            }
         }
+
+
+
 
         plugin.uploadform = new Ext.form.FormPanel
         ({ 
@@ -168,10 +211,10 @@ asphyxRegistry['com.handelsweise.litestore.product_image']={
         rpcCommand(
             {
                 command: 'asphyx',
-                aclass: 'com.handelsweise.litestore.product',
-                action : 'remove',
+                aclass: 'com.handelsweise.litestore.product_image',
+                action : 'delete',
                 nr: node.data.image_nr,
-                product: node.data.product_id,
+                product: node.data.products_id,
             },
             function (value){
                 node.parentNode.select();

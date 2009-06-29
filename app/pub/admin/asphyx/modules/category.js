@@ -95,6 +95,23 @@ asphyxRegistry['com.handelsweise.litestore.category']={
                 n.ensureVisible(function(){tree.selectPath(p);});
             }
         );
+    },
+    removeNode:  function(node){
+        if(node.data.categories_id<2){
+            return false;
+        }
+        rpcCommand(
+            {
+                command: 'asphyx',
+                aclass: 'com.handelsweise.litestore.category',
+                action : 'delete',
+                category: node.data.categories_id,
+            },
+            function (value){
+                node.parentNode.select();
+                node.remove();
+            }
+        );
     }
 }
 

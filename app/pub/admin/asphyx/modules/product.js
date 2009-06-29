@@ -118,8 +118,9 @@ asphyxRegistry['com.handelsweise.litestore.product']={
             {
                 command: 'asphyx',
                 aclass: 'com.handelsweise.litestore.product',
-                action : 'remove',
+                action : 'delete',
                 product: node.data.products_id,
+                category: node.parentNode.data.categories_id,
             },
             function (value){
                 node.parentNode.select();

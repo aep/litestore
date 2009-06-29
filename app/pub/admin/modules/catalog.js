@@ -29,15 +29,6 @@ function module_besatt()
 	        }
             node.aclass=attr.aclass;
             node.data=attr.data;
-            node.removeRecursive=function(){
-                console.log(this);
-                var n=this.firstChild;
-                while(n){
-                    n.removeRecursive();
-                    n=n.nextSibling;
-                } 
-                asphyxRegistry[node.aclass].removeNode(node);
-            }
             return node;
         }
 
@@ -184,7 +175,7 @@ function module_besatt()
                     return;
                 Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
                     if (btn == 'yes'){
-                        n.removeRecursive();
+                        asphyxRegistry[n.aclass].removeNode(n);
                     }
                 });
             }

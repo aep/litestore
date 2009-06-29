@@ -4,18 +4,30 @@
 
 
     header ('content-type : text/x-json');
-    global $db;
+
 
 
     $commands=json_decode(file_get_contents("php://input"),true);
     $return = array();
-
     foreach ($commands as $cmd){
+        $return []=f($cmd);
+    }
+    echo json_encode($return);
+
+    function f($cmd){
         $retval=array();
         $retok=false;
         $reterr='';
-
-        if($cmd['command']=='asphyx'){
+        global $db;
+        if($cmd['command']=='checkRemoteUrl'){
+            $ch=curl_init($cmd['url']);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+            curl_exec($ch);
+            $retval=(curl_getinfo($ch,CURLINFO_HTTP_CODE)=='200');
+            $reterr=curl_error($ch);
+            $retok=true;
+        }
+        else if($cmd['command']=='asphyx'){
              if($cmd['aclass']=='com.handelsweise.litestore.product_image'){
                 if ($cmd['action']=='set'){
                      $q=$db->prepare('update products_images
@@ -44,6 +56,11 @@
                         $retok=true;
                     else
                         $reterr='cannot get inserted id';
+                }
+                else if ($cmd['action']=='delete'){
+
+                    $q=$db->prepare('delete from products_images where products_id=? and image_nr=?');
+                    $retok=($q->execute(array($cmd['product'],$cmd['nr']))!=false);
                 }
             }
             else if($cmd['aclass']=='com.handelsweise.litestore.category'){
@@ -118,6 +135,29 @@
                         $retok=true;
                     else
                         $reterr='cannot get inserted id';
+                }
+                else if ($cmd['action']=='delete'){
+                    if($cmd['category']<2){
+                        return array('success'=>'false','value'=>null,'error'=>'Cannot delete root');
+                    }
+                    $q=$db->prepare('select products_id from products_to_categories where categories_id=?');
+                    $q->execute(array($cmd['category']));
+                    while($x=$q->fetch()){
+                        $a=array();
+                        $a['command']='asphyx';
+                        $a['category']=$cmd['category'];
+                        $a['product']=$x['products_id'];
+                        $a['aclass']='com.handelsweise.litestore.product';
+                        $a['action']='delete';
+                        $c=f($a);
+                        if(!$c['success'])
+                            return array('success'=>'false','value'=>null,'error'=>$c['error']);
+                    }
+                    $q=$db->prepare('delete from categories where categories_id=?');
+                    $q->execute(array($cmd['category']));
+                    $q=$db->prepare('delete from categories_description where categories_id=?');
+                    $q->execute(array($cmd['category']));
+                    $retok=true;
                 }
             }
             else if($cmd['aclass']=='com.handelsweise.litestore.product'){
@@ -221,6 +261,26 @@
                     else
                         $reterr='cannot get inserted id';
                 }
+                else if ($cmd['action']=='delete'){
+                    $q=$db->prepare('delete from products_to_categories where products_id=? and categories_id=?');
+                    $retok=($q->execute(array($cmd['product'],$cmd['category']))!=false);
+
+                    $q=$db->prepare('select COUNT(*) from products_to_categories where products_id=? and categories_id=?');
+                    $retok=($q->execute(array($cmd['product'],$cmd['category']))!=false);
+                    $x=$q->fetch();
+                    $x=$x['COUNT(*)'];
+                    if($x==0){
+                        $q=$db->prepare('delete from products where products_id=?');
+                        $q->execute(array($cmd['product']));
+                        $q=$db->prepare('delete from products_description where products_id=?');
+                        $q->execute(array($cmd['product']));
+                        $q=$db->prepare('delete from products_images where products_id=?');
+                        $q->execute(array($cmd['product']));
+                        $q=$db->prepare('delete from prices where products_id=?');
+                        $q->execute(array($cmd['product']));
+                    }
+                    $retok=true;
+                }
             }
 
         }
@@ -229,8 +289,8 @@
             $reterr='unknown command '.$cmd['command'];
         }
 
-        $return[]=array('success'=>$retok,'value'=>$retval,'error'=>$reterr);
+        return array('success'=>$retok,'value'=>$retval,'error'=>$reterr);
     }
-    echo json_encode($return);
+
 
 ?>
