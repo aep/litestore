@@ -84,6 +84,18 @@
                     else
                         $reterr='cannot get inserted id';
                 }
+                else if ($cmd['action']=='get'){
+                    $q=$db->prepare('select url_small, url_middle,url_big 
+                                    from    products_images 
+                                    where   products_id=? 
+                                    and     image_nr=?');
+                    $q->execute(array($cmd['product'],$cmd['image_nr']));
+                    $retval=$q->fetchObject();
+                    if($retval)
+                        $retok=true;
+                    else
+                        $reterr='empty result';
+                }
                 else if ($cmd['action']=='delete'){
 
                     $q=$db->prepare('delete from products_images where products_id=? and image_nr=?');
