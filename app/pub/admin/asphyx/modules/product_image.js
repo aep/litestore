@@ -106,7 +106,6 @@ asphyxRegistry['com.handelsweise.litestore.product_image']={
                                                         product: plugin.node.data.products_id,
                                                     },
                                                     function (v){
-                                                    alert("b");
                                                         plugin.form.form.items.map.url_small.setValue(v.url_small);
                                                         plugin.form.form.items.map.url_middle.setValue(v.url_middle);
                                                         plugin.form.form.items.map.url_big.setValue(v.url_big);
