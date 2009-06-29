@@ -224,4 +224,17 @@ z-index:3;
 }
 
 
+.module_start_panel{
+    margin:10px;
+    float:right;
+}
+.x-panel-groupwrap > .x-panel-bwrap > .x-panel-body{
+    background:none;
+}
+
+.desktop > .x-panel-bwrap > .x-panel-body {
+    background-image: url('desktop.jpg');
+}
+
+
 

@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/pub/admin/asphyx/asphyx.js"></script>
 
     <!-- admin modules -->
+    <script type="text/javascript" src="/pub/admin/modules/start.js"></script>
     <script type="text/javascript" src="/pub/admin/modules/customers.js"></script>
     <script type="text/javascript" src="/pub/admin/modules/catalog.js"></script>
     <script type="text/javascript" src="/pub/admin/modules/asphyx.js"></script>

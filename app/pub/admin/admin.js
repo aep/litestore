@@ -50,7 +50,7 @@ Ext.onReady(function()
            layout:'border',
            items:[mainmenu,mainpanel]});
 
-    module_html('Willkommen','/admin/start.php');
+    module_start();
 
 
     mainmenu.addFill();
@@ -192,5 +192,28 @@ function rpcCommand(command,callback){
 
 
 
+
+   function toAbsURL(s) {
+     var l = document.location, h, p, f, i;
+     if (/^\w+:/.test(s)) {
+       return s;
+     }
+
+     h = l.protocol + '//' + l.host;
+     if (s.indexOf('/') == 0) {
+       return h + s;
+     }
+
+     p = l.pathname.replace(/\/[^\/]*$/, '');
+     f = s.match(/\.\.\//g);
+     if (f) {
+       s = s.substring(f.length * 3);
+       for (i = f.length; i--;) {
+         p = p.substring(0, p.lastIndexOf('/'));
+       }
+     }
+
+     return h + p + '/' + s;
+   } 
 
 
