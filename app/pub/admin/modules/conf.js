@@ -2,7 +2,7 @@ menus.conf={text:'Einstellungen',iconCls:'icon_settings',menu:new Ext.menu.Menu(
 
 menus.conf.menu.add(
         {
-            text: 'Minumum Werte',
+            text: 'Minimum Werte',
             handler: function() {module_js('/admin/configuration2.php?gID=2');}
         },
         {
