@@ -95,10 +95,33 @@ asphyxRegistry['com.handelsweise.litestore.product_image']={
                                 plugin.uploadform.getForm().submit({
                                     url: 'upload.php',
                                     success: function(fp, o){
-                                        plugin.form.form.items.map.url_small.setValue(o.result.url_small);
-                                        plugin.form.form.items.map.url_middle.setValue(o.result.url_middle);
-                                        plugin.form.form.items.map.url_big.setValue(o.result.url_big);
-                                        plugin.imgpanel.reload();
+                                        if(Ext.isOpera){
+                                            var x=function(){
+                                                rpcCommand(
+                                                    {
+                                                        command: 'asphyx',
+                                                        aclass: 'com.handelsweise.litestore.product_image',
+                                                        action : 'get',
+                                                        image_nr: plugin.node.data.image_nr,
+                                                        product: plugin.node.data.products_id,
+                                                    },
+                                                    function (v){
+                                                    alert("b");
+                                                        plugin.form.form.items.map.url_small.setValue(v.url_small);
+                                                        plugin.form.form.items.map.url_middle.setValue(v.url_middle);
+                                                        plugin.form.form.items.map.url_big.setValue(v.url_big);
+                                                        plugin.imgpanel.reload();
+                                                    }
+                                                );
+                                             };
+                                             x.defer(1);
+                                        }
+                                        else{
+                                            plugin.form.form.items.map.url_small.setValue(o.result.url_small);
+                                            plugin.form.form.items.map.url_middle.setValue(o.result.url_middle);
+                                            plugin.form.form.items.map.url_big.setValue(o.result.url_big);
+                                            plugin.imgpanel.reload();
+                                        }
                                     },
                                     failure: function(fp, o){ 
                                         Ext.Msg.alert('File upload error',
