@@ -221,8 +221,31 @@ asphyxRegistry['com.handelsweise.litestore.product_image']={
                 node.remove();
             }
         );
-    }
+    },
+    canDrop:  function(e){
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;        
+        return (newParent.aclass=='com.handelsweise.litestore.product');
+    },
+    drop: function (e){
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;
 
+        rpcCommand(
+            {
+                command: 'asphyx',
+                aclass: 'com.handelsweise.litestore.product_image',
+                action : 'move',
+                relative: e.point,
+                relativeTo: e.target.data.image_nr,
+                productOld: e.dropNode.data.products_id,
+                productNew: newParent.data.products_id,
+                nrOld: e.dropNode.data.image_nr,
+            },
+            function (value){
+                newParent.reload();
+            }
+        );
+        return true;
+    }
 }
 
 

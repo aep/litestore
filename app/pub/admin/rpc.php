@@ -6,6 +6,21 @@
     header ('content-type : text/x-json');
 
 
+    function nextKey($field,$table,$arg=array()){
+        global $db;
+        $q=$db->prepare("select $field from $table");
+        $q->execute($arg);
+        $a=array();
+        while($x=$q->fetch()){
+            $a[$x[$field]]=true;
+        }
+        $m=1;
+        while($a[$m]){
+            ++$m;
+        }
+        return $m;
+    }
+
 
     $commands=json_decode(file_get_contents("php://input"),true);
     $return = array();
@@ -41,8 +56,8 @@
                 }
                 else if ($cmd['action']=='create'){
 
-                    $q=$db->prepare('insert into products_images (products_id) values (?)');
-                    $q->execute(array($cmd['product']));
+                    $q=$db->prepare('insert into products_images (image_nr,products_id) values (?,?)');
+                    $q->execute(array(nextKey('image_nr','products_images where products_id=?',array($cmd['product'])),$cmd['product']));
                     $liid=$db->lastInsertId();
 
                     $retval['text']		= $cmd['name'];
@@ -61,6 +76,64 @@
 
                     $q=$db->prepare('delete from products_images where products_id=? and image_nr=?');
                     $retok=($q->execute(array($cmd['product'],$cmd['nr']))!=false);
+                    $q=$db->prepare('update products_images set image_nr=image_nr-1 where products_id=? and image_nr > ? '); 
+                    $q->execute(array($cmd['product'],$cmd['nr']));;
+                }
+                else if ($cmd['action']=='move'){
+                    $q=$db->prepare('select image_nr from products_images where products_id=?'); 
+                    $q->execute(array($cmd['productNew']));
+                    $m=array();
+                    while($x=$q->fetch()){  
+                        $m[]=$x['image_nr'];
+                    }
+                    sort($m);
+                    $m=array_reverse($m);
+
+                    if($cmd['relative']=='append'){
+                        $q=$db->prepare('update products_images set image_nr=?, products_id=? where image_nr=? and products_id=?'); 
+                        $q->execute(array(
+                            ($m[sizeof($m)-2])+1,
+                            $cmd['productNew'],
+                            $cmd['nrOld'],
+                            $cmd['productOld']
+                        ));
+                    }
+                    else if($cmd['relative']=='below' || $cmd['relative']=='above'){
+                        $db->beginTransaction();
+                        
+                        //mysql fails at batch, so we do it manualy..
+                        //first move the current row away so it doesnt get hit by the next step
+
+                        $tmpprod=nextKey('products_id','products_images');
+                        $q=$db->prepare('update products_images set  products_id=? where image_nr=? and products_id=?'); 
+                        $q->execute(array(
+                            $tmpprod,
+                            $cmd['nrOld'],
+                            $cmd['productOld']
+                        ));
+                        
+                        //move all one down
+                        foreach($m as $x){
+                            if(($x > $cmd['relativeTo'])  ||  (($cmd['relative']=='above') && ($x == $cmd['relativeTo']))){
+                                $q=$db->prepare('update products_images set image_nr=? where image_nr = ? and products_id=?');
+                                $q->execute(array(
+                                    $x+1,
+                                    $x,
+                                    $cmd['productNew']
+                                ));
+                            }
+                        }
+                        //finally get the node into position
+                        $q=$db->prepare('update products_images set image_nr=?, products_id=? where image_nr=? and products_id=?'); 
+                        $q->execute(array(
+                            ($cmd['relative']=='below')?($cmd['relativeTo']+1):$cmd['relativeTo'],
+                            $cmd['productNew'],
+                            $cmd['nrOld'],
+                            $tmpprod
+                        ));
+                        $db->commit();
+                        $retok=true;
+                    }
                 }
             }
             else if($cmd['aclass']=='com.handelsweise.litestore.category'){
@@ -227,20 +300,8 @@
                 else if ($cmd['action']=='create'){
 
 
-                    //find free products_model
-                    $q=$db->prepare('select products_model from products');
-                    $q->execute();
-                    $modela=array();
-                    while($x=$q->fetch()){
-                        $modela[]=$x['products_model'];
-                    }
-                    $model=1;
-                    while($modela[$model]){
-                        ++$model;
-                    }
-
                     $q=$db->prepare('insert into products (products_model) values (?)');
-                    $q->execute(array($model));
+                    $q->execute(array(nextKey('products_model','products')));
                     $liid=$db->lastInsertId();
 
                     $q=$db->prepare('insert into products_to_categories (products_id,categories_id) values (?,?)');

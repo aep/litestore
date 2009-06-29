@@ -83,36 +83,22 @@ function module_besatt()
     });
 
 
-    module.tree.on('beforemovenode',function(  tree,  node,  oldParent,  newParent,  index )
-    {
-        new Ajax.Request('/admin/besatt_ajax.php',
-        {
-            evalJS: false,
-            method: 'post',
-            parameters :
-            {
-                model: 'itemcontext',
-                action: 'move',
-                node: node.id,
-                parent: newParent.id,
-                order: index
-            },
-            onSuccess: function(transport)
-            {
-                if(transport.responseText!='ok')
-                {
-                    Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node move');
-                }
-            },
-            onFailure: function(transport)
-            {
-                    Ext.Msg.alert('Asgaard Azrael', 'backend responded improperly during node move');
-            }
-        });
+    module.tree.on('nodedragover',function(  e ){
+        return asphyxRegistry[e.dropNode.aclass].canDrop(e);
     });
 
+
+    module.tree.on('beforenodedrop',function(e){
+        return asphyxRegistry[e.dropNode.aclass].drop(e);
+    });
+  
     module.tree.getSelectionModel().on('selectionchange',function(that,node)
     {
+        if(!node){
+            module.center.remove(0);
+            module.toolbar.disable();
+            return;
+        }
         module.toolbar.enable();
         if(!asphyxRegistry[node.aclass]){
             throw ("unknown entity "+node.aclass);

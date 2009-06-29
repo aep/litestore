@@ -194,6 +194,8 @@ function rpcCommand(command,callback){
 
 
    function toAbsURL(s) {
+    if(!s)
+        return null;
      var l = document.location, h, p, f, i;
      if (/^\w+:/.test(s)) {
        return s;

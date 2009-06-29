@@ -19,7 +19,7 @@
             $nid=split('_',$nid);
 
             $q=$db->prepare('select products_id,image_nr,url_small,url_middle,url_big from products_images
-                                where products_id=?');
+                                where products_id=? order by image_nr');
             $q->execute(array($nid[2]));
             while($row=$q->fetch()){
                 $node['text']		 = 'Image '.$nid[2].'_'.$row['image_nr'];
