@@ -129,7 +129,8 @@ asphyxRegistry['com.handelsweise.litestore.product']={
         );
     },
     canDrop:  function(target,node){
-        return (node.aclass=='com.handelsweise.litestore.product_image');
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;        
+        return (newParent.aclass=='com.handelsweise.litestore.category');
     },
     drop: function (e){
         return false;

@@ -40,6 +40,7 @@
                     categories_description as cd 
                     where c.categories_id=cd.categories_id
                     and c.parent_id=?
+                    order by sort_order
                     ');
             $q->execute(array($nid[1]));
 
