@@ -22,6 +22,18 @@
     }
 
 
+    function arrayInsert($array,$pos,$val)
+    {
+        $array2 = array_splice($array,$pos);
+        $array[] = $val;
+        $array = array_merge($array,$array2);
+      
+        return $array;
+    }
+
+
+
+
     $commands=json_decode(file_get_contents("php://input"),true);
     $return = array();
     foreach ($commands as $cmd){
@@ -190,9 +202,10 @@
                 }
                 else if ($cmd['action']=='create'){
 
-                    $q=$db->prepare('insert into categories (parent_id) values (?)');
-                    $q->execute(array($cmd['parent']));
+                    $q=$db->prepare('insert into categories (parent_id,sort_order) values (?,?)');
+                    $q->execute(array($cmd['parent'],nextKey('sort_order','categories')));
                     $liid=$db->lastInsertId();
+
 
                     $q=$db->prepare('insert into categories_description (categories_id,categories_name,languages_id) values (?,?,2)');
                     $q->execute(array($liid,$cmd['name']));
@@ -230,6 +243,46 @@
                     $q->execute(array($cmd['category']));
                     $q=$db->prepare('delete from categories_description where categories_id=?');
                     $q->execute(array($cmd['category']));
+                    $retok=true;
+                }
+                else if ($cmd['action']=='move'){
+                    $db->beginTransaction();
+
+                    //build sorted array of categories in the new parent excluding subject
+                    $q=$db->prepare('select categories_id from categories where parent_id=? order by `sort_order`'); 
+                    $q->execute(array($cmd['parentNew']));
+                    $m=array();
+                    while($x=$q->fetch()){  
+                        if($x['categories_id']==$cmd['category'])
+                            continue;
+                        $m[]=$x['categories_id'];
+                    }
+
+                    //stuff it in
+                    if($cmd['relative']=='append'){
+                        $m[]=$cmd['category'];
+                    }
+                    else if($cmd['relative']=='below' ){
+                        $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['category']);
+                    }
+                    else if($cmd['relative']=='above'){
+                        $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['category']);
+                    }
+
+                    //move the subject below the new parent
+                    $q=$db->prepare('update categories set  parent_id=? where categories_id=?'); 
+                    $q->execute(array(
+                            $cmd['parentNew'],
+                            $cmd['category']
+                        ));
+
+                    //and apply sorting
+                    $q=$db->prepare('update categories set sort_order=? where categories_id=?');
+                    $i=0;
+                    foreach($m as $id){
+                        ++$i;
+                        $q->execute(array($i,$id));
+                    }
                     $retok=true;
                 }
             }
