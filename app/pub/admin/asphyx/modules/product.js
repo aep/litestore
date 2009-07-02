@@ -133,7 +133,71 @@ asphyxRegistry['com.handelsweise.litestore.product']={
         return (newParent.aclass=='com.handelsweise.litestore.category');
     },
     drop: function (e){
-        return false;
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;
+
+        if (e.dropNode.parentNode==newParent){
+            rpcCommand(
+                {
+                    command: 'asphyx',
+                    aclass: 'com.handelsweise.litestore.product',
+                    action : 'move',
+                    relative: e.point,
+                    relativeTo: e.target.data.products_id,
+                    parentOld: e.dropNode.parentNode.data.categories_id,
+                    parentNew: newParent.data.categories_id,
+                    product: e.dropNode.data.products_id
+                },
+                function (value){
+                }
+            );
+            return true;
+        }
+        else{
+            var ctx=new Ext.menu.Menu({
+                items:[
+                    {text:'Verlinken',handler:function(){
+                        rpcCommand(
+                            {
+                                command: 'asphyx',
+                                aclass: 'com.handelsweise.litestore.product',
+                                action : 'link',
+                                relative: e.point,
+                                relativeTo: e.target.data.products_id,
+                                parentOld: e.dropNode.parentNode.data.categories_id,
+                                parentNew: newParent.data.categories_id,
+                                product: e.dropNode.data.products_id
+                            },
+                            function (value){
+                                newParent.reload();
+                            }                        
+                        );
+                    }},
+                    {text:'Verschieben',handler:function(){
+                            rpcCommand(
+                                {
+                                    command: 'asphyx',
+                                    aclass: 'com.handelsweise.litestore.product',
+                                    action : 'move',
+                                    relative: e.point,
+                                    relativeTo: e.target.data.products_id,
+                                    parentOld: e.dropNode.parentNode.data.categories_id,
+                                    parentNew: newParent.data.categories_id,
+                                    product: e.dropNode.data.products_id
+                                },
+                                function (value){
+                                    e.dropNode.parentNode.removeChild(e.dropNode);
+                                    newParent.reload();
+                                }
+                        );
+                    }}
+                ]
+            });
+            ctx.show(e.dropNode.ui.getAnchor());
+            e.dropStatus=true;
+            return false;
+
+        }
+
     }
 }
 
