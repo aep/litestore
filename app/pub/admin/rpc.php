@@ -391,8 +391,8 @@
                     $q=$db->prepare('delete from products_to_categories where products_id=? and categories_id=?');
                     $retok=($q->execute(array($cmd['product'],$cmd['category']))!=false);
 
-                    $q=$db->prepare('select COUNT(*) from products_to_categories where products_id=? and categories_id=?');
-                    $retok=($q->execute(array($cmd['product'],$cmd['category']))!=false);
+                    $q=$db->prepare('select COUNT(*) from products_to_categories where products_id=?');
+                    $retok=($q->execute(array($cmd['product']))!=false);
                     $x=$q->fetch();
                     $x=$x['COUNT(*)'];
                     if($x==0){
@@ -404,6 +404,55 @@
                         $q->execute(array($cmd['product']));
                         $q=$db->prepare('delete from prices where products_id=?');
                         $q->execute(array($cmd['product']));
+                    }
+                    $retok=true;
+                }
+                else if ($cmd['action']=='move' || $cmd['action']=='link' ){
+                    $db->beginTransaction();
+
+                    //build sorted array of categories in the new parent excluding subject
+
+                    $q=$db->prepare('select p.products_id from products as p, products_to_categories as c 
+                                     where p.products_id=c.products_id and c.categories_id=? order by `products_sort`'); 
+                    $q->execute(array($cmd['parentNew']));
+                    $m=array();
+                    while($x=$q->fetch()){  
+                        if($x['products_id']==$cmd['product'])
+                            continue;
+                        $m[]=$x['products_id'];
+                    }
+
+                    //stuff it in
+                    if($cmd['relative']=='append'){
+                        $m[]=$cmd['product'];
+                    }
+                    else if($cmd['relative']=='below' ){
+                        $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['product']);
+                    }
+                    else if($cmd['relative']=='above'){
+                        $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['product']);
+                    }
+
+                    if($cmd['action']=='move' ){
+                        $q=$db->prepare('delete from products_to_categories where products_id=? and categories_id=?'); 
+                        $q->execute(array(
+                                $cmd['product'],
+                                $cmd['parentOld']
+                            ));
+                    }
+
+                    $q=$db->prepare('insert into products_to_categories (products_id,categories_id) values (?,?)'); 
+                    $q->execute(array(
+                            $cmd['product'],
+                            $cmd['parentNew']
+                        ));
+
+                    //and apply sorting
+                    $q=$db->prepare('update products set `products_sort`=? where products_id=?');
+                    $i=0;
+                    foreach($m as $id){
+                        ++$i;
+                        $q->execute(array($i,$id));
                     }
                     $retok=true;
                 }
