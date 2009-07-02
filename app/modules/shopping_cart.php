@@ -47,58 +47,17 @@ function module()
 	    $hidden_options = xtc_draw_hidden_field('action', 'update_product');
 
 	    $_SESSION['any_out_of_stock'] = 0;
-    
+        $_SESSION['allow_checkout'] = 'true';
+
 	    $products = $_SESSION['cart']->get_products();
-	    for ($i = 0, $n = sizeof($products); $i < $n; $i ++) {
-		    // Push all attributes information in an array
-		    if (isset ($products[$i]['attributes'])) {
-			    while (list ($option, $value) = each($products[$i]['attributes'])) {
-				    $hidden_options .= xtc_draw_hidden_field('id['.$products[$i]['id'].']['.$option.']', $value);
-				    $attributes = xtc_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix,pa.attributes_stock,pa.products_attributes_id,pa.attributes_model
-				                                        from ".TABLE_PRODUCTS_OPTIONS." popt, ".TABLE_PRODUCTS_OPTIONS_VALUES." poval, ".TABLE_PRODUCTS_ATTRIBUTES." pa
-				                                        where pa.products_id = '".$products[$i]['id']."'
-				                                        and pa.options_id = '".$option."'
-				                                        and pa.options_id = popt.products_options_id
-				                                        and pa.options_values_id = '".$value."'
-				                                        and pa.options_values_id = poval.products_options_values_id
-				                                        and popt.languages_id = '".(int) $_SESSION['languages_id']."'
-				                                        and poval.languages_id = '".(int) $_SESSION['languages_id']."'");
-				    $attributes_values = xtc_db_fetch_array($attributes);
-    
-				    $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
-				    $products[$i][$option]['options_values_id'] = $value;
-				    $products[$i][$option]['products_options_values_name'] = $attributes_values['products_options_values_name'];
-				    $products[$i][$option]['options_values_price'] = $attributes_values['options_values_price'];
-				    $products[$i][$option]['price_prefix'] = $attributes_values['price_prefix'];
-				    $products[$i][$option]['weight_prefix'] = $attributes_values['weight_prefix'];
-				    $products[$i][$option]['options_values_weight'] = $attributes_values['options_values_weight'];
-				    $products[$i][$option]['attributes_stock'] = $attributes_values['attributes_stock'];
-				    $products[$i][$option]['products_attributes_id'] = $attributes_values['products_attributes_id'];
-				    $products[$i][$option]['products_attributes_model'] = $attributes_values['products_attributes_model'];
-			    }
-		    }
+	    foreach ($products as $p) {
+            if(!$p['status']){				    $_SESSION['allow_checkout'] = 'false';
+                    break;
+            }            
 	    }
     
 	    $smarty->assign('HIDDEN_OPTIONS', $hidden_options);
-	    require (DIR_WS_MODULES.'order_details_cart.php');
-    $_SESSION['allow_checkout'] = 'true';
-	    if (STOCK_CHECK == 'true') {
-		    if ($_SESSION['any_out_of_stock'] == 1) {
-			    if (STOCK_ALLOW_CHECKOUT == 'true') {
-				    // write permission in session
-				    $_SESSION['allow_checkout'] = 'true';
-    
-				    $smarty->assign('info_message', OUT_OF_STOCK_CAN_CHECKOUT);
-    
-			    } else {
-				    $_SESSION['allow_checkout'] = 'false';
-				    $smarty->assign('info_message', OUT_OF_STOCK_CANT_CHECKOUT);
-    
-			    }
-		    } else {
-			    $_SESSION['allow_checkout'] = 'true';
-		    }
-	    }
+	    require (DIR_WS_MODULES.'order_details_cart.php');    
     // minimum/maximum order value
     $checkout = true;
     if ($_SESSION['cart']->show_total() > 0 ) {
@@ -136,7 +95,7 @@ function module()
 	    $smarty->assign('cart_empty', $cart_empty);
     
     }
-
+    $smarty->assign('ALLOW_CHECKOUT', $_SESSION['allow_checkout']);
     $smarty->assign('language', $_SESSION['language']);
     $smarty->caching = 0;
     return $smarty->fetch('module/shopping_cart.html');

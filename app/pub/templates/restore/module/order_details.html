@@ -7,7 +7,7 @@
             <th class="anzahl">Anzahl</th>
             <th class="einzelpreis">Einzelpreis</th>
             <th class="gesamtpreis">Gesamtpreis</th>
-            <th class="entf">Entf.</th>
+            <th class="entf">Entfernen</th>
         </tr>
     </thead>
     <tbody>
@@ -24,9 +24,13 @@
             </td>
             <td class="artikel" >
                 <a href="{$module_data.PRODUCTS_LINK}" >{$module_data.PRODUCTS_ID}:{$module_data.PRODUCTS_NAME}</a>
-            </td>
-            <td>
                 <input type="hidden" name="products_id[]" value="{$module_data.PRODUCTS_ID}">
+            </td>
+
+
+            {if $module_data.PRODUCTS_STATUS}
+            <td>
+
                 <input id="products_qty_{$module_data.PRODUCTS_ID}"  type="text" name="cart_quantity[]"  value="{$module_data.PRODUCTS_QTY}" >
 
                 <script type="text/javascript" language="javascript">
@@ -53,6 +57,15 @@
             </td>
             <td class="einzelpreis"> {$module_data.PRODUCTS_SINGLE_PRICE}</td>
             <td class="gesamtpreis">{$module_data.PRODUCTS_PRICE}</td>
+
+            {else}
+
+            <td colspan=3>
+                <span style="color:red;">Ausverkauft</span>
+            </td>
+
+            {/if}
+
             <td class="entf"><input class="checkbox cart_products_del_checkbox" type="checkbox" name="cart_delete[]" value="{$module_data.PRODUCTS_ID}" /><x/td>
 		</tr>
 	{/foreach}

@@ -247,10 +247,25 @@ class shoppingCart {
 		if (!is_array($this->contents))
 			return 0;
 
+
+        $stati=array();
+        global $db;
+        $q=$db->prepare("select products_id,products_status from products");
+        $q->execute();
+        while($x=$q->fetch()){
+            $stati[$x['products_id']]=$x['products_status'];
+        }
+
+
+
 		reset($this->contents);
 		while (list ($products_id,) = each($this->contents)) {
-			$qty = $this->contents[$products_id]['qty'];
 
+            if(! $stati[$products_id]){
+                continue;
+            }
+    
+			$qty = $this->contents[$products_id]['qty'];
 			// products price
 			$product_query = xtc_db_query("select products_id, products_price, products_discount_allowed, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".xtc_get_prid($products_id)."'");
 			if ($product = xtc_db_fetch_array($product_query)) {
@@ -345,13 +360,13 @@ class shoppingCart {
 		reset($this->contents);
 		while (list ($products_id,) = each($this->contents)) {
 			if($this->contents[$products_id]['qty'] != 0 || $this->contents[$products_id]['qty'] !=''){			
-			$products_query = xtc_db_query("select p.products_id, pd.products_name,p.products_shippingtime, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($products_id)."' and pd.products_id = p.products_id and pd.languages_id = '".$_SESSION['languages_id']."'");
+			$products_query = xtc_db_query("select p.products_id,p.products_status, pd.products_name,p.products_shippingtime, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($products_id)."' and pd.products_id = p.products_id and pd.languages_id = '".$_SESSION['languages_id']."'");
 			if ($products = xtc_db_fetch_array($products_query)) {
 				$prid = $products['products_id'];
 
 				$products_price = $xtPrice->xtcGetPrice($products['products_id'], $format = false, $this->contents[$products_id]['qty'], $products['products_tax_class_id'], $products['products_price']);
 
-				$products_array[] = array ('id' => $products_id, 'name' => $products['products_name'], 'model' => $products['products_model'], 'image' => $products['products_image'], 'price' => $products_price + $this->attributes_price($products_id), 'quantity' => $this->contents[$products_id]['qty'], 'weight' => $products['products_weight'],'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']), 'final_price' => ($products_price + $this->attributes_price($products_id)), 'tax_class_id' => $products['products_tax_class_id'], 'attributes' => $this->contents[$products_id]['attributes']);
+				$products_array[] = array ('id' => $products_id, 'status' => $products['products_status'],'name' => $products['products_name'], 'model' => $products['products_model'], 'image' => $products['products_image'], 'price' => $products_price + $this->attributes_price($products_id), 'quantity' => $this->contents[$products_id]['qty'], 'weight' => $products['products_weight'],'shipping_time' => $main->getShippingStatusName($products['products_shippingtime']), 'final_price' => ($products_price + $this->attributes_price($products_id)), 'tax_class_id' => $products['products_tax_class_id'], 'attributes' => $this->contents[$products_id]['attributes']);
 			}
 			}
 		}
