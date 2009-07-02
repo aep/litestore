@@ -50,6 +50,14 @@ asphyxRegistry['com.handelsweise.litestore.product']={
                     id: 'status',
                     fieldLabel: 'Aktiv',
                 }),
+                new Ext.form.NumberField(
+                { 
+                    id: 'price',
+                    fieldLabel: 'Preis',
+                    width: '100%',
+                    allowNegative:false,
+//	                decimalSeparator: ','
+                }),
                 { 
                     id: 'meta_title',
                     fieldLabel: 'Meta Title',
