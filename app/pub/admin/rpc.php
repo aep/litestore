@@ -301,6 +301,7 @@
             else if($cmd['aclass']=='com.handelsweise.litestore.product'){
                 if ($cmd['action']=='get'){
                     $q=$db->prepare('select products_name  as name,
+                                            products_price  as price,
                                             products_description as  description,
                                             products_short_description as  short_description,
                                             products_status as status,
@@ -349,12 +350,14 @@
 
                     $q=$db->prepare('update products
                                             set products_status = ?,
+                                                products_price =?,
                                                 products_ean=?,
                                                 products_model=?,
                                                 products_weight=?
                                     where   products_id=? ');
                     $q->execute(array(
                         $cmd['data']['status'],
+                        $cmd['data']['price'],
                         $cmd['data']['ean'],
                         $cmd['data']['model'],
                         $cmd['data']['weight'],
