@@ -47,9 +47,16 @@
             <input type="hidden" name="y" value="1">
             <input class="submit" type="submit" value="Warenkorb aktualisieren" >
         </form>
+
         <form action="/checkout" method="post">
-            <input class="submit"  type="submit" value="Weiter zur Kasse &#62;&#62;">
+            <input id="cart_checkout_submit_thingy12312312" class="submit"  type="submit" value="Weiter zur Kasse &#62;&#62;">
         </form>
+
+        {if $ALLOW_CHECKOUT == 'false'}
+            <script language="javascript">{literal}
+                $('cart_checkout_submit_thingy12312312').disabled=true;
+            </script>{/literal}
+        {/if}
     {/if}
     <br class="clear">
 

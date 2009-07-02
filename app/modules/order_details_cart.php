@@ -70,11 +70,12 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++)
 
         
 
-    $veq = xtc_db_fetch_array(xtc_db_query("select products_trading_unit from ".TABLE_PRODUCTS." where products_id='". $products[$i]['id']."'"));
+    $veq = xtc_db_fetch_array(xtc_db_query("select products_trading_unit,products_status from ".TABLE_PRODUCTS." where products_id='". $products[$i]['id']."'"));
 
     $module_content[$i] = array 
     (
         'PRODUCTS_ID' => $products[$i]['id'],
+        'PRODUCTS_STATUS' => $veq["products_status"],
         'PRODUCTS_NAME' => $products[$i]['name'].$mark_stock, 
         'PRODUCTS_QTY' => $products[$i]['quantity'],
         'PRODUCTS_MODEL'=>$products[$i]['model'],
@@ -142,6 +143,7 @@ if (SHOW_SHIPPING == 'true') {
 if ($_SESSION['customers_status']['customers_status_show_price'] == '1') {
 $module_smarty->assign('UST_CONTENT', $_SESSION['cart']->show_tax());
 }
+
 $module_smarty->assign('MAX_PRODUCTS_QTY', MAX_PRODUCTS_QTY);
 $module_smarty->assign('TOTAL_CONTENT', $total_content);
 $module_smarty->assign('language', $_SESSION['language']);
