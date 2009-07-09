@@ -44,7 +44,46 @@ asphyxRegistry['com.handelsweise.litestore.category']={
                     id: 'meta_keywords',
                     fieldLabel: 'Meta Keywords',
                     width: '100%'
-                }
+                },    
+                new Ext.form.ComboBox({
+                    fieldLabel: 'Produkte sortien nach',
+                    id: 'products_sorting_keyCC',
+                    hiddenName: 'products_sorting_key',
+                    store: new Ext.data.SimpleStore({
+                        fields: ['v','d'],
+                        data :  [
+                            ['Artikelnummer','p.products_model'],
+                            ['Artikelname','pd.products_name'],
+                            ['letzter Änderung','p.products_last_modified'],
+                            ['angegebener Reihenfolge','p.products_sort']
+                        ]
+                    }),
+                    displayField:'v',
+                    valueField: 'd',
+                    mode: 'local',
+                    triggerAction: 'all',
+                    emptyText:'Select a sorting key...',
+                    selectOnFocus:true,
+                    forceSelection: true
+                }),    
+                new Ext.form.ComboBox({
+                    fieldLabel: 'Sortierrichtung',
+                    id: 'products_sortingCC',
+                    hiddenName: 'products_sorting',
+                    store: new Ext.data.SimpleStore({
+                        fields: ['v','d'],
+                        data :  [
+                            ['Aufsteigend','0'],
+                            ['Absteigend','1']
+                        ]
+                    }),
+                    displayField:'v',
+                    valueField: 'd',
+                    mode: 'local',
+                    triggerAction: 'all',
+                    selectOnFocus:true,
+                    forceSelection: true
+                })
             ]
         });
 
@@ -63,6 +102,8 @@ asphyxRegistry['com.handelsweise.litestore.category']={
                 plugin.editor.items.map.meta_keywords.setValue(value.meta_keywords);
                 plugin.editor.items.map.meta_description.setValue(value.meta_description);
                 plugin.editor.items.map.status.setValue(value.status);
+                plugin.editor.items.map.products_sorting_keyCC.setValue(value.products_sorting_key);
+                plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
             }
         );
 
