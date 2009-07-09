@@ -988,16 +988,14 @@ if ($error == true) {
 	                                c.customers_email_address,
 	                                a.entry_country_id,
 	                                c.customers_status,
-	                                c.member_flag,
-	                                ci.customers_info_date_account_created
+	                                c.member_flag
 	                                from
-	                                ".TABLE_CUSTOMERS." c ,
-	                                ".TABLE_ADDRESS_BOOK." a,
-	                                ".TABLE_CUSTOMERS_INFO." ci
+	                                ".TABLE_CUSTOMERS." as c ,
+	                                ".TABLE_ADDRESS_BOOK." as a
 	                                Where
 	                                c.customers_id = a.customers_id
 	                                and c.customers_default_address_id = a.address_book_id
-	                                and ci.customers_info_id = c.customers_id
+
 	                                ".$search."
 	                                group by c.customers_id
 	                                ".$sort;
