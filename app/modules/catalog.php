@@ -68,10 +68,16 @@ function module()
 
     //products
 
-    $products_sorting='DESC';
-    if ($mq['products_sorting']=0)
-    {
-        $products_sorting='ASC';
+    $products_sorting='';
+
+    if($mq['products_sorting_key']){
+        if ($mq['products_sorting']==0)
+        {
+            $products_sorting=' order by '.$mq['products_sorting_key'].' ASC';
+        }
+        else{
+            $products_sorting=' order by '.$mq['products_sorting_key'].' DESC';
+        }
     }
 
     $pq = $db->prepare('select
@@ -82,17 +88,19 @@ function module()
         join products_description as pd on p.products_id =  pd.products_id
         join products_to_categories as x  on p.products_id  = x.products_id 
         where x.categories_id=?
-        and p.products_status = 1
-        order by ? '.$products_sorting.'
-    ');
+        and p.products_status = 1'
+        .$products_sorting
+    );
 
-    $pq->execute(array($current_category_id,$mq['products_sorting_key']));
+
+
+
+    $pq->execute(array($current_category_id));
 
 
     global $product;
     $products=null;
-    while($listing =$pq->fetch())
-    {
+    while($listing =$pq->fetch()){
         $xe=$product->buildDataArray($listing);
         $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"].""),true);
         $xe["url_small"]=$findimg["url_small"];

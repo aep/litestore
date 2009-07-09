@@ -168,7 +168,9 @@
                                             categories_heading_title as heading_title,
                                             categories_meta_title as meta_title,
                                             categories_meta_description as meta_description,
-                                            categories_meta_keywords as meta_keywords
+                                            categories_meta_keywords as meta_keywords,
+                                            products_sorting,
+                                            products_sorting_key
                                     from    categories as c, 
                                             categories_description as cd 
                                     where   c.categories_id=? 
@@ -204,10 +206,14 @@
                         $cmd['data']['status']=1;
 
                     $q=$db->prepare('update categories
-                                            set categories_status = ?
+                                            set categories_status = ?,
+                                                products_sorting = ?,
+                                                products_sorting_key =?
                                     where   categories_id=? ');
                     $q->execute(array(
                         $cmd['data']['status'],
+                        $cmd['data']['products_sorting'],
+                        $cmd['data']['products_sorting_key'],
                         $cmd['data']['id']
                     ));
                     $retok=$db->commit();
