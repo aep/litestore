@@ -163,6 +163,24 @@ asphyxRegistry['com.handelsweise.litestore.product']={
         else{
             var ctx=new Ext.menu.Menu({
                 items:[
+                    {text:'Verschieben',handler:function(){
+                            rpcCommand(
+                                {
+                                    command: 'asphyx',
+                                    aclass: 'com.handelsweise.litestore.product',
+                                    action : 'move',
+                                    relative: e.point,
+                                    relativeTo: e.target.data.products_id,
+                                    parentOld: e.dropNode.parentNode.data.categories_id,
+                                    parentNew: newParent.data.categories_id,
+                                    product: e.dropNode.data.products_id
+                                },
+                                function (value){
+                                    e.dropNode.parentNode.removeChild(e.dropNode);
+                                    newParent.reload();
+                                }
+                        );
+                    }},
                     {text:'Verlinken',handler:function(){
                         rpcCommand(
                             {
@@ -180,12 +198,12 @@ asphyxRegistry['com.handelsweise.litestore.product']={
                             }                        
                         );
                     }},
-                    {text:'Verschieben',handler:function(){
+                    {text:'Kopieren',handler:function(){
                             rpcCommand(
                                 {
                                     command: 'asphyx',
                                     aclass: 'com.handelsweise.litestore.product',
-                                    action : 'move',
+                                    action : 'copy',
                                     relative: e.point,
                                     relativeTo: e.target.data.products_id,
                                     parentOld: e.dropNode.parentNode.data.categories_id,
@@ -193,7 +211,6 @@ asphyxRegistry['com.handelsweise.litestore.product']={
                                     product: e.dropNode.data.products_id
                                 },
                                 function (value){
-                                    e.dropNode.parentNode.removeChild(e.dropNode);
                                     newParent.reload();
                                 }
                         );

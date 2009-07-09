@@ -416,7 +416,64 @@
                     }
                     $retok=true;
                 }
-                else if ($cmd['action']=='move' || $cmd['action']=='link' ){
+                else if ($cmd['action']=='move' || $cmd['action']=='link' || $cmd['action']=='copy'){
+
+
+                    if ($cmd['action']=='copy'){
+                        //make a copy of this, with different products_model and products_id
+                        $q=$db->prepare('select *  from products where products_id=?'); 
+                        $q->execute(array($cmd['product']));
+                        $x=$q->fetchObject();
+                        
+                        $keys=array();
+                        $qvals=array();
+                        $vals=array();
+
+                        foreach($x as $k=>$v){  
+                            if($k == 'products_id'){
+                                continue;
+                            }
+                            if($k == 'products_model'){
+                                $v=nextKey('products_model','products');
+                            }
+                            $keys[]=$k;
+                            $qvals[]='?';
+                            $vals[]=$v;
+                        }
+
+                        $q=$db->prepare('insert into  products ('.implode(',',$keys).') values ('.implode(',',$qvals).')');
+                        $q->execute($vals);                    
+
+                        $newcopy=$db->lastInsertId();
+
+
+                        //copy products_description as well
+                        $q=$db->prepare('select *  from products_description where products_id=?');
+                        $q->execute(array($cmd['product']));
+                    
+                        while(true){
+                            try{$x=$q->fetch(PDO::FETCH_ASSOC);}catch(Exception $e){break;};
+                            
+                            $keys=array();
+                            $qvals=array();
+                            $vals=array();
+
+                            foreach($x as $k=>$v){  
+                                if($k == 'products_id'){
+                                    $v=$newcopy;
+                                }
+                                $keys[]=$k;
+                                $qvals[]='?';
+                                $vals[]=$v;
+                            }
+
+                            $q=$db->prepare('insert into  products_description ('.implode(',',$keys).') values ('.implode(',',$qvals).')');
+                            $q->execute($vals);       
+                        }
+                        $cmd['product']=$newcopy;
+                    }
+
+
                     $db->beginTransaction();
 
                     //build sorted array of categories in the new parent excluding subject
@@ -465,6 +522,7 @@
                     }
                     $retok=true;
                 }
+
             }
 
         }
