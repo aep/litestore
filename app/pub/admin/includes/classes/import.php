@@ -41,7 +41,12 @@ function sqlArrayValues($a)
 }
 
 
-
+function htmlXmlEscape($t){
+    $t=str_replace  ('&'  , '&amp;'  ,$t);
+    $t=str_replace  ('<'  , '&lt;'  ,$t);
+    $t=str_replace  ('>'  , '&gt;'  ,$t);
+    return $t;
+}
 
 
 class reImportExport
@@ -187,7 +192,7 @@ class reImportExport
                 $r.="\t<object>\n";
                 foreach( $this->scheme[$main_table]['fields'] as $field)
                 {
-                    $r .= "\t\t<".$field.">".$main_a[$field]."</".$field.">\n";
+                    $r .= "\t\t<".$field.">".htmlXmlEscape($main_a[$field])."</".$field.">\n";
                 }
                 reset($this->scheme);
                 next($this->scheme);
@@ -214,7 +219,7 @@ class reImportExport
                                 {
                                     foreach($fielda["fields"] as $ff)
                                     {
-                                        $r .= "\t\t\t<".$ff.">".$sub_r[$ff]."</".$ff.">\n";
+                                        $r .= "\t\t\t<".$ff.">".htmlXmlEscape($sub_r[$ff])."</".$ff.">\n";
                                     }
                                     $k.=$fielda["seperator"];
                                 }
@@ -232,7 +237,7 @@ class reImportExport
                                     }
                                     $k.=$fielda["seperator"];
                                 }
-                                $r .= "\t\t<".key($table_a["fields"]).">".$k."</".key($table_a["fields"]).">\n";
+                                $r .= "\t\t<".key($table_a["fields"]).">".htmlXmlEscape($k)."</".key($table_a["fields"]).">\n";
                             }
 
                             else if($fielda["type"]=="tree")
@@ -306,14 +311,14 @@ class reImportExport
                                         $k.=$fielda["seperator"];
                                     }
                                 }
-                                $r .= "\t\t<".key($table_a["fields"]).">".$k."</".key($table_a["fields"]).">\n";
+                                $r .= "\t\t<".key($table_a["fields"]).">".htmlXmlEscape($k)."</".key($table_a["fields"]).">\n";
                             }
 
                         }
                         else
                         {
                             $sub_q = xtc_db_fetch_array(xtc_db_query( "select ".$fielda." from ".$table_n.$conditions));
-                            $r .= "\t\t<".$fielda.">".$sub_q[$fielda]."</".$fielda.">\n";
+                            $r .= "\t\t<".$fielda.">".htmlXmlEscape($sub_q[$fielda])."</".$fielda.">\n";
                         }
                         next($table_a["fields"]);
                     }
