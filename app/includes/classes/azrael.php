@@ -63,7 +63,7 @@ class AbstractVCNode
 
 class Link extends AbstractVCNode
 {
-    var $classid= "{24f3af1a-043d-459e-adb8-48daa6645e6b}";
+    var $classid= "com.asgaartech.asphyx.link";
     function __construct()
     {
     }
@@ -127,7 +127,7 @@ class Link extends AbstractVCNode
 
 class StaticContent extends AbstractVCNode
 {
-    var $classid= "{c21ced16-0000-4000-92c1-69d94afb4933}";
+    var $classid= "com.asgaartech.asphyx.static";
     function __construct()
     {
     }
@@ -166,7 +166,7 @@ class StaticContent extends AbstractVCNode
 
 class Folder extends AbstractVCNode
 {
-    var $classid= "{756d8484-0000-4000-a071-2ab6e1ec6785}";
+    var $classid= "com.asgaartech.asphyx.folder";
     function __construct()
     {
     }
@@ -187,7 +187,7 @@ class Folder extends AbstractVCNode
 
 class DateCondition extends AbstractVCNode
 {
-    var $classid= "{04b31d60-0000-4000-b981-2e18fd1eb9e8}";
+    var $classid= "com.asgaartech.asphyx.conditional.date";
     function __construct()
     {
     }
@@ -222,10 +222,48 @@ class DateCondition extends AbstractVCNode
 }
 
 
+class CustomerGroupCondition extends AbstractVCNode
+{
+    var $classid= "com.asgaartech.asphyx.conditional.customergroup";
+    function __construct()
+    {
+    }
+    function walkthrough()    
+    {
+        foreach(explode(";",$this->data) as $cid){
+            if($cid=='0')
+                $cid=0;
+            else if($cid==0)
+                throw new AzraelException('Security Escalation cid==0 but is not 0');  
+            if($cid==$_SESSION['customers_status']['customers_status_id'])
+                return true;
+        }
+        return false;
+    }
+    function children()
+    {
+        if($this->walkthrough())
+            return AbstractVCNode::children();
+        return array();
+    }
+
+
+    function evaluate()
+    {
+        return false;
+    }
+    function metatype()
+    {
+        return false;
+    }
+
+}
+
+
 
 class Variable extends AbstractVCNode
 {
-    var $classid= "{b4e3c4b6-0000-4000-af6b-d9464c2ce97a}";
+    var $classid= "com.asgaartech.asphyx.variable";
     function __construct()
     {
     }
@@ -255,7 +293,7 @@ class Variable extends AbstractVCNode
 
 class FileNode extends AbstractVCNode
 {
-    var $classid= "{fe61a8ac-0000-4000-9276-3eeb4185933d}";
+    var $classid= "com.asgaartech.asphyx.file";
     function __construct()
     {
     }
@@ -281,7 +319,7 @@ class FileNode extends AbstractVCNode
 
 class Image extends AbstractVCNode
 {
-    var $classid=  "{e4527460-0000-4000-b52f-2d8668f85680}";
+    var $classid=  "com.asgaartech.asphyx.image";
     function __construct()
     {
     }
@@ -321,7 +359,7 @@ class Image extends AbstractVCNode
 
 class Random extends AbstractVCNode
 {
-    var $classid= "{3a2676a9-0000-4000-8491-702302a7c112}";
+    var $classid= "com.asgaartech.asphyx.conditional.random";
     function __construct()
     {
     }
@@ -348,7 +386,7 @@ class Random extends AbstractVCNode
 
 class UriSelector extends AbstractVCNode
 {
-    var $classid= "{07331c60-0000-4000-b996-6618fa1eb9e8}";
+    var $classid= "com.asgaartech.asphyx.conditional.uri";
     function __construct()
     {
     }
@@ -375,7 +413,7 @@ class UriSelector extends AbstractVCNode
 
 class Preset extends AbstractVCNode
 {
-    var $classid= "{0ab256ea-0000-4000-9827-6556fa1eb9e8}";
+    var $classid= "com.asgaartech.asphyx.preset";
     function __construct()
     {
     }
@@ -396,7 +434,7 @@ class Preset extends AbstractVCNode
 
 class AbstractVCBox extends AbstractVCNode
 {
-    var $classid= "{674c79a1-0000-4000-ab51-035d1274e212}";
+    var $classid= "com.asgaartech.asphyx.box";
     function __construct()
     {
     }
@@ -432,52 +470,48 @@ class Azrael
         $q = $db->query("SELECT id, parent, uuid, name, data, `order` FROM `content` order by `order`");
         while ($line = $q->fetch())
         {
-
-            if($line["uuid"]=="{c21ced16-0000-4000-92c1-69d94afb4933}")
+            $tnode=null;
+            if($line["uuid"]=="com.asgaartech.asphyx.static")
             {
                 $tnode=new StaticContent;
             }
-            else if($line["uuid"]=="{756d8484-0000-4000-a071-2ab6e1ec6785}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.folder")
             {
                 $tnode=new Folder;
             }
-            else if($line["uuid"]=="{04b31d60-0000-4000-b981-2e18fd1eb9e8}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.conditional.datetime")
             {
                 $tnode=new DateCondition;
             }
-            else if($line["uuid"]=="{72a15ef5-0000-4000-adb2-1e71f2bfe45d}")
-            {
-                $tnode=new KGCondition;
-            }
-            else if($line["uuid"]=="{b4e3c4b6-0000-4000-af6b-d9464c2ce97a}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.variable")
             {
                 $tnode=new Variable;
             }
-            else if($line["uuid"]=="{fe61a8ac-0000-4000-9276-3eeb4185933d}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.file")
             {
                 $tnode=new FileNode;
             }
-            else if($line["uuid"]=="{e4527460-0000-4000-b52f-2d8668f85680}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.image")
             {
                 $tnode=new Image;
             }
-            else if($line["uuid"]=="{3a2676a9-0000-4000-8491-702302a7c112}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.conditional.random")
             {
                 $tnode=new Random;
             }
-            else if($line["uuid"]=="{fbee9ccc-0000-4000-b02e-e39f26f3b143}")
-            {
-                $tnode=new HHLArchive;
-            }
-            else if($line["uuid"]=="{07331c60-0000-4000-b996-6618fa1eb9e8}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.conditional.uri")
             {
                 $tnode=new UriSelector;
             }
-            else if($line["uuid"]=="{24f3af1a-043d-459e-adb8-48daa6645e6b}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.conditional.customergroup")
+            {
+                $tnode=new CustomerGroupCondition;
+            }
+            else if($line["uuid"]=="com.asgaartech.asphyx.link")
             {
                 $tnode=new Link;
             }
-            else if($line["uuid"]=="{0ab256ea-0000-4000-9827-6556fa1eb9e8}")
+            else if($line["uuid"]=="com.asgaartech.asphyx.preset")
             {
                 $tnode=new Preset;
             }
@@ -495,12 +529,16 @@ class Azrael
             $tnode->VisualContentInstance=$this;
 
             $this->Nodes[$line["id"]]=$tnode;
+
             $this->Tree["children"][$line["parent"]][$line["order"]][]=$line["id"];
+
             if($line["parent"]==0)
                 $this->Root=$tnode;
 
-            if($line["uuid"]=="{0ab256ea-0000-4000-9827-6556fa1eb9e8}")
-                $this->presets[$line["data"]]=$line["id"];
+
+            if($line["uuid"]=="com.asgaartech.asphyx.preset"){
+                $this->presets[$line["data"]]=$line['id'];
+            }
 
         }
 
@@ -509,6 +547,7 @@ class Azrael
 
     function renderID($id)
     {
+        return "sdasd";
         if (!($this->Nodes[$id]))
         {
             header("HTTP/1.0 404 Not Found");
@@ -524,6 +563,7 @@ class Azrael
     }
     function renderPreset($area)
     {
+        return "asdd";
         if (!($this->presets[$area]))
         {
             header("HTTP/1.0 404 Not Found");
@@ -555,19 +595,26 @@ class Azrael
     }
 
 
-    function listGenerators($id)
+    function listGenerators($id,$recurcheck=array())
     {
+        $recurcheck[]=$id;
         $e=array();
         if(!isset($this->Tree["children"][$id]))
             return array();
+
 
         foreach($this->Tree["children"][$id] as $kk)
         {
             foreach($kk as $cid)
             {
+                if(in_array($cid,$recurcheck)){
+                    throw new AzraelException("Corrupted Tree. '".$cid."'  has already ocured");
+                    return;
+                }
+
                 if($this->Nodes[$cid]->walkthrough())
                 {
-                    $e=array_merge($e,$this->listGenerators($cid));
+                    $e=array_merge($e,$this->listGenerators($cid,$recurcheck));
                 }
                 else if ($this->Nodes[$cid]->metatype()!==false)
                 {

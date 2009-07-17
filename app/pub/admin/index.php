@@ -4,10 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
     <title>Litemin</title>
 
-    <script type="text/javascript" src="/pub/javascript/spin.js"></script>
-    <script type="text/javascript" src="/pub/javascript/adapter/prototype/prototype.js"></script>
-    <script type="text/javascript" src="/pub/javascript/adapter/prototype/ext-prototype-adapter.js"></script>
-    <script type="text/javascript" src="/pub/javascript/adapter/prototype/scriptaculous.js?load=effects"></script>
+    <script type="text/javascript" src="/pub/javascript/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="/pub/javascript/ext-all-debug.js"></script>
     <script type="text/javascript" src="/pub/javascript/fileuploadfield.js"></script>
     <script type="text/javascript" src="/pub/javascript/miframe.js"></script>
@@ -34,9 +31,15 @@
     <script type="text/javascript" src="/pub/admin/modules/modules.js"></script>
 
     <!-- asphyx modules -->
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/root.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/category.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/product.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/product_image.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/folder.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/preset.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/static.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/datetime.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/cgroup.js"></script>
 </head>
 <body>
 
