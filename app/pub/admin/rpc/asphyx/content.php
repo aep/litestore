@@ -70,7 +70,7 @@ function rpc_asphyx_content($cmd){
         $retval['text']		= $cmd['name'];
         $retval['id']	    = $liid;
         $retval['data']     = array('id'=>$liid);
-        $retval['leaf']	    = true;
+        $retval['leaf']	    = false;
         $retval['aclass']	= $cmd['aclass'];
 
         if($liid)
