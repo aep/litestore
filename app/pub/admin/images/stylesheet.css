@@ -153,6 +153,13 @@ div.com_asgaartech_asphyx_conditional_datetime  .x-tree-node-icon {
 div.com_asgaartech_asphyx_conditional_customergroup  .x-tree-node-icon {
     background-image: url('icons/customers.png');
 }
+div.com_asgaartech_asphyx_conditional_random  .x-tree-node-icon {
+    background-image: url('icons/random.png');
+}
+div.com_asgaartech_asphyx_image  .x-tree-node-icon {
+    background-image: url('icons/item_image.png');
+}
+
 
 
 .mask-reload-btn

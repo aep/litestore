@@ -40,6 +40,7 @@
     <script type="text/javascript" src="/pub/admin/asphyx/modules/static.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/datetime.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/cgroup.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/random.js"></script>
 </head>
 <body>
 
