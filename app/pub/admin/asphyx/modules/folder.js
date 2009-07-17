@@ -26,7 +26,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                 aclass: this.aclass,
                 action : 'create',
                 parent: node.data,
-                name  : 'Neu'
+                name  : this.name.de
             },
             function (value){
                 var n=node.appendChild(node.attributes.loader.createNode(value));
@@ -54,7 +54,8 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             'com.asgaartech.asphyx.static',
             'com.asgaartech.asphyx.folder',
             'com.asgaartech.asphyx.conditional.datetime',
-            'com.asgaartech.asphyx.conditional.customergroup'
+            'com.asgaartech.asphyx.conditional.customergroup',
+            'com.asgaartech.asphyx.conditional.random'
         ];
     },
     canDrop:  function(e){
@@ -62,7 +63,9 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
         return ( newParent.aclass=='com.asgaartech.asphyx.folder' || 
                  newParent.aclass=='com.asgaartech.asphyx.preset' ||
                  newParent.aclass=='com.asgaartech.asphyx.conditional.datetime' ||
-                 newParent.aclass=='com.asgaartech.asphyx.conditional.customergroup');
+                 newParent.aclass=='com.asgaartech.asphyx.conditional.customergroup' ||
+                 newParent.aclass=='com.asgaartech.asphyx.conditional.random' 
+                );
     },
     drop: function (e){
 
