@@ -121,18 +121,37 @@ button.icon_new{
 button.icon_remove{
     background-image: url('icons/remove.png');
 }
+button.icon_asphyx{
+    background-image: url('icons/asphyx.png');
+}
 
 
 
-div.item_product  .x-tree-node-icon {
+div.com_handelsweise_litestore_product  .x-tree-node-icon {
     background-image: url('icons/item_product.png');
 }
-div.item_category  .x-tree-node-icon {
+div.com_handelsweise_litestore_category  .x-tree-node-icon {
     background-image: url('icons/item_category.png');
 }
 
-div.item_image  .x-tree-node-icon {
+div.com_handelsweise_litestore_product_image  .x-tree-node-icon {
     background-image: url('icons/item_image.png');
+}
+div.com_asgaartech_asphyx_preset  .x-tree-node-icon {
+    background-image: url('icons/linkfolder.png');
+}
+div.com_asgaartech_asphyx_folder  .x-tree-node-icon {
+    background-image: url('icons/item_category.png');
+}
+
+div.com_asgaartech_asphyx_static  .x-tree-node-icon {
+    background-image: url('icons/document.png');
+}
+div.com_asgaartech_asphyx_conditional_datetime  .x-tree-node-icon {
+    background-image: url('icons/time.png');
+}
+div.com_asgaartech_asphyx_conditional_customergroup  .x-tree-node-icon {
+    background-image: url('icons/customers.png');
 }
 
 
@@ -226,7 +245,7 @@ z-index:3;
 
 .module_start_panel{
     margin:10px;
-    float:right;
+    float:left;
 }
 .x-panel-groupwrap > .x-panel-bwrap > .x-panel-body{
     background:none;

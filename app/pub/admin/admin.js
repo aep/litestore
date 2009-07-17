@@ -1,13 +1,3 @@
-window.onerror = function(message, uri, line)
-{
-    var fullMessage = message + "\n at " + uri + ": " + line + "\n\n<br/> The Application will now attemp to reload. If the problem persists, please contact the system administrator."
-
-    //remoteLogger.log(fullMessage)
- 
-    Ext.MessageBox.alert('Litestore Admin has crashed',fullMessage, function(btn, text){ location.reload();});
-    return false                      
-}
-
 var mainpanel;
 var module =null;
 var mainmenu;
@@ -16,7 +6,18 @@ var menus = new Object();
 
 Ext.onReady(function()
 {
+    /*
+    window.onerror = function(message, uri, line)
+    {
+        var fullMessage = message + "\n at " + uri + ": " + line + "\n\n<br/> The Application will now attemp to reload. If the problem persists, please contact the system administrator."
 
+        //remoteLogger.log(fullMessage)
+     
+        Ext.MessageBox.alert('Litestore Admin has crashed',fullMessage, function(btn, text){ location.reload();});
+        return false                      
+    }
+    */
+    
     Ext.BLANK_IMAGE_URL = 'images/s.gif';
 
     Ext.QuickTips.init();
@@ -179,7 +180,8 @@ function rpcCommand(command,callback){
             if(!o.success){
                 throw 'RPC command not succesfull: '+o.error;
             }
-            callback(o.value);
+            if(callback)
+                callback(o.value);
         },
         failure: function(transport)
         {

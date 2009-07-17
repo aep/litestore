@@ -1,4 +1,4 @@
-asphyxRegistry['com.handelsweise.litestore.product']={
+asphyxPluginBuilder('com.handelsweise.litestore.product',{
     name: { 
         en:'Product',
         de:'Produkt'
@@ -90,16 +90,13 @@ asphyxRegistry['com.handelsweise.litestore.product']={
                 }
             }
         );
-
-
-        plugin.save =  function(plugin){
-	        plugin.editor.items.map.description.syncValue();
-            plugin.data=plugin.editor.getForm().getValues();
-            plugin.data.id=plugin.node.data.products_id;
-            plugin.node.setText(plugin.editor.items.map.name.getValue());
-            rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.product', action : 'set', data: plugin.data });
-        };
-
+    },
+    save :  function(plugin){
+        plugin.editor.items.map.description.syncValue();
+        plugin.data=plugin.editor.getForm().getValues();
+        plugin.data.id=plugin.node.data.products_id;
+        plugin.node.setText(plugin.editor.items.map.name.getValue());
+        rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.product', action : 'set', data: plugin.data });
     },
     createNode:  function(node){
         if(node.aclass!="com.handelsweise.litestore.category"){
@@ -139,6 +136,11 @@ asphyxRegistry['com.handelsweise.litestore.product']={
     canDrop:  function(e){
         var newParent=(e.point=='append')?e.target:e.target.parentNode;        
         return (newParent.aclass=='com.handelsweise.litestore.category');
+    },
+    acceptedChildClasses: function (){
+        return [
+            'com.handelsweise.litestore.product_image'
+        ];
     },
     drop: function (e){
         var newParent=(e.point=='append')?e.target:e.target.parentNode;
@@ -224,7 +226,7 @@ asphyxRegistry['com.handelsweise.litestore.product']={
         }
 
     }
-}
+});
 
 
 
