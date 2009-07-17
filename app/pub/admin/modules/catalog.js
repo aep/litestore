@@ -1,4 +1,4 @@
-menus.catalog={text:'Artikel',iconCls:'icon_products',handler: function() {module_besatt();} };
+menus.catalog={text:'Unlimited',iconCls:'icon_asphyx',handler: function() {module_besatt();} };
 
 function module_besatt()
 {
@@ -6,10 +6,12 @@ function module_besatt()
 
     module.loader = new Ext.tree.TreeLoader
     ({
-        dataUrl   :"/admin/besatt_ajax.php",
-        baseParams:{command:'getChildren'},
-
+        dataUrl   :"null",
         createNode : function(attr){
+            attr.cls=attr.aclass;
+            attr.cls=attr.cls.replace(/\./g,'_');
+
+
             var node;
 	        if(this.baseAttrs){
 	            Ext.applyIf(attr, this.baseAttrs);
@@ -29,6 +31,10 @@ function module_besatt()
 	        }
             node.aclass=attr.aclass;
             node.data=attr.data;
+            node.caps=attr.caps;
+
+            
+
             return node;
         }
 
@@ -37,8 +43,13 @@ function module_besatt()
     {
         throw  'node '+node.id+' ("'+node.name+'") failed to load.';
     });
-    module.loader.on("beforeload", function(treeLoader, node) {
-        treeLoader.baseParams.aclass = node.aclass;
+    module.loader.on("beforeload", function(loader, node) { 
+        asphyxRegistry[node.aclass].list(node,function(nodes){
+            for(var i=0;i<nodes.length;i++){
+                node.appendChild(loader.createNode(nodes[i]));
+            }
+        });
+        return false;
     });
 
 
@@ -56,12 +67,13 @@ function module_besatt()
         root            : 
         {
             nodeType  : 'async',
-            text      : 'Products',
+            text      : 'Root',
             visible   : false,
             dragable  : false,
             id        : 'category_0',
-            aclass    : 'com.handelsweise.litestore.category',
-            data      : { categories_id: '0' }
+            aclass    : 'root',
+            data      : { categories_id: '0' },
+            caps      : { move : false, write: false, read: true }
         },
         rootVisible     : false,
         region          : 'west',
@@ -106,14 +118,55 @@ function module_besatt()
 
 //        if(plugin) plugin.save(plugin);
 
-   
+
+
+        module.addmenu.removeAll();
+        module.addbtn.disable();
+        var l=asphyxRegistry[node.aclass].acceptedChildClasses();
+	    for(var i=0;i<l.length;i++){
+            if(!asphyxRegistry[l[i]])
+                continue;
+            module.addbtn.enable();
+            var x=asphyxRegistry[l[i]].name.en;
+            if(asphyxRegistry[l[i]].name.de){
+                x=asphyxRegistry[l[i]].name.de;
+            }
+            var b=new Ext.menu.Item({text:x,handler:function(button){
+                var sel=module.tree.getSelectionModel().getSelectedNode();
+                if(!sel)
+                    sel=module.tree.root;
+                asphyxRegistry[button.aclass].createNode(sel);
+            }});
+            b.aclass=l[i];
+            module.addmenu.add(b);
+        }
+
 
         module.plugin=new Object();
         module.plugin.node=node;
         asphyxRegistry[node.aclass].construct(module.plugin);
 
-
         module.plugin.editor.region='center';
+
+
+        if (!nodeAllowedTo(node,'write')){
+            module.plugin.editor.disable();
+        }
+
+        if (nodeAllowedTo(node,'remove')){
+            module.delbtn.enable();
+        }
+        else{
+            module.delbtn.disable();
+        }
+
+        if (nodeAllowedTo(node,'save')){
+            module.savebtn.enable();
+        }
+        else{
+            module.savebtn.disable();
+        }
+   
 
 
         module.center.remove(0);
@@ -124,21 +177,32 @@ function module_besatt()
 
 
     module.addmenu=new Ext.menu.Menu();
-	for( var e in asphyxRegistry){
-        var x=asphyxRegistry[e].name.en;
-        if(asphyxRegistry[e].name.de){
-            x=asphyxRegistry[e].name.de;
+    module.addbtn=new Ext.Button({
+        text: 'Neu', 
+        iconCls:'icon_new',
+        menuAlign:'bl-tl',
+        menu:module.addmenu
+    });
+    module.delbtn=new Ext.Button({
+        text: 'Löschen', 
+        iconCls:'icon_remove', 
+        handler: function(){
+            console.log(module.tree.getSelectionModel().getSelectedNode());
+            var n =module.tree.getSelectionModel().getSelectedNode();
+            Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
+                if (btn == 'yes'){
+                    asphyxRegistry[n.aclass].removeNode(n);
+                }
+            });
         }
-        var b=new Ext.menu.Item({text:x,handler:function(button){
-            var sel=module.tree.getSelectionModel().getSelectedNode();
-            if(!sel)
-                sel=module.tree.root;
-            asphyxRegistry[button.aclass].createNode(sel);
-        }});
-        b.aclass=e;
-        module.addmenu.add(b);
-    }
-
+    });
+    module.savebtn=new Ext.Button({
+        text: 'Speichern', 
+        iconCls:'icon_save', 
+        handler: function(){
+            asphyxRegistry[module.plugin.node.aclass].save(module.plugin);
+        }
+    });
 
     module.toolbar =new Ext.Toolbar({
         region:'south',
@@ -146,33 +210,9 @@ function module_besatt()
         height: '20',
         disabled : true,
         items: [
-        {
-            text: 'Neu', 
-            iconCls:'icon_new',
-            menuAlign:'bl-tl',
-            menu:module.addmenu
-        },
-        {
-            text: 'Löschen', 
-            iconCls:'icon_remove', 
-            handler: function(){
-                var n =module.tree.getSelectionModel().getSelectedNode();
-                if((!n) || n.id=='category_0')
-                    return;
-                Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
-                    if (btn == 'yes'){
-                        asphyxRegistry[n.aclass].removeNode(n);
-                    }
-                });
-            }
-        },
-        {
-            text: 'Speichern', 
-            iconCls:'icon_save', 
-            handler: function(){
-                module.plugin.save(module.plugin);
-            }
-        },
+            module.addbtn,
+            module.delbtn,
+            module.savebtn,
         '->'
         ]
     });

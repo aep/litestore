@@ -1,4 +1,5 @@
-asphyxRegistry['com.handelsweise.litestore.category']={
+asphyxPluginBuilder('com.handelsweise.litestore.category',
+{
     name: { 
         en:'Category',
         de:'Kategorie'
@@ -106,16 +107,13 @@ asphyxRegistry['com.handelsweise.litestore.category']={
                 plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
             }
         );
-
-
-        plugin.save =  function(plugin){
-            plugin.editor.items.map.description.syncValue();
-            plugin.data=plugin.editor.getForm().getValues();
-            plugin.data.id=plugin.node.data.categories_id;
-            plugin.node.setText(plugin.editor.items.map.name.getValue());
-            rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.category', action : 'set', data: plugin.data });
-        };
-
+    },
+    save :  function(plugin){
+        plugin.editor.items.map.description.syncValue();
+        plugin.data=plugin.editor.getForm().getValues();
+        plugin.data.id=plugin.node.data.categories_id;
+        plugin.node.setText(plugin.editor.items.map.name.getValue());
+        rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.category', action : 'set', data: plugin.data });
     },
     createNode:  function(node){
         if(node.aclass!="com.handelsweise.litestore.category"){
@@ -177,16 +175,14 @@ asphyxRegistry['com.handelsweise.litestore.category']={
             }
         );
         return true;
+    },
+    acceptedChildClasses: function (){
+        return [
+            'com.handelsweise.litestore.category',
+            'com.handelsweise.litestore.product'
+        ];
     }
-}
+});
 
-
-
-/*
-Kategorie Bild:
-Kategorie Teaser: 	
-Artikel-Sortierung: 	
-Artikel-Sortierung: 	
-*/
 
 
