@@ -6,10 +6,10 @@ function module_start()
     module=new Object();
 
     module.blabla=new  Ext.Panel({
-        title:'Willkommen',
+        title:'News',
         cls: 'module_start_panel',
         collapsible:  true,
-        html: '<div style="margin:10px;"><h1>Willkommen..</h1></div>'
+        html: '<img src="/admin/images/asphyx_teaser.png" />'
     });
 
     module.panel=new  Ext.Panel({
