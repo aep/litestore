@@ -114,7 +114,7 @@ function rpc_asphyx_content($cmd){
                 if($k == 'id'){
                     continue;
                 }
-                $keys[]=$k;
+                $keys[]='`'.$k.'`';
                 $qvals[]='?';
                 $vals[]=$v;
             }

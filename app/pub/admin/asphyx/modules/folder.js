@@ -65,12 +65,15 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                  newParent.aclass=='com.asgaartech.asphyx.conditional.customergroup');
     },
     drop: function (e){
+
+        var that=this;
+
         var newParent=(e.point=='append')?e.target:e.target.parentNode;
 
         if (e.dropNode.parentNode==newParent){
             rpcCommand({
                     command: 'asphyx',
-                    aclass: this.aclass,
+                    aclass: that.aclass,
                     action : 'move',
                     relative: e.point,
                     relativeTo: e.target.data,
@@ -90,7 +93,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                             rpcCommand(
                                 {
                                     command: 'asphyx',
-                                    aclass: this.aclass,
+                                    aclass: that.aclass,
                                     action : 'move',
                                     relative: e.point,
                                     relativeTo: e.target.data,
@@ -108,7 +111,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                             rpcCommand(
                                 {
                                     command: 'asphyx',
-                                    aclass: this.aclass,
+                                    aclass: that.aclass,
                                     action : 'copy',
                                     relative: e.point,
                                     relativeTo: e.target.data,
