@@ -187,7 +187,6 @@ function module_besatt()
         text: 'Löschen', 
         iconCls:'icon_remove', 
         handler: function(){
-            console.log(module.tree.getSelectionModel().getSelectedNode());
             var n =module.tree.getSelectionModel().getSelectedNode();
             Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
                 if (btn == 'yes'){
