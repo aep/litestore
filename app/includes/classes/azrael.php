@@ -547,7 +547,6 @@ class Azrael
 
     function renderID($id)
     {
-        return "sdasd";
         if (!($this->Nodes[$id]))
         {
             header("HTTP/1.0 404 Not Found");
@@ -563,7 +562,6 @@ class Azrael
     }
     function renderPreset($area)
     {
-        return "asdd";
         if (!($this->presets[$area]))
         {
             header("HTTP/1.0 404 Not Found");
