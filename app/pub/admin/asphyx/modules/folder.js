@@ -59,7 +59,10 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
     },
     canDrop:  function(e){
         var newParent=(e.point=='append')?e.target:e.target.parentNode;        
-        return (newParent.aclass=='com.asgaartech.asphyx.folder' || newParent.aclass=='com.asgaartech.asphyx.preset');
+        return ( newParent.aclass=='com.asgaartech.asphyx.folder' || 
+                 newParent.aclass=='com.asgaartech.asphyx.preset' ||
+                 newParent.aclass=='com.asgaartech.asphyx.conditional.datetime' ||
+                 newParent.aclass=='com.asgaartech.asphyx.conditional.customergroup');
     },
     drop: function (e){
         var newParent=(e.point=='append')?e.target:e.target.parentNode;
@@ -67,7 +70,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
         if (e.dropNode.parentNode==newParent){
             rpcCommand({
                     command: 'asphyx',
-                    aclass: 'com.asgaartech.asphyx.folder',
+                    aclass: this.aclass,
                     action : 'move',
                     relative: e.point,
                     relativeTo: e.target.data,
@@ -87,7 +90,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                             rpcCommand(
                                 {
                                     command: 'asphyx',
-                                    aclass: 'com.asgaartech.asphyx.folder',
+                                    aclass: this.aclass,
                                     action : 'move',
                                     relative: e.point,
                                     relativeTo: e.target.data,
@@ -105,7 +108,7 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
                             rpcCommand(
                                 {
                                     command: 'asphyx',
-                                    aclass: 'com.asgaartech.asphyx.folder',
+                                    aclass: this.aclass,
                                     action : 'copy',
                                     relative: e.point,
                                     relativeTo: e.target.data,
