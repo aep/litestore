@@ -45,10 +45,25 @@ asphyxPluginBuilder('com.handelsweise.litestore.product',{
                     fieldLabel: 'Gewicht',
                     width: '100%'
                 },
+                new Ext.form.ComboBox({
+                    id:'shipping_status_cc',
+                    hiddenName:'shipping_status',
+                    fieldLabel:'Lieferstatus',
+                    store: new Ext.data.JsonStore({
+                        fields: ['id','name'],
+                        data: []
+                    }),
+                    valueField: 'id',
+                    displayField: 'name',
+                    mode: 'local',
+                    triggerAction : 'all',
+                    forceSelection:  true
+
+                }),
                 new Ext.form.Checkbox(
                 { 
                     id: 'status',
-                    fieldLabel: 'Aktiv',
+                    fieldLabel: 'Aktiv'
                 }),
                 new Ext.form.NumberField(
                 { 
@@ -57,6 +72,21 @@ asphyxPluginBuilder('com.handelsweise.litestore.product',{
                     width: '100%',
                     allowNegative:false,
 //	                decimalSeparator: ','
+                }),
+                new Ext.form.ComboBox({
+                    id:'tax_class_id_cc',
+                    hiddenName:'tax_class_id',
+                    fieldLabel:'Steuerklasse',
+                    store: new Ext.data.JsonStore({
+                        fields: ['id','name'],
+                        data: []
+                    }),
+                    valueField: 'id',
+                    displayField: 'name',
+                    mode: 'local',
+                    triggerAction : 'all',
+                    forceSelection:  true
+
                 }),
                 { 
                     id: 'meta_title',
@@ -84,10 +114,14 @@ asphyxPluginBuilder('com.handelsweise.litestore.product',{
                 products_id: plugin.node.data.products_id
             },
             function (value){
+                plugin.editor.items.map.tax_class_id_cc.getStore().loadData(value.taxClasses);
+                plugin.editor.items.map.shipping_status_cc.getStore().loadData(value.shippingStati);
                 for(prop in plugin.editor.items.map){
                     var field=plugin.editor.items.map[prop];
                     field.setValue(value[field.id]);
                 }
+                plugin.editor.items.map.tax_class_id_cc.setValue(value.tax_class_id);
+                plugin.editor.items.map.shipping_status_cc.setValue(value.shipping_status);
             }
         );
     },

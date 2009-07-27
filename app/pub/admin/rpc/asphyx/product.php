@@ -12,6 +12,8 @@ function rpc_asphyx_product($cmd){
                                 products_meta_keywords as meta_keywords,
                                 products_keywords as keywords,
                                 products_ean as ean,
+                                products_tax_class_id as tax_class_id,
+                                products_shippingtime as shipping_status,
                                 products_weight as weight,
                                 products_model as model
                         from    products as c, 
@@ -20,7 +22,27 @@ function rpc_asphyx_product($cmd){
                         and     c.products_id=cd.products_id');
         $q->execute(array($cmd['products_id']));
         $retval=$q->fetchObject();
-        return array('success'=>(bool)$retval,'value'=>$retval);
+        
+        if(!$retval){
+            return array('success'=>false);
+        }
+
+        $q=$db->prepare('select tax_class_id, tax_class_title from tax_class');
+        $q->execute(array());
+        $retval->taxClasses=array();
+        while($x=$q->fetch()){
+            $retval->taxClasses[]=array('id'=>$x['tax_class_id'],'name'=>$x['tax_class_title']); 
+        }
+
+        $q=$db->prepare('select shipping_status_id, shipping_status_name from shipping_status where languages_id=2');
+        $q->execute(array());
+        $retval->shippingStati=array();
+        while($x=$q->fetch()){
+            $retval->shippingStati[]=array('id'=>$x['shipping_status_id'],'name'=>$x['shipping_status_name']); 
+        }
+
+
+        return array('success'=>true,'value'=>$retval);
     }
     else if ($cmd['action']=='set'){
         $db->beginTransaction();
@@ -52,7 +74,9 @@ function rpc_asphyx_product($cmd){
                                     products_price =?,
                                     products_ean=?,
                                     products_model=?,
-                                    products_weight=?
+                                    products_weight=?,
+                                    products_tax_class_id=?,
+                                    products_shippingtime=?
                         where   products_id=? ');
         $q->execute(array(
             $cmd['data']['status'],
@@ -60,6 +84,8 @@ function rpc_asphyx_product($cmd){
             $cmd['data']['ean'],
             $cmd['data']['model'],
             $cmd['data']['weight'],
+            $cmd['data']['tax_class_id'],
+            $cmd['data']['shipping_status'],
             $cmd['data']['id']
         ));
         $retok=$db->commit();
