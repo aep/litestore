@@ -5,22 +5,177 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
         de:'Kategorie'
     },
     construct: function(plugin){
+
+        var newCategoryImage= function(construct){
+
+            var oP = new Object();
+            oP.img = new Image();
+            oP.input = new Ext.form.TextField({ 
+                id: construct.id,
+                labelSeparator: '',
+                fieldLabel: '',
+                anchor:'100%'
+            });
+            oP.inputPanel=new Ext.Panel({
+                border:false,
+                layout:'column',
+                items:[
+                    new Ext.Panel({
+                        layout:'form',
+                        border:false,
+                        columnWidth:1,
+                        bodyStyle:'padding:0 18px 0 0',
+                        items:[oP.input]
+                    }),
+                    new Ext.form.FileUploadField({
+                        id : 'azr_category_images_uploadC',
+                        buttonOnly: true,
+                        buttonText: 'Hochladen...',
+                        listeners: {
+                            'fileselected':    function(fb, v){
+                                var u = this;
+                                var f = new Ext.form.FormPanel({
+                                    items:[u]
+                                });
+                                f.getForm().submit({
+                                    url: 'upload.php',
+                                    success: function(fp, o){
+                                        if(Ext.isOpera){
+                                            var x=function(){
+                                                rpcCommand(
+                                                    {
+                                                        command: 'asphyx',
+                                                        aclass: 'com.handelsweise.litestore.category',
+                                                        action : 'get',
+                                                        image_nr: plugin.node.data.image_nr,
+                                                        product: plugin.node.data.products_id,
+                                                    },
+                                                    function (v){
+                                                        plugin.form.form.items.map.url_small.setValue(v.url_small);
+                                                        plugin.form.form.items.map.url_middle.setValue(v.url_middle);
+                                                        plugin.form.form.items.map.url_big.setValue(v.url_big);
+                                                        plugin.imgpanel.reload();
+                                                    }
+                                                );
+                                             };
+                                             x.defer(1);
+                                        }
+                                        else{
+                                            plugin.form.form.items.map.url_small.setValue(o.result.url_small);
+                                            plugin.form.form.items.map.url_middle.setValue(o.result.url_middle);
+                                            plugin.form.form.items.map.url_big.setValue(o.result.url_big);
+                                            plugin.imgpanel.reload();
+                                        }
+                                    },
+                                    failure: function(fp, o){ 
+                                        Ext.Msg.alert('File upload error',
+                                            'The backend rejected this file. It might be too big or in an unsupported format');
+                                    }
+                                });
+                            }
+                        }
+                    })
+                ]
+            });
+            oP.imgPanel=new Ext.Panel({
+                layout:'column',
+                border: false,
+                fieldLabel: construct.fieldLabel,
+                items:[{
+                    border:false,
+                    width:205,
+                    html:construct.fieldLabel+':'
+                },{
+                    border:false,
+                    el: oP.img
+                }],
+                listeners:{
+                    render : function(){
+                        this.body.on('mouseover', function(e) {
+                            oP.imgPanel.disable();
+                            oP.imgPanel.el._mask.addClass('mask-reload-btn');
+                            oP.imgPanel.el._mask.on('mouseout', function(e) {
+                                oP.imgPanel.enable();
+                            });
+                            oP.imgPanel.el._mask.on('click', function(e) {
+                                oP.reload();
+                            });
+                        });
+                    }
+                }
+            });
+            oP.reload= function(){
+                oP.img.src= 'images/kein_bild-thumb.png';
+                var e=oP.input.getValue();
+                if(e!='' && e!=undefined){
+                    var t1=e+'?nocache='+(new Date());
+                    rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(t1)},function (v){
+                        if(v){
+                            oP.img.src= t1;
+                        }
+                        else {
+                            rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(e)},function (v){
+                                if(v){
+                                    oP.img.src=  e;
+                                }                        
+                            });
+                        }
+                    });
+                }
+            };
+            oP.setValue= function(v){
+                oP.input.setValue(v);
+                oP.reload();
+            };
+            oP.getValue= function(v){
+                return oP.input.getValue();
+            };
+            oP.panel= new Ext.Panel({
+                id:construct.id,
+                oP:oP,
+                setValue:oP.setValue,
+                getValue:oP.getValue,
+                border:false,
+                items:[
+                    oP.imgPanel,
+                    oP.inputPanel
+                ],
+                listeners:{
+                    render:function(){
+                        oP.reload();
+                    }
+                }
+            });
+
+            return oP.panel;
+        };
+
+
         plugin.editor = new Ext.form.FormPanel
         ({
             labelWidth: 200,
             defaultType: 'textfield',
             autoScroll: true,
-            items: [ 
-                { 
+            defaults:{
+                border:false
+            },
+            items: [ { 
                     id: 'name',
                     fieldLabel: 'Name',
                     width: '100%'
-                },
-                { 
+                },{ 
                     id: 'heading_title',
                     fieldLabel: 'Überschrift',
                     width: '100%'
                 },
+                newCategoryImage({
+                    id:'image',
+                    fieldLabel: 'Bild',
+                }),
+                newCategoryImage({
+                    id:'teaser',
+                    fieldLabel: 'Teaser',
+                }),
                 new Ext.form.HtmlEditor(
                 { 
                     id: 'description',
@@ -105,6 +260,9 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
                 plugin.editor.items.map.status.setValue(value.status);
                 plugin.editor.items.map.products_sorting_keyCC.setValue(value.products_sorting_key);
                 plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
+                plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
+                plugin.editor.items.map.image.setValue(value.image);
+                plugin.editor.items.map.teaser.setValue(value.teaser);
             }
         );
     },
