@@ -9,6 +9,8 @@ function rpc_asphyx_category($cmd){
                                 categories_meta_title as meta_title,
                                 categories_meta_description as meta_description,
                                 categories_meta_keywords as meta_keywords,
+                                categories_image as image,
+                                categories_teaser as teaser,
                                 products_sorting,
                                 products_sorting_key
                         from    categories as c, 
@@ -45,11 +47,15 @@ function rpc_asphyx_category($cmd){
 
         $q=$db->prepare('update categories
                                 set categories_status = ?,
+                                    categories_image = ?,
+                                    categories_teaser = ?,
                                     products_sorting = ?,
                                     products_sorting_key =?
                         where   categories_id=? ');
         $q->execute(array(
             $cmd['data']['status'],
+            $cmd['data']['image'],
+            $cmd['data']['teaser'],
             $cmd['data']['products_sorting'],
             $cmd['data']['products_sorting_key'],
             $cmd['data']['id']
