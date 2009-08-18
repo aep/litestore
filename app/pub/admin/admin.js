@@ -154,13 +154,14 @@ function module_html(title,uri)
 
 function logout()
 {
-    new Ajax.Request('/logout',
+    Ext.Ajax.request(
     {
-        onSuccess: function(transport)         
+        url:'/logout',
+        success: function(transport)         
         {
             location.reload();
         },
-        onFailure: function(transport)
+        failure: function(transport)
         {
             alert("failure");
         }
