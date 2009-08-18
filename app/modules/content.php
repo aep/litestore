@@ -16,7 +16,7 @@
    Released under the GNU General Public License 
    ---------------------------------------------------------------------------------------*/
 
-require_once (DIR_WS_CLASSES.'azrael.php');
+require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
 
 function module()
 {

@@ -6,7 +6,7 @@ asphyxPluginBuilderExtend('com.asgaartech.asphyx.folder','com.asgaartech.asphyx.
     canDrop:  function(e){
         var newParent=(e.point=='append')?e.target:e.target.parentNode;        
         return newParent==e.dropNode.parentNode;
-    },
+    }
 });
 
 

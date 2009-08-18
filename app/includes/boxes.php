@@ -1,38 +1,10 @@
 <?php
 
-    require_once (DIR_WS_CLASSES.'azrael.php');
+    require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
 
+    $smarty->assign("banner",$azrael->renderPreset('Banner'));
+    $smarty->assign("sidebar",$azrael->renderPreset('Sidebar'));
 
-    include_all_once(DIR_WS_BOXES."*.php");
-
-
-    $r="";
-
-    $bxal=array(
-        "sidebar" => array(
-                'BoxSearch',
-                'BoxCategories',
-                'BoxContent',
-                'BoxAdmin'
-
-        ),
-        "cart" => array(
-                'BoxShoppingCart',
-        ),
-        "banner" => array(
-                'BoxAdsense',
-                'BoxBanner')
-        );
-
-
-    foreach($bxal as $boxarea=>$bxl )
-    {
-        $r="";
-        foreach($bxl as $boxname )
-        {
-            $a= new $boxname;
-            $r.=$a->evaluate();
-        }
-        $smarty->assign($boxarea,$r);
-    }
+    $t=new BoxShoppingCart();
+    $smarty->assign("cart",$t->evaluate());
 ?>

@@ -1,8 +1,9 @@
 <?php
 
-class BoxContent extends AbstractVCBox
+asphyx_regme("com.handelsweise.litestore.sidebar.content","BoxContent");
+class BoxContent extends A2YObject
 {
-    var $classid= "{1784e3c3-0000-4000-824f-76b767236604}";
+    var $classid= "com.handelsweise.litestore.sidebar.content";
     function __construct()
     {
     }

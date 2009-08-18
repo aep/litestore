@@ -1,5 +1,5 @@
 <?php
-class BoxBanner extends AbstractVCBox
+class BoxBanner extends A2YObject
 {
     var $classid= "{1784e3c3-0000-4000-824f-76b767236604}";
     function __construct()
