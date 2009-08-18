@@ -1,23 +1,6 @@
 <?php
-
-/* -----------------------------------------------------------------------------------------
-   $Id: shopping_cart.php 1281 2005-10-03 09:30:17Z mz $   
-
-   ReStore - an XT-Commerce fork to restore sanity
-   http://www.xt-commerce.com
-
-   Copyright (c) 2003 XT-Commerce 
-   -----------------------------------------------------------------------------------------
-   based on: 
-   (c) 2000-2001 The Exchange Project  (earlier name of osCommerce)
-   (c) 2002-2003 osCommerce(shopping_cart.php,v 1.18 2003/02/10); www.oscommerce.com
-   (c) 2003	 nextcommerce (shopping_cart.php,v 1.15 2003/08/17); www.nextcommerce.org 
-
-   Released under the GNU General Public License 
-   ---------------------------------------------------------------------------------------*/
-
-
-class BoxShoppingCart extends AbstractVCBox
+
+class BoxShoppingCart extends A2YObject
 {
     var $classid= "{1784e3c3-0000-4000-824f-76b767236621}";
     function __construct()

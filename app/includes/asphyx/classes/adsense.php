@@ -1,7 +1,9 @@
 <?php
-class BoxAdsense extends AbstractVCBox
+
+asphyx_regme("com.handelsweise.litestore.gadget.adsense","BoxAdsense");
+class BoxAdsense extends A2YObject
 {
-    var $classid= "{1784e3c3-0000-4000-824f-76b767236694}";
+    var $classid= "com.handelsweise.litestore.gadget.adsense";
     function __construct()
     {
     }

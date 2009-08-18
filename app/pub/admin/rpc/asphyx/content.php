@@ -173,4 +173,10 @@ $RPC['asphyx']['com.asgaartech.asphyx.preset']=rpc_asphyx_content;
 $RPC['asphyx']['com.asgaartech.asphyx.conditional.datetime']=rpc_asphyx_content;
 $RPC['asphyx']['com.asgaartech.asphyx.conditional.customergroup']=rpc_asphyx_content;
 $RPC['asphyx']['com.asgaartech.asphyx.conditional.random']=rpc_asphyx_content;
+
+$RPC['asphyx']['com.handelsweise.litestore.sidebar.adminbox']=rpc_asphyx_content;
+$RPC['asphyx']['com.handelsweise.litestore.sidebar.catalog']=rpc_asphyx_content;
+$RPC['asphyx']['com.handelsweise.litestore.sidebar.content']=rpc_asphyx_content;
+$RPC['asphyx']['com.handelsweise.litestore.gadget.adsense']=rpc_asphyx_content;
+
 ?>
