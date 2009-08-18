@@ -93,7 +93,8 @@ function module()
 	    *    search process starts here
 	    */
     
-	    $breadcrumb->add(NAVBAR_TITLE1_ADVANCED_SEARCH, xtc_href_link(FILENAME_ADVANCED_SEARCH));
+	    $breadcrumb->add('Suchergebnis', '');
+
     
 	    require (DIR_WS_INCLUDES.'header.php');
     
