@@ -81,7 +81,7 @@ function rpc_asphyx_category($cmd){
         $retval['aclass']	= 'com.handelsweise.litestore.category';
 
         if($liid)
-            return array('success'=>true,'value'=>$liid);
+            return array('success'=>true,'value'=>$retval);
         else
             return array('success'=>false,'error'=>'cannot get inserted id');
 
