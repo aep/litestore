@@ -6,153 +6,165 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
     },
     construct: function(plugin){
 
-        var newCategoryImage= function(construct){
 
-            var oP = new Object();
-            oP.img = new Image();
-            oP.input = new Ext.form.TextField({ 
-                id: construct.id,
-                labelSeparator: '',
-                fieldLabel: '',
-                anchor:'100%'
-            });
-            oP.inputPanel=new Ext.Panel({
-                border:false,
-                layout:'column',
-                items:[
-                    new Ext.Panel({
-                        layout:'form',
-                        border:false,
-                        columnWidth:1,
-                        bodyStyle:'padding:0 18px 0 0',
-                        items:[oP.input]
-                    }),
-                    new Ext.form.FileUploadField({
-                        id : 'azr_category_images_uploadC',
-                        buttonOnly: true,
-                        buttonText: 'Hochladen...',
-                        listeners: {
-                            'fileselected':    function(fb, v){
-                                var u = this;
-                                var f = new Ext.form.FormPanel({
-                                    items:[u]
-                                });
-                                f.getForm().submit({
-                                    url: 'upload.php',
-                                    success: function(fp, o){
-                                        if(Ext.isOpera){
-                                            var x=function(){
-                                                rpcCommand(
-                                                    {
-                                                        command: 'asphyx',
-                                                        aclass: 'com.handelsweise.litestore.category',
-                                                        action : 'get',
-                                                        image_nr: plugin.node.data.image_nr,
-                                                        product: plugin.node.data.products_id,
-                                                    },
-                                                    function (v){
-                                                        plugin.form.form.items.map.url_small.setValue(v.url_small);
-                                                        plugin.form.form.items.map.url_middle.setValue(v.url_middle);
-                                                        plugin.form.form.items.map.url_big.setValue(v.url_big);
-                                                        plugin.imgpanel.reload();
-                                                    }
-                                                );
-                                             };
-                                             x.defer(1);
-                                        }
-                                        else{
-                                            plugin.form.form.items.map.url_small.setValue(o.result.url_small);
-                                            plugin.form.form.items.map.url_middle.setValue(o.result.url_middle);
-                                            plugin.form.form.items.map.url_big.setValue(o.result.url_big);
-                                            plugin.imgpanel.reload();
-                                        }
-                                    },
-                                    failure: function(fp, o){ 
-                                        Ext.Msg.alert('File upload error',
-                                            'The backend rejected this file. It might be too big or in an unsupported format');
-                                    }
-                                });
-                            }
+
+        var CategoryImage= Ext.extend(Ext.Panel, {
+
+            constructor: function(config) {
+                var CI=this;
+
+                this.init=config;
+
+                this.img = new Image();
+                this.imgpanel=  new Ext.Panel({
+                    border:false,
+                    colspan:2,
+                    items:[new Ext.BoxComponent({el:this.img})]
+                    
+                });
+
+                this.input = new Ext.form.TextField ({
+                    width:'100%'
+                });
+
+                this.uploadfield = new Ext.form.FileUploadField({
+                    id : config.id,
+                    hideLabel:'true',
+                    buttonOnly: true,
+                    buttonText: 'Hochladen...',
+                    listeners: {
+                        'fileselected': function(fb, v){
+                            CI.fileselected(fb,v);
                         }
-                    })
-                ]
-            });
-            oP.imgPanel=new Ext.Panel({
-                layout:'column',
-                border: false,
-                fieldLabel: construct.fieldLabel,
-                items:[{
+                    }       
+                });
+                this.uploadform = new Ext.form.FormPanel ({
+                    labelWidth: 200,
+                    defaultType: 'textfield',
+                    fileUpload: true,
+                    autoScroll: true,
                     border:false,
-                    width:205,
-                    html:construct.fieldLabel+':'
-                },{
-                    border:false,
-                    el: oP.img
-                }],
-                listeners:{
-                    render : function(){
-                        this.body.on('mouseover', function(e) {
-                            oP.imgPanel.disable();
-                            oP.imgPanel.el._mask.addClass('mask-reload-btn');
-                            oP.imgPanel.el._mask.on('mouseout', function(e) {
-                                oP.imgPanel.enable();
-                            });
-                            oP.imgPanel.el._mask.on('click', function(e) {
-                                oP.reload();
-                            });
+                    defaults:{
+                        border:false
+                    },
+                    layout:'column',
+                    items:[
+                        this.uploadfield,
+                        new Ext.form.Hidden({
+                            id :'categories_id',
+                            value : plugin.node.data.categories_id,
+                        }),
+                        new Ext.form.Hidden({
+                            id :'field',
+                            value: config.id
+                        }),
+                        new Ext.form.Hidden({
+                            id :'command',
+                            value: 'uploadCategoryImage'
+                        })
+                    ]
+                });
+
+
+                config = Ext.apply({
+                    id:config.id+'_f',
+                    items:[
+                        this.imgpanel,
+                        this.input,
+                        this.uploadform,
+                    ],
+                    layout:'table',
+                    layoutConfig: {
+                        columns: 2
+                    },
+                    bodyStyle:'padding:10px'
+                }, config);
+
+                CategoryImage.superclass.constructor.call(this, config);
+
+                this.imgpanel.on('render',function(){
+                    CI.reload();
+                    CI.imgpanel.body.on('mouseover',function(e) {
+                        CI.imgpanel.disable();
+            
+                        CI.imgpanel.el._mask.addClass('mask-reload-btn');
+                        CI.imgpanel.el._mask.on('mouseout', function(e) {
+                            CI.imgpanel.enable();
                         });
+                        CI.imgpanel.el._mask.on('click', function(e) {
+                            CI.reload();
+                        });
+                    });
+                });
+
+
+            },
+            fileselected:  function(fb, v){
+                var CI=this;
+                this.uploadform.getForm().submit({
+                    url: 'upload.php',
+                    success: function(fp, o){
+                        if(Ext.isOpera){
+                            var x=function(){
+                                rpcCommand(
+                                    {
+                                        command: 'asphyx',
+                                        aclass: 'com.handelsweise.litestore.category',
+                                        action : 'get',
+                                        categories_id: plugin.node.data.categories_id
+                                    },
+                                    function (value){
+                                        CI.setValue(value[CI.init.id]);
+                                    }
+                                );
+                             };
+                             x.defer(1);
+                        }
+                        else{
+                            CI.input.setValue(o.result.url);
+                            CI.reload.call(CI);
+                        }
+                    },
+                    failure: function(fp, o){ 
+                        Ext.Msg.alert('File upload error',
+                            'The backend rejected this file. It might be too big or in an unsupported format');
                     }
-                }
-            });
-            oP.reload= function(){
-                oP.img.src= 'images/kein_bild-thumb.png';
-                var e=oP.input.getValue();
+                });
+            },
+            reload: function(){
+                var CI=this;
+                this.img.src= 'images/kein_bild-thumb.png';
+                var e=this.input.getValue();
                 if(e!='' && e!=undefined){
                     var t1=e+'?nocache='+(new Date());
                     rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(t1)},function (v){
                         if(v){
-                            oP.img.src= t1;
+                            CI.img.src= t1;
                         }
                         else {
                             rpcCommand({command: 'checkRemoteUrl',url: toAbsURL(e)},function (v){
                                 if(v){
-                                    oP.img.src=  e;
+                                    CI.img.src=  e;
                                 }                        
                             });
                         }
                     });
                 }
-            };
-            oP.setValue= function(v){
-                oP.input.setValue(v);
-                oP.reload();
-            };
-            oP.getValue= function(v){
-                return oP.input.getValue();
-            };
-            oP.panel= new Ext.Panel({
-                id:construct.id,
-                oP:oP,
-                setValue:oP.setValue,
-                getValue:oP.getValue,
-                border:false,
-                items:[
-                    oP.imgPanel,
-                    oP.inputPanel
-                ],
-                listeners:{
-                    render:function(){
-                        oP.reload();
-                    }
-                }
-            });
-
-            return oP.panel;
-        };
+            },
+            setValue: function(v){
+                this.input.setValue(v);
+                this.reload();
+            },
+            getValue: function(v){
+                return this.input.getValue();
+            }
+        });
 
 
-        plugin.editor = new Ext.form.FormPanel
+
+        plugin.baseeditor = new Ext.form.FormPanel
         ({
+            title:'Base',
             labelWidth: 200,
             defaultType: 'textfield',
             autoScroll: true,
@@ -168,14 +180,6 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
                     fieldLabel: 'Überschrift',
                     width: '100%'
                 },
-                newCategoryImage({
-                    id:'image',
-                    fieldLabel: 'Bild',
-                }),
-                newCategoryImage({
-                    id:'teaser',
-                    fieldLabel: 'Teaser',
-                }),
                 new Ext.form.HtmlEditor(
                 { 
                     id: 'description',
@@ -243,6 +247,34 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
             ]
         });
 
+
+
+        plugin.imageditor=new CategoryImage({
+            id:'image',
+            title: 'Bild',
+            labelWidth:'200'
+        });
+        plugin.teasereditor=new  CategoryImage({
+            id:'teaser',
+            title: 'Teaser',
+            labelWidth:'200'
+        })
+
+        plugin.editor=new Ext.Panel({
+            autoScroll: true,
+            items:[
+                plugin.baseeditor,
+                plugin.imageditor,
+                plugin.teasereditor
+
+            ]
+        });
+
+
+
+
+
+
         rpcCommand(
             {
                 command: 'asphyx',
@@ -251,26 +283,31 @@ asphyxPluginBuilder('com.handelsweise.litestore.category',
                 categories_id: plugin.node.data.categories_id
             },
             function (value){
-                plugin.editor.items.map.name.setValue(value.name);
-                plugin.editor.items.map.description.setValue(value.description);
-                plugin.editor.items.map.heading_title.setValue(value.heading_title);
-                plugin.editor.items.map.meta_title.setValue(value.meta_title);
-                plugin.editor.items.map.meta_keywords.setValue(value.meta_keywords);
-                plugin.editor.items.map.meta_description.setValue(value.meta_description);
-                plugin.editor.items.map.status.setValue(value.status);
-                plugin.editor.items.map.products_sorting_keyCC.setValue(value.products_sorting_key);
-                plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
-                plugin.editor.items.map.products_sortingCC.setValue(value.products_sorting);
-                plugin.editor.items.map.image.setValue(value.image);
-                plugin.editor.items.map.teaser.setValue(value.teaser);
+                plugin.baseeditor.items.map.name.setValue(value.name);
+                plugin.baseeditor.items.map.description.setValue(value.description);
+                plugin.baseeditor.items.map.heading_title.setValue(value.heading_title);
+                plugin.baseeditor.items.map.meta_title.setValue(value.meta_title);
+                plugin.baseeditor.items.map.meta_keywords.setValue(value.meta_keywords);
+                plugin.baseeditor.items.map.meta_description.setValue(value.meta_description);
+                plugin.baseeditor.items.map.status.setValue(value.status);
+                plugin.baseeditor.items.map.products_sorting_keyCC.setValue(value.products_sorting_key);
+                plugin.baseeditor.items.map.products_sortingCC.setValue(value.products_sorting);
+                plugin.baseeditor.items.map.products_sortingCC.setValue(value.products_sorting);
+                plugin.imageditor.setValue(value.image);
+                plugin.teasereditor.setValue(value.teaser);
             }
         );
+
     },
     save :  function(plugin){
-        plugin.editor.items.map.description.syncValue();
-        plugin.data=plugin.editor.getForm().getValues();
+        plugin.baseeditor.items.map.description.syncValue();
+        plugin.data=plugin.baseeditor.getForm().getValues();
         plugin.data.id=plugin.node.data.categories_id;
-        plugin.node.setText(plugin.editor.items.map.name.getValue());
+
+        plugin.data.image=plugin.imageditor.getValue();
+        plugin.data.teaser=plugin.teasereditor.getValue();
+
+        plugin.node.setText(plugin.baseeditor.items.map.name.getValue());
         rpcCommand({ command: 'asphyx',aclass: 'com.handelsweise.litestore.category', action : 'set', data: plugin.data });
     },
     createNode:  function(node){
