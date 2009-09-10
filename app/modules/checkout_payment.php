@@ -29,10 +29,17 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
+
+require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
+
+
 function module()
 {
     $smarty=new Smarty;
     global $breadcrumb,$main,$order;
+
+    require_once (DIR_WS_CLASSES . 'payment.php');
+
 
     require_once (DIR_FS_INC . 'xtc_get_address_format_id.inc.php');
     require_once (DIR_FS_INC . 'xtc_check_stock.inc.php');
