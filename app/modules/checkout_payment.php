@@ -29,7 +29,6 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
-require_once (DIR_WS_CLASSES.'azrael.php');
 function module()
 {
     $smarty=new Smarty;
