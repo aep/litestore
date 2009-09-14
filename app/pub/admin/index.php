@@ -7,6 +7,7 @@
     <script type="text/javascript" src="/pub/javascript/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="/pub/javascript/ext-all-debug.js"></script>
     <script type="text/javascript" src="/pub/javascript/fileuploadfield.js"></script>
+    <script type="text/javascript" src="/pub/javascript/MultiSelectTree-1.1.js"></script>
     <script type="text/javascript" src="/pub/javascript/miframe.js"></script>
     <link rel="stylesheet" type="text/css"	href="/pub/javascript/resources/css/ext-all.css" >
     <link rel="stylesheet" type="text/css" href="images/stylesheet.css">

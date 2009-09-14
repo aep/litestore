@@ -53,7 +53,8 @@ function module_besatt()
     });
 
 
-    module.tree = new Ext.tree.TreePanel
+
+    module.tree = new Ext.ux.MultiSelectTreePanel
     ({
         collapsible     : false,
         animCollapse    : false,
@@ -96,84 +97,131 @@ function module_besatt()
 
 
     module.tree.on('nodedragover',function(  e ){
-        return asphyxRegistry[e.dropNode.aclass].canDrop(e);
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;        
+        var acc=asphyxRegistry[newParent.aclass].acceptedChildClasses();
+        for (i in e.data.nodes){
+            if(e.data.nodes[i].aclass==undefined)
+                continue;
+            var ok=false;
+            for (j in acc){
+                if(e.data.nodes[i].aclass==acc[j]){
+                    ok=true;
+                    break;
+                }
+            }
+            if(!ok)
+                return false;
+        }
+        return true;
     });
 
 
     module.tree.on('beforenodedrop',function(e){
-        return asphyxRegistry[e.dropNode.aclass].drop(e);
+
+        var caclass=e.data.nodes[0].aclass;
+        for(var i=1;i<e.data.nodes.length;i++){
+            if(e.data.nodes[i].aclass!=caclass){
+                caclass=false;
+                break;
+            }
+        }
+        if(caclass){
+            return asphyxRegistry[caclass].drop(e);
+        }
+        else{
+            return AbstractPlugin.drop(e);
+        }
+
+
     });
-  
-    module.tree.getSelectionModel().on('selectionchange',function(that,node)
-    {
-        if(!node){
+
+
+
+
+
+    module.tree.getSelectionModel().on('selectionchange',function(that,nodes){
+
+
+
+        if(nodes.length==0){
             module.center.remove(0);
             module.toolbar.disable();
             return;
-        }
+        }  
+
+
+        module.center.remove(0);
         module.toolbar.enable();
-        if(!asphyxRegistry[node.aclass]){
-            throw ("unknown entity "+node.aclass);
-        }
-
-//        if(plugin) plugin.save(plugin);
-
 
 
         module.addmenu.removeAll();
         module.addbtn.disable();
-        var l=asphyxRegistry[node.aclass].acceptedChildClasses();
-	    for(var i=0;i<l.length;i++){
-            if(!asphyxRegistry[l[i]])
-                continue;
-            module.addbtn.enable();
-            var x=asphyxRegistry[l[i]].name.en;
-            if(asphyxRegistry[l[i]].name.de){
-                x=asphyxRegistry[l[i]].name.de;
+        module.savebtn.disable();
+
+        var delenabled=true;
+        for(var i=0;i<nodes.length;i++){
+	        if (!nodeAllowedTo(nodes[i],'remove')){
+               delenabled=false;
+                break; 
             }
-            var b=new Ext.menu.Item({text:x,handler:function(button){
-                var sel=module.tree.getSelectionModel().getSelectedNode();
-                if(!sel)
-                    sel=module.tree.root;
-                asphyxRegistry[button.aclass].createNode(sel);
-            }});
-            b.aclass=l[i];
-            module.addmenu.add(b);
         }
-
-
-        module.plugin=new Object();
-        module.plugin.node=node;
-        asphyxRegistry[node.aclass].construct(module.plugin);
-
-        module.plugin.editor.region='center';
-
-
-        if (!nodeAllowedTo(node,'write')){
-            module.plugin.editor.disable();
-        }
-
-        if (nodeAllowedTo(node,'remove')){
+        if(delenabled)
             module.delbtn.enable();
-        }
-        else{
+        else
             module.delbtn.disable();
-        }
-
-        if (nodeAllowedTo(node,'save')){
-            module.savebtn.enable();
-        }
-        else{
-            module.savebtn.disable();
-        }
-   
 
 
-        module.center.remove(0);
-        module.center.add(module.plugin.editor);
-        module.center.getLayout().setActiveItem(0);
-        module.center.doLayout(); 
+
+
+        if(nodes.length==1){
+
+
+            var node=nodes[0];
+            
+            if(!asphyxRegistry[node.aclass]){
+                throw ("unknown entity "+node.aclass);
+            }
+
+            var l=asphyxRegistry[node.aclass].acceptedChildClasses();
+	        for(var i=0;i<l.length;i++){
+                if(!asphyxRegistry[l[i]])
+                    continue;
+                module.addbtn.enable();
+                var x=asphyxRegistry[l[i]].name.en;
+                if(asphyxRegistry[l[i]].name.de){
+                    x=asphyxRegistry[l[i]].name.de;
+                }
+                var b=new Ext.menu.Item({text:x,handler:function(button){
+                    asphyxRegistry[button.aclass].createNode(node);
+                }});
+                b.aclass=l[i];
+                module.addmenu.add(b);
+            }
+
+
+            module.plugin=new Object();
+            module.plugin.node=node;
+            asphyxRegistry[node.aclass].construct(module.plugin);
+
+            module.plugin.editor.region='center';
+
+
+
+            if (!nodeAllowedTo(node,'write')){
+                module.plugin.editor.disable();
+            }
+
+            if (nodeAllowedTo(node,'save')){
+                module.savebtn.enable();
+            }
+
+            module.center.remove(0);
+            module.center.add(module.plugin.editor);
+            module.center.getLayout().setActiveItem(0);
+            module.center.doLayout(); 
+        }        
     });
+
 
 
     module.addmenu=new Ext.menu.Menu();
@@ -187,10 +235,10 @@ function module_besatt()
         text: 'Löschen', 
         iconCls:'icon_remove', 
         handler: function(){
-            var n =module.tree.getSelectionModel().getSelectedNode();
-            Ext.Msg.confirm('Entfernen', 'Wirklich Knoten "'+n.text+'" mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
+            var n =module.tree.getSelectionModel().getSelectedNodes();
+            Ext.Msg.confirm('Entfernen', 'Wirklich Knoten mit allen Unterknoten Löschen?  (Kein Zurück!).',function(btn, text){
                 if (btn == 'yes'){
-                    asphyxRegistry[n.aclass].removeNode(n);
+                    AbstractPlugin.removeNodes(n);
                 }
             });
         }

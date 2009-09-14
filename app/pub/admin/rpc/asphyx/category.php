@@ -87,26 +87,25 @@ function rpc_asphyx_category($cmd){
 
     }
     else if ($cmd['action']=='delete'){
-        if($cmd['category']<2){
+        if($cmd['subject']['categories_id']<2){
             return array('success'=>'false','value'=>null,'error'=>'Cannot delete root');
         }
         $q=$db->prepare('select products_id from products_to_categories where categories_id=?');
-        $q->execute(array($cmd['category']));
+        $q->execute(array($cmd['subject']['categories_id']));
         while($x=$q->fetch()){
             $a=array();
             $a['command']='asphyx';
-            $a['category']=$cmd['category'];
-            $a['product']=$x['products_id'];
             $a['aclass']='com.handelsweise.litestore.product';
+            $a['data']['products_id']=$x['products_id'];
             $a['action']='delete';
             $c=f($a);
             if(!$c['success'])
                 return array('success'=>'false','value'=>null,'error'=>$c['error']);
         }
         $q=$db->prepare('delete from categories where categories_id=?');
-        $q->execute(array($cmd['category']));
+        $q->execute(array($cmd['subject']['categories_id']));
         $q=$db->prepare('delete from categories_description where categories_id=?');
-        $q->execute(array($cmd['category']));
+        $q->execute(array($cmd['subject']['categories_id']));
         return array('success'=>true);
     }
     else if ($cmd['action']=='move'){
@@ -114,30 +113,30 @@ function rpc_asphyx_category($cmd){
 
         //build sorted array of categories in the new parent excluding subject
         $q=$db->prepare('select categories_id from categories where parent_id=? order by `sort_order`'); 
-        $q->execute(array($cmd['parentNew']));
+        $q->execute(array($cmd['parentNew']['categories_id']));
         $m=array();
         while($x=$q->fetch()){  
-            if($x['categories_id']==$cmd['category'])
+            if($x['categories_id']==$cmd['subject']['categories_id'])
                 continue;
             $m[]=$x['categories_id'];
         }
 
         //stuff it in
         if($cmd['relative']=='append'){
-            $m[]=$cmd['category'];
+            $m[]=$cmd['subject']['categories_id'];
         }
         else if($cmd['relative']=='below' ){
-            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['category']);
+            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['subject']['categories_id']);
         }
         else if($cmd['relative']=='above'){
-            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['category']);
+            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['subject']['categories_id']);
         }
 
         //move the subject below the new parent
         $q=$db->prepare('update categories set  parent_id=? where categories_id=?'); 
         $q->execute(array(
-                $cmd['parentNew'],
-                $cmd['category']
+                $cmd['parentNew']['categories_id'],
+                $cmd['subject']['categories_id']
             ));
 
         //and apply sorting
@@ -147,7 +146,8 @@ function rpc_asphyx_category($cmd){
             ++$i;
             $q->execute(array($i,$id));
         }
-        return array('success'=>true);
+        
+        return array('success'=>$db->commit());
     }
     else if ($cmd['action']=='list'){
 

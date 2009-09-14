@@ -41,6 +41,8 @@ function nodeAllowedTo(node,cap){
 
 
 var AbstractPlugin={
+    canlink:false,
+    cancopy:false,
     name : {
         en: 'Abstract'
     },
@@ -72,11 +74,117 @@ var AbstractPlugin={
             }
         );
     },
-    canDrop:  function(e){
-        return false;
+    removeNodes:  function(nodes){
+        var cmds=[];
+        for(var i=0;i<nodes.length;i++){
+            cmds.push({
+                command: 'asphyx',
+                aclass: nodes[i].aclass,
+                action : 'delete',
+                subject: nodes[i].data
+            });
+        }
+        rpcCommands(cmds,function (value){
+            nodes[0].parentNode.select();
+            for(var i=0;i<nodes.length;i++){            
+                nodes[i].remove();
+            }
+        });
     },
     drop: function (e){
-        return false;
+        var that=this;
+        var newParent=(e.point=='append')?e.target:e.target.parentNode;
+        if (e.data.nodes[0].parentNode==newParent ||  (!this.canlink && !this.cancopy) ){
+            var cmds=[];
+            for(var i=0;i<e.data.nodes.length;i++){
+                cmds.push({
+                    command: 'asphyx',
+                    aclass: e.data.nodes[i].aclass,
+                    action : 'move',
+                    relative: e.point,
+                    relativeTo: e.target.data,
+                    parentOld: e.data.nodes[i].parentNode.data,
+                    parentNew: newParent.data,
+                    subject: e.data.nodes[i].data
+                });
+            }
+            rpcCommands(cmds,function (value){
+            });
+            return true;
+        }
+        else{
+
+            var ctitems=[];
+
+            ctitems.push({text:'Verschieben',handler:function(){
+                var cmds=[];
+                for(var i=0;i<e.data.nodes.length;i++){
+                    cmds.push({
+                        command: 'asphyx',
+                        aclass: e.data.nodes[i].aclass,
+                        action : 'move',
+                        relative: e.point,
+                        relativeTo: e.target.data,
+                        parentOld: e.data.nodes[i].parentNode.data,
+                        parentNew: newParent.data,
+                        subject: e.data.nodes[i].data
+                    });
+                    e.data.nodes[i].parentNode.removeChild(e.data.nodes[i]);
+                }
+
+                rpcCommands(cmds,function (value){
+                    newParent.reload();
+                });
+            }});
+            if(this.cancopy==true){            
+                ctitems.push({text:'Kopieren',handler:function(){
+                    var cmds=[];
+                    for(var i=0;i<e.data.nodes.length;i++){
+                        cmds.push({
+                            command: 'asphyx',
+                            aclass: e.data.nodes[i].aclass,
+                            action : 'copy',
+                            relative: e.point,
+                            relativeTo: e.target.data,
+                            parentOld: e.data.nodes[i].parentNode.data,
+                            parentNew: newParent.data,
+                            subject: e.data.nodes[i].data
+                        });
+                    }
+                    rpcCommands(cmds,function (value){
+                        newParent.reload();
+                    });
+                }});
+            }
+            if(this.canlink==true){
+                ctitems.push({text:'Verlinken',handler:function(){
+                    var cmds=[];
+                    for(var i=0;i<e.data.nodes.length;i++){
+                        cmds.push({
+                            command: 'asphyx',
+                            aclass: e.data.nodes[i].aclass,
+                            action : 'link',
+                            relative: e.point,
+                            relativeTo: e.target.data,
+                            parentOld: e.data.nodes[i].parentNode.data,
+                            parentNew: newParent.data,
+                            subject: e.data.nodes[i].data
+                        });
+                    }
+                    rpcCommands(cmds,function (value){
+                        newParent.reload();
+                    });
+                }});
+            }
+
+
+            var ctx=new Ext.menu.Menu({
+                items:ctitems
+            });
+            ctx.show(e.target.ui.getAnchor());
+            e.dropStatus=true;
+            return false;
+        }
     }
 }
 

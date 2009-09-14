@@ -48,7 +48,7 @@ function rpc_asphyx_product_image($cmd){
     }
     else if ($cmd['action']=='move'){
         $q=$db->prepare('select image_nr from products_images where products_id=?'); 
-        $q->execute(array($cmd['productNew']));
+        $q->execute(array($cmd['parentNew']['products_id']));
         $m=array();
         while($x=$q->fetch()){  
             $m[]=$x['image_nr'];
@@ -60,9 +60,9 @@ function rpc_asphyx_product_image($cmd){
             $q=$db->prepare('update products_images set image_nr=?, products_id=? where image_nr=? and products_id=?'); 
             $q->execute(array(
                 ($m[sizeof($m)-2])+1,
-                $cmd['productNew'],
-                $cmd['nrOld'],
-                $cmd['productOld']
+                $cmd['parentNew']['products_id'],
+                $cmd['subject']['image_nr'],
+                $cmd['parentOld']['products_id']
             ));
         }
         else if($cmd['relative']=='below' || $cmd['relative']=='above'){
@@ -75,8 +75,8 @@ function rpc_asphyx_product_image($cmd){
             $q=$db->prepare('update products_images set  products_id=? where image_nr=? and products_id=?'); 
             $q->execute(array(
                 $tmpprod,
-                $cmd['nrOld'],
-                $cmd['productOld']
+                $cmd['subject']['image_nr'],
+                $cmd['parentOld']['products_id']
             ));
             
             //move all one down
@@ -86,7 +86,7 @@ function rpc_asphyx_product_image($cmd){
                     $q->execute(array(
                         $x+1,
                         $x,
-                        $cmd['productNew']
+                        $cmd['parentNew']['products_id']
                     ));
                 }
             }
@@ -94,8 +94,8 @@ function rpc_asphyx_product_image($cmd){
             $q=$db->prepare('update products_images set image_nr=?, products_id=? where image_nr=? and products_id=?'); 
             $q->execute(array(
                 ($cmd['relative']=='below')?($cmd['relativeTo']+1):$cmd['relativeTo'],
-                $cmd['productNew'],
-                $cmd['nrOld'],
+                $cmd['parentNew']['products_id'],
+                $cmd['subject']['image_nr'],
                 $tmpprod
             ));
             $db->commit();

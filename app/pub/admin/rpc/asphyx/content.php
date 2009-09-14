@@ -1,4 +1,17 @@
 <?php
+
+function rpc_asphyx_content_p_d_p($p){
+    global $db;
+    $q=$db->prepare('SELECT `id` from `content` where `parent`=?');
+    $q->execute(array($p));
+    while($row=$q->fetch()){        
+        rpc_asphyx_content_p_d_p($row['id']);
+    }
+    $q=$db->prepare('delete from `content` where `id`=?');
+    $q->execute(array($p));            
+}
+
+
 function rpc_asphyx_content($cmd){
     global $db;
 
@@ -79,20 +92,9 @@ function rpc_asphyx_content($cmd){
             return array('success'=>false,'error'=>'cannot get inserted id');
     }
     else if($cmd['action']=='delete'){
-        if($cmd['data']['id']==1 || $cmd['data']['id']==0 )
-            return array('success'=>false,'error'=>'access violation'); 
-
-        function d_p($p){
-            global $db;
-            $q=$db->prepare('SELECT `id` from `content` where `parent`=?');
-            $q->execute(array($p));
-            while($row=$q->fetch()){        
-                d_p($row['id']);
-            }
-            $q=$db->prepare('delete from `content` where `id`=?');
-            $q->execute(array($p));            
-        }
-        d_p($cmd['data']['id']);
+        if($cmd['subject']['id']==1 || $cmd['subject']['id']==0 )
+            return array('success'=>false,'error'=>'access violation');
+        rpc_asphyx_content_p_d_p($cmd['subject']['id']);
         return array('success'=>true,'value'=>true);
     }
     else if ($cmd['action']=='move' || $cmd['action']=='copy'){
