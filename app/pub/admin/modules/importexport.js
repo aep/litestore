@@ -3,10 +3,6 @@ menus.importexport.menu.add(
     {
         text: 'Export',
         handler: function() {module_iframe('Export','/admin/export.php');}
-    },
-    {
-        text: 'Import',
-        handler: function() {module_iframe('Import','/admin/csv_backend.php');}
     }
 );
 
