@@ -1,4 +1,6 @@
 asphyxPluginBuilder('com.handelsweise.litestore.product',{
+    cancopy:true,
+    canlink:true,
     name: { 
         en:'Product',
         de:'Produkt'
@@ -167,98 +169,10 @@ asphyxPluginBuilder('com.handelsweise.litestore.product',{
             }
         );
     },
-    canDrop:  function(e){
-        var newParent=(e.point=='append')?e.target:e.target.parentNode;        
-        return (newParent.aclass=='com.handelsweise.litestore.category');
-    },
     acceptedChildClasses: function (){
         return [
             'com.handelsweise.litestore.product_image'
         ];
-    },
-    drop: function (e){
-        var newParent=(e.point=='append')?e.target:e.target.parentNode;
-
-        if (e.dropNode.parentNode==newParent){
-            rpcCommand(
-                {
-                    command: 'asphyx',
-                    aclass: 'com.handelsweise.litestore.product',
-                    action : 'move',
-                    relative: e.point,
-                    relativeTo: e.target.data.products_id,
-                    parentOld: e.dropNode.parentNode.data.categories_id,
-                    parentNew: newParent.data.categories_id,
-                    product: e.dropNode.data.products_id
-                },
-                function (value){
-                }
-            );
-            return true;
-        }
-        else{
-            var ctx=new Ext.menu.Menu({
-                items:[
-                    {text:'Verschieben',handler:function(){
-                            rpcCommand(
-                                {
-                                    command: 'asphyx',
-                                    aclass: 'com.handelsweise.litestore.product',
-                                    action : 'move',
-                                    relative: e.point,
-                                    relativeTo: e.target.data.products_id,
-                                    parentOld: e.dropNode.parentNode.data.categories_id,
-                                    parentNew: newParent.data.categories_id,
-                                    product: e.dropNode.data.products_id
-                                },
-                                function (value){
-                                    e.dropNode.parentNode.removeChild(e.dropNode);
-                                    newParent.reload();
-                                }
-                        );
-                    }},
-                    {text:'Verlinken',handler:function(){
-                        rpcCommand(
-                            {
-                                command: 'asphyx',
-                                aclass: 'com.handelsweise.litestore.product',
-                                action : 'link',
-                                relative: e.point,
-                                relativeTo: e.target.data.products_id,
-                                parentOld: e.dropNode.parentNode.data.categories_id,
-                                parentNew: newParent.data.categories_id,
-                                product: e.dropNode.data.products_id
-                            },
-                            function (value){
-                                newParent.reload();
-                            }                        
-                        );
-                    }},
-                    {text:'Kopieren',handler:function(){
-                            rpcCommand(
-                                {
-                                    command: 'asphyx',
-                                    aclass: 'com.handelsweise.litestore.product',
-                                    action : 'copy',
-                                    relative: e.point,
-                                    relativeTo: e.target.data.products_id,
-                                    parentOld: e.dropNode.parentNode.data.categories_id,
-                                    parentNew: newParent.data.categories_id,
-                                    product: e.dropNode.data.products_id
-                                },
-                                function (value){
-                                    newParent.reload();
-                                }
-                        );
-                    }}
-                ]
-            });
-            ctx.show(e.dropNode.ui.getAnchor());
-            e.dropStatus=true;
-            return false;
-
-        }
-
     }
 });
 

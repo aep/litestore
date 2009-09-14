@@ -135,23 +135,19 @@ function rpc_asphyx_product($cmd){
             return array('success'=>false,'error'=>'cannot get inserted id');
     }
     else if ($cmd['action']=='delete'){
-        $q=$db->prepare('delete from products_to_categories where products_id=? and categories_id=?');
-        $retok=($q->execute(array($cmd['product'],$cmd['category']))!=false);
+        $q=$db->prepare('delete from products_to_categories where products_id=?');
+        $retok=($q->execute(array($cmd['subject']['products_id']))!=false);
 
-        $q=$db->prepare('select COUNT(*) from products_to_categories where products_id=?');
-        $retok=($q->execute(array($cmd['product']))!=false);
-        $x=$q->fetch();
-        $x=$x['COUNT(*)'];
-        if($x==0){
-            $q=$db->prepare('delete from products where products_id=?');
-            $q->execute(array($cmd['product']));
-            $q=$db->prepare('delete from products_description where products_id=?');
-            $q->execute(array($cmd['product']));
-            $q=$db->prepare('delete from products_images where products_id=?');
-            $q->execute(array($cmd['product']));
-            $q=$db->prepare('delete from prices where products_id=?');
-            $q->execute(array($cmd['product']));
-        }
+
+        $q=$db->prepare('delete from products where products_id=?');
+        $q->execute(array($cmd['subject']['products_id']));
+        $q=$db->prepare('delete from products_description where products_id=?');
+        $q->execute(array($cmd['subject']['products_id']));
+        $q=$db->prepare('delete from products_images where products_id=?');
+        $q->execute(array($cmd['subject']['products_id']));
+        $q=$db->prepare('delete from prices where products_id=?');
+        $q->execute(array($cmd['subject']['products_id']));
+
         return array('success'=>true);
     }
     else if ($cmd['action']=='list'){
@@ -179,7 +175,7 @@ function rpc_asphyx_product($cmd){
         if ($cmd['action']=='copy'){
             //make a copy of this, with different products_model and products_id
             $q=$db->prepare('select *  from products where products_id=?'); 
-            $q->execute(array($cmd['product']));
+            $q->execute(array($cmd['subject']['products_id']));
             $x=$q->fetchObject();
             
             $keys=array();
@@ -206,7 +202,7 @@ function rpc_asphyx_product($cmd){
 
             //copy products_description as well
             $q=$db->prepare('select *  from products_description where products_id=?');
-            $q->execute(array($cmd['product']));
+            $q->execute(array($cmd['subject']['products_id']));
         
             while(true){
                 try{$x=$q->fetch(PDO::FETCH_ASSOC);}catch(Exception $e){break;};
@@ -227,7 +223,7 @@ function rpc_asphyx_product($cmd){
                 $q=$db->prepare('insert into  products_description ('.implode(',',$keys).') values ('.implode(',',$qvals).')');
                 $q->execute($vals);       
             }
-            $cmd['product']=$newcopy;
+            $cmd['subject']['products_id']=$newcopy;
         }
 
 
@@ -237,37 +233,37 @@ function rpc_asphyx_product($cmd){
 
         $q=$db->prepare('select p.products_id from products as p, products_to_categories as c 
                          where p.products_id=c.products_id and c.categories_id=? order by `products_sort`'); 
-        $q->execute(array($cmd['parentNew']));
+        $q->execute(array($cmd['parentNew']['categories_id']));
         $m=array();
         while($x=$q->fetch()){  
-            if($x['products_id']==$cmd['product'])
+            if($x['products_id']==$cmd['subject']['products_id'])
                 continue;
             $m[]=$x['products_id'];
         }
 
         //stuff it in
         if($cmd['relative']=='append'){
-            $m[]=$cmd['product'];
+            $m[]=$cmd['subject']['products_id'];
         }
         else if($cmd['relative']=='below' ){
-            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['product']);
+            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m)+1,$cmd['subject']['products_id']);
         }
         else if($cmd['relative']=='above'){
-            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['product']);
+            $m=arrayInsert($m,array_search($cmd['relativeTo'],$m),$cmd['subject']['products_id']);
         }
 
         if($cmd['action']=='move' ){
             $q=$db->prepare('delete from products_to_categories where products_id=? and categories_id=?'); 
             $q->execute(array(
-                    $cmd['product'],
-                    $cmd['parentOld']
+                    $cmd['subject']['products_id'],
+                    $cmd['parentOld']['categories_id']
                 ));
         }
 
         $q=$db->prepare('insert into products_to_categories (products_id,categories_id) values (?,?)'); 
         $q->execute(array(
-                $cmd['product'],
-                $cmd['parentNew']
+                $cmd['subject']['products_id'],
+                $cmd['parentNew']['categories_id']
             ));
 
         //and apply sorting
@@ -278,7 +274,7 @@ function rpc_asphyx_product($cmd){
             $q->execute(array($i,$id));
         }
     }
-    return array('success'=>true);
+    return array('success'=>$db->commit());
 }
 
 $RPC['asphyx']['com.handelsweise.litestore.product']=rpc_asphyx_product;

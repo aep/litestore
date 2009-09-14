@@ -191,6 +191,21 @@ function rpcCommand(command,callback){
     });
 }
 
+function rpcCommands(commands,callback){
+    Ext.Ajax.request({
+        url: '/admin/rpc.php',  
+        jsonData : commands,
+        success: function(transport)
+        {
+            var o=Ext.util.JSON.decode(transport.responseText);
+            callback(o);
+        },
+        failure: function(transport)
+        {
+                throw 'RPC command not succesfull: Transport error ';
+        }
+    });
+}
 
 
 

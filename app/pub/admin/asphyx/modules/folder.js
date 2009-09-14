@@ -1,4 +1,5 @@
 asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
+    cancopy:true,
     name: { 
         en:'Folder',
         de:'Ordner'
@@ -36,105 +37,15 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             }
         );
     },
-    removeNode:  function(node){
-        rpcCommand({
-                command: 'asphyx',
-                aclass: this.aclass,
-                action : 'delete',
-                data: node.data
-            },
-            function (value){
-                node.parentNode.select();
-                node.remove();
-            }
-        );
-    },
     acceptedChildClasses: function (){
         return [
             'com.asgaartech.asphyx.static',
             'com.asgaartech.asphyx.folder',
             'com.asgaartech.asphyx.conditional.datetime',
             'com.asgaartech.asphyx.conditional.customergroup',
-            'com.asgaartech.asphyx.conditional.random'
+            'com.asgaartech.asphyx.conditional.random',
+            'com.asgaartech.asphyx.preset'
         ];
-    },
-    canDrop:  function(e){
-        var newParent=(e.point=='append')?e.target:e.target.parentNode;        
-        return ( newParent.aclass=='com.asgaartech.asphyx.folder' || 
-                 newParent.aclass=='com.asgaartech.asphyx.preset' ||
-                 newParent.aclass=='com.asgaartech.asphyx.conditional.datetime' ||
-                 newParent.aclass=='com.asgaartech.asphyx.conditional.customergroup' ||
-                 newParent.aclass=='com.asgaartech.asphyx.conditional.random' 
-                );
-    },
-    drop: function (e){
-
-        var that=this;
-
-        var newParent=(e.point=='append')?e.target:e.target.parentNode;
-
-        if (e.dropNode.parentNode==newParent){
-            rpcCommand({
-                    command: 'asphyx',
-                    aclass: that.aclass,
-                    action : 'move',
-                    relative: e.point,
-                    relativeTo: e.target.data,
-                    parentOld: e.dropNode.parentNode.data,
-                    parentNew: newParent.data,
-                    subject: e.dropNode.data
-                },
-                function (value){
-                }
-            );
-            return true;
-        }
-        else{
-            var ctx=new Ext.menu.Menu({
-                items:[
-                    {text:'Verschieben',handler:function(){
-                            rpcCommand(
-                                {
-                                    command: 'asphyx',
-                                    aclass: that.aclass,
-                                    action : 'move',
-                                    relative: e.point,
-                                    relativeTo: e.target.data,
-                                    parentOld: e.dropNode.parentNode.data,
-                                    parentNew: newParent.data,
-                                    subject: e.dropNode.data
-                                },
-                                function (value){
-                                    e.dropNode.parentNode.removeChild(e.dropNode);
-                                    newParent.reload();
-                                }
-                        );
-                    }},
-                    {text:'Kopieren',handler:function(){
-                            rpcCommand(
-                                {
-                                    command: 'asphyx',
-                                    aclass: that.aclass,
-                                    action : 'copy',
-                                    relative: e.point,
-                                    relativeTo: e.target.data,
-                                    parentOld: e.dropNode.parentNode.data,
-                                    parentNew: newParent.data,
-                                    subject: e.dropNode.data
-                                },
-                                function (value){
-                                    newParent.reload();
-                                }
-                        );
-                    }}
-                ]
-            });
-            ctx.show(e.dropNode.ui.getAnchor());
-            e.dropStatus=true;
-            return false;
-
-        }
-
     }
 });
 

@@ -49,7 +49,7 @@
             return $RPC[$cmd['command']]['handler']($cmd);
         }
         catch (Exception $e){
-            return array('success'=>false,'error'=>$e);
+            return array('success'=>false,'error'=>array('exception'=>$e->getMessage()));
         }
     }
 
