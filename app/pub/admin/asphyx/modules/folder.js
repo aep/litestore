@@ -44,7 +44,11 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             'com.asgaartech.asphyx.conditional.datetime',
             'com.asgaartech.asphyx.conditional.customergroup',
             'com.asgaartech.asphyx.conditional.random',
-            'com.asgaartech.asphyx.preset'
+            'com.asgaartech.asphyx.preset',
+            'com.handelsweise.litestore.sidebar.blogs',
+            'com.handelsweise.litestore.sidebar.adminbox',
+            'com.handelsweise.litestore.sidebar.content',
+            'com.handelsweise.litestore.sidebar.catalog'
         ];
     }
 });

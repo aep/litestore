@@ -44,6 +44,7 @@
     <script type="text/javascript" src="/pub/admin/asphyx/modules/random.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/boxes.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/adsense.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/blogs.js"></script>
 </head>
 <body>
 
