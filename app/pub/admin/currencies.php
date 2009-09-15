@@ -46,11 +46,11 @@
           xtc_db_perform(TABLE_CURRENCIES, $sql_data_array);
           $currency_id = xtc_db_insert_id();
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_CURRENCIES, $sql_data_array, 'update', "currencies_id = '" . xtc_db_input($currency_id) . "'");
+          xtc_db_perform(TABLE_CURRENCIES, $sql_data_array, 'update', "currencies_id = '" . (int)($currency_id) . "'");
         }
 
         if ($_POST['default'] == 'on') {
-          xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($code) . "' where configuration_key = 'DEFAULT_CURRENCY'");
+          xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . ($code) . "' where configuration_key = 'DEFAULT_CURRENCY'");
         }
         xtc_redirect(xtc_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $currency_id));
         break;
@@ -64,7 +64,7 @@
           xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
         }
 
-        xtc_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . xtc_db_input($currencies_id) . "'");
+        xtc_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . (int)($currencies_id) . "'");
 
         xtc_redirect(xtc_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page']));
         break;
@@ -91,7 +91,7 @@
       case 'delete':
         $currencies_id = xtc_db_prepare_input($_GET['cID']);
 
-        $currency_query = xtc_db_query("select code from " . TABLE_CURRENCIES . " where currencies_id = '" . xtc_db_input($currencies_id) . "'");
+        $currency_query = xtc_db_query("select code from " . TABLE_CURRENCIES . " where currencies_id = '" . (int)($currencies_id) . "'");
         $currency = xtc_db_fetch_array($currency_query);
 
         $remove_currency = true;
