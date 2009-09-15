@@ -164,7 +164,7 @@ function rpc_asphyx_content($cmd){
             $q->execute(array($i,$id));
         }
 
-        return array('success'=>true,'value'=>true);
+        return array('success'=>$db->commit(),'value'=>true);
     }
     return array('success'=>false,'error'=>'Unknown action');
 }
