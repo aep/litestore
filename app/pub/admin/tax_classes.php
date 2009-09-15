@@ -24,7 +24,7 @@
         $tax_class_description = xtc_db_prepare_input($_POST['tax_class_description']);
         $date_added = xtc_db_prepare_input($_POST['date_added']);
 
-        xtc_db_query("insert into " . TABLE_TAX_CLASS . " (tax_class_title, tax_class_description, date_added) values ('" . xtc_db_input($tax_class_title) . "', '" . xtc_db_input($tax_class_description) . "', now())");
+        xtc_db_query("insert into " . TABLE_TAX_CLASS . " (tax_class_title, tax_class_description, date_added) values ('" . ($tax_class_title) . "', '" . $tax_class_description . "', now())");
         xtc_redirect(xtc_href_link(FILENAME_TAX_CLASSES));
         break;
 
@@ -34,14 +34,14 @@
         $tax_class_description = xtc_db_prepare_input($_POST['tax_class_description']);
         $last_modified = xtc_db_prepare_input($_POST['last_modified']);
 
-        xtc_db_query("update " . TABLE_TAX_CLASS . " set tax_class_id = '" . xtc_db_input($tax_class_id) . "', tax_class_title = '" . xtc_db_input($tax_class_title) . "', tax_class_description = '" . xtc_db_input($tax_class_description) . "', last_modified = now() where tax_class_id = '" . xtc_db_input($tax_class_id) . "'");
+        xtc_db_query("update " . TABLE_TAX_CLASS . " set tax_class_id = '" . ($tax_class_id) . "', tax_class_title = '" . ($tax_class_title) . "', tax_class_description = '" . ($tax_class_description) . "', last_modified = now() where tax_class_id = '" . ($tax_class_id) . "'");
         xtc_redirect(xtc_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tID=' . $tax_class_id));
         break;
 
       case 'deleteconfirm':
         $tax_class_id = xtc_db_prepare_input($_GET['tID']);
 
-        xtc_db_query("delete from " . TABLE_TAX_CLASS . " where tax_class_id = '" . xtc_db_input($tax_class_id) . "'");
+        xtc_db_query("delete from " . TABLE_TAX_CLASS . " where tax_class_id = '" . ($tax_class_id) . "'");
         xtc_redirect(xtc_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page']));
         break;
     }
