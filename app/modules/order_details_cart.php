@@ -42,17 +42,42 @@ require_once (DIR_FS_INC.'xtc_format_price.inc.php');
 require_once (DIR_FS_INC.'xtc_get_attributes_model.inc.php');
 
 $module_content = array ();
-$any_out_of_stock = '';
+$any_out_of_stock = false;
 $mark_stock = '';
 
 for ($i = 0, $n = sizeof($products); $i < $n; $i ++) 
 {
-    if (STOCK_CHECK == 'true') 
-    {
-        $mark_stock = xtc_check_stock($products[$i]['id'], $products[$i]['quantity']);
-        if ($mark_stock)
-            $_SESSION['any_out_of_stock'] = 1;
+
+    //stock and active check
+    $product_active=1;
+    global $db,$providerDb;
+    $q=null;
+    if ($providerDb) {
+        $q = $providerDb->prepare("select products_quantity,products_status from products where products_model = ?");
+        $q->execute(array($products[$i]['model']));
+        $q=$q->fetch();
     }
+    else {
+        $q = $db->prepare("select products_quantity,products_status from products where products_id = ?");
+        $q->execute(array($products[$i]['id']));
+        $q=$q->fetch();
+    }
+
+    if(!$q['products_status']){
+        $product_active=0;
+        $any_out_of_stock =true;
+        $_SESSION['allow_checkout'] = 'false';
+    }
+
+    if (CHECK_STOCK_QUANTITY != '0') {        if(($q['products_quantity']-$products[$i]['quantity'])<0){
+	        $product_active=0;
+            $any_out_of_stock =true;
+	         $_SESSION['allow_checkout'] = 'false';
+        }
+    }
+
+
+
 
     $image = '';
     if ($products[$i]['image'] != '') 
@@ -75,7 +100,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++)
     $module_content[$i] = array 
     (
         'PRODUCTS_ID' => $products[$i]['id'],
-        'PRODUCTS_STATUS' => $veq["products_status"],
+        'PRODUCTS_STATUS' => $product_active,
         'PRODUCTS_NAME' => $products[$i]['name'].$mark_stock, 
         'PRODUCTS_QTY' => $products[$i]['quantity'],
         'PRODUCTS_MODEL'=>$products[$i]['model'],

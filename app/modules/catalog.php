@@ -103,12 +103,21 @@ function module()
     while($listing =$pq->fetch()){
 
         if($providerDb){
-            $d=$providerDb->prepare('select products_status from products where products_model=?');
+            $d=$providerDb->prepare('select products_status,products_quantity from products where products_model=?');
             $d->execute(array($listing['products_model']));
             $d=$d->fetch();
             if(!$d['products_status'])
                 continue;
+
+             if(CHECK_STOCK_QUANTITY!=0)
+                if($d['products_quantity']<1)
+                    continue;
+
+        }else if(CHECK_STOCK_QUANTITY!=0){
+            if($listing['products_quantity']<1)
+                continue;
         }
+
 
         $xe=$product->buildDataArray($listing);
         $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"].""),true);

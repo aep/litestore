@@ -62,6 +62,14 @@ asphyxPluginBuilder('com.handelsweise.litestore.product',{
                     forceSelection:  true
 
                 }),
+                new Ext.form.NumberField(
+                { 
+                    id: 'quantity',
+                    fieldLabel: 'Lagermenge',
+                    width: '100%',
+                    allowNegative:false,
+                    allowDecimals:false
+                }),
                 new Ext.form.Checkbox(
                 { 
                     id: 'status',
