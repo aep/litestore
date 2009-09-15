@@ -14,6 +14,7 @@ function rpc_asphyx_product($cmd){
                                 products_ean as ean,
                                 products_tax_class_id as tax_class_id,
                                 products_shippingtime as shipping_status,
+                                products_quantity as quantity,
                                 products_weight as weight,
                                 products_model as model
                         from    products as c, 
@@ -76,7 +77,8 @@ function rpc_asphyx_product($cmd){
                                     products_model=?,
                                     products_weight=?,
                                     products_tax_class_id=?,
-                                    products_shippingtime=?
+                                    products_shippingtime=?,
+                                    products_quantity=?
                         where   products_id=? ');
         $q->execute(array(
             $cmd['data']['status'],
@@ -86,6 +88,7 @@ function rpc_asphyx_product($cmd){
             $cmd['data']['weight'],
             $cmd['data']['tax_class_id'],
             $cmd['data']['shipping_status'],
+            $cmd['data']['quantity'],
             $cmd['data']['id']
         ));
         $retok=$db->commit();

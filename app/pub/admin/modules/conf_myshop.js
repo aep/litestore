@@ -26,7 +26,8 @@ function module_conf_myshop()
             'DEFAULT_CUSTOMERS_STATUS_ID',
             'ALLOW_ADD_TO_CART',
             'PRICE_IS_BRUTTO',
-            'PRICE_PRECISION'
+            'PRICE_PRECISION',
+            'CHECK_STOCK_QUANTITY'
         ];
 
         var confstore = new Ext.data.Store
@@ -185,6 +186,13 @@ function module_conf_myshop()
 
 
 
+        var kk_CHECK_STOCK_QUANTITY = new Ext.form.Checkbox
+        ({ 
+            id: 'CHECK_STOCK_QUANTITY',
+            fieldLabel: 'Lagermenge beachten.'
+        });
+
+
         var kk_EXPECTED_PRODUCTS_SORT = new Ext.form.ComboBox
         ({ 
             id: 'EXPECTED_PRODUCTS_SORT',
@@ -321,6 +329,7 @@ function module_conf_myshop()
                 kk_EMAIL_FROM,
                 kk_STORE_COUNTRY,
                 kk_STORE_ZONE,
+                kk_CHECK_STOCK_QUANTITY,
                 kk_EXPECTED_PRODUCTS_SORT,
                 kk_EXPECTED_PRODUCTS_FIELD,
                 kk_USE_DEFAULT_LANGUAGE_CURRENCY,
@@ -338,7 +347,16 @@ function module_conf_myshop()
                 {
                     text: 'Speichern',
                     handler: function() 
-                    {       
+                    {      
+
+                        var vv=form.getForm().getValues();
+
+                        if(kk_CHECK_STOCK_QUANTITY.getValue())
+                            vv.CHECK_STOCK_QUANTITY=1;
+                        else
+                            vv.CHECK_STOCK_QUANTITY=0;
+                        console.log(vv);
+ 
                         Ext.Ajax.request
                         ({
                             method:     'POST',
@@ -347,7 +365,7 @@ function module_conf_myshop()
                             ({
                                 model:  "configuration",
                                 action: "save",
-                                keys:   form.getForm().getValues(),
+                                keys:   vv,
                             }),
                             success: function ( result, request )
                             {
@@ -388,6 +406,7 @@ function module_conf_myshop()
             kk_EMAIL_FROM.setValue(cobj.EMAIL_FROM);
             kk_STORE_COUNTRY.setValue(cobj.STORE_COUNTRY);
             kk_STORE_ZONE.setValue(cobj.STORE_ZONE);
+            kk_CHECK_STOCK_QUANTITY.setValue(cobj.CHECK_STOCK_QUANTITY);
             kk_EXPECTED_PRODUCTS_SORT.setValue(cobj.EXPECTED_PRODUCTS_SORT);
             kk_EXPECTED_PRODUCTS_FIELD.setValue(cobj.EXPECTED_PRODUCTS_FIELD);
             kk_USE_DEFAULT_LANGUAGE_CURRENCY.setValue(cobj.USE_DEFAULT_LANGUAGE_CURRENCY);
