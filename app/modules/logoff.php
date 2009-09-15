@@ -3,7 +3,7 @@
 
 function module()
 {
-    require_once (DIR_WS_CLASSES.'azrael.php');
+require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
     
     global $breadcrumb;    
     $breadcrumb->add(NAVBAR_TITLE_LOGOFF);
