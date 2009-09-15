@@ -6,7 +6,7 @@ function module()
     $breadcrumb->addCategory($cPath_array);
 
 
-    global $db,$current_category_id; 
+    global $db,$providerDb,$current_category_id; 
 
     //current category
 
@@ -101,6 +101,15 @@ function module()
     global $product;
     $products=null;
     while($listing =$pq->fetch()){
+
+        if($providerDb){
+            $d=$providerDb->prepare('select products_status from products where products_model=?');
+            $d->execute(array($listing['products_model']));
+            $d=$d->fetch();
+            if(!$d['products_status'])
+                continue;
+        }
+
         $xe=$product->buildDataArray($listing);
         $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"].""),true);
         $xe["url_small"]=$findimg["url_small"];

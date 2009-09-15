@@ -2,32 +2,31 @@
 
 class DB  extends PDO
 {
-    public function __construct()
+    public function __construct($confcategory='database')
     {
         $file = DIR_FS_USER.'/db/db.ini';
-        if (!$settings = parse_ini_file($file, TRUE))
-        { 
+        if (!$settings = parse_ini_file($file, TRUE)){ 
             throw new exception('Unable to open ' . $file . '.');
         }
 
         $dns='';       
-        if($settings['database']['driver']=='sqlite')
+        if($settings[$confcategory]['driver']=='sqlite')
         {
-            if($settings['database']['file'][0]!='/')
+            if($settings[$confcategory]['file'][0]!='/')
             {
-                $settings['database']['file']=DIR_FS_USER.'/db/'.$settings['database']['file'];
+                $settings[$confcategory]['file']=DIR_FS_USER.'/db/'.$settings['database']['file'];
             }
-            $dns = $settings['database']['driver'] . ':' . $settings['database']['file'];
+            $dns = $settings[$confcategory]['driver'] . ':' . $settings['database']['file'];
         }
         else
         {
-            $dns = $settings['database']['driver'] . ':host=' . $settings['database']['host'] . 
-            ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
-            ';dbname=' . $settings['database']['schema'];
+            $dns = $settings[$confcategory]['driver'] . ':host=' . $settings['database']['host'] . 
+            ((!empty($settings[$confcategory]['port'])) ? (';port=' . $settings['database']['port']) : '') .
+            ';dbname=' . $settings[$confcategory]['schema'];
         }
         
        
-        parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
+        parent::__construct($dns, $settings[$confcategory]['username'], $settings[$confcategory]['password']);
 
         $this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
@@ -36,7 +35,9 @@ class DB  extends PDO
 
 
 
+
 global $db;
+global $providerDb;
 global $LitestoreDatabase;
 
 if(!$db)
@@ -44,6 +45,18 @@ if(!$db)
     $db= new DB;
     $LitestoreDatabase=$db;
 }
+
+if(!$providerDb)
+{
+    $file = DIR_FS_USER.'/db/db.ini';
+    if (!$settings = parse_ini_file($file, TRUE)){ 
+        throw new exception('Unable to open ' . $file . '.');
+    }
+    if($settings['provider']['driver']){
+        $providerDb= new DB('provider');
+    }
+}
+
 
 
 function xtc_db_query($expression)
