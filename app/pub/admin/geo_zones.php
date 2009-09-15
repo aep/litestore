@@ -179,13 +179,12 @@ function update_zone(theForm) {
     $zones_query = xtc_db_query($zones_query_raw);
     while ($zones = xtc_db_fetch_array($zones_query)) {
       if (((!$_GET['zID']) || (@$_GET['zID'] == $zones['geo_zone_id'])) && (!$zInfo) && (substr($_GET['action'], 0, 3) != 'new')) {
+
         $num_zones_query = xtc_db_query("select count(*) as num_zones from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . $zones['geo_zone_id'] . "' group by geo_zone_id");
-        if (xtc_db_num_rows($num_zones_query) > 0) {
+
           $num_zones = xtc_db_fetch_array($num_zones_query);
           $zones['num_zones'] = $num_zones['num_zones'];
-        } else {
-          $zones['num_zones'] = 0;
-        }
+
         $zInfo = new objectInfo($zones);
       }
       if ( (is_object($zInfo)) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) {
