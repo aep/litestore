@@ -27,7 +27,7 @@
         $tax_priority = xtc_db_prepare_input($_POST['tax_priority']);
         $date_added = xtc_db_prepare_input($_POST['date_added']);
 
-        xtc_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, tax_priority, date_added) values ('" . xtc_db_input($tax_zone_id) . "', '" . xtc_db_input($tax_class_id) . "', '" . xtc_db_input($tax_rate) . "', '" . xtc_db_input($tax_description) . "', '" . xtc_db_input($tax_priority) . "', now())");
+        xtc_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, tax_priority, date_added) values ('" .($tax_zone_id) . "', '" .($tax_class_id) . "', '" .($tax_rate) . "', '" .($tax_description) . "', '" .($tax_priority) . "', now())");
         xtc_redirect(xtc_href_link(FILENAME_TAX_RATES));
         break;
 
@@ -40,14 +40,14 @@
         $tax_priority = xtc_db_prepare_input($_POST['tax_priority']);
         $last_modified = xtc_db_prepare_input($_POST['last_modified']);
 
-        xtc_db_query("update " . TABLE_TAX_RATES . " set tax_rates_id = '" . xtc_db_input($tax_rates_id) . "', tax_zone_id = '" . xtc_db_input($tax_zone_id) . "', tax_class_id = '" . xtc_db_input($tax_class_id) . "', tax_rate = '" . xtc_db_input($tax_rate) . "', tax_description = '" . xtc_db_input($tax_description) . "', tax_priority = '" . xtc_db_input($tax_priority) . "', last_modified = now() where tax_rates_id = '" . xtc_db_input($tax_rates_id) . "'");
+        xtc_db_query("update " . TABLE_TAX_RATES . " set tax_rates_id = '" .($tax_rates_id) . "', tax_zone_id = '" .($tax_zone_id) . "', tax_class_id = '" .($tax_class_id) . "', tax_rate = '" .($tax_rate) . "', tax_description = '" .($tax_description) . "', tax_priority = '" .($tax_priority) . "', last_modified = now() where tax_rates_id = '" .($tax_rates_id) . "'");
         xtc_redirect(xtc_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $tax_rates_id));
         break;
 
       case 'deleteconfirm':
         $tax_rates_id = xtc_db_prepare_input($_GET['tID']);
 
-        xtc_db_query("delete from " . TABLE_TAX_RATES . " where tax_rates_id = '" . xtc_db_input($tax_rates_id) . "'");
+        xtc_db_query("delete from " . TABLE_TAX_RATES . " where tax_rates_id = '" .($tax_rates_id) . "'");
         xtc_redirect(xtc_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page']));
         break;
     }
