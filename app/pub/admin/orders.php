@@ -110,7 +110,8 @@ switch ($_GET['action']) {
 				$smarty->assign('ORDER_STATUS', $orders_status_array[$status]);
 
 
-                                           
+                if(!$order->info['language'])
+                    $order->info['language']='english';
 				$html_mail = $smarty->fetch('admin/mail/'.$order->info['language'].'/change_order_mail.html');
 				$txt_mail = $smarty->fetch('admin/mail/'.$order->info['language'].'/change_order_mail.txt');
 
