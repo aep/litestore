@@ -110,8 +110,9 @@
                         $templates_array[] = array ('id' => 'default/'.$templates, 'name' => 'default/'.$templates);
                     }
                 }
-                closedir($dir);            }
-            if ($dir = opendir(DIR_FS_USER.'templates/')) 
+                closedir($dir);            } 
+
+            if (file_exists ( DIR_FS_USER.'templates/' ) && ($dir = opendir(DIR_FS_USER.'templates/'))) 
             {
                 while (($templates = readdir($dir)) !== false) 
                 {
