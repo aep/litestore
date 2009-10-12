@@ -49,12 +49,12 @@
 
           xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and languages_id = '" . $languages_id . "'");
+          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . ($orders_status_id) . "' and languages_id = '" . $languages_id . "'");
         }
       }
 
       if ($_POST['default'] == 'on') {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($orders_status_id) . "' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . ($orders_status_id) . "' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
       }
 
       xtc_redirect(xtc_href_link(FILENAME_ORDERS_STATUS, 'page=' . $_GET['page'] . '&oID=' . $orders_status_id));
@@ -69,7 +69,7 @@
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
       }
 
-      xtc_db_query("delete from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . xtc_db_input($oID) . "'");
+      xtc_db_query("delete from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . ($oID) . "'");
 
       xtc_redirect(xtc_href_link(FILENAME_ORDERS_STATUS, 'page=' . $_GET['page']));
       break;
@@ -77,7 +77,7 @@
     case 'delete':
       $oID = ($_GET['oID']);
 
-      $status_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . xtc_db_input($oID) . "'");
+      $status_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . ($oID) . "'");
       $status = xtc_db_fetch_array($status_query);
 
       $remove_status = true;
@@ -88,7 +88,7 @@
         $remove_status = false;
         $messageStack->add(ERROR_STATUS_USED_IN_ORDERS, 'error');
       } else {
-        $history_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_status_id = '" . xtc_db_input($oID) . "'");
+        $history_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_status_id = '" . ($oID) . "'");
         $history = xtc_db_fetch_array($history_query);
         if ($history['count'] > 0) {
           $remove_status = false;
