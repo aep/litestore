@@ -20,16 +20,21 @@
   switch ($_GET['action']) {
     case 'insert':
     case 'save':
-      $orders_status_id = xtc_db_prepare_input($_GET['oID']);
+
+      $orders_status_id = ($_GET['oID']);
 
       $languages = xtc_get_languages();
+
+
+
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $orders_status_name_array = $_POST['orders_status_name'];
         $languages_id = $languages[$i]['id'];
 
-        $sql_data_array = array('orders_status_name' => xtc_db_prepare_input($orders_status_name_array[$languages_id]));
+        $sql_data_array = array('orders_status_name' => ($orders_status_name_array[$languages_id]));
 
         if ($_GET['action'] == 'insert') {
+
           if (!xtc_not_null($orders_status_id)) {
             $next_id_query = xtc_db_query("select max(orders_status_id) as orders_status_id from " . TABLE_ORDERS_STATUS . "");
             $next_id = xtc_db_fetch_array($next_id_query);
@@ -37,8 +42,11 @@
           }
 
           $insert_sql_data = array('orders_status_id' => $orders_status_id,
-                                   'languages_id' => $language_id);
+                                   'languages_id' => $languages_id);
+
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
+
+
           xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
           xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and languages_id = '" . $language_id . "'");
@@ -53,7 +61,7 @@
       break;
 
     case 'deleteconfirm':
-      $oID = xtc_db_prepare_input($_GET['oID']);
+      $oID = ($_GET['oID']);
 
       $orders_status_query = xtc_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
       $orders_status = xtc_db_fetch_array($orders_status_query);
@@ -67,7 +75,7 @@
       break;
 
     case 'delete':
-      $oID = xtc_db_prepare_input($_GET['oID']);
+      $oID = ($_GET['oID']);
 
       $status_query = xtc_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . xtc_db_input($oID) . "'");
       $status = xtc_db_fetch_array($status_query);
