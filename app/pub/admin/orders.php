@@ -121,7 +121,9 @@ switch ($_GET['action']) {
 				$customer_notified = '1';
 			}
 
-			xtc_db_query("insert into ".TABLE_ORDERS_STATUS_HISTORY." (orders_id, orders_status_id, date_added, customer_notified, comments) values ('".(integer)($oID)."', '".(integer)($status)."', now(), '".$customer_notified."', '".(integer)($comments)."')");
+			global $db;
+			$q=$db->prepare("insert into ".TABLE_ORDERS_STATUS_HISTORY." (orders_id, orders_status_id, date_added, customer_notified, comments) values (?,?,now(),?,?)");
+			$q->execute(array($oID,$status,$customer_notified,$comments));
 
 			$order_updated = true;
 		}
