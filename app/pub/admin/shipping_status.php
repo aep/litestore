@@ -37,20 +37,20 @@
           }
 
           $insert_sql_data = array('shipping_status_id' => $shipping_status_id,
-                                   'languages_id' => $language_id);
+                                   'languages_id' => $languages_id);
           $sql_data_array = xtc_array_merge($sql_data_array, $insert_sql_data);
           xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array, 'update', "shipping_status_id = '" . xtc_db_input($shipping_status_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_SHIPPING_STATUS, $sql_data_array, 'update', "shipping_status_id = '" . ($shipping_status_id) . "' and languages_id = '" . $languages_id . "'");
         }
       }
 
       if ($shipping_status_image = &xtc_try_upload('shipping_status_image',DIR_WS_ICONS)) {
-        xtc_db_query("update " . TABLE_SHIPPING_STATUS . " set shipping_status_image = '" . $shipping_status_image->filename . "' where shipping_status_id = '" . xtc_db_input($shipping_status_id) . "'");
+        xtc_db_query("update " . TABLE_SHIPPING_STATUS . " set shipping_status_image = '" . $shipping_status_image->filename . "' where shipping_status_id = '" . ($shipping_status_id) . "'");
       }
 
       if ($_POST['default'] == 'on') {
-        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . xtc_db_input($shipping_status_id) . "' where configuration_key = 'DEFAULT_SHIPPING_STATUS_ID'");
+        xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . ($shipping_status_id) . "' where configuration_key = 'DEFAULT_SHIPPING_STATUS_ID'");
       }
 
       xtc_redirect(xtc_href_link(FILENAME_SHIPPING_STATUS, 'page=' . $_GET['page'] . '&oID=' . $shipping_status_id));
@@ -65,7 +65,7 @@
         xtc_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_SHIPPING_STATUS_ID'");
       }
 
-      xtc_db_query("delete from " . TABLE_SHIPPING_STATUS . " where shipping_status_id = '" . xtc_db_input($oID) . "'");
+      xtc_db_query("delete from " . TABLE_SHIPPING_STATUS . " where shipping_status_id = '" . ($oID) . "'");
 
       xtc_redirect(xtc_href_link(FILENAME_SHIPPING_STATUS, 'page=' . $_GET['page']));
       break;
