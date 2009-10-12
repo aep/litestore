@@ -46,7 +46,7 @@ $currencies = new currencies();
 
 
 if ((($_GET['action'] == 'edit') || ($_GET['action'] == 'update_order')) && ($_GET['oID'])) {
-	$oID = xtc_db_prepare_input($_GET['oID']);
+	$oID = ($_GET['oID']);
 
 	$orders_query = xtc_db_query("select orders_id from ".TABLE_ORDERS." where orders_id = '".(integer)($oID)."'");
 	$order_exists = true;
@@ -75,9 +75,9 @@ while ($orders_status = xtc_db_fetch_array($orders_status_query)) {
 }
 switch ($_GET['action']) {
 	case 'update_order' :
-		$oID = xtc_db_prepare_input($_GET['oID']);
-		$status = xtc_db_prepare_input($_POST['status']);
-		$comments = xtc_db_prepare_input($_POST['comments']);
+		$oID = ($_GET['oID']);
+		$status = ($_POST['status']);
+		$comments = ($_POST['comments']);
 	//	$order = new order($oID);
 		$order_updated = false;
 		$check_status_query = xtc_db_query("select customers_name, customers_email_address, orders_status, date_purchased from ".TABLE_ORDERS." where orders_id = '".(integer)($oID)."'");
@@ -135,7 +135,7 @@ switch ($_GET['action']) {
 		xtc_redirect(xtc_href_link(FILENAME_ORDERS, xtc_get_all_get_params(array ('action')).'action=edit'));
 		break;
 	case 'deleteconfirm' :
-		$oID = xtc_db_prepare_input($_GET['oID']);
+		$oID = ($_GET['oID']);
 
 		xtc_remove_order($oID, $_POST['restock']);
 
@@ -144,7 +144,7 @@ switch ($_GET['action']) {
 		// BMC Delete CC info Start
 		// Remove CVV Number
 	case 'deleteccinfo' :
-		$oID = xtc_db_prepare_input($_GET['oID']);
+		$oID = ($_GET['oID']);
 
 		xtc_db_query("update ".TABLE_ORDERS." set cc_cvv = null where orders_id = '".(integer)($oID)."'");
 		xtc_db_query("update ".TABLE_ORDERS." set cc_number = '0000000000000000' where orders_id = '".(integer)($oID)."'");
@@ -156,7 +156,7 @@ switch ($_GET['action']) {
 		break;
 
 	case 'afterbuy_send' :
-		$oID = xtc_db_prepare_input($_GET['oID']);
+		$oID = ($_GET['oID']);
 		require_once (DIR_FS_CATALOG.'includes/classes/afterbuy.php');
 		$aBUY = new xtc_afterbuy_functions($oID);
 		if ($aBUY->order_send())
@@ -630,14 +630,14 @@ elseif ($_GET['action'] == 'custom_action') {
 <?php
 
 	if ($_GET['cID']) {
-		$cID = xtc_db_prepare_input($_GET['cID']);
+		$cID = ($_GET['cID']);
 		$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.customers_id = '".(integer)($cID)."' and (o.orders_status = s.orders_status_id and s.languages_id = '".$_SESSION['languages_id']."' and ot.class = 'ot_total') or (o.orders_status = '0' and ot.class = 'ot_total' and  s.orders_status_id = '1' and s.languages_id = '".$_SESSION['languages_id']."') order by orders_id DESC";
 	}
 	elseif ($_GET['status']=='0') {
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, o.orders_status, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id) where o.orders_status = '0' and ot.class = 'ot_total' order by o.orders_id DESC";
 	}
 	elseif ($_GET['status']) {
-			$status = xtc_db_prepare_input($_GET['status']);
+			$status = ($_GET['status']);
 			$orders_query_raw = "select o.orders_id, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where o.orders_status = s.orders_status_id and s.languages_id = '".$_SESSION['languages_id']."' and s.orders_status_id = '".(int)($status)."' and ot.class = 'ot_total' order by o.orders_id DESC";
 	} else {
 		$orders_query_raw = "select o.orders_id, o.orders_status, o.afterbuy_success, o.afterbuy_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.currency, o.currency_value, s.orders_status_name, ot.text as order_total from ".TABLE_ORDERS." o left join ".TABLE_ORDERS_TOTAL." ot on (o.orders_id = ot.orders_id), ".TABLE_ORDERS_STATUS." s where (o.orders_status = s.orders_status_id and s.languages_id = '".$_SESSION['languages_id']."' and ot.class = 'ot_total') or (o.orders_status = '0' and ot.class = 'ot_total' and  s.orders_status_id = '1' and s.languages_id = '".$_SESSION['languages_id']."') order by o.orders_id DESC";
