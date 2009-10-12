@@ -49,7 +49,7 @@
 
           xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array);
         } elseif ($_GET['action'] == 'save') {
-          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and languages_id = '" . $language_id . "'");
+          xtc_db_perform(TABLE_ORDERS_STATUS, $sql_data_array, 'update', "orders_status_id = '" . xtc_db_input($orders_status_id) . "' and languages_id = '" . $languages_id . "'");
         }
       }
 
