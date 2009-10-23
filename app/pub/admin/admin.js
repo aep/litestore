@@ -98,16 +98,14 @@ function module_iframe(title,uri)
 
 function module_js(uri)
 {
-    new Ajax.Request(uri,
-    {
+    Ext.Ajax.request({
+        url: uri,
         evalJS: false,
         method: 'get',
-        onSuccess: function(transport) 
-        {   
+        success: function(transport)         {   
             eval(transport.responseText);
         },
-        onFailure: function(transport)
-        {
+        failure: function(transport){
             alert("failure");
         }
     });
@@ -115,17 +113,14 @@ function module_js(uri)
 
 
 
-function module_html(title,uri)
-{
+function module_html(title,uri){
     busyRef();
     document.title = 'Litemin - '+title;
 
-    new Ajax.Request(uri,
-    {
+    Ext.Ajax.request({
+        url:uri,
         method: 'get',
-        onSuccess: function(transport) 
-        {   
-
+        success: function(transport){
             var panel = new Ext.Panel({
 	            border: false,
                 html    :transport.responseText
@@ -137,14 +132,12 @@ function module_html(title,uri)
             mainpanel.doLayout();
 
             var sl=transport.responseText.extractScripts();
-            for(var i = 0;i < sl.length;i++)
-            {
+            for(var i = 0;i < sl.length;i++){
                 eval(sl[i]);
             }
             busyDeref();
         },
-        onFailure: function(transport)
-        {
+        failure: function(transport){
             throw "module_html failure";
         }
     });
