@@ -39,7 +39,7 @@ define('MODULE_PAYMENT_IPAYMENT_PASSWORD_TITLE' , 'Benutzer-Passwort');
 define('MODULE_PAYMENT_IPAYMENT_PASSWORD_DESC' , 'Benutzer-Passwort welches f&uuml;r iPayment verwendet wird');
 define('MODULE_PAYMENT_IPAYMENT_USER_ID_TITLE' , 'Benutzer ID');
 define('MODULE_PAYMENT_IPAYMENT_USER_ID_DESC' , 'Benutzer ID welche f&uuml;r iPayment verwendet wird');
-define('MODULE_PAYMENT_IPAYMENT_CURRENCY_TITLE' , 'Transaktionsw‰hrung');
+define('MODULE_PAYMENT_IPAYMENT_CURRENCY_TITLE' , 'Transaktionsw√§hrung');
 define('MODULE_PAYMENT_IPAYMENT_CURRENCY_DESC' , 'W&auml;hrung, welche f&uuml;r Kreditkartentransaktionen verwendet wird');
 define('MODULE_PAYMENT_IPAYMENT_SORT_ORDER_TITLE' , 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_IPAYMENT_SORT_ORDER_DESC' , 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
