@@ -22,7 +22,7 @@
   define('MODULE_PAYMENT_MONEYBOOKERS_TEXT_TITLE', 'Moneybookers.com');
   define('MODULE_PAYMENT_MONEYBOOKERS_TEXT_DESCRIPTION', 'Moneybookers.com');
     define('MODULE_PAYMENT_MONEYBOOKERS_TEXT_INFO','');
-   define('MODULE_PAYMENT_MONEYBOOKERS_NOCURRENCY_ERROR', 'Es ist keine von moneybookers.com akzeptierte Währung installiert!');
+   define('MODULE_PAYMENT_MONEYBOOKERS_NOCURRENCY_ERROR', 'Es ist keine von moneybookers.com akzeptierte WÃ¤hrung installiert!');
   define('MODULE_PAYMENT_MONEYBOOKERS_ERRORTEXT1', 'payment_error=');
   define('MODULE_PAYMENT_MONEYBOOKERS_ERRORTEXT2', '&error=Fehler w&auml;hrend Ihrer Bezahlung bei moneybookers.com!');
   define('MODULE_PAYMENT_MONEYBOOKERS_ORDER_TEXT', 'Bestelldatum: ');
@@ -43,9 +43,9 @@
   define('MODULE_PAYMENT_MONEYBOOKERS_SORT_ORDER_TITLE','Anzeigereihenfolge');
   define('MODULE_PAYMENT_MONEYBOOKERS_SORT_ORDER_DESC','Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
   define('MODULE_PAYMENT_MONEYBOOKERS_CURRENCY_TITLE','Transaktionsw&auml;hrung');
-  define('MODULE_PAYMENT_MONEYBOOKERS_CURRENCY_DESC','Die W&auml;hrung für die Zahlungstransaktion. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers.com verfügbar ist, wird diese W&auml;hrung zur Bezahlw&auml;hrung.');
+  define('MODULE_PAYMENT_MONEYBOOKERS_CURRENCY_DESC','Die W&auml;hrung fÃ¼r die Zahlungstransaktion. Wenn Ihre gew&auml;hlte W&auml;hrung nicht bei Moneybookers.com verfÃ¼gbar ist, wird diese W&auml;hrung zur Bezahlw&auml;hrung.');
   define('MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE_TITLE','Transaktionssprache');
-  define('MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE_DESC','Die Sprache für die Zahlungstransaktion. Wenn Ihre gew&auml;hlte Sprache nicht bei Moneybookers.com verfügbar ist, wird diese Sprache zur Bezahlsprache.');
+  define('MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE_DESC','Die Sprache fÃ¼r die Zahlungstransaktion. Wenn Ihre gew&auml;hlte Sprache nicht bei Moneybookers.com verfÃ¼gbar ist, wird diese Sprache zur Bezahlsprache.');
   define('MODULE_PAYMENT_MONEYBOOKERS_ZONE_TITLE','Zahlungszone');
   define('MODULE_PAYMENT_MONEYBOOKERS_ZONE_DESC','Wenn eine Zone ausgew&auml;hlt ist, gilt die Zahlungsmethode nur f&uuml;r diese Zone.');
   define('MODULE_PAYMENT_MONEYBOOKERS_ORDER_STATUS_ID_TITLE','Bestellstatus festlegen');

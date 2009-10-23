@@ -17,15 +17,15 @@
    define('ATTR_MODEL','Artikel Nr.');
    define('ATTR_STOCK','Lager');
    define('ATTR_WEIGHT','Gewicht');
-   define('ATTR_PREFIXWEIGHT','Präfix Gewicht');
+   define('ATTR_PREFIXWEIGHT','PrÃ¤fix Gewicht');
    define('ATTR_PRICE','Preis');
-   define('ATTR_PREFIXPRICE','Präfix Preis');
-   define('DL_COUNT','Mögl. Downloads:');
+   define('ATTR_PREFIXPRICE','PrÃ¤fix Preis');
+   define('DL_COUNT','MÃ¶gl. Downloads:');
    define('DL_EXPIRE','Downloadzeit (Tage):');
    define('TITLE_EDIT','Attribute Editieren');
    define('TITLE_UPDATED','Produktattribute erfolgreich aktualisiert.');
-   define('SELECT_PRODUCT','Bitte wählen Sie ein Produkt aus der Liste zum Editieren:');
-   define('SELECT_COPY','Bestehende Attribute können ebenfalls auf andere Produkte kopiert werden, wählen Sie hierzu das Originalprodukt aus:');
+   define('SELECT_PRODUCT','Bitte wÃ¤hlen Sie ein Produkt aus der Liste zum Editieren:');
+   define('SELECT_COPY','Bestehende Attribute kÃ¶nnen ebenfalls auf andere Produkte kopiert werden, wÃ¤hlen Sie hierzu das Originalprodukt aus:');
 
 
 ?>

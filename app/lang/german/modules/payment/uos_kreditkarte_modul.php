@@ -33,12 +33,12 @@
   define('MODULE_PAYMENT_UOS_KREDITKARTE_SORT_ORDER_TITLE','Anzeige Reihenfolge.');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_STATUS_DESC','Wollen Sie U O S nutzen?');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_ID_DESC','Die Projekt ID die Sie von U O S als Shop ID bekommen haben.');
-  define('MODULE_PAYMENT_UOS_KREDITKARTE_KEY_DESC','Den Security-Key den Sie von U O S zur Segnierung der Daten∏bertragung bekommen haben.');
+  define('MODULE_PAYMENT_UOS_KREDITKARTE_KEY_DESC','Den Security-Key den Sie von U O S zur Segnierung der Daten≈æbertragung bekommen haben.');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_CURRENCY_DESC','Die W?hrung die Sie bei U O S nutzen m?chten.');
-  define('MODULE_PAYMENT_UOS_KREDITKARTE_ZONE_DESC','Wenn Sie hiereine Zone einstellen wird diese Payment nur f∏r diese genutzt werden.');
+  define('MODULE_PAYMENT_UOS_KREDITKARTE_ZONE_DESC','Wenn Sie hiereine Zone einstellen wird diese Payment nur f≈ær diese genutzt werden.');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_ORDER_STATUS_ID_DESC','Angabe welcher Bestellstatus gesetz werden soll, nach Abschluss des Zahlvorgangs.');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_SORT_ORDER_DESC','Reihenfolge der Anzeige aller Zahlsysteme. Die Kleinste zuerst.');
-  define('MODULE_PAYMENT_UOS_KREDITKARTE_DEMO_TITLE','Demo Modus auf True bedeutet, dass Sie ∏ber unsere Testumgebung buchen.');
+  define('MODULE_PAYMENT_UOS_KREDITKARTE_DEMO_TITLE','Demo Modus auf True bedeutet, dass Sie ≈æber unsere Testumgebung buchen.');
   define('MODULE_PAYMENT_UOS_KREDITKARTE_DEMO_DESC','Demo Modus aktivieren!');
   
   define('MODULE_PAYMENT_UOS_KREDITKARTE_MODUL_ALLOWED_TITLE', 'Erlaubte Zonen');

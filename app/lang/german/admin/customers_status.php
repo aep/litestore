@@ -64,13 +64,13 @@ define('TEXT_INFO_CUSTOMERS_FSK18_INTRO','<b>FSK18 Sperre</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_ADD_TAX_INTRO','<b>Falls Preis inkl. Steuer = auf "Nein" setzen</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_MIN_ORDER_INTRO','Tragen Sie einen Mindestbestellwert ein oder lassen Sie dieses Feld leer.');
 define('TEXT_INFO_CUSTOMERS_STATUS_MAX_ORDER_INTRO','Tragen Sie einen H&ouml;chstbestellwert ein oder lassen Sie dieses Feld leer.');
-define('TEXT_INFO_CUSTOMERS_STATUS_BT_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, daﬂ diese Kundengruppe per Bankeinzug bezahlen darf?</b>');
-define('TEXT_INFO_CUSTOMERS_STATUS_CC_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, daﬂ diese Kundengruppe per Kreditkarte bezahlen darf?</b>');
-define('TEXT_INFO_CUSTOMERS_STATUS_COD_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, daﬂ diese Kundengruppe per Nachnahme bezahlen darf?</b>');
+define('TEXT_INFO_CUSTOMERS_STATUS_BT_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, da√ü diese Kundengruppe per Bankeinzug bezahlen darf?</b>');
+define('TEXT_INFO_CUSTOMERS_STATUS_CC_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, da√ü diese Kundengruppe per Kreditkarte bezahlen darf?</b>');
+define('TEXT_INFO_CUSTOMERS_STATUS_COD_PERMISSION_INTRO', '<b>M&ouml;chten Sie erlauben, da√ü diese Kundengruppe per Nachnahme bezahlen darf?</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_ATTRIBUTES_INTRO','<b>Rabatt auf Artikel Attribute</b><br>(Max. % Rabatt auf einen Artikel anwenden)');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO','<b>Rabatt auf gesamte Bestellung</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE', 'Rabatt (0 bis 100%):');
-define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO', 'Maximaler Rabatt auf Produkte (abh‰ngig von Rabatt eingestellt bei Produkt).');
+define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE_INTRO', 'Maximaler Rabatt auf Produkte (abh√§ngig von Rabatt eingestellt bei Produkt).');
 define('TEXT_INFO_CUSTOMERS_STATUS_GRADUATED_PRICES_INTRO','<b>Staffelpreise</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_IMAGE', 'Kundengruppen-Bild:');
 define('TEXT_INFO_CUSTOMERS_STATUS_NAME','<b>Gruppenname</b>');
@@ -82,7 +82,7 @@ define('TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO', 'M&ouml;chten Sie die 
 define('TEXT_INFO_CUSTOMERS_STATUS_WRITE_REVIEWS_INTRO','<b>Produktbewertungen schreiben</b>');
 define('TEXT_INFO_CUSTOMERS_STATUS_READ_REVIEWS_INTRO', '<b>Produktbewertungen lesen</b>');
 
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, daﬂ Sie diese Kundengruppe l&ouml;schen wollen?');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, da√ü Sie diese Kundengruppe l&ouml;schen wollen?');
 define('TEXT_INFO_EDIT_INTRO', 'Bitte nehmen Sie alle n&ouml;tigen Einstellungen vor');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte erstellen Sie einen neue Kundengruppe mit den gew&uuml;nschten Einstellungen');
 
@@ -90,6 +90,6 @@ define('TEXT_INFO_HEADING_DELETE_CUSTOMERS_STATUS', 'Kundengruppe l&ouml;schen')
 define('TEXT_INFO_HEADING_EDIT_CUSTOMERS_STATUS','Gruppendaten bearbeiten');
 define('TEXT_INFO_HEADING_NEW_CUSTOMERS_STATUS', 'Neue Kundengruppe');
 
-define('TEXT_INFO_CUSTOMERS_STATUS_BASE', '<b>Basis Kundengruppe f¸r Artikelpreise</b>');
-define('ENTRY_CUSTOMERS_STATUS_BASE', 'wird als Grundlage f¸r die Preise der neuen Kundengruppe gew‰hlt. Wenn Auswahl = Admin werden keine Preise f¸r die neue Kundengruppe angelegt.');
+define('TEXT_INFO_CUSTOMERS_STATUS_BASE', '<b>Basis Kundengruppe f√ºr Artikelpreise</b>');
+define('ENTRY_CUSTOMERS_STATUS_BASE', 'wird als Grundlage f√ºr die Preise der neuen Kundengruppe gew√§hlt. Wenn Auswahl = Admin werden keine Preise f√ºr die neue Kundengruppe angelegt.');
 ?>
