@@ -378,8 +378,6 @@ class PHPMailer
             $this->SetError('malformed sender:'.$this->Sender);
             return false;
         }
-        if(trim($this->Sender) == '>' )
-            die("huh");
         if ((trim($this->Sender) != '') && (trim($this->Sender) != '<>' ))
             $sendmail = sprintf("%s -oi -f %s -t", $this->Sendmail, $this->Sender);
         else
@@ -390,20 +388,15 @@ class PHPMailer
             $this->SetError($this->Lang("execute") . $this->Sendmail);
             return false;
         }
-
-        pr($sendmail);
-        die();
-
         fputs($mail, $header);
         fputs($mail, $body);
-        
+
         $result = pclose($mail) >> 8 & 0xFF;
         if($result != 0)
         {
             $this->SetError($this->Lang("execute") . $this->Sendmail);
             return false;
         }
-
         return true;
     }
 
