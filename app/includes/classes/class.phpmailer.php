@@ -360,27 +360,11 @@ class PHPMailer
         $header .= $this->CreateHeader();
         $body = $this->CreateBody();
 
-        if($body == "") { return false; }
-
-        // Choose the mailer
-        switch($this->Mailer)
-        {
-            case "sendmail":
-                $result = $this->SendmailSend($header, $body);
-                break;
-            case "mail":
-                $result = $this->MailSend($header, $body);
-                break;
-            case "smtp":
-                $result = $this->SmtpSend($header, $body);
-                break;
-            default:
-            $this->SetError($this->Mailer . $this->Lang("mailer_not_supported"));
-                $result = false;
-                break;
+        if($body == "") {
+            return false;
         }
 
-        return $result;
+        return $this->SendmailSend($header, $body);
     }
     
     /**
@@ -389,7 +373,14 @@ class PHPMailer
      * @return bool
      */
     function SendmailSend($header, $body) {
-        if ($this->Sender != "")
+
+        if(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $this->Sender)){
+            $this->SetError('malformed sender:'.$this->Sender);
+            return false;
+        }
+        if(trim($this->Sender) == '>' )
+            die("huh");
+        if ((trim($this->Sender) != '') && (trim($this->Sender) != '<>' ))
             $sendmail = sprintf("%s -oi -f %s -t", $this->Sendmail, $this->Sender);
         else
             $sendmail = sprintf("%s -oi -t", $this->Sendmail);
@@ -399,6 +390,9 @@ class PHPMailer
             $this->SetError($this->Lang("execute") . $this->Sendmail);
             return false;
         }
+
+        pr($sendmail);
+        die();
 
         fputs($mail, $header);
         fputs($mail, $body);
