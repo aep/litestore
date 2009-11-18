@@ -34,12 +34,13 @@ function module()
 
         global $db;
         $q=$db->prepare('select customers_email_address, customers_id from customers where customers_email_address = ?');
-        $q->execute(array($_POST['email']));
-	    $check_customer = $q->fetch();
-    
-	    $vlcode = xtc_random_charcode(32);
-	    $link = xtc_href_link(FILENAME_PASSWORD_DOUBLE_OPT, 'action=verified&customers_id='.$check_customer['customers_id'].'&key='.$vlcode, 'NONSSL');
-    
+        $q->execute(array($_POST['email']));
+        $check_customer = $q->fetch();
+        $vlcode = xtc_random_charcode(32);
+
+        global $_SERVER;
+	    $link = 'http://'.$_SERVER["SERVER_NAME"].'/login/lost/?action=verified&customers_id='.$check_customer['customers_id'].'&key='.$vlcode;
+
 	    // assign language to template for caching
 	    $smarty->assign('language', $_SESSION['language']);
 	    $smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
@@ -66,7 +67,8 @@ function module()
             {
 			    $case = first_opt_in;
 			    xtc_db_query("update ".TABLE_CUSTOMERS." set password_request_key = '".$vlcode."' where customers_id = '".$check_customer['customers_id']."'");
-			    xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $check_customer['customers_email_address'], '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_PASSWORD_FORGOTTEN, $html_mail, $txt_mail);
+                    xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $check_customer['customers_email_address'], '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_PASSWORD_FORGOTTEN, $html_mail, $txt_mail);
+
     
 		    }
 	    } else {
@@ -77,9 +79,16 @@ function module()
     
     // Verification
     if (isset ($_GET['action']) && ($_GET['action'] == 'verified')) {
-	    $check_customer_query = xtc_db_query("select customers_id, customers_email_address, password_request_key from ".TABLE_CUSTOMERS." where customers_id = '".(int)$_GET['customers_id']."' and password_request_key = '".xtc_db_input($_GET['key'])."'");
+
+
+        global $db;
+        global $_GET;
+        $check_customer_query=$db->prepare("select customers_id, customers_email_address, password_request_key from "
+                                           .TABLE_CUSTOMERS." where customers_id = ? and password_request_key = ?");
+
+        $check_customer_query->execute(array($_GET['customers_id'],$_GET['key']));
 	    $check_customer = xtc_db_fetch_array($check_customer_query);
-	    if (!xtc_db_num_rows($check_customer_query) || $_GET['key']=="") {
+	    if (!$check_customer || $_GET['key']=="") {
     
 		    $case = no_account;
 		    $info_message = TEXT_NO_ACCOUNT;
@@ -101,8 +110,8 @@ function module()
 		    // dont allow cache
 		    $smarty->caching = false;
 		    // create mails
-		    $html_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/new_password_mail.html');
-		    $txt_mail = $smarty->fetch(CURRENT_TEMPLATE.'/mail/'.$_SESSION['language'].'/new_password_mail.txt');
+		    $html_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/new_password_mail.html');
+		    $txt_mail = $smarty->fetch('mail/'.$_SESSION['language'].'/new_password_mail.txt');
     
 		    xtc_php_mail(EMAIL_SUPPORT_ADDRESS, EMAIL_SUPPORT_NAME, $check_customer['customers_email_address'], '', '', EMAIL_SUPPORT_REPLY_ADDRESS, EMAIL_SUPPORT_REPLY_ADDRESS_NAME, '', '', TEXT_EMAIL_PASSWORD_NEW_PASSWORD, $html_mail, $txt_mail);
 		    if (!isset ($mail_error)) {
