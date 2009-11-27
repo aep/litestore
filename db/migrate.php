@@ -107,7 +107,6 @@ foreach ($files as $file)
 
     $q=$db->prepare("update `system_meta` set `db_version`=?");
     $q->execute(array($p[0]));
-    $q->fetchAll();
 }
 
 //closing the directory
