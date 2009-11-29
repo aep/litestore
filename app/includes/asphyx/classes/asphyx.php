@@ -135,10 +135,9 @@ class DateCondition extends A2YObject
     function __construct()
     {
     }
-    function walkthrough()    
+    function walkthrough()
     {
         $dd = explode(";",$this->data);
-
 
         if(isset($dd[0]) && $dd[0]!="" && time()<strtotime($dd[0]))
             return false;

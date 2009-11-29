@@ -17,17 +17,10 @@ class BoxCategories extends A2YObject
         global $cPath;
         $box_smarty  = new smarty;
         $box_smarty->caching = 0;
-        
-        
         $box_smarty->assign('language', $_SESSION['language']);
-        
-        
         $box_smarty->assign('tpl_path', '/templates/'.CURRENT_TEMPLATE.'/');
         require_once (DIR_FS_INC.'xtc_has_category_subcategories.inc.php');
         require_once (DIR_FS_INC.'xtc_count_products_in_category.inc.php');
-        
-        
-        
         $categories_string = '';
         $categories_query = xtDBquery("select c.categories_id,
             cd.categories_name,
@@ -39,7 +32,6 @@ class BoxCategories extends A2YObject
             order by sort_order, cd.categories_name");
 
         $m_tt=array();
-        
         while ($categories = xtc_db_fetch_array($categories_query, true))
         {
             $m_tt[$categories['categories_id']] =array (
@@ -68,7 +60,10 @@ class BoxCategories extends A2YObject
             }
         }
 
-        $box_smarty->assign('BOX_CONTENT', $m_tt[1]);
+        if((int)$this->data==0)
+            $this->data=1;
+        $box_smarty->assign('heading', $m_tt[(int)$this->data]['name']);
+        $box_smarty->assign('BOX_CONTENT', $m_tt[(int)$this->data]);
         return $box_smarty->fetch('boxes/box_categories.html');
     }
     function metatype()

@@ -41,7 +41,7 @@ asphyxPluginBuilderExtend('com.asgaartech.asphyx.folder','com.asgaartech.asphyx.
         plugin.data=plugin.editor.getForm().getValues();
         plugin.data.id=plugin.node.data.id;
         plugin.node.setText(plugin.editor.items.map.name.getValue());
-        rpcCommand({ command: 'asphyx',aclass: 'com.asgaartech.asphyx.static', action : 'set', data: plugin.data });
+        rpcCommand({ command: 'asphyx',aclass: plugin.node.aclass, action : 'set', data: plugin.data });
     }
 });
 

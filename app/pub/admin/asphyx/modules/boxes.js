@@ -12,13 +12,3 @@ asphyxPluginBuilderExtend('com.asgaartech.asphyx.folder','com.handelsweise.lites
         de:'ContentBox'
     }
 });
-
-
-
-asphyxPluginBuilderExtend('com.asgaartech.asphyx.folder','com.handelsweise.litestore.sidebar.catalog',{
-    name:{
-        en:'CatalogBox',
-        de:'CatalogBox'
-    }
-});
-
