@@ -1,6 +1,6 @@
 asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
     cancopy:true,
-    name: { 
+    name: {
         en:'Folder',
         de:'Ordner'
     },
@@ -9,15 +9,36 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             labelWidth: 200,
             defaultType: 'textfield',
             autoScroll: true,
-            items: [ 
-                { 
+            items: [
+                {
                     id: 'name',
                     fieldLabel: 'Name',
                     width: '100%'
                 }
           ]
         });
-    },    
+        rpcCommand(
+            {
+                command: 'asphyx',
+                aclass: plugin.node.aclass,
+                action : 'get',
+                data: plugin.node.data
+            },
+            function (value){
+                for(prop in plugin.editor.items.map){
+                    var field=plugin.editor.items.map[prop];
+                    field.setValue(value[field.id]);
+                }
+            }
+        );
+
+    },
+    save : function(plugin){
+        plugin.data=plugin.editor.getForm().getValues();
+        plugin.data.id=plugin.node.data.id;
+        plugin.node.setText(plugin.editor.items.map.name.getValue());
+        rpcCommand({ command: 'asphyx',aclass: plugin.node.aclass, action : 'set', data: plugin.data });
+    },
     createNode:  function(node){
         if(!node.data.id)
             return;
