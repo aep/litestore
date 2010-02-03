@@ -156,7 +156,7 @@ create table `banners_history`
 create table `campaigns` 
 (
 	`campaigns_id`      integer primary key  auto_increment,
-	`campaigns_name`    varchar(1000) NOT NULL default '' unique,
+	`campaigns_name`    varchar(330) NOT NULL default '' unique,
 	`campaigns_refID`   text default NULL,
 	`campaigns_leads`   integer NOT NULL default '0',
 	`date_added`        datetime default NULL,
@@ -862,7 +862,7 @@ insert into `currencies` values (1,'Euro','EUR','','EUR',',','.','2',1.00000000,
 create table `customers` 
 (
     `customers_id`                  integer  primary key  auto_increment,
-    `customers_cid`                 varchar(1000)  default NULL unique,
+    `customers_cid`                 varchar(330)  default NULL unique,
     `customers_vat_id`              text  default NULL,
     `customers_vat_id_status`       integer  NOT NULL default '0',
     `customers_warning`             text  default NULL,
@@ -961,7 +961,7 @@ create table `customers_status`
     `customers_status_discount`         real default '0.00',
     `customers_status_ot_discount_flag` char NOT NULL default '0',
     `customers_status_ot_discount`      real default '0.00',
-    `customers_status_graduated_prices` varchar(1000) NOT NULL default '0',
+    `customers_status_graduated_prices` varchar(330) NOT NULL default '0',
     `customers_status_show_price`       integer NOT NULL default '1',
     `customers_status_show_price_tax`   integer NOT NULL default '1',
     `customers_status_add_tax_ot`       integer NOT NULL default '0',
@@ -1011,7 +1011,7 @@ create table `languages`
 (
     `languages_id`      integer  primary key auto_increment,
     `name`              text  NOT NULL default '',
-    `code`              varchar(1000)  NOT NULL default '' unique,
+    `code`              varchar(330)  NOT NULL default '' unique,
     `image`             text  default NULL,
     `directory`         text  default NULL,
     `sort_order`        integer  default NULL,
@@ -1024,7 +1024,7 @@ insert into `languages` values (2,'Deutsch','de','icon.gif','german',1,'UTF-8');
 create table `manufacturers` 
 (
     `manufacturers_id`      integer  primary key auto_increment,
-    `manufacturers_name`    varchar(1000)  NOT NULL default '' unique,
+    `manufacturers_name`    varchar(330)  NOT NULL default '' unique,
     `manufacturers_image`   text default NULL,
     `date_added`            datetime default NULL,
     `last_modified`         datetime default NULL
@@ -1259,7 +1259,7 @@ create table `orders_total`
 
 create table `payment_moneybookers` 
 (
-    `mb_TRID`    varchar(1000) primary key NOT NULL,
+    `mb_TRID`    varchar(330) primary key NOT NULL,
     `mb_ERRNO`   integer  unsigned NOT NULL default '0',
     `mb_ERRTXT`  text NOT NULL default '',
     `mb_DATE`    datetime NOT NULL default '0000-00-00 00:00:00',
@@ -1476,7 +1476,7 @@ insert into `payment_moneybookers_countries` values (239,'ZIM');
 
 create table `payment_moneybookers_currencies` 
 (
-    `mb_currID`     varchar(1000) primary key NOT NULL,
+    `mb_currID`     varchar(330) primary key NOT NULL,
     `mb_currName`   text NOT NULL default ''
 );
 
@@ -1510,7 +1510,7 @@ insert into `payment_moneybookers_currencies` values ('ZAR','South-African Rand'
 
 create table `payment_qenta` 
 (
-    `q_TRID`        varchar(1000)  primary key NOT NULL,
+    `q_TRID`        varchar(330)  primary key NOT NULL,
     `q_DATE`        datetime NOT NULL default '0000-00-00 00:00:00',
     `q_QTID`        integer unsigned NOT NULL default '0',
     `q_ORDERDESC`   text NOT NULL default '',
@@ -1525,7 +1525,7 @@ create table `products`
     `products_ean`              text default NULL,
     `products_quantity`         integer NOT NULL default '0',
     `products_shippingtime`     integer NOT NULL default '0',
-    `products_model`            varchar(1000) default NULL unique,
+    `products_model`            varchar(330) default NULL unique,
     `products_sort`             integer NOT NULL default '0',
     `products_price`            real NOT NULL default '0.0000',
     `products_discount_allowed` real NOT NULL default '0.00',
@@ -1674,7 +1674,7 @@ create table `products_vpe`
 (
     `products_vpe_id` integer NOT NULL,
     `languages_id` integer  NOT NULL default '0' references `languages` (`languages_id`),
-    `products_vpe_name` varchar(900)  NOT NULL default '',
+    `products_vpe_name` varchar(330)  NOT NULL default '',
     unique (`products_vpe_id`,`languages_id`),
     unique (`products_vpe_name`,`languages_id`)
 ); 
@@ -1728,7 +1728,7 @@ create table `reviews_description`
 
 create table `sessions` 
 (
-    `sesskey`   varchar(1000)  primary key NOT NULL,
+    `sesskey`   varchar(330)  primary key NOT NULL,
     `expiry`    integer  unsigned NOT NULL,
     `value`     text NOT NULL
 );
@@ -1738,7 +1738,7 @@ create table `shipping_status`
 (
     `shipping_status_id`    integer  NOT NULL default '0',
     `languages_id`          integer  NOT NULL default '1' references `languages`(`languages_id`) ,
-    `shipping_status_name`  varchar(900)  NOT NULL default '',
+    `shipping_status_name`  varchar(300)  NOT NULL default '',
     `shipping_status_image` timestamp NOT NULL default CURRENT_TIMESTAMP,
     primary key  (`shipping_status_id`,`languages_id`),
     UNIQUE (`shipping_status_name`,`languages_id`)

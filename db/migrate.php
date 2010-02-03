@@ -9,7 +9,7 @@ class DB  extends PDO
     {
         $file = $_SERVER['argv'][1];
         if (!$settings = parse_ini_file($file, TRUE))
-        { 
+        {
             throw new exception('Unable to open ' . $file . '.');
         }
 
@@ -34,8 +34,6 @@ class DB  extends PDO
             parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
 
         }
-        
-       
 
         $this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
@@ -47,13 +45,11 @@ $db=new DB;
 
 $current=0;
 
-try
-{
+try{
     $e=$db->query('select `db_version` from `system_meta`')->fetch();
     $current=$e['db_version'];
 }
-catch(PDOException $e)
-{
+catch(PDOException $e){
 }
 
 echo 'database version detected as: '.$current."\n";
