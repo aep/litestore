@@ -108,7 +108,9 @@ if (isset($cartaction))
                         $econda->_updateProduct($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $old_quantity);
                     }
 
-                    $_SESSION['cart']->add_cart((int)$_POST['products_id'][$i], xtc_remove_non_numeric($_POST['cart_quantity'][$i]), $attributes, false);
+                    $_SESSION['cart']->add_cart((int)$_POST['products_id'][$i], 
+                                            (int) $_POST['prices_id'],
+                                                xtc_remove_non_numeric($_POST['cart_quantity'][$i]), $attributes, false);
                 }
 			}
 			xtc_redirect($goto. xtc_get_all_get_params($parameters));
@@ -125,7 +127,12 @@ if (isset($cartaction))
 					$econda->_addProduct($_POST['products_id'], $_POST['products_qty'], $old_quantity);
 				}
 
-				$_SESSION['cart']->add_cart((int) $_POST['products_id'], $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty']), $_POST['id']);
+				$_SESSION['cart']->add_cart(
+                                            (int) $_POST['products_id'], 
+                                            (int) $_POST['prices_id'],
+                                            $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty'])
+                                            , $_POST['id']
+                                            );
 			}
 			xtc_redirect($goto. xtc_get_all_get_params($parameters));
 			break;
@@ -164,7 +171,9 @@ if (isset($cartaction))
                         $quantity=1;
 
 
-                $_SESSION['cart']->add_cart((int) $_GET['BUYproducts_id'], $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']) +$quantity  );
+                $_SESSION['cart']->add_cart((int) $_GET['BUYproducts_id'], 
+                                            (int) $_POST['prices_id'],
+                                            $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']) +$quantity  );
 				} 
                 else 
                 {

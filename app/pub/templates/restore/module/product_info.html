@@ -72,34 +72,39 @@
             {/if}
 
 
-            <form action="?info=p{$PRODUCTS_ID}&amp;action=add_product" method="post">
-            <p><input type="hidden" name="products_id" value="{$PRODUCTS_ID}"></p>
-            <table style="width:100%"> 
-                <tr>
-                    <td class="price">{$PRODUCTS_PRICE}</td>
-                    <td><label for="products_qty_{$PRODUCTS_ID}">Anzahl:</label></td>
-                    <td><input class="text" type="text" value="{$PRODUCTS_TRADING_UNIT}" name="products_qty" id="products_qty_{$PRODUCTS_ID}" ></td>
-                    <td><input class="image" type="image" src="{$tpl_path}/bilder/kaufen_020-200-000.png" alt="[In den Warenkorb legen]"></td>
-                </tr>
-            </table>
-            </form>
 
-            <script type="text/javascript" language="javascript">
-                var inp = document.getElementById("products_qty_{$PRODUCTS_ID}");
-                var d_parent = inp.parentNode;
-                var spinCtrl = new SpinControl
-                (
-                    {$PRODUCTS_TRADING_UNIT},
-                    {$PRODUCTS_TRADING_UNIT},
-                    {$MAX_PRODUCTS_QTY},
-                    {$PRODUCTS_TRADING_UNIT},
-                    'products_qty'
-                );
-                spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(1, 500));
-                spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
-                d_parent.replaceChild(spinCtrl.GetContainer(),inp);
-                spinCtrl.StartListening();
-            </script>
+           {foreach name=aussen item=product_price from=$PRODUCTS_PRICES}
+                <form action="?action=add_product" method="post">
+                  <p><input type="hidden" name="products_id" value="{$PRODUCTS_ID}">
+                     <input type="hidden" name="prices_id" value="{$product_price.prices_id}"></p>
+                  <table style="width:100%">
+                    <tr>
+                      <td class="price">{$product_price.price.formated}</td>
+                      <td><label for="products_qty_{$PRODUCTS_ID}">Anzahl:</label></td>
+                      <td><input class="text" type="text" value="{$product_price.quantity}" name="products_qty" id="products_qty_{$PRODUCTS_ID}_{$product_price.prices_id}" ></td>
+                      <td><input class="image" type="image" src="{$tpl_path}/bilder/kaufen_020-200-000.png" alt="[In den Warenkorb legen]"></td>
+                    </tr>
+                  </table>
+                </form>
+
+                <script type="text/javascript" language="javascript">
+                  var inp = document.getElementById("products_qty_{$PRODUCTS_ID}_{$product_price.prices_id}");
+                  var d_parent = inp.parentNode;
+                  var spinCtrl = new SpinControl
+                  (
+                     {$product_price.quantity},
+                     {$product_price.quantity},
+                     {$MAX_PRODUCTS_QTY},
+                     {$product_price.quantity},
+                     'products_qty'
+                  );
+                  spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(1, 500));
+                  spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
+                  d_parent.replaceChild(spinCtrl.GetContainer(),inp);
+                  spinCtrl.StartListening();
+                </script>
+
+            {/foreach}
 
         {/if}
     </div>
