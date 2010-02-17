@@ -69,7 +69,7 @@ class xtcPrice {
 	}
 
 	// get products Price
-	function xtcGetPrice($pID, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0) {
+	function xtcGetPrice($pID, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0,$price_list=-1) {
 
 			// check if group is allowed to see prices
 	if ($this->cStatus['customers_status_show_price'] == '0')
@@ -87,8 +87,19 @@ class xtcPrice {
 			$products_tax = '';
 
 		// add taxes
-		if ($pPrice == 0)
-			$pPrice = $this->getPprice($pID);
+		if ($pPrice == 0){
+            if($price_list==-1){
+                $pPrice = $this->getPprice($pID);
+            }
+            else{
+                global $db;
+                $q=$db->prepare("select price from prices where products_id=? and prices_id=?");
+                $q->execute(array($pID,$price_list));
+                $q=$q->fetch();
+                $pPrice=$q['price'];
+            }
+        }
+
 		$pPrice = $this->xtcAddTax($pPrice, $products_tax);
 
 		// check specialprice
@@ -112,6 +123,63 @@ class xtcPrice {
 		return $this->xtcFormat($pPrice, $format, 0, false, $vpeStatus, $pID);
 
 	}
+
+	// get products Prices
+	function xtcGetPrices($pID,$customer_status_id, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0) {
+
+        // check if group is allowed to see prices
+        if ($this->cStatus['customers_status_show_price'] == '0')
+			return $this->xtcShowNote($vpeStatus, $vpeStatus);
+
+		// get Tax rate
+		if ($cedit_id != 0) {
+			$cinfo = xtc_oe_customer_infos($cedit_id);
+			$products_tax = xtc_get_tax_rate($tax_class, $cinfo['country_id'], $cinfo['zone_id']);
+		} else {
+			$products_tax = $this->TAX[$tax_class];
+		}
+
+		if ($this->cStatus['customers_status_show_price_tax'] == '0')
+			$products_tax = '';
+
+		// add taxes
+
+        global $db;
+        $q=$db->prepare("select prices_id,quantity,price from prices where customers_status_id=? and products_id=?");
+        $q->execute(array($customer_status_id,$pID));
+
+        $a = array();
+        while ($n=$q->fetch()){
+            $pPrice=$n["price"];
+            $pPrice = $this->xtcAddTax($pPrice, $products_tax);
+
+            // check specialprice
+            if ($sPrice = $this->xtcCheckSpecial($pID))
+                return $this->xtcFormatSpecial($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus);
+
+            // check graduated
+            if ($this->cStatus['customers_status_graduated_prices'] == '1') {
+                if ($sPrice = $this->xtcGetGraduatedPrice($pID, $qty))
+                    return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
+            } else {
+                // check Group Price
+                if ($sPrice = $this->xtcGetGroupPrice($pID, 1))
+                    return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
+            }
+
+            // check Product Discount
+            if ($discount = $this->xtcCheckDiscount($pID))
+                return $this->xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus);
+
+            $n["price"]=$this->xtcFormat($pPrice, $format, 0, false, $vpeStatus, $pID);
+            $a[]=$n;
+        }
+
+		return $a;
+
+	}
+
+
 
 	function getPprice($pID) {
 		$pQuery = "SELECT products_price FROM ".TABLE_PRODUCTS." WHERE products_id='".$pID."'";
