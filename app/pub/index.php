@@ -1,4 +1,10 @@
 <?php
+
+if (version_compare(PHP_VERSION, '5.3.1', '>=')) {
+    gc_disable();
+}
+
+
 function exception_error_handler($errno, $errstr, $errfile, $errline ) 
 {
 

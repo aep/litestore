@@ -28,6 +28,7 @@
 
    Released under the GNU General Public License
    ---------------------------------------------------------------------------------------*/
+
 // start the timer for the page parse time log
 define('PAGE_PARSE_START_TIME', microtime());
 
@@ -345,6 +346,8 @@ require (DIR_WS_INCLUDES.FILENAME_CART_ACTIONS);
 if (!is_object($_SESSION['cart'])) {
 	$_SESSION['cart'] = new shoppingCart();
 }
+
+
 
 // include the who's online functions
 xtc_update_whos_online();

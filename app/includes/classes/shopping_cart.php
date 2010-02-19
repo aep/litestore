@@ -141,7 +141,7 @@ class shoppingCart {
 		if (empty ($quantity))
 			return true; // nothing needs to be updated if theres no quantity, so we return true..
 
-        $this->contents["$products_id $prices_id"]['quantity'] = $qty;
+        $this->contents["$products_id $prices_id"]['quantity'] = $quantity;
 		// update database
 		if (isset ($_SESSION['customer_id'])){
             global $db;
