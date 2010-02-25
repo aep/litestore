@@ -1,4 +1,4 @@
-a{config_load file="$language/lang_$language.conf" section="shopping_cart"}
+{config_load file="$language/lang_$language.conf" section="shopping_cart"}
 {config_load file="$language/lang_$language.conf" section="product_info"}
 <table cellspacing="0">
     <thead>
@@ -12,7 +12,7 @@ a{config_load file="$language/lang_$language.conf" section="shopping_cart"}
     </thead>
     <tbody>
     {foreach name=aussen item=module_data from=$module_content}
-        <tr id="cart_product{$module_data.PRODUCTS_ID}"  >
+        <tr id="cart_product{$module_data.PRODUCTS_ID}_{$module_data.PRICES_ID}"  >
             <td class="artikelbild">
                 <a href="{$module_data.PRODUCTS_LINK}" >
                     {if  $module_data.PRODUCTS_IMAGES[0]!=''}
@@ -25,16 +25,17 @@ a{config_load file="$language/lang_$language.conf" section="shopping_cart"}
             <td class="artikel" >
                 <a href="{$module_data.PRODUCTS_LINK}" >{$module_data.PRODUCTS_ID}:{$module_data.PRODUCTS_NAME}</a>
                 <input type="hidden" name="products_id[]" value="{$module_data.PRODUCTS_ID}">
+                <input type="hidden" name="prices_id[]" value="{$module_data.PRICES_ID}">
             </td>
 
 
             {if $module_data.PRODUCTS_STATUS}
             <td>
 
-                <input id="products_qty_{$module_data.PRODUCTS_ID}"  type="text" name="cart_quantity[]"  value="{$module_data.PRODUCTS_QTY}" >
+                <input id="products_qty_{$module_data.PRODUCTS_ID}_{$module_data.PRICES_ID}"  type="text" name="cart_quantity[]"  value="{$module_data.PRODUCTS_QTY}" >
 
                 <script type="text/javascript" language="javascript">
-                    var inp = document.getElementById("products_qty_{$module_data.PRODUCTS_ID}");
+                    var inp = document.getElementById("products_qty_{$module_data.PRODUCTS_ID}_{$module_data.PRICES_ID}");
                     var d_parent = inp.parentNode;
 
                     var spinCtrl = new SpinControl
@@ -51,7 +52,6 @@ a{config_load file="$language/lang_$language.conf" section="shopping_cart"}
                     spinCtrl.GetAccelerationCollection().Add(new SpinControlAcceleration(5, 1750));
 
                     d_parent.replaceChild(spinCtrl.GetContainer(),inp);
-
                     spinCtrl.StartListening();
                 </script>
             </td>
@@ -65,8 +65,8 @@ a{config_load file="$language/lang_$language.conf" section="shopping_cart"}
             </td>
 
             {/if}
-
-            <td class="entf"><input class="checkbox cart_products_del_checkbox" type="checkbox" name="cart_delete[]" value="{$module_data.PRODUCTS_ID}" /><x/td>
+            <td class="entf"><input class="checkbox cart_products_del_checkbox" type="checkbox" name="cart_delete[]" 
+                                    value="{$module_data.PRODUCTS_ID}_{$module_data.PRICES_ID}" /><x/td>
 		</tr>
 	{/foreach}
 </tbody>

@@ -45,9 +45,7 @@ $module_content = array ();
 $any_out_of_stock = false;
 $mark_stock = '';
 
-for ($i = 0, $n = sizeof($products); $i < $n; $i ++) 
-{
-
+for ($i = 0, $n = sizeof($products); $i < $n; $i ++){
     //stock and active check
     $product_active=1;
     global $db,$providerDb;
@@ -100,6 +98,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++)
     $module_content[$i] = array 
     (
         'PRODUCTS_ID' => $products[$i]['id'],
+        'PRICES_ID' => $products[$i]['prices_id'],
         'PRODUCTS_STATUS' => $product_active,
         'PRODUCTS_NAME' => $products[$i]['name'].$mark_stock, 
         'PRODUCTS_QTY' => $products[$i]['quantity'],
