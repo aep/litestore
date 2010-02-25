@@ -11,7 +11,6 @@ class BoxShoppingCart extends A2YObject
     {
         return false;
     }
-
     function evaluate()
     {
         if ($_SESSION['customers_status']['customers_status_show_price'] != 1)

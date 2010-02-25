@@ -340,12 +340,10 @@
       for ($i=0, $n=sizeof($products); $i<$n; $i++) {
 
         $products_price=$xtPrice->xtcGetPrice($products[$i]['id'],
-                                              $format=false,
-                                              $products[$i]['quantity'],
-                                              $products[$i]['tax_class_id'],
-                                              '',0,0,
-                                              $products[$i]['prices_id']
-                                              )+$xtPrice->xtcFormat($_SESSION['cart']->attributes_price($products[$i]['id']),false);
+                                        $format=false,
+                                        $products[$i]['quantity'],
+                                        $products[$i]['tax_class_id'],
+                                        '')+$xtPrice->xtcFormat($_SESSION['cart']->attributes_price($products[$i]['id']),false);
 
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
