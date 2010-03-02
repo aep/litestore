@@ -40,8 +40,10 @@ restoreQuickBuy= function ( em ,actuallybuy )
 
 
     var uri='/ajax/cart/'
-    if(actuallybuy)
-        uri+='?action=buy_now&BUYproducts_id='+em;
+    if(actuallybuy){
+        var ee=em.split('_');
+        uri+='?action=buy_now&BUYproducts_id='+ee[0]+'&prices_id='+ee[1];
+    }
 
     new Ajax.Request(uri, 
     {

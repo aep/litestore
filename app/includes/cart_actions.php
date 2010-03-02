@@ -66,6 +66,7 @@ if (isset($cartaction))
                 'action',
                 'pid',
                 'products_id',
+                'prices_id',
                 'BUYproducts_id'
             );
         } 
@@ -75,6 +76,7 @@ if (isset($cartaction))
                 'action',
                 'pid',
                 'BUYproducts_id',
+                'prices_id',
                 'info'
             );
         }
@@ -113,7 +115,8 @@ if (isset($cartaction))
 				$_SESSION['cart']->add_cart(
                                             (int) $_POST['products_id'], 
                                             (int) $_POST['prices_id'],
-                                            $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id'])) + xtc_remove_non_numeric($_POST['products_qty'])
+                                            $_SESSION['cart']->get_quantity(xtc_get_uprid($_POST['products_id'], $_POST['id']),(int) $_POST['prices_id']) 
+                                            + xtc_remove_non_numeric($_POST['products_qty'])
                                             , $_POST['id']
                                             );
 			}
@@ -149,14 +152,14 @@ if (isset($cartaction))
 				
             if (isset ($_SESSION['cart'])) {
 
-                    $quantity=$permission['products_trading_unit'];
-                    if(!$quantity)
-                        $quantity=1;
-
+                $q=$db->prepare("select quantity from prices where prices_id=?");
+                $q->execute(array($_GET['prices_id']));
+                $q=$q->fetch();
+                $q=$q["quantity"];
 
                 $_SESSION['cart']->add_cart((int) $_GET['BUYproducts_id'], 
-                                            (int) $_POST['prices_id'],
-                                            $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id']) +$quantity  );
+                                            (int) $_GET['prices_id'],
+                                            $_SESSION['cart']->get_quantity((int) $_GET['BUYproducts_id'],(int) $_GET['prices_id']) +$q);
 				} 
                 else 
                 {

@@ -1,6 +1,5 @@
 {config_load file="$language/lang_$language.conf" section="index"}
 
-
 {if $CATEGORIES_HEADING_TITLE}
 <h1>{$CATEGORIES_HEADING_TITLE}</h1>
 {/if}
@@ -27,23 +26,32 @@
     </div>
 
     {foreach name=aussen item=module_data from=$module_content}
-    <div class="product">
-        <a class="product_image" href="{$module_data.PRODUCTS_LINK}">
-            {if  $module_data.url_middle!=''}
-                <img src="{$module_data.url_middle}" alt="">
-            {else}
-                <img src="{$tpl_path}/bilder/kein_bild-klein.png" alt="">
-            {/if}
-        </a>
 
-        <a class="products_name" href="{$module_data.PRODUCTS_LINK}">
-            {$module_data.PRODUCTS_NAME}
-        </a>
-
-        {if $module_data.ALLOWED_TO_SEE_PRICE}
-            <a id="quickbuy_{$module_data.PRODUCTS_ID}" class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">{$module_data.PRODUCTS_PRICE}</a>
+    <div class="product" style="height:330px">
+      <a class="product_image" href="{$module_data.PRODUCTS_LINK}">
+        {if  $module_data.url_middle!=''}
+             <img src="{$module_data.url_middle}" alt="{$module_data.PRODUCTS_NAME|replace:"\"":""} :: Grusskartenhandel.de" title="{$module_data.PRODUCTS_NAME|replace:"\"":""} :: Grusskartenhandel.de">
+        {else}
+             <img src="{$tpl_path}/bilder/kein_bild-klein.png" alt="{$module_data.PRODUCTS_NAME|replace:"\"":""} :: Grusskartenhandel.de" title="{$module_data.PRODUCTS_NAME|replace:"\"":""} :: Grusskartenhandel.de">
         {/if}
+      </a>
+
+      <a class="products_name" href="{$module_data.PRODUCTS_LINK}">
+        {$module_data.PRODUCTS_NAME}
+      </a>
+
+      {if $module_data.ALLOWED_TO_SEE_PRICE}
+      <!--START foreach VE-->
+         <a style="font-size: 12px;" id="quickbuy_{$module_data.PRODUCTS_ID}" class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">
+            {$module_data.PRODUCTS_PRICE}
+               <span style="display: block; font-size: 9px; font-weight: normal;">
+                   (VE: 50 Stk)
+               </span>
+         </a>
+       <!--END foreach VE-->
+       {/if}
     </div>
+
     {/foreach}
     <br class="clear">
 
