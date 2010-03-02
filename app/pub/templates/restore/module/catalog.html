@@ -40,12 +40,11 @@
 {/if}
 
 
-
-{if $products!=''}
+{if $products!=''}
     <div id="product_listing">
 
         {foreach name=aussenblabla item=module_data from=$products}
-        <div class="product">
+        <div class="product" style="height:330px">
             <a class="product_image" href="{$module_data.PRODUCTS_LINK}">
                 {if  $module_data.url_middle!=''}
                     <img src="{$module_data.url_middle}" alt="">
@@ -59,8 +58,16 @@
             </a>
 
             {if $module_data.ALLOWED_TO_SEE_PRICE}
-                <a id="quickbuy_{$module_data.PRODUCTS_ID}" class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}">{$module_data.PRODUCTS_PRICE}</a>
+              {foreach name=aussen item=product_price from=$module_data.PRODUCTS_PRICES}
+                <a style="font-size: 12px;" id="quickbuy_{$module_data.PRODUCTS_ID}_{$product_price.prices_id}" class="quickbuy" href="{$module_data.PRODUCTS_BUY_LINK}&amp;prices_id={$product_price.prices_id}">
+                   {$product_price.price.formated}
+                  <span style="display: block; font-size: 9px; font-weight: normal;">
+                    (VE: {$product_price.quantity} {$module_data.PRODUCTS_VPE_NAME})
+                  </span>
+                </a>
+                {/foreach}
             {/if}
+
         </div>
         {/foreach}
         <br class="clear">

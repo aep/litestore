@@ -114,6 +114,10 @@ class shoppingCart {
         if($q){
             $qty=round($qty  / $q) * $q;
         }
+        if($qty<1){
+            $qty=$q;
+        }
+
 
         $products_id = xtc_get_uprid($products_id, $attributes);
         if ($notify == true){
@@ -132,6 +136,7 @@ class shoppingCart {
                 $q->execute(array($_SESSION['customer_id'],$products_id,$qty,date('Ymd'),$prices_id));
             }
 		}
+
 		$this->cleanup();
 		// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
 		$this->cartID = $this->generate_cart_id();
