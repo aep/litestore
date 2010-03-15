@@ -31,163 +31,124 @@ class xtcPrice {
 		$this->SHIPPING = array();
 		$this->showFrom_Attributes = true;
 
-		// select Currencies
-
-		$currencies_query = "SELECT *
-				                                    FROM
-				                                         ".TABLE_CURRENCIES;
-		$currencies_query = xtDBquery($currencies_query);
-		while ($currencies = xtc_db_fetch_array($currencies_query, true)) {
-			$this->currencies[$currencies['code']] = array ('title' => $currencies['title'], 'symbol_left' => $currencies['symbol_left'], 'symbol_right' => $currencies['symbol_right'], 'decimal_point' => $currencies['decimal_point'], 'thousands_point' => $currencies['thousands_point'], 'decimal_places' => $currencies['decimal_places'], 'value' => $currencies['value']);
+        global $db;
+        $q=$db->prepare('select * from currencies');
+        $q->execute();
+		while ($currencies = $q->fetch()) {
+			$this->currencies[$currencies['code']] = $currencies;
 		}
-		// select Customers Status data
-		$customers_status_query = "SELECT *
-				                                        FROM
-				                                             ".TABLE_CUSTOMERS_STATUS."
-				                                        WHERE
-				                                             customers_status_id = '".$this->actualGroup."' AND languages_id = '".$_SESSION['languages_id']."'";
-		$customers_status_query = xtDBquery($customers_status_query);
-		$customers_status_value = xtc_db_fetch_array($customers_status_query, true);
-		$this->cStatus = array ('customers_status_id' => $this->actualGroup, 'customers_status_name' => $customers_status_value['customers_status_name'], 'customers_status_image' => $customers_status_value['customers_status_image'], 'customers_status_public' => $customers_status_value['customers_status_public'], 'customers_status_discount' => $customers_status_value['customers_status_discount'], 'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'], 'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'], 'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'], 'customers_status_show_price' => $customers_status_value['customers_status_show_price'], 'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'], 'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'], 'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'], 'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'], 'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'], 'customers_fsk18' => $customers_status_value['customers_fsk18'], 'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']);
 
-		// prefetch tax rates for standard zone
-		$zones_query = xtDBquery("SELECT tax_class_id as class FROM ".TABLE_TAX_CLASS);
-		while ($zones_data = xtc_db_fetch_array($zones_query,true)) {
-			
+        $q=$db->prepare('select * from customers_status where customers_status_id=? and languages_id=?');
+        $q->execute(array($this->actualGroup,$_SESSION['languages_id']));
+		$customers_status_value = $q->fetch();
+
+		$this->cStatus = array (
+                                'customers_status_id' => $this->actualGroup,
+                                'customers_status_name' => $customers_status_value['customers_status_name'],
+                                'customers_status_image' => $customers_status_value['customers_status_image'],
+                                'customers_status_public' => $customers_status_value['customers_status_public'],
+                                'customers_status_discount' => $customers_status_value['customers_status_discount'],
+                                'customers_status_ot_discount_flag' => $customers_status_value['customers_status_ot_discount_flag'],
+                                'customers_status_ot_discount' => $customers_status_value['customers_status_ot_discount'],
+                                'customers_status_graduated_prices' => $customers_status_value['customers_status_graduated_prices'],
+                                'customers_status_show_price' => $customers_status_value['customers_status_show_price'],
+                                'customers_status_show_price_tax' => $customers_status_value['customers_status_show_price_tax'],
+                                'customers_status_add_tax_ot' => $customers_status_value['customers_status_add_tax_ot'],
+                                'customers_status_payment_unallowed' => $customers_status_value['customers_status_payment_unallowed'],
+                                'customers_status_shipping_unallowed' => $customers_status_value['customers_status_shipping_unallowed'],
+                                'customers_status_discount_attributes' => $customers_status_value['customers_status_discount_attributes'],
+                                'customers_fsk18' => $customers_status_value['customers_fsk18'],
+                                'customers_fsk18_display' => $customers_status_value['customers_fsk18_display']
+                                );
+
+        $q=$db->prepare('select tax_class_id as class from tax_class');
+        $q->execute();
+		while ($zones_data = $q->fetch()) {
 			// calculate tax based on shipping or deliverey country (for downloads)
-			if (isset($_SESSION['billto']) && isset($_SESSION['sendto'])) {
-			$tax_address_query = xtc_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $_SESSION['customer_id'] . "' and ab.address_book_id = '" . ($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto']) . "'");
-      		$tax_address = xtc_db_fetch_array($tax_address_query);
-			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class'],$tax_address['entry_country_id'], $tax_address['entry_zone_id']);				
+			if (isset($_SESSION['billto']) && isset($_SESSION['sendto'])){
+                $q=$db->prepare('select ab.entry_country_id, ab.entry_zone_id from address_book ab left join zones '
+                                                  .' z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = ? and ab.address_book_id = ?');
+                $q->execute(array($_SESSION['customer_id'],($this->content_type == 'virtual' ? $_SESSION['billto'] : $_SESSION['sendto'])));
+                $tax_address = $q->fetch();
+                $this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class'],$tax_address['entry_country_id'], $tax_address['entry_zone_id']);				
 			} else {
-			$this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);		
+                $this->TAX[$zones_data['class']]=xtc_get_tax_rate($zones_data['class']);
 			}
-			
-			
 		}
-				
 	}
 
-	// get products Price
-	function xtcGetPrice($pID, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0,$price_list=-1) {
 
-			// check if group is allowed to see prices
-	if ($this->cStatus['customers_status_show_price'] == '0')
-			return $this->xtcShowNote($vpeStatus, $vpeStatus);
 
-		// get Tax rate
-		if ($cedit_id != 0) {
-			$cinfo = xtc_oe_customer_infos($cedit_id);
-			$products_tax = xtc_get_tax_rate($tax_class, $cinfo['country_id'], $cinfo['zone_id']);
-		} else {
-			$products_tax = $this->TAX[$tax_class];
-		}
-
-		if ($this->cStatus['customers_status_show_price_tax'] == '0')
-			$products_tax = '';
-
-		// add taxes
-		if ($pPrice == 0){
-            if($price_list==-1){
-                $pPrice = $this->getPprice($pID);
-            }
-            else{
-                global $db;
-                $q=$db->prepare("select price from prices where products_id=? and prices_id=?");
-                $q->execute(array($pID,$price_list));
-                $q=$q->fetch();
-                $pPrice=$q['price'];
-            }
+    function _priceFromQ($q,$format){
+        $n=$q['price'];
+        // add tax
+        if ($this->cStatus['customers_status_show_price_tax'] != '0'){
+            $n= $this->xtcAddTax($n,$this->TAX[$tax_class]);
         }
+        //format
+        if($format){
+            if($q['show_old_price']>0){
+                $o=$q['show_old_price'];
+                if ($this->cStatus['customers_status_show_price_tax'] != '0'){
+                    $o= $this->xtcAddTax($o,$this->TAX[$tax_class]);
+                }
+                $q["price"]=array(
+                                  'plain'=>$n,
+                                  'formated'=>   $this->xtcFormat($n, $format).'<br >'
+                                  .'<span class="productOldPrice">'.$this->xtcFormat($o, $format).'</span>'
+                                  .' -'.round((($o-$n)/$o)*100).'%'
+                                  );
+            }else{
+                $q["price"]=array('plain'=>$n,'formated'=>$this->xtcFormat($n, $format, 0, false, null, $q['products_id']));
+            }
+        }else{
+            //xtc compatbility hack;
+            return $n;
+        }
+        return $q;
+    }
 
-		$pPrice = $this->xtcAddTax($pPrice, $products_tax);
 
-		// check specialprice
-		if ($sPrice = $this->xtcCheckSpecial($pID))
-			return $this->xtcFormatSpecial($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus);
-
-		// check graduated
-		if ($this->cStatus['customers_status_graduated_prices'] == '1') {
-			if ($sPrice = $this->xtcGetGraduatedPrice($pID, $qty))
-				return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
-		} else {
-			// check Group Price
-			if ($sPrice = $this->xtcGetGroupPrice($pID, 1))
-				return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
-		}
-
-		// check Product Discount
-		if ($discount = $this->xtcCheckDiscount($pID))
-			return $this->xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus);
-
-		return $this->xtcFormat($pPrice, $format, 0, false, $vpeStatus, $pID);
-
-	}
-
-	// get products Prices
-	function xtcGetPrices($pID,$customer_status_id, $format = true, $qty, $tax_class, $pPrice, $vpeStatus = 0, $cedit_id = 0) {
-
+	function idPrice($pricesID, $format = true, $qty, $tax_class) {
         // check if group is allowed to see prices
         if ($this->cStatus['customers_status_show_price'] == '0')
-			return $this->xtcShowNote($vpeStatus, $vpeStatus);
-
-		// get Tax rate
-		if ($cedit_id != 0) {
-			$cinfo = xtc_oe_customer_infos($cedit_id);
-			$products_tax = xtc_get_tax_rate($tax_class, $cinfo['country_id'], $cinfo['zone_id']);
-		} else {
-			$products_tax = $this->TAX[$tax_class];
-		}
-
-		if ($this->cStatus['customers_status_show_price_tax'] == '0')
-			$products_tax = '';
-
-		// add taxes
+            return null;
 
         global $db;
-        $q=$db->prepare("select prices_id,quantity,price from prices where customers_status_id=? and products_id=?");
-        $q->execute(array($customer_status_id,$pID));
+        $q=$db->prepare("select prices_id,quantity,price,show_old_price from prices where prices_id=?");
+        $q->execute(array($pricesID));
+        $r=$q->fetch();
+        return $this->_priceFromQ($r,$format);
+    }
+
+	function productPrices($productsID,$customer_status_id, $format = true, $qty, $tax_class) {
+        // check if group is allowed to see prices
+        if ($this->cStatus['customers_status_show_price'] == '0')
+            return null;
+
+        global $db;
+
+        $q=$db->prepare("select price_group_id from customers_status_price_group where customers_status_id=?");
+        $q->execute(array($customer_status_id));
 
         $a = array();
-        while ($n=$q->fetch()){
-            $pPrice=$n["price"];
-            $pPrice = $this->xtcAddTax($pPrice, $products_tax);
+        while ($pg=$q->fetch()){
+            $q2=$db->prepare("select prices_id,quantity,price,show_old_price from prices where price_group_id=? and products_id=?");
+            $q2->execute(array($pg["price_group_id"],$productsID));
 
-            // check specialprice
-            if ($sPrice = $this->xtcCheckSpecial($pID))
-                return $this->xtcFormatSpecial($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus);
-
-            // check graduated
-            if ($this->cStatus['customers_status_graduated_prices'] == '1') {
-                if ($sPrice = $this->xtcGetGraduatedPrice($pID, $qty))
-                    return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
-            } else {
-                // check Group Price
-                if ($sPrice = $this->xtcGetGroupPrice($pID, 1))
-                    return $this->xtcFormatSpecialGraduated($pID, $this->xtcAddTax($sPrice, $products_tax), $pPrice, $format, $vpeStatus, $pID);
+            while ($r=$q2->fetch()){
+                $a[]=$this->_priceFromQ($r,$format);
             }
-
-            // check Product Discount
-            if ($discount = $this->xtcCheckDiscount($pID))
-                return $this->xtcFormatSpecialDiscount($pID, $discount, $pPrice, $format, $vpeStatus);
-
-            $n["price"]=$this->xtcFormat($pPrice, $format, 0, false, $vpeStatus, $pID);
-            $a[]=$n;
         }
-
-		return $a;
+        return $a;
 
 	}
-
-
 
 	function getPprice($pID) {
 		$pQuery = "SELECT products_price FROM ".TABLE_PRODUCTS." WHERE products_id='".$pID."'";
 		$pQuery = xtDBquery($pQuery);
 		$pData = xtc_db_fetch_array($pQuery, true);
 		return $pData['products_price'];
-
-
 	}
 
 	function xtcAddTax($price, $tax) {
@@ -225,33 +186,6 @@ class xtcPrice {
 				                                FROM prices
 				                                WHERE products_id='".$pID."'
                                                 and customers_status_id='".$this->actualGroup."'
-				                                AND quantity<='".$qty."'";
-		$graduated_price_query = xtDBquery($graduated_price_query);
-		$graduated_price_data = xtc_db_fetch_array($graduated_price_query, true);
-		if ($graduated_price_data['qty']) {
-			$graduated_price_query = "SELECT price as personal_offer
-						                                FROM prices
-						                                WHERE products_id='".$pID."'
-                                                        and customers_status_id='".$this->actualGroup."'
-						                                AND quantity='".$graduated_price_data['qty']."'";
-			$graduated_price_query = xtDBquery($graduated_price_query);
-			$graduated_price_data = xtc_db_fetch_array($graduated_price_query, true);
-
-			$sPrice = $graduated_price_data['personal_offer'];
-			if ($sPrice != 0.00)
-				return $sPrice;
-		} else {
-			return;
-		}
-
-	}
-
-	function xtcGetGroupPrice($pID, $qty) {
-
-		$graduated_price_query = "SELECT max(quantity) as qty
-				                                FROM prices
-				                                WHERE products_id='".$pID."'
-                                                        and customers_status_id='".$this->actualGroup."'
 				                                AND quantity<='".$qty."'";
 		$graduated_price_query = xtDBquery($graduated_price_query);
 		$graduated_price_data = xtc_db_fetch_array($graduated_price_query, true);

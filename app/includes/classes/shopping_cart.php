@@ -50,6 +50,8 @@ class shoppingCart {
     }
 
 	function restore_contents() {
+        global $db;
+
 		if (!isset ($_SESSION['customer_id']))
 			return false;
 
@@ -57,9 +59,7 @@ class shoppingCart {
 		if (is_array($this->contents)) {
 			reset($this->contents);
             foreach($this->contents as $a){
-
-                global $db;
-                $q=$db->prepare("select count(*)  from customers_basket where customers_id=? and products_id=? and prices_id=?");
+                $q=$db->prepare("select count(*) from customers_basket where customers_id=? and products_id=? and prices_id=?");
                 $q->execute(array($_SESSION['customer_id'], $a['products_id'],$a['prices_id']));
                 $q=$q->fetch();
 
@@ -227,7 +227,7 @@ class shoppingCart {
 	}
 
 	function calculate() {
-		global $xtPrice;
+		global $xtPrice,$db;
 		$this->total = 0;
 		$this->weight = 0;
 		$this->tax = array ();
@@ -236,7 +236,6 @@ class shoppingCart {
 
 
         $stati=array();
-        global $db;
         $q=$db->prepare("select products_id,products_status from products");
         $q->execute();
         while($x=$q->fetch()){
@@ -245,18 +244,17 @@ class shoppingCart {
 
 		reset($this->contents);
         foreach( $this->contents as $a) {
-
             $products_id=$a['products_id'];
-
             if(!$stati[$a['products_id']]){
                 continue;
             }
 
 			$qty = $a['quantity'];
 			// products price
-			$product_query = xtc_db_query("select products_id, products_price, products_discount_allowed, products_tax_class_id, products_weight from ".TABLE_PRODUCTS." where products_id='".xtc_get_prid($products_id)."'");
+			$product_query = xtc_db_query('select products_id, products_price, products_discount_allowed, '
+                                          .'products_tax_class_id, products_weight from products where products_id='.xtc_get_prid($products_id));
 			if ($product = xtc_db_fetch_array($product_query)) {
-				$products_price = $xtPrice->xtcGetPrice($product['products_id'], $format = false, $qty, $product['products_tax_class_id'], 0,0,0,$a['prices_id']);
+				$products_price = $xtPrice->idPrice($a['prices_id'], $format = false, $qty, $product['products_tax_class_id']);
 				$this->total += $products_price * $qty;
 				$this->weight += ($qty * $product['products_weight']);
 							// attributes price
@@ -298,7 +296,7 @@ class shoppingCart {
 	}
 
 	function get_products() {
-		global $xtPrice,$main;
+		global $xtPrice,$main,$db;
 		if (!is_array($this->contents))
 			return false;
 
@@ -306,11 +304,28 @@ class shoppingCart {
 		reset($this->contents);
         foreach($this->contents as $a){
 			if($a['quantity'] != 0 || $a['quantity'] !=''){
-                $products_query = xtc_db_query("select p.products_id,p.products_status, pd.products_name,p.products_shippingtime, p.products_model, p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id from ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd where p.products_id='".xtc_get_prid($a['products_id'])."' and pd.products_id = p.products_id and pd.languages_id = '".$_SESSION['languages_id']."'");
-                if ($products = xtc_db_fetch_array($products_query)) {
+                $q=$db->prepare('select '
+                                .' p.products_id,'
+                                .' p.products_status,'
+                                .' pd.products_name,'
+                                .' p.products_shippingtime,'
+                                .' p.products_model,'
+                                .' p.products_price,'
+                                .' p.products_discount_allowed,'
+                                .' p.products_weight,'
+                                .' p.products_tax_class_id'
+                                .' from products p, products_description pd'
+                                .' where p.products_id=? and pd.products_id = p.products_id and pd.languages_id = ?'
+                                );
+                $q->execute(array(xtc_get_prid($a['products_id']),$_SESSION['languages_id']));
+
+                if ($products = $q->fetch()) {
                     $prid = $products['products_id'];
-                    $products_price = $xtPrice->xtcGetPrice($products['products_id'], $format = false, $a['quantity'],
-                                                            $products['products_tax_class_id'], 0,0,0,$a['prices_id']);
+                    $products_price = $xtPrice->idPrice( $a['prices_id'],
+                                                            false,
+                                                            $a['quantity'],
+                                                            $products['products_tax_class_id']
+                                                            );
 
                     $products_array[] = array (
                                                'id' => $a['products_id'],
@@ -329,7 +344,6 @@ class shoppingCart {
                 }
 			}
 		}
-
 		return $products_array;
 	}
 
