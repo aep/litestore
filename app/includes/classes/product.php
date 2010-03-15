@@ -330,10 +330,8 @@ function getCrossSells() {
         global $xtPrice,$main,$PHP_SELF;
         $tax_rate = $xtPrice->TAX[$array['products_tax_class_id']];
 
-        $products_price = $xtPrice->xtcGetPrice($array['products_id'], $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
-
-        $products_prices = $xtPrice->xtcGetPrices($array['products_id'],$_SESSION['customers_status']['customers_status_id'],
+        $products_prices = $xtPrice->productPrices($array['products_id'],$_SESSION['customers_status']['customers_status_id'],
                                                   $format = true, 1, $array['products_tax_class_id'], $array['products_price'], 1);
 
         if ($_SESSION['customers_status']['customers_status_show_price'] != '0') 
@@ -357,16 +355,15 @@ function getCrossSells() {
         $prod_name_stripped = ereg_replace("[^A-Za-z0-9]", "_", $array["products_name"] );
 
 
-		return array ('PRODUCTS_NAME' => $array['products_name'], 
+		return array ('PRODUCTS_NAME' => $array['products_name'],
 				'COUNT'=>$array['ID'],
 				'PRODUCTS_ID'=>$array['products_id'],
 				'PRODUCTS_MODEL'=>$array['products_model'],
-				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']), 
-				'PRODUCTS_VPE_NAME' => xtc_get_vpe_name($array['products_vpe_id']), 
-				'PRODUCTS_IMAGE' => $array['image_url'], 
+				'PRODUCTS_VPE' => $this->getVPEtext($array, $products_price['plain']),
+				'PRODUCTS_VPE_NAME' => xtc_get_vpe_name($array['products_vpe_id']),
+				'PRODUCTS_IMAGE' => $array['image_url'],
 				'PRODUCTS_LINK' => "/products/".$array['products_id']."/".$prod_name_stripped,
-				'PRODUCTS_PRICE' => $products_price['formated'], 
-				'PRODUCTS_PRICES' => $products_prices, 
+				'PRODUCTS_PRICES' => $products_prices,
 				'PRODUCTS_TAX_INFO' => $main->getTaxInfo($tax_rate), 
 				'PRODUCTS_SHIPPING_LINK' => $main->getShippingLink(), 
 				'PRODUCTS_BUY_LINK' => $buy_now,

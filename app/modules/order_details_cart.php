@@ -67,7 +67,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++){
         $_SESSION['allow_checkout'] = 'false';
     }
 
-    if (CHECK_STOCK_QUANTITY != '0') {        if(($q['products_quantity']-$products[$i]['quantity'])<0){
+    if (CHECK_STOCK_QUANTITY != '0') {        if(($q['products_quantity']-$products[$i]['quantity'])<0){
 	        $product_active=0;
             $any_out_of_stock =true;
 	         $_SESSION['allow_checkout'] = 'false';
@@ -95,6 +95,8 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++){
 
     $veq = xtc_db_fetch_array(xtc_db_query("select products_trading_unit,products_status from ".TABLE_PRODUCTS." where products_id='". $products[$i]['id']."'"));
 
+
+
     $module_content[$i] = array 
     (
         'PRODUCTS_ID' => $products[$i]['id'],
@@ -108,7 +110,7 @@ for ($i = 0, $n = sizeof($products); $i < $n; $i ++){
         'PRODUCTS_IMAGES'=> $PRODUCTS_IMAGES,
         'IMAGE_ALT' => $products[$i]['name'], 
         'BOX_DELETE' => xtc_draw_checkbox_field('cart_delete[]', $products[$i]['id']), 
-        'PRODUCTS_LINK' => "/products/".$products[$i]['id'], 
+        'PRODUCTS_LINK' => "/products/".$products[$i]['id'],
         'PRODUCTS_PRICE' => $xtPrice->xtcFormat($products[$i]['price'] * $products[$i]['quantity'], true), 
         'PRODUCTS_SINGLE_PRICE' =>$xtPrice->xtcFormat($products[$i]['price'], true), 
         'PRODUCTS_SHORT_DESCRIPTION' => xtc_get_short_description($products[$i]['id']),
