@@ -23,9 +23,6 @@ function module()
         $info_smarty->assign('PRODUCTS_ID', $product->data['products_id']);
         $info_smarty->assign('PRODUCTS_NAME', $product->data['products_name']);
 
-        $products_price = $xtPrice->xtcGetPrice($product->data['products_id'], $format = true, 1, $product->data['products_tax_class_id'], $product->data['products_price'], 1);
-        $info_smarty->assign('PRODUCTS_PRICE', $products_price['formated']);
-
         $products_prices = $xtPrice->productPrices($product->data['products_id'],$_SESSION['customers_status']['customers_status_id'],
                                                   $format = true, 1, $product->data['products_tax_class_id'], $product->data['products_price'], 1);
         $info_smarty->assign('PRODUCTS_PRICES', $products_prices);
