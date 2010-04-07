@@ -97,7 +97,7 @@ try
 
                 require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
                 global $azrael;
-                $main_content=$azrael->evaluate($d["id"]);
+                $main_content=$azrael->renderID($d["id"]);
                 $filename=null;
                 break;
             }

@@ -10,7 +10,7 @@ class Page extends A2YObject
 
     function walkthrough()
     {
-        return false;
+        return true;
     }
     function evaluate()
     {
