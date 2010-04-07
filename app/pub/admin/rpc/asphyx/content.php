@@ -182,4 +182,6 @@ $RPC['asphyx']['com.handelsweise.litestore.sidebar.catalog']=rpc_asphyx_content;
 $RPC['asphyx']['com.handelsweise.litestore.sidebar.content']=rpc_asphyx_content;
 $RPC['asphyx']['com.handelsweise.litestore.gadget.adsense']=rpc_asphyx_content;
 
+$RPC['asphyx']['com.handelsweise.litestore.product_listing']=rpc_asphyx_content;
+
 ?>
