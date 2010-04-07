@@ -69,7 +69,8 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             'com.handelsweise.litestore.sidebar.blogs',
             'com.handelsweise.litestore.sidebar.adminbox',
             'com.handelsweise.litestore.sidebar.content',
-            'com.handelsweise.litestore.sidebar.catalog'
+            'com.handelsweise.litestore.sidebar.catalog',
+            'com.handelsweise.litestore.product_listing'
         ];
     }
 });
