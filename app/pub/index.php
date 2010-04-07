@@ -35,7 +35,6 @@ try
     require_once (DIR_FS_INC.'aep.php');
 
 
-
     $routes=array
     (
         '/catalog'                  =>  'catalog.php',
@@ -73,25 +72,45 @@ try
 
     );
 
+
+    $main_content='';
+
     $filename="default.php";
+    $found=false;
 
     foreach($routes as $route=>$fn)
     {
         if(beginswith($_GET["path"],$route))
         {
+            $found=true;
             $filename=$fn;
-            break;
         }
     }
 
-    include ('modules/'.$filename);
 
+    if(!$found){
+        global $db;
+        $q=$db->prepare('select * from content where uuid="com.handelsweise.litestore.page"');
+        $q->execute();
+        while($d=$q->fetch()){
+            if(beginswith($_GET["path"],$d["name"]) || beginswith($_GET["path"],'/'.$d["name"])) {
 
-    if(!function_exists("module"))
-        return;
+                require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
+                global $azrael;
+                $main_content=$azrael->evaluate($d["id"]);
+                $filename=null;
+                break;
+            }
+        }
+    }
 
+    if($filename){
+        include ('modules/'.$filename);
+        if(!function_exists("module"))
+            return;
+        $main_content=module();
+    }
 
-    $main_content=module();
 
 
     $smarty = new Smarty;
@@ -101,7 +120,6 @@ try
 
     require (DIR_WS_INCLUDES.'header.php');
     require (DIR_FS_CATALOG.'includes/boxes.php');
-
 
     $smarty->assign('main_content', $main_content);
     $smarty->assign('language', $_SESSION['language']);
