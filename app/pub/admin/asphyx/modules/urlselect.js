@@ -1,9 +1,9 @@
 asphyxPluginBuilderExtend(
-    'com.asgaartech.asphyx.folder','com.handelsweise.litestore.page',
+    'com.asgaartech.asphyx.folder','com.handelsweise.litestore.uriselect',
     {
         name:{
-            en:'Page',
-            de:'Seite'
+            en:'Uriselect',
+            de:'Uriselect'
         },
         construct: function(plugin){
             plugin.editor = new Ext.form.FormPanel(
@@ -16,7 +16,12 @@ asphyxPluginBuilderExtend(
                             id: 'name',
                             fieldLabel: 'Name',
                             width: '100%'
-                        }               
+                        },
+                        {
+                            id: 'data',
+                            fieldLabel: 'Ausdruck',
+                            width: '100%'
+                        }
                     ]
                 });
             rpcCommand(

@@ -160,6 +160,13 @@ div.com_asgaartech_asphyx_image  .x-tree-node-icon {
     background-image: url('icons/item_image.png');
 }
 
+div.com_handelsweise_litestore_uriselect  .x-tree-node-icon {
+    background-image: url('icons/go-bottom.png');
+}
+
+div.com_handelsweise_litestore_product_listing  .x-tree-node-icon {
+    background-image: url('icons/kexi.png');
+}
 
 
 .mask-reload-btn

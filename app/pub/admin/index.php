@@ -47,7 +47,7 @@
     <script type="text/javascript" src="/pub/admin/asphyx/modules/adsense.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/blogs.js"></script>
     <script type="text/javascript" src="/pub/admin/asphyx/modules/listing.js"></script>
-    <script type="text/javascript" src="/pub/admin/asphyx/modules/page.js"></script>
+    <script type="text/javascript" src="/pub/admin/asphyx/modules/urlselect.js"></script>
 </head>
 <body>
 

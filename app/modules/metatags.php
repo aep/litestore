@@ -19,7 +19,7 @@
 $meta_description='';
 $meta_keywords='';
 
-$cfg_group_query = xtc_db_query('select id,name,content from metatags');while($cfg = xtc_db_fetch_array($cfg_group_query))
+$cfg_group_query = xtc_db_query('select id,name,content from metatags');while($cfg = xtc_db_fetch_array($cfg_group_query))
 {
     if($cfg['name']=='description')
     {
@@ -64,7 +64,7 @@ if (strstr($APP_PATH[1], "products"))
     }
 } 
 else if (strstr($APP_PATH[1], "catalog")) 
-{    global $current_category_id;
+{    global $current_category_id;
 
     $categories_meta_query = xtDBquery("SELECT categories_meta_keywords,
                                                 categories_meta_description,
@@ -117,7 +117,7 @@ else
         $smarty->assign("HEAD_TITLE",TITLE);
 
     }
-}
+}
 
 $smarty->assign("head_metadata",$head);
 
