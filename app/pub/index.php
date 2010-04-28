@@ -88,27 +88,16 @@ try
     }
 
 
-    if(!$found){
-        global $db;
-        $q=$db->prepare('select * from content where uuid="com.handelsweise.litestore.page"');
-        $q->execute();
-        while($d=$q->fetch()){
-            if(beginswith($_GET["path"],$d["name"]) || beginswith($_GET["path"],'/'.$d["name"])) {
-
-                require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
-                global $azrael;
-                $main_content=$azrael->renderID($d["id"]);
-                $filename=null;
-                break;
-            }
-        }
-    }
-
-    if($filename){
+    if($found){
         include ('modules/'.$filename);
         if(!function_exists("module"))
             return;
         $main_content=module();
+    }else {
+        require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
+        global $azrael;
+        $main_content=$azrael->renderPreset("Root");
+        $filename=null;
     }
 
 
