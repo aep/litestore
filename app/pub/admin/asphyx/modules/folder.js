@@ -71,7 +71,8 @@ asphyxPluginBuilder('com.asgaartech.asphyx.folder',{
             'com.handelsweise.litestore.sidebar.content',
             'com.handelsweise.litestore.sidebar.catalog',
             'com.handelsweise.litestore.product_listing',
-            'com.handelsweise.litestore.uriselect'
+            'com.handelsweise.litestore.uriselect',
+            'com.handelsweise.litestore.metatag'
         ];
     }
 });
