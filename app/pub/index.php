@@ -72,8 +72,11 @@ try
 
     );
 
-
+    $meta_description='';
+    $meta_keywords='';
+    $meta_title='';
     $main_content='';
+
 
     $filename="default.php";
     $found=false;
@@ -108,6 +111,11 @@ try
     $smarty->assign('CURRENT_CSS',CURRENT_CSS);
 
     require (DIR_WS_INCLUDES.'header.php');
+    $smarty->assign("HEAD_TITLE",$meta_title);
+    $head[]=array('name'=>"description" ,'content'=>$meta_description);
+    $head[]=array('name'=>"keywords" ,'content'=>$meta_keywords);
+    $smarty->assign("head_metadata",$head);
+
     require (DIR_FS_CATALOG.'includes/boxes.php');
 
     $smarty->assign('main_content', $main_content);
