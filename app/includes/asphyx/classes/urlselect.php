@@ -11,7 +11,7 @@ class Page extends A2YObject
     function walkthrough()
     {
         global $_GET;
-        return ereg ($this->data,$_GET['path']);
+        return eregi ($this->data,$_GET['path']);
     }
     function evaluate()
     {
