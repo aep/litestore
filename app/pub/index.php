@@ -87,6 +87,7 @@ try
         {
             $found=true;
             $filename=$fn;
+            break;
         }
     }
 
