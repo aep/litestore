@@ -35,6 +35,7 @@ require_once (DIR_WS_INCLUDES.'/asphyx/core.php');
 
 function module()
 {
+
     $smarty=new Smarty;
     global $breadcrumb,$main,$order;
 
