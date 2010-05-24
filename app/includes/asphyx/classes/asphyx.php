@@ -86,17 +86,13 @@ class StaticContent extends A2YObject
 
         foreach ($this->childrenGenerators() as $n)
         {
-            if($n->metatype()=="x-variable")
+            if($n->walkthrough()==false)
             {
-                $e=str_replace("<%".$n->name()."%>", $n->evaluate_anyway(),$e);
+                $e=str_replace('{$'.$n->name().'}', $n->evaluate(),$e);
             }
         }
-
-
-
         /** 27.42.2008 hhl/shop/vc_leerevariablen */
         $e=preg_replace("/<%.*%>/", "", $e);
-
         return $e;
     }
     function metatype()
