@@ -65,7 +65,7 @@ if ($listing_split->number_of_rows > 0)
         {
             $rows ++;
             $xe=$product->buildDataArray($listing);
-            $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"]." sort by image_nr"),true);
+            $findimg = xtc_db_fetch_array(xtDBquery("select  url_small,url_middle,url_big  from products_images where products_id=".$listing["products_id"]." order by image_nr"),true);
             $xe["url_small"]=$findimg["url_small"];
             $xe["url_middle"]=$findimg["url_middle"];
             $xe["url_big"]=$findimg["url_big"];
