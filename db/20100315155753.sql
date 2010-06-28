@@ -10,6 +10,6 @@ alter table prices add unique (products_id,price_group_id,quantity);
 CREATE TABLE `customers_status_price_group` (
   `customers_status_id` int(11) NOT NULL DEFAULT '0',
   `price_group_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`customer_status_id`,`price_group_id`)
+  PRIMARY KEY (`customers_status_id`,`price_group_id`)
 );
 
