@@ -4,7 +4,7 @@ alter table prices drop column customers_status_id;
 
 alter table prices add column price_group_id int unique;
 alter table prices add column show_old_price decimal(15,4);
-alter table prices drop index `price_group_id`
+alter table prices drop index `price_group_id`;
 alter table prices add unique (products_id,price_group_id,quantity);
 
 CREATE TABLE `customers_status_price_group` (
